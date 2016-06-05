@@ -1,0 +1,38 @@
+(sc1, shape1) <- scStream "schh"
+  [ F "vol" (Just 1.2),
+    F "freq" (Just 3000),
+    F "atk" (Just 0.01),
+    F "rel" (Just 0.2),
+    I "pos" (Just 0)
+  ] 0
+
+(sc2, shape2) <- scStream "scbass"
+  [ F "freq" (Just 50),
+    F "pos" (Just 0.0),
+    F "vol" (Just 1.0)
+  ] 0
+
+let vol1   = makeF shape1 "vol"
+    freq1  = makeF shape1 "freq"
+    atk1   = makeF shape1 "atk"
+    rel1   = makeF shape1 "rel"
+    pos1   = makeF shape1 "pos"
+    freq2   = makeF shape2 "freq"
+    pos2   = makeF shape2 "pos"
+    vol2   = makeF shape2 "vol"
+
+cps(110/120)
+
+sc1 $ freq1 "8000 [0 12000] 300 9000" |+| vol1 "4.0"
+
+sc2
+$ stack [
+freq2 "50 [60 40] 10 80" |+| pos2 "-1 1 -0.6 0.6" |+| vol2 "4.0",
+freq2 "40 80" |+| pos2 "-0.6 0.6" |+| vol2 "4.0"
+]
+
+sc1 silence
+
+sc2 silence
+
+hash

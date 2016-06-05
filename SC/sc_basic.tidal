@@ -1,0 +1,20 @@
+-- 楽器 "scsine" を定義して、引数の初期値を設定
+(sc, shape) <- scStream "scsine" [ F "freq" (Just 440.0)] 0
+
+-- SuperColliderに値を渡す変数を定義
+let freq = makeF shape "freq"
+
+-- パターン生成
+cps(150/240)
+
+sc $ freq "440 660 110 220"
+
+sc $ freq "440 [660 110] [220 880] 330"
+
+sc $ jux(iter 8) $ freq "440 [660 110] [220 880] 330"
+
+sc $ jux(iter 8) $ jux (iter 4) $ freq "440 [660 110] [220 880] 330"
+
+sc $ jux (iter 2) $ jux(iter 8) $ jux (iter 4) $ freq "440 [660 110] [220 880] 330"
+
+sc silence

@@ -1,0 +1,205 @@
+let poetry = OscShape {path = "/note",
+                       params = [ S "word" Nothing,
+                                  F "hue" (Just 0),
+                                  F "saturation" (Just 1),
+                                  F "brightness" (Just 0.5),
+                                  F "rotation" (Just 0),
+                                  F "distance" (Just 10),
+                                  I "life" (Just 20),
+                                  F "x" (Just 0.5),
+                                  F "y" (Just 0.5),
+                                  I "str" (Just 5)
+                                  ],
+                 cpsStamp = False,
+                 timestamp = NoStamp,
+                 latency = 0,
+                 namedParams = False,
+                 preamble = []
+                 }
+    poetryStream = stream "127.0.0.1" 8010 poetry
+    word         = makeS poetry "word"
+    hue          = makeF poetry "hue"
+    saturation   = makeF poetry "saturation"
+    brightness   = makeF poetry "brightness"
+    rotation     = makeF poetry "rotation"
+    distance     = makeF poetry "distance"
+    life         = makeI poetry "life"
+    x            = makeF poetry "x"
+    y            = makeF poetry "y"
+    str          = makeI poetry "str"
+
+
+p <- poetryStream
+
+p2 <- poetryStream
+
+p3 <- poetryStream
+
+# + + intro - g + + +
+
+
+p $ slow 4 $ jux (striate 4) $ word "g*12"
+  # x "-0.2 -2"
+  # y "0.4 0.4 0.5"
+  # hue "0.13"
+  # saturation "2 0.4"
+  # brightness "2"
+  # distance "120"
+  # str "193"
+  # life "2"
+
+# + + + + + introlli + + + + + +
+
+p silence
+p2 silence
+
+p $ slow 4 $ sometimes (rev) $ jux (striate 4) $ word "mjnooihlnonhhojikljj*6"
+  # x "-0.3 -0.1"
+  # y (slow 148 $ sometimes (rev) $ scale 0.24 0.44 rand)
+  # hue "0 0.74"
+  # brightness "2 8"
+  # saturation "0 0.8"
+  # distance "110"
+  # life "3"
+
+# variación
+
+p $ slow 4 $ sometimes (rev) $ jux (striate 4) $ word "joknjnkojooknn*6"
+  # x "-0.3 -0.1"
+  # y (slow 148 $ sometimes (rev) $ scale 0.24 0.44 rand)
+  # hue "0 0.74"
+  # brightness "2 0"
+  # saturation "0 0.8"
+  # distance "110"
+  # life "2"
+
+# funk
+
+p2 silence
+
+p silence
+
+p $ word "f*2"
+  |+| x "-0.9 -0.2"
+  |+| y (slow 4 $ sometimes(rev) $ scale 0.5 0.7 sinewave)
+  |+| hue "0.9"
+  |+| brightness "2"
+  |+| saturation "2"
+  |+| str "104"
+
+p $ word "f*2"
+  |+| x "-0.9 -0.2"
+  |+| y (slow 4 $ sometimes(rev) $ scale 0.5 0.7 sinewave)
+  |+| hue "0.8"
+  |+| brightness "0.5"
+  |+| saturation "0.6"
+  |+| str "104"
+
+p silence
+
+
+
+# ache es beep! #
+
+p $ word "h*12"
+  # x (slow 2 $ scale 0 0.5 sine1)
+  # y (slow 12 $ scale 0.2 0.7 rand)
+  # hue "0.58 0.9"
+  # brightness "2"
+  # saturation "2"
+  # distance "0.2" 
+  # life "4"
+
+p $ word "i*12"
+  # x (slow 22 $ scale 0.2 0.4 sine1)
+  # y (slow 8 $ sometimes (rev) $ scale 0.4 0.6 sinewave)
+  # hue "0.5 0.7"
+  # brightness "0.7"
+  # saturation "2"
+  # distance "0.2"
+  # life "2"
+
+p $ slow 4 $ jux (striate 4) $ word "jililhkjiiji*12"
+  # x (slow 108 $ scale 0 0.1 sine1)
+  # y (slow 148 $ sometimes (rev) $ scale 0.34 0.45 sinewave)
+  # hue "0 0.13"
+  # brightness "0 2"
+  # saturation "2 2"
+  # distance "110"
+  # life "2"
+
+p3 silence 
+ 
+p silence
+
+p4 <- poetryStream
+
+p2 silence
+ 
+p $ word "g*6"
+  # x "-0.02"
+  # y (slow 6 $ (scale 0.5 0.7 sinewave))
+  # hue "0.2 2"
+  # brightness "2"
+  # saturation "0.2 2"
+  # distance "12"
+  # rotation (slow 202 $ scale 0 9 sinewave) 
+  # str "36"
+
+p2 <- poetryStream
+
+# vida breve
+
+cps 1
+
+p silence
+p1 silence
+p2 silence
+p3 silence
+p4 silence
+
+p $ slow 4 $ jux (striate 2) $ word "jkjlkjkjlkj*18"
+  # x "0.66"
+  # y "0.5"
+  # hue "0.77 0.56"
+  # brightness "0.8 2"
+  # saturation "2 0.6"
+  # distance "10"
+  # life "2"
+  |+| rotation (slow 100 $ scale 12 1 sine1)
+
+p $ word "e*6"
+  |+| x "-0.3"
+  |+| y (slow 2 $ sometimes(rev) $ scale 0.4 0.5 sinewave)
+  -- |+| hue (slow 502 $ every 2 (rev) $ scale 0.1 2 sine1)
+  |+| hue "0 0.14"
+  |+| brightness "2 8"
+  |+| saturation "0 4"
+  |+| rotation (slow 102 $ scale 12 1 sine1)
+
+p2 silence
+
+p silence
+
+p $ word "e*6"
+  |+| x "-0.3"
+  |+| y (slow 2 $ sometimes(rev) $ scale 0.4 0.5 sinewave)
+  -- |+| hue (slow 502 $ every 2 (rev) $ scale 0.1 2 sine1)
+  |+| hue "0 0.14"
+  |+| brightness "2 8"
+  |+| saturation "0 4"
+  |+| rotation (slow 102 $ scale 12 1 sine1)
+
+p3 silence
+
+p3 $ word "d*6"
+  |+| x "-0.2 -0.1 -0.8"
+  |+| y (slow 2 $ sometimes(rev) $ scale 0.5 0.7 sinewave)
+   -- |+| hue (slow 20 $ every 2 (rev) $ scale 0.1 2 sine1)
+  |+| hue "0.92 0.53"
+  |+| brightness "2"
+  |+| saturation "2"
+  |+| rotation (slow 12 $ scale 12 1 sine1)
+
+p2 silence
+

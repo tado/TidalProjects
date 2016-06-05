@@ -1,0 +1,9 @@
+bps (160/120)
+
+d1
+$ jux (rev)
+$ stack[
+up pat1 |=| sound "[~ sn:1 ~ hc:1*2]*4",       
+up pat2 |=| sound "[bass:2 bass:3 ~ bass:4]*4",
+up pat5 |=| sound "[bass:2 bass:3 ~ bass:4]*4"    
+]
