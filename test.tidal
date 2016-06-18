@@ -1,0 +1,28 @@
+
+d1 $ sound "bd sn cp"
+
+d1 $ brak $ sound "bd sn/2"
+
+d1
+$jux (iter 8)
+$ stack[
+   sound "cp:4*7",
+   sound "909*5 909:1",
+   sound "hc*3",
+   sound "bd*2"|+| vowel "u i e o w"
+]
+
+d2
+$jux(iter 3)
+$jux(iter 5)
+$stack[
+  sound "bass:5*3 bass:2 bass:3*2",
+  sound "cp:4 [cp:3 cp:2*4]",
+  s "super808*5"
+]
+
+d2 silence
+
+d1 silence
+
+hush
