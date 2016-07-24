@@ -1,0 +1,93 @@
+bps (60/120)
+
+let pat1 = "{0*2 ~ [0 ~] ~ 0*4 [~ 0] 0}%4"
+
+let pat2 = "{[~ 0] 0 ~ 0 [~ 0] ~ 0}%4"
+
+let pat3 = "{0 0*4 [~ 0] [~ 0] 0*2  0 ~ 0*4 ~ 0 -12 0 ~ [~ 0] [~ 0] ~ 0*2 -12}%8"
+
+let pat4 = "{0 0*2 [~ 0] [~ 0] 0 0 -12 0*4 ~ 0 ~ 0 -12 0*2 ~ [~ 0] [~ 0] ~ 0*2 -12}%8"
+
+let pat5 = "{[~ 0] 0 0 ~ 0 -12 0*2 ~ [~ 0] [~ 0] ~ 0 -12 0*4 ~ [~ 0] [~ 0] ~ 0*2 -12}%4"
+
+let pat6 = "{~ 0 ~ 0 -12 0*4 0 0*2 [~ 0] -12 0*4 ~ 0 ~ 0 -12 0*2 ~ [~ 0] [~ 0] ~ 0*2 -12}%4"
+
+
+d1
+$ jux (iter 8)
+-- $ every 3 (gap 4)
+-- $ every 4 (chop 4)
+$ stack[
+  up pat1 |=| sound "cr:0" # speed (scale 1.0 1.5 $ rand)
+]
+-- |=| cutoff (scale 1000 15000 $ slow 4 $ sine1) # resonance (scale 0.1 0.3 $ rand)
+|=| delay "0.5" # delaytime "0.375" # delayfeedback "0.75"
+
+d2
+$ jux (iter 4)
+$ every 4 (gap 4)
+$ every 5 (chop 4)
+$ stack[
+  up pat6 |=| sound "cr:4" # speed (scale 1.0 5.0 $ rand),
+  up pat4 |=| sound "cr:6" # speed (scale 1.0 5.0 $ rand),
+  up pat5 |=| sound "cr:2" # speed (scale 1.0 5.0 $ rand)
+]
+-- |=| cutoff (scale 2000 18000 $ slow 3 $ sine1) # resonance (scale 0.1 0.5 $ rand)
+|=| delay "0.5" # delaytime "0.375" # delayfeedback "0.8"
+
+d3
+$ jux (iter 8)
+$ stack[
+ up pat5 |=| sound "dr_few:3",
+ up pat6 |=| sound "dr_few:0",
+ up pat4 |=| sound "dr_few:6"
+]
+|+| delay "0.25" |+| delaytime "0.375" |+| delayfeedback "0.5"
+|=| gain "1.2"
+
+d4
+$ jux (iter 2)
+-- $ every 2 (gap 8)
+$ every 3 (chop 8)
+$ stack[
+ up pat4 |=| sound "tabla2:2" |+| note "-5 0 3 5 -5",
+ up pat5 |=| sound "tabla2:5" |+| note "-3 0 3 5 7 11 7 3",
+ up pat6 |=| sound "tabla2:8" |+| note "-12 0 3 5 7 11 -5"
+]
+-- |=| cutoff (scale 200 8000 $ slow 3 $ sine1) # resonance (scale 0.1 0.5 $ rand)
+|+| delay "0.5" |+| delaytime "0.375" |+| delayfeedback "0.5"
+|=| gain "1.2"
+
+d4
+$ jux (iter 4)
+$ every 3 (gap 4)
+$ every 4 (chop 4)
+$ stack[
+  up pat1 |=| sound "can:4" |+| speed "0 2 -2",
+  up pat2 |=| sound "can:5" |+| speed "0 1 -2 0 2 0",
+  up pat3 |=| sound "can:6" |+| speed "0 1 -2 0 3 1 0",
+  up pat4 |=| sound "can:7" |+| speed "3 0 0 1 2",
+  up pat5 |=| sound "can:8" |+| speed "0 -2 -2 1 0",
+  up pat6 |=| sound "can:9" |+| speed "0 1 -2 0 3 1 0"
+]
+|=| delay "0.25" |+| delaytime "0.375" |+| delayfeedback "0.5"
+|=| gain "1.2"
+
+d5
+$ jux (iter 16)
+-- $ every 3 (chop 8)
+$ stack[
+-- up pat5 |=| sound "reichg:1" |=| speed "0.5 0.25 1.0 -1.0",
+-- up pat2 |=| sound "reichg:0" |=| speed "1.0 0.5 0.25 1.0 -1.0",
+-- up pat3 |=| sound "reichg:3" |=| speed "1.0 -0.5 0.25 1.0 -1.0 1.0 1.5",
+ up pat4 |=| sound "reichg:2" |=| speed "0.5 0.25 -1.5 1.0 -0.75 1.0 -0.25"
+]
+-- |+| vowel "i e u a o"
+|+| delay "0.5" # delaytime "0.75" # delayfeedback "0.7"
+-- |+| cutoff (scale 400 8000 $ slow 1 $ sine1) # resonance (scale 0.3 0.5 $ slow 8 $ sine1)
+|=| gain "0.75"
+
+
+d4 silence
+
+hush

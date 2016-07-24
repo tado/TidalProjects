@@ -1,10 +1,16 @@
+cps(120/120)
 
-d1 $ sound "bd sn cp"
+d1 $ sound "bd*2 [sn cp]"
+
+d1 $stack[
+ sound "cp*5",
+ sound "bd sn bass:1 bass:2 ~"
+]
 
 d1 $ brak $ sound "bd sn/2"
 
 d1
-$jux (iter 8)
+$ jux (iter 8)
 $ stack[
    sound "cp:4*7",
    sound "909*5 909:1",

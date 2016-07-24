@@ -1,0 +1,11 @@
+d3
+$ jux (iter 8)
+$ stack[
+-- up pat5 |=| sound "dr_few:3",
+-- up pat6 |=| sound "dr_few:0",
+ up pat4 |=| sound "dr_few:6"
+]
+|+| delay "0.25" |+| delaytime "0.375" |+| delayfeedback "0.5"
+|=| gain "0.8"
+
+

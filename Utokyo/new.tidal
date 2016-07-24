@@ -1,0 +1,78 @@
+-- TidalCycles Live Coding at Tokyo University 7.23.2016
+
+bps (60/120)
+
+d1
+$ sound "cr"
+-- $ sound (samples "cr*8" (irand 9))
+-- |+| gain (scale 0.5 1.2 $ rand)
+
+let pat1 = "{0*2 ~ [0 ~] ~ 0*4 [~ 0] 0}%4"
+
+let pat2 = "{[~ 0] 0 ~ 0 [~ 0] ~ 0}%4"
+
+let pat3 = "{0 0*4 [~ 0] [~ 0] 0*2  0 ~ 0*4 ~ 0 -12 0 ~ [~ 0] [~ 0] ~ 0*2 -12}%8"
+
+let pat4 = "{0 0*2 [~ 0] [~ 0] 0 0 -12 0*4 ~ 0 ~ 0 -12 0*2 ~ [~ 0] [~ 0] ~ 0*2 -12}%8"
+
+let pat5 = "{[~ 0] 0 0 ~ 0 -12 0*2 ~ [~ 0] [~ 0] ~ 0 -12 0*4 ~ [~ 0] [~ 0] ~ 0*2 -12}%4"
+
+let pat6 = "{~ 0 ~ 0 -12 0*4 0 0*2 [~ 0] -12 0*4 ~ 0 ~ 0 -12 0*2 ~ [~ 0] [~ 0] ~ 0*2 -12}%4"
+
+d1
+$ jux (iter 4)
+$ every 3 (gap 4)
+-- $ every 4 (chop 4)
+$ stack[
+  up pat1 |=| sound (samples "cr" (irand 8)) # speed (scale 1.0 1.5 $ rand)
+]
+|+| cutoff (scale 1000 8000 $ slow 4 $ sine1) # resonance (scale 0.1 0.3 $ rand)
+|+| delay "0.5" # delaytime "0.375" # delayfeedback "0.75"
+
+d2
+$ jux (iter 4)
+$ every 4 (gap 4)
+$ every 5 (chop 4)
+$ stack[
+  up pat6 |=| sound "cr:4" # speed (scale 1.0 5.0 $ rand),
+  up pat4 |=| sound "cr:6" # speed (scale 1.0 5.0 $ rand),
+  up pat5 |=| sound "cr:2" # speed (scale 1.0 5.0 $ rand)
+]
+|=| cutoff (scale 2000 18000 $ slow 3 $ sine1) # resonance (scale 0.1 0.3 $ rand)
+|=| delay "0.5" # delaytime "0.375" # delayfeedback "0.8"
+
+
+d3
+$ jux (iter 8)
+$ stack[
+ up pat3 |=| sound "dr_few:3",
+ up pat1 |=| sound "dr_few:0"
+]
+|+| delay "0.25" |+| delaytime "0.375" |+| delayfeedback "0.5"
+|=| gain "1.2"
+
+d4
+-- $ jux (iter 32)
+$ every 6 (chop 8)
+$ stack[
+ up pat5 |=| sound "reichg:1" |=| speed "0.5 0.25 1.0 -1.0",
+ up pat2 |=| sound "reichg:0" |=| speed "1.0 0.5 0.25 1.0 -1.0",
+ up pat3 |=| sound "reichg:3" |=| speed "1.0 -0.5 0.25 1.0 -1.0 1.0 1.5",
+ up pat4 |=| sound "reichg:2" |=| speed "0.5 0.25 -1.5 1.0 -0.75 1.0 -0.25"
+]
+|=| pan (rand)
+|*| speed "1.0"
+|+| delay "0.75" # delaytime "0.375" # delayfeedback "0.5"
+|+| cutoff (scale 400 8000 $ slow 1 $ sine1) # resonance (scale 0.1 0.4 $ slow 8 $ sine1)
+|=| gain "1.0"
+
+d5
+-- $ jux rev
+$ n "[c2 [[~ b2] g2] b1 [d2 g2]] ~" # s "supersaw" # pan (rand)
+|+| sustain (scale 0.1 0.5 $ rand)
+|+| resonance "0.2" # lfo "6"
+|+| cutoff (scale 1000 8000 $ slow 4 $ sine1) # resonance (scale 0.0 0.1 $ slow 4 $ sine1)
+|+| delay "0.8" # delaytime "0.375" # delayfeedback "0.75"
+|+| gain "1.2"
+
+d4 silence

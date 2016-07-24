@@ -1,0 +1,11 @@
+d2
+$ jux (iter 4)
+$ every 4 (gap 4)
+$ every 5 (chop 4)
+$ stack[
+  up pat6 |=| sound "cr:4" # speed (scale 1.0 5.0 $ rand),
+  up pat4 |=| sound "cr:6" # speed (scale 1.0 5.0 $ rand),
+  up pat5 |=| sound "cr:2" # speed (scale 1.0 5.0 $ rand)
+]
+|=| cutoff (scale 2000 18000 $ slow 3 $ sine1) # resonance (scale 0.1 0.5 $ rand)
+|=| delay "0.5" # delaytime "0.375" # delayfeedback "0.8"

@@ -1,6 +1,6 @@
 bps (160/120)
 
-d1 $sound "bd:1 sn:1"
+d1 $sound "bd:1 sn:1*4"
 
 let pat1 = "{0*2 ~ [0 ~] ~ 0 [~ 0] 0}%4"
 
@@ -16,9 +16,11 @@ let pat6 = "{~ 0 ~ 0 -12 0*4 0 0*2 [~ 0] -12 0*4 ~ 0 ~ 0 -12 0*2 ~ [~ 0] [~ 0] ~
 
 d1
 $ jux (iter 4)
+$ every 8 (gap 2)
+$ every 6 (chop 4)
 $ stack[
-sound (samples "fell*16?" (irand 6)) |+| speed "2.0 1.0 1.5" |+| vowel "a i u e o",
-up pat6 |=| sound "fell:2" |+| vowel "a i u e o",
+-- sound (samples "fell*16?" (irand 6)) |+| speed "2.0 1.0 1.5" |+| vowel "a i u e o",
+-- up pat6 |=| sound "fell:2",
 up pat4 |=| sound "fell:3",
 up pat5 |=| sound "fell1",
 up pat3 |=| sound "fell1",
@@ -26,7 +28,7 @@ up pat2 |=| sound "bd:1",
 up pat1 |=| sound "felld:1"     
 ]
 -- |+| vowel "a i u e o"
--- |+| delay "0.75" |+| delaytime "0.01 0.02 0.03" |+| delayfeedback "0.25"
+
 
 d1
 $ jux (iter 4)
@@ -43,6 +45,7 @@ up pat1 |=| sound "fell1"
 
 d1
 $ jux (iter 8)
+$ every 2 (|+| coarse "24 16 32") 
 $ stack[
 sound (samples "fell*16?" (irand 6)) |+| speed "2.0 1.0 1.5",       
 up pat2 |=| sound "bass:3 bass:1 bass:0 bass:2",       
