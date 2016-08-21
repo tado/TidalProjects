@@ -1,0 +1,4 @@
+o1
+$ s "water*32"
+# vel (scale 0.3 0.9 $rand)
+# gain (scale 0.0 0.5 $slow 8 $sine1)

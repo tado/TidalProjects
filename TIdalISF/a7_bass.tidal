@@ -1,0 +1,9 @@
+d5
+-- $ jux rev
+$ n "[c2 [[~ b2] g2] b1 [d2 g2]] ~" # s "supersaw" # pan (rand)
+|+| sustain "0.3"
+-- |+| resonance "0.5" # lfo "6"
+|+| cutoff (scale 800 1000 $ slow 4 $ sine1) # resonance (scale 0.02 0.4 $ slow 4 $ sine1)
+|+| delay "0.5" # delaytime "0.375" # delayfeedback "0.75"
+|+| gain "0.95"
+

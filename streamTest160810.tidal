@@ -1,0 +1,43 @@
+d1
+$ jux (iter 4)
+--- $ jux (rev)
+$ stack
+[
+ iter 2 $ brak $ sound "blip*8" # up "12 -5 -7 0 9 4 5" |*| speed "3.0",  
+ iter 4 $ brak $ sound "blip*4" # up "12 -5 -7 0 9 4 5" |*| speed "2.0",  
+ iter 8 $ brak $ sound "blip*4" # up "12 -5 -7 0 9 4 5",
+ iter 8 $ brak $ sound "blip*2" # up "12 -5 -7 0 9 4 5" |*| speed "0.5",
+ iter 2 $ brak $ sound ("909 cp:2 bd:2 bass:4"),
+ iter 8 $ brak $ sound ("909 cp:2 bd:2 bass:3"),
+ iter 4 $ brak $ sound ("909 cp:1 bd:1 bass:1")
+]
+--- |=| pan (rand)
+--- |=| vowel "a i e u o u a"
+--- |*| speed "[1.25 1.0 1.5]/32" |*| speed "[1.25 1.0]/4"
+|*| speed "1.25" |*| speed "1.25" |/| speed "1.5"
+|=| delay "0.5" # delaytime "1.375" # delayfeedback "0.9"
+--- |=| delay "0.8" # delaytime "0.02" # delayfeedback "0.9"
+|=| cutoff (scale 20 18000 $ rand) # resonance "0.45"
+--- |=| cutoff (scale 20 18000 $ slow 16 $ sine1) # resonance "0.4"
+|=| shape "0.9 0.0 0.1"
+|=| gain "1.0"
+
+d2
+--- $ every 4 (chop 4)
+$ jux (iter 8)
+$ stack [
+  --- jux (rev) $ brak $ sound (samples "blip*2" (irand 2)) # up "12 -5 7 0 -3 11 3 4",
+  jux (iter 4) $ brak $ sound (samples "blip*4" (irand 2)) # up "12 -5 4 -7 0 3",
+  jux (iter 8) $ brak $ sound (samples "blip*4" (irand 2)) # up "0 12 5 7 0 11"
+]
+|*| speed "1.0" |*| speed "1.5"
+|=| delay "1.0" # delaytime "1.375" # delayfeedback "0.8"
+|=| shape "0.1 0.3 0.0"
+|=| gain "1.0"
+
+d2 silence
+
+hush
+
+
+

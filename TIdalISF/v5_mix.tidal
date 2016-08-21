@@ -1,0 +1,5 @@
+o4
+$ s "[tunnel*4 search*4 planes*4]*4"
+# vel (scale 0.8 0.9 $ rand)
+# gain "0.3"
+# l "3"

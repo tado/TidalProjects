@@ -1,0 +1,4 @@
+o2 $ s "topo*16"
+# vel (scale 0.4 0.5 $slow 2 $rand)
+# gain (scale 0.0 0.5 $rand)
+# l "1"

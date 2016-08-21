@@ -1,0 +1,115 @@
+cps(60/120)
+
+o1 $ s "light*16"
+# vel (rand)
+# gain (scale 0.0 0.5 $slow 4 $ sine1)
+
+o1 $ s "ripple*16"
+# vel (scale 0.3 0.4 $slow 2 $rand)
+# gain (rand)
+
+o2 $ s "topo*8"
+# vel (scale 0.4 0.5 $slow 2 $rand)
+# gain (scale 0.0 0.5 $rand)
+# l "1"
+
+o2 $ s "circle*16"
+# vel (scale 0.1 0.3 $rand)
+# gain "1.0"
+# l "1"
+
+o1 $ s "[blue blank [red blue green]*2]*2"
+# gain "1.0"
+# l "0"
+
+o1
+$ s "water*16"
+# vel (scale 0.3 0.9 $rand)
+# gain (scale 0.0 0.5 $slow 8 $sine1)
+
+o2 $ s "topo*16"
+# vel (scale 0.1 0.9 $rand)
+# gain (scale 0.0 0.8 $rand)
+# l "1"
+
+o3 $ s "topo*16"
+# vel (scale 0.7 0.9 $rand)
+# gain (scale 0.0 0.5 $rand)
+# l "2"
+
+o4 $ s "[flower*8 ripple*8] fur"
+# vel (scale 0.7 0.9 $slow 10 $rand)
+# gain (scale 0.0 0.7 $slow 5 $sine1)
+# l "3"
+
+o1 $ s "water*8"
+# vel (scale 0.2 0.6 $slow 2 $rand)
+# gain (scale 0.0 0.4 $rand)
+# l "0"
+
+o2 $ s "ripple*8"
+# vel (scale 0.2 0.9 $rand)
+# gain (rand)
+# l "1"
+
+o1 $ s "[flower*4 ripple*2] search*8"
+# vel (scale 0.6 0.7 $rand)
+
+o1
+$ s "[flower*8 [ripple*8 fur]]*2"
+# vel (scale 0.2 0.8 $slow 8 $sine1)
+
+o1
+$ s "[flower*4 [search*2 flower*2] search*2]"
+# vel (scale 0.5 0.95 $rand)
+
+o1
+$ s "topo*16"
+# vel (scale 0.3 1.0 $ rand)
+# gain (rand)
+
+o3
+$ s "search*16"
+# vel (scale 0.0 1.0 $ rand)
+# gain (scale 0.0 0.5 $rand)
+# l "2"
+
+o1
+$ s "search*8 topo*8"
+# vel (scale 0.5 0.6 $ rand)
+
+o4
+$ s "[tunnel*4 search*4 planes*4]*4"
+# vel (scale 0.8 0.9 $ rand)
+# gain "0.3"
+# l "3"
+
+o3 $ s "tunnel*8 planes*8"
+# vel (scale 0.5 1.0 $ rand)
+# gain "0.5"
+# l "2"
+
+o1
+$ s "[planes*4 tunnel*4]*2"
+# vel (scale 0.2 0.8 $ rand)
+# gain (scale 0.0 0.5 $slow 8 $ sine1)
+
+o1 $ s "[sparkle planes]*3 [spiral search]*4"
+# vel (scale 0.2 0.8 $ rand)
+
+o1 $ s "[spider fur ripple]*2"
+
+o1 $ s "[planes [tunnel flower] blank blue]*2 [[red green] [planes blank sparkle] blank]"
+
+o1 $ s "blank"
+
+o2 $ s "blank" #l "1"
+
+o3 $ s "blank" #l "2"
+
+o4 $ s "blank" #l "3"
+
+
+
+
+

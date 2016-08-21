@@ -3,9 +3,9 @@
 bps (60/120)
 
 d1
-$ sound "cr"
--- $ sound (samples "cr*8" (irand 9))
--- |+| gain (scale 0.5 1.2 $ rand)
+-- $ sound "cr cp"
+$ sound (samples "cr*8" (irand 9))
+|+| gain (scale 0.5 1.2 $ rand)
 
 let pat1 = "{0*2 ~ [0 ~] ~ 0*4 [~ 0] 0}%4"
 
@@ -48,7 +48,7 @@ $ stack[
  up pat3 |=| sound "dr_few:3",
  up pat1 |=| sound "dr_few:0"
 ]
-|+| delay "0.25" |+| delaytime "0.375" |+| delayfeedback "0.5"
+|+| delay "0.25" |+| delaytime "1.375" |+| delayfeedback "0.5"
 |=| gain "1.2"
 
 d4
@@ -64,7 +64,7 @@ $ stack[
 |*| speed "1.0"
 |+| delay "0.75" # delaytime "0.375" # delayfeedback "0.5"
 |+| cutoff (scale 400 8000 $ slow 1 $ sine1) # resonance (scale 0.1 0.4 $ slow 8 $ sine1)
-|=| gain "1.0"
+|=| gain "0.8"
 
 d5
 -- $ jux rev
@@ -75,4 +75,6 @@ $ n "[c2 [[~ b2] g2] b1 [d2 g2]] ~" # s "supersaw" # pan (rand)
 |+| delay "0.8" # delaytime "0.375" # delayfeedback "0.75"
 |+| gain "1.2"
 
-d4 silence
+d1 silence
+
+hush

@@ -1,0 +1,33 @@
+import Sound.Tidal.OscStream
+
+let openFrameworks = Shape {
+      params = [ S "s" Nothing,
+                 F "vel" (Just 0.5),
+                 F "gain" (Just 1),
+                 I "l" (Just 0)
+               ],
+      cpsStamp = False,
+      latency = 0.0
+      }
+    openFrameworksSlang = OscSlang {
+        path = "/ofplay",
+        timestamp = NoStamp,
+        namedParams = False,
+        preamble = []
+        }
+    openFrameworksStream = do
+        s <- makeConnection "127.0.0.1" 8000 openFrameworksSlang
+        stream (Backend s $ (\_ _ _ -> return ())) openFrameworks
+    s = makeS openFrameworks "s"
+    vel = makeF openFrameworks "vel"
+    gain = makeF openFrameworks "gain"
+    l = makeI openFrameworks "l"
+
+o1 <- openFrameworksStream
+
+o2 <- openFrameworksStream
+
+o3 <- openFrameworksStream
+
+o4 <- openFrameworksStream
+

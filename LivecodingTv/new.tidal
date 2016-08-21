@@ -1,0 +1,87 @@
+cps(120/120)
+
+-- そろそろネタ切れなので、しばらくこのままで…
+
+d1
+$ jux (iter 4)
+--- $ jux (iter 4)
+--- $ gap 16
+$ stack[
+ brak $ sound "909 bass:4",
+ brak $ iter 4 $ sound "[bd:1 hc:1 909 bd",
+ brak $ iter 2 $ sound "[bd:1 hc:1 909 bd]"
+]
+--- |=| cutoff (scale 800 18000 $ slow 8 $ sine1) # resonance "0.3"
+|=| delay "0.5" # delaytime "1.375" # delayfeedback "0.1"
+|=| shape "0 0.4 0"
+|=| gain "1.0"
+
+d2
+$ jux (iter 8)
+$ stack[
+ brak $ iter 4 $ sound (samples "blip*4" (irand 12)) |+| up "0 12 0 0 5 7",
+ brak $ iter 2 $ sound (samples "blip*4" (irand 12)) |+| up "0 12 0 0 5 7",
+ brak $ iter 8 $ sound (samples "blip*2" (irand 12)) |+| up "0 12 0 0 5 7",
+ brak $ iter 4 $ sound (samples "bin*4" (irand 12)) |+| up "0 12 0 0 5 7",
+ brak $ iter 2 $ sound (samples "bin*4" (irand 12)) |+| up "0 12 0 0 5 7"
+]
+|*| speed "1.5"
+|=| cutoff (scale 200 18000 $ slow 12 $ sine1) # resonance "0.4"
+|=| delay "0.5" # delaytime "1.375" # delayfeedback "0.5"
+|=| shape "0 0.4 0"
+|=| gain "0.9"
+
+d3
+--- $ jux (iter 8)
+$ stack[
+ brak $ sound "dr_few:2",
+ brak $ sound "dr_few:0",
+ brak $ sound "dr_few:6"
+]
+-- |+| delay "0.25" |+| delaytime "1.375" |+| delayfeedback "0.5"
+|=| gain "1.4"
+
+d4
+$ jux (iter 8)
+-- $ every 3 (chop 8)
+$ stack[
+ iter 4 $ up pat1 |=| sound "reichg:0" |=| speed "0.5 0.25 -1.5 1.0 -0.75 1.0 -0.25",
+ iter 2 $ up pat3 |=| sound "reichg:1" |=| speed "0.5 0.25 -1.5 1.0 -0.75 1.0 -0.25",
+ iter 8 $ up pat2 |=| sound "reichg:2" |=| speed "0.5 0.25 -1.5 1.0 -0.75 1.0 -0.25",
+ iter 2 $ up pat4 |=| sound "reichg:3" |=| speed "0.5 0.25 -1.5 1.0 -0.75 1.0 -0.25"
+]
+|*| speed "1.25"
+|+| delay "0.5" # delaytime "1.375" # delayfeedback "0.9"
+|+| cutoff (scale 400 18000 $ slow 16 $ sine1) # resonance "0.6 0.2"
+|=| gain "0.75"
+
+d5
+--- $ jux (iter 8)
+$ iter 4 $ n "[c2 [[~ b2] g2] b1 [d2 g2]] ~" # s "supersaw" # pan (rand)
+|+| sustain "0.3"
+--- |+| resonance "0.5" # lfo "6"
+|+| cutoff (scale 800 1000 $ slow 4 $ sine1) # resonance (scale 0.02 0.4 $ slow 4 $ sine1)
+|+| delay "0.5" # delaytime "1.375" # delayfeedback "0.2"
+|+| gain "0.8"
+
+d5 silence
+
+let pat1 = "{0*2 ~ [0 ~] ~ 0*4 [~ 0] 0}%2"
+
+let pat2 = "{[~ 0] 0 ~ 0 [~ 0] ~ 0}%2"
+
+let pat3 = "{0 0*4 [~ 0] [~ 0] 0*2  0 ~ 0*4 ~ 0 -12 0 ~ [~ 0] [~ 0] ~ 0*2 -12}%2"
+
+let pat4 = "{0 0*2 [~ 0] [~ 0] 0 0 -12 0*4 ~ 0 ~ 0 -12 0*2 ~ [~ 0] [~ 0] ~ 0*2 -12}%2"
+
+let pat5 = "{[~ 0] 0 0 ~ 0 -12 0*2 ~ [~ 0] [~ 0] ~ 0 -12 0*4 ~ [~ 0] [~ 0] ~ 0*2 -12}%4"
+
+let pat6 = "{~ 0 ~ 0 -12 0*4 0 0*2 [~ 0] -12 0*4 ~ 0 ~ 0 -12 0*2 ~ [~ 0] [~ 0] ~ 0*2 -12}%4"
+
+hush
+
+
+
+
+---- end..
+

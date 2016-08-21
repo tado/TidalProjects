@@ -1,0 +1,4 @@
+o4 $ s "[flower*8 ripple*8] fur"
+# vel (scale 0.7 0.9 $slow 10 $rand)
+# gain (scale 0.0 0.7 $slow 5 $sine1)
+# l "3"

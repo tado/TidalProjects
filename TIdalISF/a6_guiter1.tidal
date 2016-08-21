@@ -1,0 +1,14 @@
+d4
+$ jux (iter 32)
+-- $ every 3 (chop 8)
+$ stack[
+-- up pat5 |=| sound "reichg:1" |=| speed "0.5 0.25 1.0 -1.0",
+-- up pat2 |=| sound "reichg:0" |=| speed "1.0 0.5 0.25 1.0 -1.0",
+-- up pat3 |=| sound "reichg:3" |=| speed "1.0 -0.5 0.25 1.0 -1.0 1.0 1.5",
+ up pat4 |=| sound "reichg:2" |=| speed "0.5 0.25 -1.5 1.0 -0.75 1.0 -0.25"
+]
+-- |*| speed "1.0"
+-- |+| delay "0.5" # delaytime "0.75" # delayfeedback "0.7"
+-- |+| cutoff (scale 400 8000 $ slow 1 $ sine1) # resonance (scale 0.3 0.5 $ slow 8 $ sine1)
+|=| gain "0.8"
+
