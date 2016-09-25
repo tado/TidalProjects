@@ -1,5 +1,5 @@
 d1
 $ sound "cr"
 -- $ sound (samples "cr*8" (irand 9))
--- |+| gain (scale 0.5 1.2 $ rand)
+|+| gain (scale 0.5 1.2 $ rand)
 

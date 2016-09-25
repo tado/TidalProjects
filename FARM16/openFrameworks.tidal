@@ -43,19 +43,7 @@ let openFrameworks = Shape {
 
 o1 <- openFrameworksStream
 
-o2 <- openFrameworksStream
-
-o3 <- openFrameworksStream
-
-o4 <- openFrameworksStream
-
 o1 silence
-
-o2 silence
-
-o3 silence
-
-o4 silence
 
 ------ post fx
 
@@ -80,7 +68,7 @@ p1 <- postProcessStream
 
 p1 silence
 
-let hush = mapM_ ($ silence) [o1, o2, o3, o4, d1, d2, d3, d4, d5, d6, p1]
+let hush = mapM_ ($ silence) [o1, p1, d1, d2, d3, d4, d5, d6]
 
 let solo = (>>) hush
 

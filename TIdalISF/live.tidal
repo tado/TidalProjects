@@ -1,5 +1,15 @@
-
 bps (60/120)
+
+d1
+$ sound (samples "cr*8" (irand 9))
+|+| gain (scale 0.5 1.2 $ rand)
+
+o1 $ s "n"
+# gain "1"
+-- #r "1" #g "1" #b "1"
+-- # r (rand) #g (slow 0.7 $scale 0.7 1.0 $rand)
+
+p1 $s "n"
 
 d1
 $ jux (iter 4)
@@ -8,30 +18,20 @@ $ jux (iter 4)
 $ stack[
   up pat1 |=| sound (samples "cr" (irand 8)) # speed (scale 1.0 1.5 $ rand)
 ]
-|+| cutoff (scale 1000 4000 $ slow 4 $ sine1) # resonance (scale 0.1 0.3 $ rand)
+|+| cutoff (scale 500 8000 $ slow 4 $ sine1) # resonance (scale 0.1 0.3 $ rand)
 |+| delay "0.5" # delaytime "0.375" # delayfeedback "0.75"
-|=| gain "0.8"
-
-o1 $ s "light*64"
-# vel (rand)
-# gain (scale 0.0 0.5 $slow 4 $ sine1)
 
 d2
 $ jux (iter 4)
--- $ every 4 (gap 4)
--- $ every 5 (chop 4)
+$ every 4 (gap 4)
+$ every 5 (chop 4)
 $ stack[
   up pat6 |=| sound "cr:4" # speed (scale 1.0 5.0 $ rand),
   up pat4 |=| sound "cr:6" # speed (scale 1.0 5.0 $ rand),
   up pat5 |=| sound "cr:2" # speed (scale 1.0 5.0 $ rand)
 ]
-|=| cutoff (scale 2000 18000 $ slow 3 $ sine1) # resonance (scale 0.1 0.5 $ rand)
+|=| cutoff (scale 1000 12000 $ slow 3 $ sine1) # resonance (scale 0.1 0.4 $ rand)
 |=| delay "0.5" # delaytime "0.375" # delayfeedback "0.8"
-
-o2 $ s "topo*64"
-# vel (scale 0.4 0.5 $slow 2 $rand)
-# gain (scale 0.0 1.0 $rand)
-# l "1"
 
 d3
 $ jux (iter 8)
@@ -41,57 +41,47 @@ $ stack[
  up pat4 |=| sound "dr_few:6"
 ]
 |+| delay "0.25" |+| delaytime "0.375" |+| delayfeedback "0.5"
-|=| gain "0.8"
-
-o1
-$ s "water*64"
-# vel (scale 0.3 0.9 $rand)
-# gain (scale 0.0 0.8 $slow 8 $sine1)
-
-o4 $ s "[flower*8 ripple*8] fur"
-# vel (scale 0.7 0.9 $slow 10 $rand)
-# gain (scale 0.0 0.7 $slow 5 $sine1)
-# l "3"
+|=| gain "1.3"
 
 d4
 $ jux (iter 32)
--- $ every 3 (chop 8)
+$ every 3 (chop 8)
 $ stack[
  up pat5 |=| sound "reichg:1" |=| speed "0.5 0.25 1.0 -1.0",
  up pat2 |=| sound "reichg:0" |=| speed "1.0 0.5 0.25 1.0 -1.0",
  up pat3 |=| sound "reichg:3" |=| speed "1.0 -0.5 0.25 1.0 -1.0 1.0 1.5",
  up pat4 |=| sound "reichg:2" |=| speed "0.5 0.25 -1.5 1.0 -0.75 1.0 -0.25"
 ]
-|/| speed "1.0"
-|+| delay "0.5" # delaytime "0.75" # delayfeedback "0.7"
-|+| cutoff (scale 400 8000 $ slow 1 $ sine1) # resonance (scale 0.3 0.5 $ slow 8 $ sine1)
-|=| gain "0.5"
+|*| speed "1.0" |*| speed "1.25"
+|+| delay "0.5" # delaytime "1.375" # delayfeedback "0.8"
+|+| cutoff (scale 100 8000 $ slow 1 $ sine1) # resonance (scale 0.1 0.8 $ slow 8 $ sine1)
+|=| gain "1.0"
 
-o1
-$ s "[tunnel*4 search*4 planes*4]*2"
-# vel (scale 0.8 0.9 $ rand)
-# gain "0.6"
-# l "0"
-
-o4 $ s "[flower*4 ripple*4] fur"
-# vel (scale 0.7 0.9 $slow 10 $rand)
-# gain (scale 0.2 0.6 $slow 5 $sine1)
-# l "3"
+d5
+-- $ jux rev
+$ n "[c2 [[~ b2] g2] b1 [d2 g2]] ~" # s "supersaw" # pan (rand) 
+|+| sustain "0.25"
+|+| resonance "0.2" # lfo "6"
+|+| cutoff (scale 800 1000 $ slow 4 $ sine1) # resonance (scale 0.01 0.2 $ slow 4 $ sine1)
+|+| delay "0.5" # delaytime "0.375" # delayfeedback "0.9"
+|+| gain "1.4"
 
 hush
 
-o1 $ s "blank"
+let pat1 = "{0*2 ~ [0 ~] ~ 0*4 [~ 0] 0}%4"
 
-o2 $ s "blank" #l "1"
+let pat2 = "{[~ 0] 0 ~ 0 [~ 0] ~ 0}%4"
 
-o3 $ s "blank" #l "2"
+let pat3 = "{0 0*4 [~ 0] [~ 0] 0*2  0 ~ 0*4 ~ 0 -12 0 ~ [~ 0] [~ 0] ~ 0*2 -12}%8"
 
-o4 $ s "blank" #l "3"
+let pat4 = "{0 0*2 [~ 0] [~ 0] 0 0 -12 0*4 ~ 0 ~ 0 -12 0*2 ~ [~ 0] [~ 0] ~ 0*2 -12}%8"
 
+let pat5 = "{[~ 0] 0 0 ~ 0 -12 0*2 ~ [~ 0] [~ 0] ~ 0 -12 0*4 ~ [~ 0] [~ 0] ~ 0*2 -12}%4"
 
+let pat6 = "{~ 0 ~ 0 -12 0*4 0 0*2 [~ 0] -12 0*4 ~ 0 ~ 0 -12 0*2 ~ [~ 0] [~ 0] ~ 0*2 -12}%4"
 
+d3 silence
 
-
-
+hush
 
 
