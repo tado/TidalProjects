@@ -1,0 +1,112 @@
+bps (60/120)
+
+let pat1 = "{0*2 ~ [0 ~] ~ 0*4 [~ 0] 0}%8"
+
+let pat2 = "{[~ 0] 0 ~ 0 [~ 0] ~ 0}%8"
+
+let pat3 = "{0 0*4 [~ 0] [~ 0] 0*2 0 ~ 0*4 ~ 0 -12 0 ~ [~ 0] [~ 0] ~ 0*2 -12}%8"
+
+let pat4 = "{0 0*2 [~ 0] [~ 0] 0 0 -12 0*4 ~ 0 ~ 0 ~ [~ 0] [~ 0] ~ 0*2 -12}%8"
+
+let pat5 = "{[~ 0] 0  0*2 ~ [~ 0] [~ 0] ~ 0 -12 0*4 ~ [~ 0] [~ 0] ~ 0*2 -12}%8"
+
+let pat6 = "{~ 0 ~ 0 -12 0*4 0 0*2 0*4 ~ 0 -12 0*2 ~ [~ 0] [~ 0] ~ 0*2 -12}%8"
+
+hush
+
+d1 $jux (iter 4) $sound "cr*8" # gain (scale 0.4 0.7 $rand)
+
+d1 $up pat4 |=| sound (samples "cr" (irand 3)) #gain "0.7"
+
+d1
+$jux (iter 4)
+$brak
+$up pat4 |=| sound (samples "cr" (irand 8))
+|=| gain (scale 0.5 1.0 $rand)
+|+|cutoff (scale 800 4000 $slow 4 $rand) #resonance (scale 0.0 0.1 $ rand)
+|+|delay "0.5" # delaytime "0.375" # delayfeedback "0.5"
+
+d1
+$jux (iter 4)
+$stack[
+  up pat4 |=| sound (samples "cr" (irand 8)) # speed (scale 1.0 1.5 $ rand)
+]
+|=|gain "0.8"
+|+|cutoff (scale 1200 8000 $slow 4 $rand) #resonance (scale 0.0 0.1 $ rand)
+|+|delay "0.5" # delaytime "0.375" # delayfeedback "0.5"
+
+d2
+$jux (iter 4)
+$stack[
+  up pat6 |=| sound "cr:4" # speed (scale 1.0 5.0 $ rand),
+  up pat4 |=| sound "cr:6" # speed (scale 1.0 5.0 $ rand),
+  up pat5 |=| sound "cr:2" # speed (scale 1.0 5.0 $ rand)
+]
+|=|gain "0.7"
+|=|cutoff (scale 8000 18000 $slow 3 $rand) #resonance (scale 0.0 0.1 $ rand)
+|=|delay "0.5" # delaytime "0.375" # delayfeedback "0.5"
+
+d3
+$ jux (iter 8)
+$ stack[
+  --up pat3 |=| sound "dr_few:2",
+  --up pat5 |=| sound "dr_few:3",
+  --up pat6 |=| sound "dr_few:0",
+  up pat4 |=| sound "dr_few:6"
+]
+|+|delay "0.2" |+| delaytime "0.375" |+| delayfeedback "0.7"
+|=|gain "0.2"
+
+d4
+$ jux (iter 16)
+$ every 4 (chop 8)
+$ stack[
+  --up pat5 |=| sound "reichg:1" |=| speed "0.5 0.25 1.0 -1.0",
+  --up pat2 |=| sound "reichg:0" |=| speed "1.0 0.5 0.25 1.0 -1.0",
+  up pat3 |=| sound "reichg:3" |=| speed "1.0 -0.5 0.25 1.0 -1.0 1.0 1.5",
+  up pat4 |=| sound "reichg:2" |=| speed "0.5 0.25 -1.5 1.0 -0.75 1.0 -0.25"
+]
+|*| speed "1.0"
+|+| delay "0.7" # delaytime "0.375" # delayfeedback "0.5"
+-- |+| cutoff (scale 100 8000 $ slow 4 $sine1) # resonance (scale 0.2 0.8 $ slow 8 $ sine1)
+|=| gain "0.5"
+
+d5
+$ jux (iter 2)
+$ n "[a2 [[~ e3] a2] a1 [a2 e3]] ~" # s "supersaw"
+|+| sustain "0.1"
+|+| resonance (scale 0.2 0.2 $sine1) # lfo "6"
+|+| cutoff (scale 120 200 $ slow 3 $ sine1)
+|=| resonance (scale 0.1 0.2 $ slow 4 $ sine1)
+|=| delay "0.75" # delaytime "1.375" # delayfeedback "0.5"
+|=| gain "0.2"
+
+d6
+$ density 2
+$ jux (iter 4)
+$ n "[a4 [[~ e5] a6] a2 [a4 e5]]"
+|=| s "myMoog"
+|+| sustain "0.1"
+|/| speed "1.0"
+|=| resonance "1.5"
+|=| delay "0.9" # delaytime "1.375" # delayfeedback "0.5"
+|=| gain "0.2"
+
+d1
+$jux (iter 8)
+$brak
+$density 1
+$stack[
+ --up pat6 |=| sound "cr:4",
+ --up pat3 |=| sound "hc:6",
+ up pat4 |=| sound "hc:1",
+ up pat5 |=| sound "[bd 909 hc:3 sn:3]",
+ up pat6 |=| sound "[bd hc:3 sn:4 cp:2]"
+]
+|=| gain "1.0"
+
+d1 silence
+
+hush
+
+

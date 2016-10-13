@@ -1,5 +1,3 @@
-o1 $s "n"
-
 --o1 $s "n"
 --o1 $s "[red green blue black]"
 --o1 $s "[n n  topo n grid n tpop n  stripe n n dots n n ripple n n n n]"
@@ -17,7 +15,7 @@ o1 $s "n"
 --o1 $s "[pers [meta spiral cube]*2] [[meta stripe]] search"
 --o1 $s "[ripple [planes]*2] [planes pers planes]"
 --o1 $s "[stripe fur topo]*8 [dots tunnel planes]*6"
---o1 $s (choose ["n", "ball", "bars", "blank", "dots", "ripple", "topo", "flower", "meta", "search", "tunnel", "check", "fur", "pers", "spiral", "water", "planes", "stripe", "wave", "cube", "grid", "swirl", "rings"])
+o1 $s (choose ["n", "ball", "bars", "blank", "dots", "ripple", "topo", "flower", "meta", "search", "tunnel", "check", "fur", "pers", "spiral", "water", "planes", "stripe", "wave", "cube", "grid", "swirl", "rings"])
 -- #r "1" #g "1" #b "1"
 #gain "1.0"
 -- #r (rand) #g (scale 0.7 1.0 $slow 1.7 $rand) #b "1.0"

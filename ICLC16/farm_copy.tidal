@@ -1,26 +1,24 @@
-o1 $s "n"
-
 --o1 $s "n"
---o1 $s "[red green blue black]"
---o1 $s "[n n  topo n grid n tpop n  stripe n n dots n n ripple n n n n]"
---o1 $s "[ball n spiral n meta n light n n stripe n n n n n light n n light n light n light]"
---o1 $s "[planes rects dots meta water watar grid rects]*1 [ball n n cube n ]*2"
+--o1 $s (choose ["cube","ball"])
+--o1 $s (choose ["cube","ball","meta","rects"])
+--o1 $s (choose ["ripple","topo","ripple","flower"])
+--o1 $density 2 $s "[water planes ball] [dots meta water topo rings]"
+--o1 $density 3 $s "[[topo fur] [meta flower] cube] fur search"
+--o1 $s "[bars check wave]*1 [bars wave check grid]*2"
 --o1 $s "[pers dots rings tunnel checkt] [dots planes] pers"
---o1 $s "[n bars check wave]*1 [bars wave n check grid]*2"
 --o1 $s "[stripe n swirl topo] [stripe n stripe]"
 --o1 $s "[dots light n water n light spiral] [n spiral n search n]*4"
 --o1 $s "cube meta [stripe [planes topo]*2 pers*2]"
 --o1 $s "planes*4 [grid ripple]*3 dots*4"
---o1 $s "[[topo fur] [meta flower] cube]*2"
 --o1 $s "[[dots planes] [topo rings net]]"
 --o1 $s "[[flower spiral stripe grid ripple] [grid  none planes topo]]*1"
 --o1 $s "[pers [meta spiral cube]*2] [[meta stripe]] search"
 --o1 $s "[ripple [planes]*2] [planes pers planes]"
 --o1 $s "[stripe fur topo]*8 [dots tunnel planes]*6"
---o1 $s (choose ["n", "ball", "bars", "blank", "dots", "ripple", "topo", "flower", "meta", "search", "tunnel", "check", "fur", "pers", "spiral", "water", "planes", "stripe", "wave", "cube", "grid", "swirl", "rings"])
--- #r "1" #g "1" #b "1"
+o1 $s (choose ["ball", "bars", "blank", "dots", "ripple", "topo", "flower", "meta", "search", "tunnel", "check", "fur", "pers", "spiral", "water", "planes", "stripe", "wave", "cube", "grid", "swirl", "rings"])
 #gain "1.0"
--- #r (rand) #g (scale 0.7 1.0 $slow 1.7 $rand) #b "1.0"
+-- #r "1" #g "1" #b "1"
+#r (rand) #g (scale 0.7 1.0 $slow 1.7 $rand) #b "1.0"
 -- #r (scale 0.5 1.0 $slow 3 $sine1) #g (scale 0.5 1.0 $slow 7 $sine1) #b (scale 0.5 1.0 $slow 13 $sine1)
 
 --- fx
@@ -29,17 +27,17 @@ p1 $s "none"
 
 p1 $s "[rgb noise]"
 
-p1 $s "[rgb noise]*2"
+p1 $s "[rgb noise]*8"
 
-p1 $s " [bloom kaleido noise] [rgb noise]"
+p1 $s "[[bloom kaleido noise] [rgb noise]]*6"
 
-p1 $s "[rgb noise]*3 [bloom rgb kaleido]*2"
+p1 $s "[rgb noise]*3 [bloom rgb kaleido]*4"
 
-p1 $s "[[rgb noise [kaleido edge bloom]]*2 [rgb noise]*2]"
+p1 $s "[[rgb noise [kaleido edge bloom]]*3 [rgb noise]*8]"
 
-p1 $s "[rgb [noise kaleido] bloom]*4"
+p1 $s "[rgb [noise kaleido] bloom]*12"
 
-p1 $s "[kaleido dof rgb noise edge]*4"
+p1 $s "[kaleido dof rgb noise edge]*12"
 
 --- isf names
 
