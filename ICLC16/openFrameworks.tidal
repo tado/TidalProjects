@@ -68,7 +68,7 @@ p1 <- postProcessStream
 
 p1 silence
 
-let hush = mapM_ ($ silence) [o1, p1, d1, d2, d3, d4, d5, d6]
+let hush = mapM_ ($ silence) [o1, p1, d1, d2, d3, d4, d5, d6, d7, d8]
 
 let solo = (>>) hush
 

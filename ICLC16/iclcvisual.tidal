@@ -1,0 +1,40 @@
+o1 $s "n"
+--o1 $s "cube*8"
+--o1 $s "[ball meta] cube"
+--o1 $s "[ball meta] cube planes"
+--o1 $s "[ball meta]*3 [cube planes water]*2"
+--o1 $s "[pers dots rings tunnel checkt] [dots planes] pers"
+--o1 $s "[stripe swirl topo stripe stripe]*4"
+--o1 $s "[[topo fur] [meta flower] cube]*2"
+--o1 $s (choose ["n", "ball", "bars", "blank", "dots", "ripple", "topo", "flower", "meta", "search", "tunnel", "check", "fur", "pers", "spiral", "water", "planes", "stripe", "wave", "cube", "grid", "swirl", "rings"])
+#r "1" #g "1" #b "1"
+-- #r (rand) #g (scale 0.7 1.0 $slow 1.7 $rand) #b "1.0"
+-- #r (scale 0.5 1.0 $slow 3 $sine1) #g (scale 0.5 1.0 $slow 7 $sine1) #b (scale 0.5 1.0 $slow 13 $sine1)
+-- #gain "1.0"
+
+--- fx
+
+p1 $s "none"
+
+p1 $s "[rgb noise]"
+
+p1 $s "[rgb noise]*8"
+
+p1 $s " [[bloom kaleido noise] [rgb noise]]*4"
+
+p1 $s "[rgb noise]*3 [bloom rgb kaleido]*2"
+
+p1 $s "[[rgb noise [kaleido edge bloom]]*2 [rgb noise]*2]"
+
+p1 $s "[rgb [noise kaleido] bloom]*4"
+
+p1 $s "[kaleido dof rgb noise edge]*4"
+
+--- isf names
+
+ ball    bars    blank    dots    light    ripple    topo
+ flower    meta    search    tunnel    check   fur
+ pers    spiral    water    circle   planes    stripe
+ wave    cube   grid   swirl   rings
+
+hush
