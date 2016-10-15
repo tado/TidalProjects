@@ -94,7 +94,7 @@ $jux (iter 8)
 $brak
 $density 1
 $stack[
- -- up pat6 |=| sound "cr:4",
+ up pat6 |=| sound "cr:4",
  up pat3 |=| sound "hc:6",
  up pat4 |=| sound "hc:1",
  up pat5 |=| sound "[bd 909 hc:3 sn:3]",
