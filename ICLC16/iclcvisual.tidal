@@ -1,4 +1,4 @@
-o1 $slow 0.25
+o1 $slow 4.0
 $s "n"
 -- $s "cube"
 -- $s "[ball meta rects grid] cube"
@@ -10,9 +10,9 @@ $s "n"
 -- $s "[topo fur] [meta flower] cube [fur search] [rings ripple]"
 -- $s "[topo fur water] [meta flower] [cube ripple] [search rings] [meta pers]"
 -- $s "ball bars dots ripple topo flower meta search tunnel check fur pers spiral water planes stripe wave cube grid swirl rings"
-#r "1" #g "1" #b "1"
+-- #r "1" #g "1" #b "1"
 -- #r (rand) #g (scale 0.7 1.0 $slow 1.7 $rand) #b "1.0"
--- #r (scale 0.5 1.0 $slow 3 $sine1) #g (scale 0.5 1.0 $slow 7 $sine1) #b (scale 0.5 1.0 $slow 13 $sine1)
+#r (scale 0.5 1.0 $slow 3 $sine1) #g (scale 0.5 1.0 $slow 7 $sine1) #b (scale 0.5 1.0 $slow 13 $sine1)
 # gain "1.0"
 
 
