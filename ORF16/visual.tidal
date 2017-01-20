@@ -1,6 +1,4 @@
-cps(60/120)
-
-o1 $s "black"
+p1 $s "[noise bloom]*2 none"
 
 o1 -- $slow 2.0
 -- $s "n"
@@ -12,11 +10,13 @@ o1 -- $slow 2.0
 -- $s "tunnel search dots rings"
 -- $s "[bars check] [bars wave] [bars rects]"
 -- $s "[topo fur] [meta flower] cube [fur search] [rings ripple]"
--- $s "[topo fur water] [meta flower] [cube ripple] [search rings] [meta pers]"
-$s "ball bars dots ripple topo flower meta search tunnel check fur pers spiral water planes stripe wave cube grid swirl rings"
--- #r "1" #g "1" #b "1"#r (rand) #g (scale 0.7 1.0 $slow 1.7 $rand) #b "1.0"
+$s "[topo fur water] [meta flower] [cube ripple] [search rings] [meta pers]"
+-- $s "ball bars dots ripple topo flower meta search tunnel check fur pers spiral water planes stripe wave cube grid swirl rings"
+-- #r "1" #g "1" #b "1"
+#r (rand) #g (scale 0.7 1.0 $slow 1.7 $rand) #b "1.0"
 -- #r (scale 0.5 1.0 $slow 3 $sine1) #g (scale 0.5 1.0 $slow 7 $sine1) #b (scale 0.5 1.0 $slow 13 $sine1)
 # gain "1.0"
+
 
 
 --- fx
@@ -35,7 +35,7 @@ p1 $s "[[rgb noise [kaleido edge bloom]]*2 [rgb noise]*2]"
 
 p1 $s "[rgb [noise kaleido] bloom]"
 
-p1 $s "[kaleido dof rgb noise edge]*4"
+p1 $s "[kaleido dof rgb noise edge]*12"
 
 --- isf names
 

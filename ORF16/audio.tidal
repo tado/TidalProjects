@@ -63,28 +63,31 @@ $ stack[
 |=| gain "0.7"
 
 d5
+$slow 2
 $ jux (iter 4)
 $ n "[a2 [[~ e3] a2] a1 [a2 e3]] ~" # s "supersaw"
-|+| sustain "0.1"
-|+| resonance (scale 0.2 0.4 $sine1) # lfo "6"
-|+| cutoff (scale 800 4000 $ slow 3 $ sine1)
-|=| resonance (scale 0.2 0.3 $ slow 4 $ sine1)
+|+| sustain "0.2"
+|+| resonance (scale 0.2 0.8 $sine1) # lfo "6"
+|+| cutoff (scale 800 8000 $ slow 3 $ sine1)
+|=| resonance (scale 0.2 0.5 $ slow 4 $ sine1)
 |=| delay "0.5" # delaytime "0.375" # delayfeedback "0.5"
 |=| gain "1.0"
 
 d6
-$ density 2
+$ slow 2
 $ jux (iter 4)
 $ n "[a4 [[~ e5] a6] a2 [a4 e5]]"
 |=| s "myMoog"
 |+| sustain "0.1"
 |/| speed "1.0"
-|=| resonance "1.7 3.33"
+|=| resonance "1.7 12.33"
 |=| delay "0.5" # delaytime "1.375" # delayfeedback "0.75"
 |=| gain "1.5"
 
+d1 silence
+
 d7
-$jux (iter 8)
+$jux (iter 4)
 -- $brak
 $density 1
 $stack[

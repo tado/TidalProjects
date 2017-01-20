@@ -1,0 +1,75 @@
+import Sound.Tidal.OscStream
+
+let openFrameworks = Shape {
+      params = [ S "s" Nothing,
+                 I "l" (Just 0),
+                 F "vel" (Just 1.0),
+                 F "gain" (Just 1.0),                 
+                 F "x" (Just 0.0),
+                 F "y" (Just 0.0),
+                 F "radius" (Just 1.0),
+                 F "smooth" (Just 0.0),
+                 F "rotSpeed" (Just 0.5),
+                 F "zoom" (Just 0.5),
+                 F "r" (Just 1.0),
+                 F "g" (Just 1.0),
+                 F "b" (Just 1.0)
+               ],
+      cpsStamp = False,
+      latency = 0.0
+      }
+    openFrameworksSlang = OscSlang {
+        path = "/ofplay",
+        timestamp = NoStamp,
+        namedParams = True,
+        preamble = []
+        }
+    openFrameworksStream = do
+        s <- makeConnection "127.0.0.1" 8000 openFrameworksSlang
+        stream (Backend s $ (\_ _ _ -> return ())) openFrameworks
+    s = makeS openFrameworks "s"
+    l = makeI openFrameworks "l"
+    vel = makeF openFrameworks "vel"
+    gain = makeF openFrameworks "gain"
+    x = makeF openFrameworks "x"
+    y = makeF openFrameworks "y"
+    radius = makeF openFrameworks "radius"
+    smooth = makeF openFrameworks "smooth"
+    rotSpeed = makeF openFrameworks "rotSpeed"
+    zoom = makeF openFrameworks "zoom"
+    r = makeF openFrameworks "r"
+    g = makeF openFrameworks "g"
+    b = makeF openFrameworks "b"
+
+o1 <- openFrameworksStream
+
+o1 silence
+
+------ post fx
+
+let postProcess = Shape {
+      params = [ S "s" Nothing
+               ],
+      cpsStamp = False,
+      latency = 0.0
+      }
+    postProcessSlang = OscSlang {
+        path = "/post",
+        timestamp = NoStamp,
+        namedParams = True,
+        preamble = []
+        }
+    postProcessStream = do
+        s <- makeConnection "127.0.0.1" 8000 postProcessSlang
+        stream (Backend s $ (\_ _ _ -> return ())) postProcess
+    s = makeS postProcess "s"
+
+p1 <- postProcessStream
+
+p1 silence
+
+let hush = mapM_ ($ silence) [o1, p1, d1, d2, d3, d4, d5, d6, d7, d8]
+
+let solo = (>>) hush
+
+

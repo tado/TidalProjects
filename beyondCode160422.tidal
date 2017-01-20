@@ -1,5 +1,7 @@
 bps (170/120)
 
+d8 $ sound "sync"
+
 d1 $ sound "bass:1 909"
 
 d1 $
@@ -171,6 +173,6 @@ d2 silence
 
 d3 silence
 
-d4 silence
+d6 silence
 
 hush

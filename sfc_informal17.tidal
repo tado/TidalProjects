@@ -1,0 +1,137 @@
+bps (130/120)
+
+hush
+
+-- test
+
+d8 $ sound "sync"
+
+d1 $sound "bd*4"
+
+--------------------------------
+
+-- polyrhythm
+
+d1
+$sound "{bd*4, hh*6}"
+
+d1 $sound "{bd*4, cp*6, hh*11}"
+
+--------------------------------
+
+-- manipulate time
+
+d1
+-- $sometimes (jux (iter 4))
+-- $sometimes (jux (iter 8))
+-- -- n$sometimes (jux (iter 16))
+-- $sometimes (jux (rev))
+-- $every 2 (rev)
+$sound "[bd [~ ifdrums] [~ bass] cp]*2" #n (irand 128)
+
+--------------------------------
+
+-- The Euclidean Sequence
+
+d1 $sound "{bd(3, 8), cp(5, 8)}"
+
+d1
+-- $jux (iter 16)
+-- $sometimes (rev)
+$sound "{ifdrums(9, 16), bd(5, 16, 1), glitch(8, 16, 2)}"
+#n (irand 64) # pan (rand)
+
+--------------------------------
+
+-- syncopation
+
+bps (130/120)
+
+d1 $ sound "cp" -- 0
+
+d1 $ sound "cp*4" -- 0
+
+d1 $ sound "cp*8" -- 0
+
+d1 $ sound "cp ~ cp ~ ~ ~ cp ~"      -- 1 tan tan n tan
+
+d1 $ sound "cp ~ ~ cp ~ ~ cp ~"      -- 2 tan n tan n tan
+
+d1 $ sound "cp ~ cp cp ~ cp ~ cp"    -- 3 tan tata n tan ta
+
+d1 $ sound "~ cp cp ~ cp cp ~ cp"    -- 4 n tata n tata n ta
+
+d1 $ sound "~ cp ~ cp cp cp ~ cp"    -- 5 n tan n tatata n ta
+
+d1 $ sound "~ cp ~ cp ~ cp cp cp"    -- 6 n ta n ta n tatata
+
+d1 $ sound "~ cp ~ cp ~ cp ~ cp"     -- 7 n ta n ta n ta n ta
+
+d2 $ sound "bd casio"
+
+d2 silence
+
+d1 $sound "{bd*2, bd(6, 16, 0), cp(5, 16, 9)}" -- 4, 8
+
+d1
+$jux (iter 8)
+$sound "[bd [~ ifdrums] [~ bass] cp]*2" #n (irand 128)
+# pan (rand)
+
+d1
+$sometimes(jux (iter 8))
+$sometimes(jux (iter 4))
+$sometimes(jux (iter 2))
+$sometimes(jux (rev))
+$sound "bd [~ cp]*2 [~ ifdrums ~ bass] [~ ifdrums ~ ~]"
+# n (irand 32)
+
+d1
+$ sometimes (jux (iter 8))
+$ sometimes (jux (iter 4))
+$ sometimes (rev)
+$ sound "{bd(4, 16, 0), ifdrums(5, 16, 3), glitch(3, 16, 5), bass(2, 16, 2), cp(3, 16, 1)}"
+# n (irand 64)
+
+d1
+$ sometimes (jux (iter 16))
+$ sometimes (jux (iter 8))
+$ sometimes (jux (iter 4))
+$ sometimes (rev)
+$ sound "{bd(4, 16, 0), ifdrums(4, 16, 3), glitch(3, 16, 5), bass(3, 16, 2), cp(3, 16, 1), dr55(6,16,3), dr55(5, 16, 4)}"
+# n (irand 64)
+-- # delay "0.2" #delaytime "0.03 0.01 0.02" #delayfeedback "0.75"
+
+d1
+$sometimes(jux (iter 16))
+$sometimes(jux (iter 8))
+$sometimes(jux (iter 4))
+$sometimes(jux (rev))
+-- $sometimes(chop 16)
+$every 4 (rev)
+$stack[
+  --sound (samples "arpy(5,16,8)" (irand 17)) #up "-24",
+  --sound (samples "arpy(8,16,8)" (irand 16)) #up "-12",
+  -- sound (samples "arpy(9,16,8)" (irand 15)) #up "24",
+  -- sound (samples "arpy(8,16,3)" (irand 14)) #up "0",
+  --sound (samples "arpy(10,16,5)" (irand 13)) #up "5",
+  --sound (samples "arpy(13,16)" (irand 12)) #up "12",
+  sound "fell2:2(8,16,5)" #up "0 12 0 -12 0 0" #pan (rand),
+  -- sound "fell2:3(12,16,2)" #up "0 12 0 -12 0 0" #pan (rand),
+  -- sound (samples "felld(5,16,12)" (irand 128)) #pan (rand),
+  --sound (samples "bass(7,16,2)" (irand 128)) #up "0 0 12 0 -12",
+  sound (samples "dr55(6,16,10)" (irand 128)) #pan (rand),
+  sound (samples "tr-808(7,16,8)" (irand 128)) #pan (rand),
+  --sound (samples "casio(7,16,5)" (irand 128)) #pan (rand),
+  sound (samples "ifdrums(12,16,8)" (irand 128)) #pan (rand),
+  sound (samples "glitch(4,16,5)" (irand 128)) #pan (rand),
+  sound (samples "808bd(4,16,8)" (irand 128)),
+  sound (samples "bd(6,16,3)" (irand 128)) #gain "1.2"
+]
+-- #vowel "o i a e i o e"
+# n (irand 64)
+|=|up "{7 0 -7 0 5 -12 0 12 0 7 0 -7 0 12}%9"
+#cutoff (scale 800 18000 $slow 1 $rand)
+#resonance "0.2"
+-- #delay "0.3" #delaytime "0.03 0.01 0.02" #delayfeedback "0.7"
+-- #room "0.1"

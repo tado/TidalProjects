@@ -1,0 +1,130 @@
+cps(120/120)
+
+hush
+
+o1 $s "[cube meta] [check stripes]"
+
+p1 $s "[noise kaleido]*2 bloom"
+
+d1 $slow 2 $up pat4 |=| sound (samples "bd" (irand 12))
+
+hush
+
+o1 $s "red*128" #gain (up)
+
+p1 $s "none"
+
+
+
+
+
+
+
+
+
+
+
+
+d6
+$ slow 2
+$ jux (iter 4)
+$ n "[a4 [[~ e5] a6] a2 [a4 e5]]"
+|=| s "myMoog"
+|+| sustain "0.1 0.3"
+|/| speed "1.0"
+|=| resonance "1.7 1.33"
+|=| delay "0.5" # delaytime "1.375" # delayfeedback "0.75"
+|=| gain "1.5"
+
+d5
+$slow 2
+$ jux (iter 4)
+$ n "[a2 [[~ e3] a2] a1 [a2 e3]] ~" # s "supersaw"
+|+| sustain "0.2"
+|+| resonance (scale 0.6 0.8 $sine1) # lfo "7"
+|+| cutoff (scale 100 12000 $ slow 3 $ sine1)
+|=| resonance (scale 0.2 0.7 $ slow 4 $ sine1)
+|=| delay "0.5" # delaytime "0.375" # delayfeedback "0.5"
+|=| gain "1.0"
+
+
+hush
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+o1 $slow 2 $s "ball bars dots ripple topo flower meta search tunnel check fur pers spiral water planes stripe wave cube grid swirl rings"
+#r (rand) #g (scale 0.7 1.0 $slow 1.7 $rand) #b "1.0"
+
+p1 $s "[rgb noise [kaleido edge bloom]]*2 [rgb noise]"
+
+d1 $jux (iter 4)
+$jux (rev)
+$slow 2
+$stack[
+ up pat6 |=| sound (samples "fell2*8" (irand 12)),
+ up pat4 |=| sound (samples "glitch*8" (irand 12)),
+ up pat3 |=| sound (samples "bd*8" (irand 12)),
+ up pat5 |=| sound (samples "hh*8" (irand 12))
+]
+
+d1 $jux (iter 4)
+$slow 2
+$stack[
+ up pat4 |=| sound (samples "glitch" (irand 12)),
+ up pat6 |=| sound (samples "casio" (irand 12)),
+ up pat3 |=| sound (samples "hc" (irand 12))
+]
+
+d1
+$jux (rev)
+$jux (iter 8)
+$slow 2
+$stack [
+  up pat3 |=| sound (samples "[bass glitch]*2 casio" (irand 12)),
+  up pat4 |=| sound (samples "[gab glitch]*2 casio" (irand 12)),
+  up pat2 |=| sound "[space fell]*2 cp"
+]  
+
+d1
+$slow 1
+$jux (rev)
+$jux (iter 2)
+$stack[
+ up pat4 |=| sound (samples "[bass glitch]*2" (irand 12)),
+ up pat6 |=| sound (samples "[casio gaba]*2" (irand 12)),
+ up pat1 |=| sound (samples "[hh gaba]*2" (irand 12)),
+ up pat5 |=| sound (samples "[fell2]*16" (irand 12))
+]
+
+d2
+$brak $sound (samples "bass*4" (irand 12))
+#gain "2.0"
+
+d1 $jux (iter 4)
+$slow 2
+$up pat4 |=| sound (samples "[bass glitch]*2" (irand 12))
+
+
+
+--ISF
+ ball    bars    blank    dots    light    ripple    topo
+ flower    meta    search    tunnel    check   fur
+ pers    spiral    water    circle   planes    stripe
+ wave    cube   grid   swirl   rings
+
+--PostEffect
+kaledo dof rgb noise edge bloom
+
+hash
