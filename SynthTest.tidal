@@ -1,5 +1,7 @@
 bps (200/120)
 
+d8 $sound "sync"
+
 d1
 $ jux (iter 4)
 $ stack[

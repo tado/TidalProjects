@@ -99,7 +99,7 @@ $stack[
 ]
 |=| gain "1.7"
 
-d7 silence
+d2 silence
 
 hush
 

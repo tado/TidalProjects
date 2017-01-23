@@ -1,5 +1,7 @@
 cps(60/120)
 
+d8 $sound "sync"
+
 d1
 $jux (iter 4)
 $bark
@@ -14,7 +16,7 @@ let pat1 = "{0*2 ~ [0 ~] ~ 0 [~ 0] 0}%4"
     pat5 = "{[~ 0] 0 0 ~ 0 -12 0*2 ~ [~ 0] [~ 0] ~ 0 -12 0*4 ~ [~ 0] [~ 0] ~ 0*2 -12}%8"
     pat6 = "{~ 0 ~ 0 -12 0*4 0 0*2 [~ 0] -12 0*4 ~ 0 ~ 0 -12 0*2 ~ [~ 0] [~ 0] ~ 0*2 -12}%8"
 
-d1 "bd sn"
+d1 $sound "bd sn"
 
 d1
 $ jux (iter 4)
@@ -166,7 +168,7 @@ sound (samples "sitar*4?" (irand 8)) |+| gain "1.0" |+| speed "1.5 1.0 0.5 0.25"
 d5 silence
 
 d1 silence
-p
+
 d3 silence   
 
 d4 $ every 8 (|+| accelerate "[1 -1]*3")

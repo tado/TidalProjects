@@ -1,4 +1,4 @@
-bps (130/120)
+  bps (130/120)
 
 hush
 
@@ -24,10 +24,10 @@ d1 $sound "{bd*4, cp*6, hh*11}"
 -- manipulate time
 
 d1
---$sometimes (jux (iter 4))
---$sometimes (jux (iter 8))
---$sometimes (jux (iter 16))
---$sometimes (jux (rev))
+-- $sometimes (jux (iter 4))
+-- $sometimes (jux (iter 8))
+-- $sometimes (jux (iter 16))
+-- $sometimes (jux (rev))
 -- $every 2 (rev)
 $sound "[bd [~ ifdrums] [~ bass] cp]*2" #n (irand 128)
 
@@ -38,10 +38,12 @@ $sound "[bd [~ ifdrums] [~ bass] cp]*2" #n (irand 128)
 d1 $sound "{bd(3, 8), cp(5, 8)}"
 
 d1
--- $jux (iter 16)
--- $sometimes (rev)
-$sound "{ifdrums(3, 16), bd(5, 16, 1), glitch(8, 16, 2)}"
-#n (irand 64) # pan (rand)
+$every 2 (jux (iter 4))
+$every 3 (jux (iter 8))
+$sometimes (rev)
+$sound "{ifdrums(3, 16, 3), bd(5, 16, 2), glitch(11, 16, 2)}"
+#n (irand 64)
+# pan (rand)
 
 --------------------------------
 
@@ -77,37 +79,37 @@ d1 $sound "{bd*2, bd(6, 16, 0), cp(5, 16, 9)}" -- 4, 8
 
 d1
 -- $jux (iter 8)
+-- $jux (iter 4)
 $sound "[bd [~ ifdrums] [~ bass] cp]*2" #n (irand 128)
 # n (irand 64) # pan (rand)
 
 d1
--- $sometimes(jux (iter 8))
--- $sometimes(jux (iter 4))
--- $sometimes(jux (iter 2))
--- $sometimes(jux (rev))
+$whenmod 8 5 (jux (iter 8))
+$whenmod 7 4 (jux (iter 4))
 $sound "bd [~ cp]*2 [~ ifdrums ~ bass] [~ ifdrums ~ ~]"
 # n (irand 64) # pan (rand)
 
 d1
+-- $ sometimes (jux (iter 16))
 -- $ sometimes (jux (iter 8))
 -- $ sometimes (jux (iter 4))
 -- $ sometimes (rev)
 $ sound "{bd(3, 16, 0), ifdrums(5, 16, 3), glitch(3, 16, 5), bass(2, 16, 2), cp(3, 16, 1)}"
+# n (irand 64)
+# pan (rand)
+
+d1
+$ sometimes (jux (iter 8))
+$ sometimes (jux (iter 4))
+$ sometimes (rev)
+$ sound "{bd(3, 16, 0), ifdrums(4, 16, 3), glitch(3, 16, 5), bass(3, 16, 2), cp(3, 16, 3), dr55(3,16,3)}"
 -- # n (irand 64)
 # pan (rand)
 
 d1
--- $ sometimes (jux (iter 8))
--- $ sometimes (jux (iter 4))
--- $ sometimes (rev)
-$ sound "{bd(3, 16, 0), ifdrums(4, 16, 3), glitch(3, 16, 5), bass(3, 16, 2), cp(3, 16, 3), dr55(5,16,3), dr55(4, 16, 4)}"
--- # n (irand 64)
-# pan (rand)
-
-d1
--- $sometimes(jux (iter 8))
--- $sometimes(jux (iter 4))
--- $sometimes(jux (rev))
+$sometimes(jux (iter 8))
+$sometimes(jux (iter 4))
+$sometimes(jux (rev))
 -- $every 4 (rev)
 $stack[
   --sound (samples "arpy(2,16,11)" (irand 17)) #up "-24",
@@ -129,8 +131,8 @@ $stack[
   sound (samples "bd(3,16,3)" (irand 128)) #gain "1.2"
 ]
 #n (irand 128)
--- #up "{7 0 -7 0 5 -12 0 12 0 7 0 -7 0 12}%9"
+#up "{7 0 -7 0 5 -12 0 12 0 7 0 -7 0 12}%9"
 -- #vowel "o i a e i o e"
+-- #delay "0.5" #delaytime "0.03 0.01 0.02" #delayfeedback "0.7"
 #cutoff (scale 800 18000 $slow 3 $rand) #resonance "0.4"
--- #delay "0.3" #delaytime "0.03 0.01 0.02" #delayfeedback "0.7"
 -- #room "0.1"
