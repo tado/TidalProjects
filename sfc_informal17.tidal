@@ -1,4 +1,4 @@
-  bps (130/120)
+bps (130/120)
 
 hush
 
@@ -28,7 +28,8 @@ d1
 -- $sometimes (jux (iter 8))
 -- $sometimes (jux (iter 16))
 -- $sometimes (jux (rev))
--- $every 2 (rev)
+$jux (iter 4)
+$whenmod 4 3 (rev)
 $sound "[bd [~ ifdrums] [~ bass] cp]*2" #n (irand 128)
 
 --------------------------------
@@ -38,9 +39,9 @@ $sound "[bd [~ ifdrums] [~ bass] cp]*2" #n (irand 128)
 d1 $sound "{bd(3, 8), cp(5, 8)}"
 
 d1
-$every 2 (jux (iter 4))
-$every 3 (jux (iter 8))
-$sometimes (rev)
+-- $every 2 (jux (iter 4))
+-- $every 3 (jux (iter 8))
+$whenmod 4 3 (rev)
 $sound "{ifdrums(3, 16, 3), bd(5, 16, 2), glitch(11, 16, 2)}"
 #n (irand 64)
 # pan (rand)
@@ -78,22 +79,23 @@ d2 silence
 d1 $sound "{bd*2, bd(6, 16, 0), cp(5, 16, 9)}" -- 4, 8
 
 d1
--- $jux (iter 8)
--- $jux (iter 4)
+$jux (iter 16)
+$jux (iter 8)
+$jux (iter 4)
 $sound "[bd [~ ifdrums] [~ bass] cp]*2" #n (irand 128)
 # n (irand 64) # pan (rand)
 
 d1
-$whenmod 8 5 (jux (iter 8))
-$whenmod 7 4 (jux (iter 4))
+$whenmod 8 4 (jux (iter 16))
+$jux (iter 8)
 $sound "bd [~ cp]*2 [~ ifdrums ~ bass] [~ ifdrums ~ ~]"
 # n (irand 64) # pan (rand)
 
 d1
--- $ sometimes (jux (iter 16))
--- $ sometimes (jux (iter 8))
--- $ sometimes (jux (iter 4))
--- $ sometimes (rev)
+$ sometimes (jux (iter 16))
+$ sometimes (jux (iter 8))
+$ sometimes (jux (iter 4))
+$ sometimes (rev)
 $ sound "{bd(3, 16, 0), ifdrums(5, 16, 3), glitch(3, 16, 5), bass(2, 16, 2), cp(3, 16, 1)}"
 # n (irand 64)
 # pan (rand)
@@ -102,26 +104,27 @@ d1
 $ sometimes (jux (iter 8))
 $ sometimes (jux (iter 4))
 $ sometimes (rev)
-$ sound "{bd(3, 16, 0), ifdrums(4, 16, 3), glitch(3, 16, 5), bass(3, 16, 2), cp(3, 16, 3), dr55(3,16,3)}"
--- # n (irand 64)
+$ sound "{bd(3, 16, 0), ifdrums(3, 16, 5), glitch(3, 16, 5), bass(3, 16, 2), cp(3, 16, 3), dr55(3,16,4)}"
+# n (irand 64)
 # pan (rand)
 
-d1
+d2
+-- $sometimes(jux (iter 16))
 $sometimes(jux (iter 8))
-$sometimes(jux (iter 4))
-$sometimes(jux (rev))
--- $every 4 (rev)
+-- $sometimes(jux (iter 4))
+-- $sometimes(jux (rev))
+$every 4 (rev)
 $stack[
-  --sound (samples "arpy(2,16,11)" (irand 17)) #up "-24",
+  sound (samples "arpy(2,16,11)" (irand 17)) #up "-24",
   --sound (samples "arpy(3,16,9)" (irand 16)) #up "-12",
   --sound (samples "arpy(2,16,8)" (irand 15)) #up "24",
-  --sound (samples "arpy(3,16,3)" (irand 14)) #up "0",
-  --sound (samples "arpy(3,16,5)" (irand 13)) #up "5",
+  sound (samples "arpy(3,16,3)" (irand 14)) #up "0",
+  sound (samples "arpy(3,16,5)" (irand 13)) #up "5",
   --sound (samples "arpy(3,16)" (irand 12)) #up "12",
-  sound "fell2(5,16,5)" #pan (rand),
-  sound "fell(5,16,11)" #pan (rand),
+  --sound "fell2(5,16,5)" #pan (rand),
+  --sound "fell(5,16,11)" #pan (rand),
   sound (samples "felld(3,16,12)" (irand 128)) #pan (rand),
-  sound (samples "bass(3,16,2)" (irand 128)),
+  --sound (samples "bass(3,16,2)" (irand 128)),
   sound (samples "dr55(3,16,10)" (irand 128)) #pan (rand),
   sound (samples "tr-808(3,16,8)" (irand 128)) #pan (rand),
   sound (samples "casio(5,16,6)" (irand 128)) #pan (rand),

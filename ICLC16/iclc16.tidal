@@ -63,6 +63,7 @@ $ stack[
 |=| gain "0.7"
 
 d5
+$slow 2
 $ jux (iter 4)
 $ n "[a2 [[~ e3] a2] a1 [a2 e3]] ~" # s "supersaw"
 |+| sustain "0.1"
@@ -73,7 +74,7 @@ $ n "[a2 [[~ e3] a2] a1 [a2 e3]] ~" # s "supersaw"
 |=| gain "1.0"
 
 d6
-$ density 2
+$ density 1
 $ jux (iter 4)
 $ n "[a4 [[~ e5] a6] a2 [a4 e5]]"
 |=| s "myMoog"
@@ -86,7 +87,7 @@ $ n "[a4 [[~ e5] a6] a2 [a4 e5]]"
 d7
 $jux (iter 8)
 -- $brak
-$density 1
+$slow 4
 $stack[
  up pat6 |=| sound "cr:4",
  up pat3 |=| sound "hc:6",
@@ -96,7 +97,7 @@ $stack[
 ]
 |=| gain "1.7"
 
-d7 silence
+d6 silence
 
 hush
 
