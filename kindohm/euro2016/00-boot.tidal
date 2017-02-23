@@ -1,0 +1,83 @@
+import Sound.Tidal.Context
+import Sound.Tidal.MIDI.Stream
+import Sound.Tidal.MIDI.Kindohm.Rack
+import Sound.Tidal.MIDI.Kindohm.CustomParams
+devs <- midiDevices
+keys <- midiStream devs "LoopBe Internal MIDI" 1 rackController
+
+let rip a b p = within (0.25, 0.75) (slow 2 . rev . stut 8 a b) p
+    rip' a b c d e p = within (a, b) (slow 2 . rev . stut c d e) p
+    spike p = ((|+| delaytime (scale 0.001 0.3 $ slow 7.1 sine1)) . (|+| delayfeedback (scale 0.7 0.99 $ slow 6.71 sine1))) $ p
+    spike' p = (|+| delay "0.3") $ spike $ p
+    ghost'' a f p = superimpose (((a/2 + a*2) ~>) . f) $ superimpose (((a + a/2) ~>) . f) $ p
+    ghost' a p = ghost'' a ((|*| gain "0.7") . (|=| end "0.2") . (|*| speed "1.25")) p
+    ghost p = ghost' 0.125 p
+    jit start amount p = within (start, (start + 0.5)) (trunc (amount)) p
+    gtfo p = (const $ sound "~") p
+    shift p = (1024 <~)  p
+    shift' x p = (x <~) p
+    choose xs = (xs !!) <$> (irand $ fromIntegral $ length xs)
+    one p = stut' 1 (0.125/2) (|*| gain "1") $ p
+    one' p = rarely (stut' 1 (0.125/2) (|*| gain "1")) $ shift' 1024 $ p
+    one'' p = sometimes (stut' 1 (0.125/2) (|*| gain "1")) $ shift' 1024 $ p
+    rep n p = stut' (n-1) (0.125*3) (|*| gain "1") $ p
+    rep' n p = stut' (n-1) (0.125/2*3) (|*| gain "1") $ p
+    rep'' n p = stut' (n-1) (0.125/4*3) (|*| gain "1") $ p
+    beginend bpat durpat = (begin bpat) # (end $ (+) <$> bpat <*> durpat)
+    brakk samps = ((|=| unit "c") . (|=| speed "8")) $ sound (samples samps (irand 30))
+    remPos num den = if x<0 then x+den else x where x = rem num den
+    scaleElt scale n = fromIntegral . (scale !!) $ fromIntegral $ remPos n (fromIntegral $ length scale)
+    scaleOctave scale n = (12 *) . fromIntegral . floor . ((fromIntegral n) /) $ fromIntegral $ length scale
+    sc s n = scaleOctave s n + scaleElt s n
+    ionian = [0,2,4,5,7,9,11]
+    aeolian = [0,2,3,5,7,8,10]
+    locrian = [0,1,3,5,6,8,10]
+    phryg = [0,1,3,5,7,8,10]
+    phryg2 = [0,1,3,5,7,8,10,12,13,15,17,19,20,22]
+    lydian = [0,2,4,6,7,9,11]
+    enig = [0,1,3,5,6,8,10,11]
+    minor = [0,3,7]
+    major = [0,4,7]
+    _9 = [0,4,7,10,14]
+    ninesus4 = [0,5,7,10,14]
+    add9 = [0,4,7,14]
+    madd9 = [0,3,7,14]
+    maj9 = [0,4,7,11,14]
+    m9 = [0,3,7,10,14]
+    sus2 = [0,2,7]
+    sus4 = [0,5,7]
+    _7 = [0,4,7,10]
+    m7 = [0,3,7,10]
+    eleven = [0,4,7,10,14,17]
+    _11 = [0,4,7,10,14,17]
+    m11 = [0,3,7,10,14,17]
+    _13 = [0,4,7,10,14,21]
+    m13 = [0,3,7,10,14,21]
+    mpent = [0, 3, 5, 7, 10, 12]
+    pent = [0, 2, 4, 7, 9, 12]
+    runUpOneOctave = run $ length ionian
+    runUpTwoOctaves = run $ 2 * length ionian
+    runUpThreeOctaves = run $ 3 * length ionian
+    runUpAndDown = append runUpTwoOctaves $ (+1) <$> rev runUpTwoOctaves
+    scramble p = within (0.25, 0.5) (0.25 <~) $ within (0.5,1) (1.25 ~>) $ within (0, 0.5) (0.5 ~>) $ within (0.25, 0.75) (0.75 <~) $ p
+    mel' scale runSize f cycles p = note (preplace(1,cycles) p (f $ sc scale <$> run runSize))
+    melOld scale runSize p = note (preplace(1,1) p (sc scale <$> run runSize))
+    mel scale runSize p = mel' scale runSize (scramble) 4 p
+    arpup scale x = note (sc scale <$> run x)
+    arpdown scale x = note (rev $ sc scale <$> run x)
+    runMidi xs len = (xs !!) <$> (run $ fromIntegral $ len)
+    chooseMidi root xs pat = (|+| note root) $ (|+| note (choose xs)) $ note pat
+    chooseMidi' root xs ranges pat = (|+| note (choose ranges)) $ shift $ chooseMidi root xs pat
+    bpm x = bps (x/120)
+
+import Sound.Tidal.MIDI.Context
+displayOutputDevices >>= putStrLn
+
+
+c1 $ sound "k*8?"
+
+keys2 <- midiStream devs "LoopBe Internal MIDI" 2 rackController
+
+bps (170/120)
+
+keys $ note "0*4 12*2" # dur "0.1"

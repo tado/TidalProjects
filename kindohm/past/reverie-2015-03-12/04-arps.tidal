@@ -1,0 +1,58 @@
+bps (200/120)
+
+-- ML 101
+m $ slow 16 $ note "[60,62,67] [57,59,64] [58,60,65] ~" |+| dur "4 4 4 ~"
+
+-- erebus
+let this_pent = [0, 2, 4, 7, 9, 12, 14,16,19]
+let prog = "[48 45 46 46]/16"
+
+k7 $ (|+| note "12") $ (|+| note prog) $ density 2 $ every 2 (|+| note "12") $ note (runMidi this_pent 8)
+|+| modwheel (scale 0 1 $ slow 8.23 sine1)
+
+keys $ (|+| note (choose[0,12,-12])) $ (|+| note prog) $ slow 2 $  note "[~ 0]*2 ~ ~ 0*4" |+| dur "0.1"
+
+keys silence
+k7 silence
+m silence
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+d1 $ stack [
+sound "k:10*4? [sdeep/2]" ]
+
+hush
+d1 silence
+
+k7 silence
+m silence
+
+k10 $ stack [note "{60 60 [60 ~ ~ 60] ~ ~}%2",
+note "{~ 61 ~}%2", note "{~ 62 ~ ~}%2", note "63*8?",
+note "{~ [64 ~ ~ 64] ~ ~ 64*2? 64*4?}%4",
+note "{~ 65*2 ~ ~ ~ ~ 65*2 ~}%4"]
+
+d1 $ stack [sound (samples "{kl kl [kl ~ ~ kl] ~ ~}%2" "0") |+| cut "5"]
+
+k7 silence
+m silence
+keys silence
+hush

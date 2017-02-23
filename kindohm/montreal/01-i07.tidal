@@ -1,0 +1,36 @@
+-- ml 145
+
+cps 0.85
+
+let k = s "i07k"
+    cp = s "i07cp"
+    ch = s "i07ch" |=| cut "-1"
+    oh = s "i07oh" |=| cut "-1"
+    b = s "i07b" |=| n (irand 100)
+    jump = stut' 1 (0.125) (|+| note "12")
+
+let pat = "{0 1 0 1 1 0 ~ ~ 1 1 ~ ~ ~ ~}%8"
+
+-- ml 145
+do
+  let pat = "{0 ~ ~ ~ 1 0 1 ~ 0 1 0 ~ ~ 1 0 ~ ~}%8"
+  let x = gain (pat)
+  let xx = velocity (pat)
+  let y = gain (inverse <$> pat)
+  let yy = velocity (inverse <$> pat)
+  c1 $ stack [
+    y # k,
+    gtfo $ density 2 $ cp,
+    gtfo $ x # ch,
+    gtfo $ y # oh,
+    (|+| gain "0.1") $
+      x # s "i07b" # n (irand 200)]
+  m $ sometimes (jump) $ (|+| note "[-12 0]/16") $
+    yy # note "-7"
+    |=| release (scale 0.01 0.1 $ slow 17 tri1)
+    |=| xmod (scale 0.01 0.1 $ slow 18 tri1)
+    |=| voicedepth (scale 0.01 0.1 $ slow 19 tri1)
+
+hush
+
+m silence

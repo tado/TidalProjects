@@ -1,0 +1,23 @@
+bps (180/120)
+
+
+
+d2 $ every 4 (jux (iter 4)) $
+every 3 (rev) $ slow 4 $ slowspread (chop) [16,8,4,24,32] $ sound "drums drums:1"
+
+d1 $
+every 5 (|=| coarse "16 32 24") $
+every 6 (|=| accelerate "-0.5 0.5") $
+every 8 (|=| crush "5 -4 3 -6") $
+stack [
+every 4 (const $ sound (samples "{hop3 ~ ~}%16" (irand 4)) |=| cut "77") $ degradeBy 0.25 $
+every 3 (const $ sound (samples "hop2*4" (irand 4)) |=| cut "77") $ whenmod 12 10 (const $ sound "~") $
+sound "hop1(3,8)" |=| cut "77" |=| speed "1",
+degradeBy 0.25 $ shift' 4 $ sound "hopall:200*16" |=| gain "0.8" |=| speed "30",
+stut' 16 (0.0625/4) (|*| gain "0.9") $ slow 2 $ sound "~ hopall:299" |=| speed "20" |=| gain "0.8" |=| cut "10" ]
+
+d3 $ slow 4 $ sound "[hoppadd hoppada hoppadg]/3" |=| cut "71"
+
+
+
+hush

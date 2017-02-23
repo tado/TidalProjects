@@ -1,0 +1,24 @@
+bpm 150
+
+-- kick rep 24, synth rep 23
+let progwav = (|+| up "{0 0 0 2 2}%1")
+    basspat = "{009b2 ~ ~ 009b2 ~ ~ 009b2 ~ ~ 009b2 ~ ~ 009b2 ~ ~ 009b2 ~ ~ ~}%16"
+
+c1 $
+every 5 (chop 4) $
+every 6 (rip 0.25 0.25) $
+every 7 (rip' 0 1 8 0.25 0.125) $
+every 8 (|=| coarse "16 32 24") $
+stack [
+  sound "{~ run:1 ~}%16",
+  gtfo $ progwav $ rep' 24 $ sound "{9k/4 ~ ~ ~ ~}%4" |=| gain "1" |=| cut "2",
+  whenmod 7 4 (0.125 ~>) $ sound "9cp*4",
+  sound "~ 9s" |=| gain "1.1",
+  foldEvery [2,3] (density 2) $ sound "9ch*8" |=| gain "1.1",
+  sound "{9cy/4 ~ ~ ~ ~}%4",
+  sometimes (stut' 2 (0.125) (|*| speed "2")) $ progwav $ (0.125 ~>) $ rep' 23 $
+  sound (samples "{009m2/4 ~ ~ ~ ~}%4" (irand 25)) |=| gain "1.1" |=| cut "81"]
+  |=| delaytime "0" |=| delayfeedback "0"
+
+
+hush

@@ -1,0 +1,64 @@
+bpm 200
+
+let kickpat = "{0 ~ ~ 0 ~ 0 ~}%8"
+    clappat = "{[~ 0]/2 ~ ~ ~ ~ ~ ~}%8"
+    cypat = "{0/16 ~ ~ ~ ~ ~ ~}%8"
+    kickpat6 = "{~ ~ ~ 0 ~ 0}%8"
+    clappat6 = "{~ ~ ~ 0 ~ ~}%8"
+    cypat6 = "{0/16 ~ ~ ~ ~ ~}%8"
+
+let kickpat = kickpat6
+    clappat = clappat6
+    cypat = cypat6
+
+hush
+
+
+
+
+
+
+
+
+
+-- HAY! THANKS!!!
+
+
+
+
+
+
+
+
+c1 $ spike' $
+stack [
+degradeBy 0.2 $ brakk "fur1*8",
+sound "2ch*8" |=| cut "1" |=| gain "1.2",
+(0.0625 <~) $ sound "2oh/3" |=| cut "1" |=| gain "1.2",
+n kickpat # s "2k" |=| gain "0.9",
+n clappat # s "2cp" |=| shape "0.4",
+n cypat # s "2cy" |=| gain "1.2",
+s "{~ 2stab/6 ~ ~ ~}%8" # n (choose [0,1,2,3,4,5,6,7])|=| shape "0.5",
+sound (samples "{2sy ~ ~ 2sy2 ~ 2sy2 ~}%8" (slow 160 $ run 168))]
+|=| delaytime "0" |=| delayfeedback "0"
+
+
+
+hush
+
+keys $ (|+| note "[0]") $ (|+| note "-18") $ note keyspat
+|=| dur durpat
+|=| detune "0.01"
+|=| kdecay (scale 0.05 1 $ slow 15 tri1)
+|=| vcoegint "0.001"
+|=| kattack "0.001"
+|=| voice "[0.8]"
+|=| klforate (scale 0.01 0.7 $ slow 3.33 sine1)
+|=| klfocutoffint (scale 0.2 1 $ slow 2.33 sine1)
+|=| kcutoff "0.2"
+|=| vcfegint "0.9"
+|=| ksustain "1"
+
+hush
+
+keys silence

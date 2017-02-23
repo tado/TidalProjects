@@ -1,0 +1,16 @@
+bps (180/120)
+
+-- b18b
+-- slipk
+-- slipcy
+-- kit6-kit11
+-- ulh
+
+-- bass base
+d1 $ stack [
+whenmod 13 11 (const $ sound "~") $ whenmod 12 6 (density (4/3)) $ every 3 (density 2) $
+whenmod 40 20 (const $ sound "~ b18b:1*2"
+|=| cut "2" |=| gain "1") $
+sound "~ b18b*2" |=| gain "1.05" |=| shape "0.1" |=| cut "2"]
+
+hush

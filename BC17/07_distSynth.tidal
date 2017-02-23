@@ -1,0 +1,22 @@
+---- 06 distort synth
+
+solo $
+d4
+$sometimes (jux (iter 4))
+$sometimes (jux (iter 8))
+$sometimes (jux (iter 2))
+$every 3 (|=| coarse "{8 24 16}%8")
+$every 2 (stut' 1 0.125 (|*| speed "1.5"))
+$stack[
+  s "superpwm(5,16,3)" #n "-12" #voice (scale 12 36 $rand),
+  s "superpwm(11,16,1)" #n "12" #voice (scale 12 48 $rand),
+  s "superpwm(9,16)" #n "0" #voice (scale 8 12 $rand)
+]
+#up "{0 0 12 7 5 36 7 12 24}%11"
+#pitch1 (scale 1.0 2.0 $slow 2.5 $sine1)
+#sustain "0.15"
+#resonance (scale 0.1 0.4 $slow 5.5 $sine1)
+#cutoff (scale 800 10000 $slow 3 $rand) #resonance "0.2"
+#delay "0.6" #delaytime "0.05 0.01 0.02 0.005" #delayfeedback "0.5"
+#gain "1.0"
+#shape "0.5"

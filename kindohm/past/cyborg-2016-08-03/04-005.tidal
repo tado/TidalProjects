@@ -1,0 +1,43 @@
+bps (150/120)
+
+-- ML 125
+m $ whenmod 14 10 (|+| note "12") $ whenmod 8 4 (|+| note "12") $ (|+| note "-6") $ note "{0 7 -1/4 3 -12/3 11 -5/2}%2" |=| dur "0.1"
+|=| voicedepth (scale 0 0.75 $ slow 20 tri1)
+|=| xmod (scale 0 0.75 $ slow 14.5 tri1)
+|=| pitch2 (scale 0.45 0.55 $ slow 13.1 tri1)
+|=| oct1 (scale 0 0.5 $ slow 11.75 tri1)
+|=| oct2 (scale 0.5 1 $ slow 18.25 tri1)
+|=| cutoff (scale 0.2 0.45 $ slow 17 tri1)
+|=| pitchmod (scale 0.3 0.7 $ slow 24 tri1)
+|=| release (scale 0.501 0.9 $ slow 23 tri1)
+|=| egrelease (scale 0.501 0.9 $ slow 23 tri)
+
+
+m silence
+hush
+
+erebus $ sometimes (|+| note (choose [12, -12, 12])) $ slow 2 $ note "[-6/2] ~ ~ ~" |=| dur "1.3"
+|=| modwheel (scale 0 1 $ shift' 188 rand)
+
+let fill = (|=| gain "[0.55 0.6 0.65 0.7 0.75 0.8 0.85 0.9 0.95 1] 1.2") $ sound "5ch*6 5ch*6 [5ch,5cp] [5k,5bt,5cy]"
+    nope = sound "~"
+    hatpat = whenmod 16 12 (const $ sound "[5ch*3 5ch*3 5oh ~]") $ whenmod 12 6 (const $ sound "[5ch*3 5oh]*2") $ sound "[5ch*4 5oh]*2" |=| cut "2"
+    snarepat = sound "~ 5s"
+    kickpat = sound "~ [~ 5k*2] ~ ~"
+    tompat = sound "{[5lt ~ ~ 5ht] [[~ 5lt] ~] ~ [~ 5mt] ~}%4"
+
+
+c1 $
+stack [
+  kickpat |=| gain "1.2",
+  snarepat |=| gain "1.2",
+  tompat,
+  every 8 (const $ fill) $ slowcat [nope, nope, nope, nope, nope, nope, nope, nope, hatpat, hatpat, hatpat, hatpat, hatpat, hatpat, hatpat, hatpat] |=| gain "1.2" ]
+  |=| delaytime "0" |=| delayfeedback "0"
+
+c1 $ every 8 (const $ fill) $ sound "~"
+
+
+c1 silence
+erebus silence
+m silence

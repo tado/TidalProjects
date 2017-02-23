@@ -1,0 +1,12 @@
+bps (240/120)
+
+c1 $
+iter 4 $
+foldEvery [2,3] (|+| begin "0.1") $
+every 6 (|=| coarse "32 16 24") $
+foldEvery [3,4] (0.25 ~>) $
+sound "ringsurfing([3 7 5 4]/4,8)"
+|=| begin "{0.7 [0.77 0.44]/2 0.25}%1"
+|=| cut "1"
+|=| delaytime "0" |=| delayfeedback "0"
+|=| cutoff (scale 0.005 0.1 $ rand) |=| resonance "0.1"

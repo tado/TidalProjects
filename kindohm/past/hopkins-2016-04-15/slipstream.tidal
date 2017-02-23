@@ -1,0 +1,50 @@
+bps (180/120)
+
+-- start on d2?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- main
+d1 $
+every 5 (gap 4) $
+every 6 (chop 4) $
+every 7 (|+| coarse "16 32 24") $
+every 8 (rip 0.2 0.1) $
+whenmod 16 13 (const $ sound (samples "{[kit3 kit4]*2 [kit2 kit4]*2 [[ulh slipcy]/2 slipk]*2}%4" (slow 0.713 $ run 20))) $
+stack [
+stut 4 0.25 0.25 $ sound (samples "k*4 s:5" (run 10)),
+sound "~ teks [~ teks] ~",
+sound (samples "b18b*8?" "[0 1]/8") |+| cut "281",
+foldEvery [2,3] (density 2) $ sound "ulh*8" |+| cut "81",
+slow 2 $ within (0.5, 0.75) (stut 8 0.25 1) $
+whenmod 40 20 (const $ sound (samples "{[kit5 kit6]*2 [kit7 kit5]*2 [[kit6 kit7]/2 kit5]*2}%4" (slow 0.813 $ run 20))) $
+sound (samples "~ kit3*4 kit2 kit4*8" (slow 0.8181 $ run 30))]
+
+hush
+
+d1 $ sound "b18b"

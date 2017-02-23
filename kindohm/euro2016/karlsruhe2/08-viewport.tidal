@@ -1,0 +1,11 @@
+cps 1
+
+c1 $ whenmod 12 9 (iter 8) $
+every 6 (|=| coarse "{8 12 16}%8") $
+foldEvery [3,4] (|+| begin "0.05") $
+sound "ringsurfing([3 5 7 6]/4,8)"
+|=| cut "1"
+|=| begin "{0.33 0.33 0.44}%2"
+|=| delaytime "0.5" |=| delayfeedback "0.6" |=| delay "0.5"
+
+c1 $ sound "r" |=| cut "1"

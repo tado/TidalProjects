@@ -1,0 +1,65 @@
+bps (220/120)
+
+-- intro
+d1 $ sound "if(3,8)" |+| cut "1"
+
+-- intro break
+d1 $ sound "if:1(3,8)" |+| cut "2"
+
+d1 $ stack [
+sound "if(3,8)" |+| cut "1",
+sound "if:1(3,8)" |+| cut "2",
+sound "ifh*8"]
+
+-- break
+d1 $ sound "if:2(3,8)" |+| cut "3"
+
+-- main
+d1 $
+stack [
+sound "if(3,8)" |+| cut "1",
+sound "if:1(3,8)" |+| cut "2",
+sound "ifh*8",
+sound "ifk(3,8)",
+sound "~ ifs"]
+
+-- optional stop
+every 8 (within (0.1225, 0.375) (const $ sound "~") . within (0, 0.1225) (|+| end "0.5"))
+
+-- part 2 transition with swell
+d2 $ sound "ifswell/4" |+| gain "0.75" |+| cut "81"
+d2 silence
+
+d1 $
+stack [
+sound "if:2(3,8)" |+| cut "3",
+sound "ifh*8",
+sound "ifk(3,8)",
+sound "~ ifs [~ ifs] ~"]
+
+-- part 2 intro
+d1 $
+stack [
+sound "if:2(3,8)" |+| cut "3",
+slow 2 $ sound "ifgab*2 ifgab ~ ~" |+| cut "4" |+| shape "0.5",
+slow 4 $ sound "[~ [~ ifgab:1*2]] ifgab:1(3,8) ~ ~" |+| cut "4" |+| shape "0.4" |+| speed "1 [1 [~ 1.02] ~ 1.05] 1 1",
+slow 4 $ sound (samples "~ ~ ~ amenall*8" (irand 30)) |+| speed "1.45" |+| shape "0.7",
+sound "ifh*8" |+| gain "0.7"]
+
+-- part 2 intro trans
+d1 $
+stack [
+slow 2 $ sound "[~ [~ ifgab:1*2]] ifgab:1(3,8)" |+| cut "1" |+| shape "0.4" |+| speed "1 [0.95 [~ 0.9] ~ 0.85]"]
+
+-- part 2
+d1 $
+stack [
+sound "if(3,8)" |+| cut "1",
+sound "~ ifs" |+| shape "0.1",
+slow 2 $ sound "ifgab*2 ifgab ~ ~" |+| cut "4" |+| shape "0.5",
+slow 4 $ sound "[~ [~ ifgab:1*2]] ifgab:1(3,8) ~ ~" |+| cut "4" |+| shape "0.5" |+| speed "1 [1 [~ 1.02] ~ 1.05] 1 1",
+sound (samples "amenall*8" (irand 30)) |+| speed "1.45" |+| shape "0.7" |+| hcutoff "0.05" |+| hresonance "0.001" |+| cut "81",
+sound "ifk(3,8)",
+sound "ifh*8"]
+
+hush

@@ -1,0 +1,40 @@
+bpm 170
+
+let pmod1 p = stut' 1 0.0625 (|+| up (choose [12,12])) $ p
+    pmod1' p = sometimesBy 0.1 (sometimesBy 0.1 (pmod1) . shift' 1 . sometimesBy 0.1 (pmod1) . shift' 1 . pmod1) $ p
+
+c1 $ sound "r" |=| cut "1"
+
+keys silence
+
+keys $
+(|=| x (scale 0.15 0.3 $ slow 15 tri1)) $
+(|=| y (scale 0.01 0.1 $ slow 10 tri1)) $
+(|=| z (scale 0.01 0.1 $ slow 9 tri1)) $
+(|=| ab (scale 0.01 0.1 $ slow 8.33 tri1)) $
+whenmod 10 7 (|+| note "-12") $ whenmod 6 3 (|+| note "-12") $
+every 3 (rev) $ density 2 $ every 2 (|+| note "12") $ (|+| note "-8") $
+  note "0 4 7 11 12 16 19 23"
+  |=| dur "0.1"
+  |=| gain "0.65"
+
+keys silence
+hush
+
+c1 $
+stack [
+  gtfo $ rep 10 $ sound "{4k/4 ~ ~ ~ ~}%4" |=| gain "0.9",
+  gtfo $ rarely (0.125 ~>) $ shift $ sound "{~ ~ ~ 4cp ~ ~ ~}%2",
+  gtfo $ rarely (0.25 ~>) $ sound "~ 4s",
+  gtfo $ sound "{4ch*4 4ch*2 [4oh ~ ~ 4oh] 4ch ~ ~ ~}%4" |=| cut "82",
+  gtfo $ sound "{4cy/6 ~ ~ ~ ~}%4" |=| cut "-1",
+  gtfo $ sound "~ [~ 4cb/4] ~ ~" |=| gain "1.1",
+  gtfo $ density 2 $ s "4stab(3,8)" |=| n (slow 190 $ run 33) |=| gain "1.2" ]
+|=| delaytime "0" |=| delayfeedback "0"
+
+
+c1 $ density 2 $ s "4stab(3,8)" |=| n (slow 128 $ run 33) |=| gain "1.3"
+
+hush
+
+keys silence

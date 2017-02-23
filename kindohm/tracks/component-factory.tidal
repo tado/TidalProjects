@@ -1,0 +1,20 @@
+bps (210/120)
+
+d1 $ stack [
+whenmod 12 10 (const $ sound "~") $ slow 4 $ (slowspread (striate) [32, 16, 128, 70, 256] $
+	sound "[heaven heaven:1 heaven:2 heaven:3]/4")
+	|=| speed "[[1 0.5]/2, [~ 1.5 ~ 2]/3]"
+	|=| delay "0.5"
+	|=| gain "0.9",
+sound "[grr [~ grr] [~ grr] ~]"
+	|=| shape "0.4"
+	|=| gain "0.85",
+sound "~ [s]",
+slow 4 $ sound (samples "~ ~ [kv*4 ~] [kv*4 [~ kv ~ kv]]" "[~ ~ 1 [4 [2 5 3]]]")
+	|=| speed "[1 1 0.5 1 1 1.5]/5",
+every 5 (within (0.25, 0.75) (rev . slow 2 . stut 12 0.4 0.25)) $ whenmod 8 5 (density 2) $
+	sound "ch ch*2 ch*2 ch*2"
+] |=| delaytime "0.4" |=| delayfeedback "0.4"
+
+
+hush

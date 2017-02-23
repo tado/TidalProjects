@@ -1,0 +1,16 @@
+bps (200/120)
+
+k7 $ every 4 (within (0.45,0.75) (slow 8)) $ density 4 $ stack [ note "43",
+chooseMidi "55" mpent "[~ 0]" ]
+|+| modwheel (scale 0 1 $ slow 9.31 sine1)
+
+-- 1m 2.4
+m $ slow 4 $ sometimes (|+| note "12") $ chooseMidi "55" mpent "0" |+| dur "2"
+
+keys $ slow 4 $ sometimes (|+| note "12") $ chooseMidi "67" mpent "0" |+| dur "2"
+
+k7 silence
+m silence
+keys silence
+
+k7 $ note "55" |+| dur "1"

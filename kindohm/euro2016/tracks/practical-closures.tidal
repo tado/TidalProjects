@@ -1,0 +1,28 @@
+bps (180/120)
+
+keys $
+(|=| x (scale 0.3 0.4 $ slow 7 tri1)) $
+(|=| y (scale 0.01 0.7 $ slow 9 tri1)) $
+(|=| z (scale 0.01 0.7 $ slow 10 tri1)) $
+(|=| ab (scale 0.01 0.99 $ slow 11 tri1)) $
+density 2 $ foldEvery [2,3,5] (0.25 <~) $
+whenmod 4 2 (|+| note "12") $ every 2 (|+| note "12") $ (|+| note "-13") $ note "0 3 5 7 10 12 15 19"
+|=| dur "0.05"
+
+let hatpat = "{~ ~ ~ ~ ~ ~ ~ [~ 0] [~ 0] [~ 0] [~ 0]}%8"
+    kickpat = "{~ ~ ~ ~ 0*2? 0*2? ~ [0 ~] [0 ~] [0 ~] [0 ~]}%8"
+
+c1 $
+stack [
+gtfo $ whenmod 18 12 (gtfo) $ foldEvery [3,4] (0.25 <~) $ n kickpat # s "8k",
+gtfo $ foldEvery [3,4] (0.25 <~) $ n hatpat # s "8ch",
+gtfo $ (0.25 ~>) $ s "8oh(3,8)",
+gtfo $ (0.125 ~>) $ whenmod 25 20 (gtfo) $ foldEvery [3,4] (0.25 <~) $ n "{0 ~ ~ [~ 0] ~ ~ ~ ~ ~ ~ ~}%8" # s "8s",
+gtfo $ whenmod 30 20 (gtfo) $ n "{~ 0 ~ 0 ~ ~ ~}%4" # s "cp",
+gtfo $ (0.125 ~>) $ sound "8cy/6",
+foldEvery [2,3,4] (0.75 ~>) $ degradeBy 0.6 $ shift $ s "pracpad*2" # n (irand 24) |=| gain "1.05" |=| pan (scale 0.3 0.7 $ shift' 12 $ rand),
+slow (3.5/3) $ foldEvery [2,3,4] (0.75 ~>) $ degradeBy 0.6 $ s "pracpad/2" # n (irand 24) |=| gain "1.05" |=| pan (scale 0.3 0.7 $ shift' 13 $ rand) ]
+
+
+hush
+keys silence

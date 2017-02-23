@@ -1,0 +1,67 @@
+bps (150/120)
+
+let prog = (|+| note "{0 0 0 2 2}%1")
+let progup = (|+| up "{0 0 0 2 2}%1")
+
+
+c1 $
+progup $ rep' 24 $ sound "{9k/4 ~ ~ ~ ~}%4" |=| cut "383"
+
+
+-- 26
+c1 $
+stack [progup $ rep' 24 $ sound "{9k/4 ~ ~ ~ ~}%4" |=| cut "383",
+gtfo $ whenmod 30 22 (const $ sound "~") $ whenmod 16 8 (0.125 ~>) $ sound "9cp*4",
+gtfo $ whenmod 18 14 (const $ sound "~") $ whenmod 9 6 (0.0625 <~) $ sound "~ 9s",
+gtfo $ whenmod 22 16 (const $ sound "~") $ whenmod 14 9 (slow (4/3)) $ sound "{9ch*6 9ch*4 9ch*4 9oh 9ch*4}%4",
+gtfo $ sound "{9cy/8 ~ ~ ~ ~}%4" |=| gain "1.1" ] |=| shape "0.2"
+
+c1 silence
+
+
+c2 $ slow 8 $ sound "heem heem" |=| speed "{0.125 0.3 0.25}%16"
+|=| delaytime "0.5" |=| delayfeedback "0.5" |=| delay "0.5"
+|=| shape "0.3"
+
+
+-- m 130
+m $
+rarely (stut' 2 (0.0625) (|+| note "12")) $
+prog $
+(0.125 ~>) $ rep' 23 $ (|+| note (choose [0,12,24])) $ (|+| note "-7") $ note "{0/4 ~ ~ ~ ~}%4"
+|=| xmod (scale 0 0.3 $ shift' 2 $ rand)
+|=| release (scale 0.15 0.4 $ shift' 4 $ rand)
+|=| egrelease (scale 0.15 0.4 $ shift' 3 $ rand)
+|=| decay (scale 0.05 0.2 $ shift' 5 $ rand)
+|=| egdecay (scale 0.05 0.2 $ shift' 13 $ rand)
+|=| oct1 (scale 0.001 0.3 $ shift' 6 $ rand)
+|=| oct2 (scale 0.5 1 $ shift' 7 $ rand)
+|=| wave1 (scale 0 1 $ shift' 8 $ rand)
+|=| wave2 (scale 0 1 $ shift' 9 $ rand)
+|=| shape1 (scale 0.001 0.95 $ shift' 11 rand)
+|=| shape2 (scale 0.001 0.95 $ shift' 12 rand)
+|=| dur (scale 0.1 0.2 $ shift' 16 rand)
+|=| nudge "0"
+
+
+hush
+
+m silence
+
+erebus $
+prog $ whenmod 32 22 (foldEvery [2,3,4] (0.25 <~)) $
+(|+| note (choose [0,-12,12,24])) $ (|+| note "-7") $ note "{0 ~ ~ 0 ~ ~ 0 ~ ~ 0 ~ ~ 0 ~ ~ 0 ~ ~ ~}%16"
+|=| modwheel (rand) |=| nudge "0"
+
+erebus $ note "0*2"
+
+
+erebus silence
+
+c1 $ sound "8ch"
+
+m silence
+
+erebus $ note "0" |=| nudge "0.02"
+
+hush

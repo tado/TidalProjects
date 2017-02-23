@@ -1,0 +1,13 @@
+bps (155/120)
+
+d1 $ sound "burnch*4"
+
+d1 $ stack [
+every 5 (|=| gain "{1 1 0}%8") $ sometimes (slow 2) $ (|=| coarse "{8 16 24}%4") $ sound "electrowave*8"
+|=| begin (scale 0 0.8 $ rand) |+| cut "1"
+|=| speed "0.9",
+sound "fk:1*8?",
+sound "~ burncp" |=| shape "0.3",
+sound "burnch*4"]
+
+-- add burns

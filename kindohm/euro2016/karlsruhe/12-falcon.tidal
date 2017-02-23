@@ -1,0 +1,26 @@
+bpm 200
+
+let kickpat = "{0 ~ ~ 0 ~}%8"
+    clappat = "{[~ 0]/2 ~ ~ ~ ~}%8"
+    cypat = "{0/16 ~ ~ ~ ~ ~ ~}%8"
+    kickpat6 = "{~ ~ ~ 0 ~ 0}%8"
+    clappat6 = "{~ ~ ~ 0 ~ ~}%8"
+    cypat6 = "{0/16 ~ ~ ~ ~ ~}%8"
+
+let kickpat = kickpat6
+    clappat = clappat6
+    cypat = cypat6
+
+
+c2 $
+stack [
+gtfo $ sound "2ch*8" |=| cut "1" |=| gain "1.2",
+gtfo $ (0.0625 <~) $ sound "2oh/3" |=| cut "1" |=| gain "1.2",
+gtfo $ n kickpat # s "2k" |=| gain "0.9",
+gtfo $ n clappat # s "2cp" |=| shape "0.4",
+gtfo $ n cypat # s "2cy" |=| gain "1.2",
+gtfo $ s "{~ 2stab/6 ~ ~ ~}%8" # n (choose [0,1,2,3,4,5,6,7])|=| shape "0.5",
+sound (samples "{2sy ~ ~ 2sy2 ~}%8" (slow 160 $ run 168))]
+|=| delaytime "0" |=| delayfeedback "0"
+
+hush

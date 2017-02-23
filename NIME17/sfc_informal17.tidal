@@ -24,10 +24,6 @@ d1 $sound "{bd*4, cp*6, hh*11}"
 -- manipulate time
 
 d1
--- $sometimes (jux (iter 4))
--- $sometimes (jux (iter 8))
--- $sometimes (jux (iter 16))
--- $sometimes (jux (rev))
 $jux (iter 4)
 $whenmod 4 3 (rev)
 $sound "[bd [~ ifdrums] [~ bass] cp]*2" #n (irand 128)
@@ -39,12 +35,11 @@ $sound "[bd [~ ifdrums] [~ bass] cp]*2" #n (irand 128)
 d1 $sound "{bd(3, 8), cp(5, 8)}"
 
 d1
-$every 2 (jux (iter 4))
--- $every 3 (jux (iter 8))
+$whenmod 8 4 (jux (iter 8))
 $whenmod 4 3 (rev)
 $sound "{ifdrums(3, 16, 3), bd(5, 16, 2), glitch(11, 16, 2)}"
 #n (irand 64)
-# pan (rand)
+#pan (rand)
 
 
 --------------------------------

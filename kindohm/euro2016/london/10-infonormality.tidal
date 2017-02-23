@@ -1,0 +1,31 @@
+bpm 170
+
+let ry = sound (samples "{[ch]*2 k*4? [s cp] ch*2 cp/2}%4" (run 30))
+
+c2 $ sometimes (jux (iter 4)) $ shift $ sometimes (|=| speed "[0.5 0.25]*3") $
+(|=| cutoff (scale 100 1000 $ sine1)) $ slow 16 $ striate 128 $ sound (samples "dr:0" "[0 1]/8")
+|=| resonance "0.1" |=| gain "1.1"
+
+c5 silence
+
+c1 silence
+
+c1 $ degradeBy 0.7 $ whenmod 16 13 (iter 8) $
+foldEvery [3,4] (0.25 ~>) $
+every 4 (chop 4) $
+every 5 (gap 4) $
+every 9 (|=| accelerate "-1 1") $
+every 6 (|=| coarse "16 24 32") $
+every 7 (rip 0.25 0.125) $
+every 8 (rip' 0 1 8 0.125 0.125) $
+stack [
+degradeBy 0.1 $ slowcat [brakk "teeny1*8", brakk "teeny2*8", brakk "teeny3*8"],
+ry,
+sound "scree(3,8)" |=| cut "873" |=| speed "[1 0.5]/3",
+sound (samples "{~ seq2 ~}%2" (irand 20)) |=| cut "2" |=| speed "{1 -1 1}%16",
+sound (samples "{seq3 ~ ~ ~ ~}%2" (irand 20)) |=| cut "5",
+sometimes (density 2) $ shift $ rarely (|=| begin "0.5") $ shift $ sometimes (0.125 ~>) $
+sound (samples "seq1" (irand 20)) |=| cut "4"]
+|=| delaytime "0" |=| delayfeedback "0"
+
+hush

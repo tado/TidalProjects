@@ -1,0 +1,116 @@
+import Sound.Tidal.Context
+import Sound.Tidal.MIDI.Stream
+import Sound.Tidal.MIDI.Kindohm.Rack
+import Sound.Tidal.MIDI.Kindohm.CustomParams
+devs <- midiDevices
+
+rytm <- midiStream devs "Scarlett 18i8 USB" 1 rackController
+m <- midiStream devs "Scarlett 18i8 USB" 15 rackController
+keys <- midiStream devs "LoopBe Internal MIDI" 1 rackController
+erebus <- midiStream devs "Scarlett 18i8 USB" 7 rackController
+coast <- midiStream devs "Scarlett 18i8 USB" 14 rackController
+
+let rip a b p = within (0.25, 0.75) (slow 2 . rev . stut 8 a b) p
+    rip' a b c d e p = within (a, b) (slow 2 . rev . stut c d e) p
+    spike p = ((|+| delaytime (scale 0.001 0.3 $ slow 7.1 sine1)) . (|+| delayfeedback (scale 0.7 0.99 $ slow 6.71 sine1))) $ p
+    spike' p = (|+| delay "0.3") $ spike $ p
+    ghost'' a f p = superimpose (((a/2 + a*2) ~>) . f) $ superimpose (((a + a/2) ~>) . f) $ p
+    ghost' a p = ghost'' a ((|*| gain "0.7") . (|=| end "0.2") . (|*| speed "1.25")) p
+    ghost p = ghost' 0.125 p
+    jit start amount p = within (start, (start + 0.5)) (trunc (amount)) p
+    gtfo p = (const $ sound "~") p
+    gtfo' p = (const $ midinote "~") p
+    gtfom = gtfo'
+    gtfo2 = gtfo'
+    shift p = (1024 <~)  p
+    shift' x p = (x <~) p
+    choose xs = (xs !!) <$> (irand $ fromIntegral $ length xs)
+    one p = stut' 1 (0.125/2) (|*| gain "1") $ p
+    one' p = rarely (stut' 1 (0.125/2) (|*| gain "1")) $ shift' 1024 $ p
+    one'' p = sometimes (stut' 1 (0.125/2) (|*| gain "1")) $ shift' 1024 $ p
+    rep n p = stut' (n-1) (0.125*3) (|*| gain "1") $ p
+    rep' n p = stut' (n-1) (0.125/2*3) (|*| gain "1") $ p
+    rep'' n p = stut' (n-1) (0.125/4*3) (|*| gain "1") $ p
+    beginend bpat durpat = (begin bpat) # (end $ (+) <$> bpat <*> durpat)
+    ionian = [0,2,4,5,7,9,11]
+    aeolian = [0,2,3,5,7,8,10]
+    locrian = [0,1,3,5,6,8,10]
+    phryg = [0,1,3,5,7,8,10]
+    phryg2 = [0,1,3,5,7,8,10,12,13,15,17,19,20,22]
+    lydian = [0,2,4,6,7,9,11]
+    enig = [0,1,3,5,6,8,10,11]
+    minor = [0,3,7]
+    major = [0,4,7]
+    _9 = [0,4,7,10,14]
+    ninesus4 = [0,5,7,10,14]
+    add9 = [0,4,7,14]
+    madd9 = [0,3,7,14]
+    maj9 = [0,4,7,11,14]
+    m9 = [0,3,7,10,14]
+    sus2 = [0,2,7]
+    sus4 = [0,5,7]
+    _7 = [0,4,7,10]
+    m7 = [0,3,7,10]
+    eleven = [0,4,7,10,14,17]
+    _11 = [0,4,7,10,14,17]
+    m11 = [0,3,7,10,14,17]
+    _13 = [0,4,7,10,14,21]
+    m13 = [0,3,7,10,14,21]
+    mpent = [0, 3, 5, 7, 10, 12]
+    pent = [0, 2, 4, 7, 9, 12]
+    inverse 1 = 0
+    inverse 0 = 1
+    inverse 11 = 0
+    inverse 10 = 1
+    ch = midinote "8"
+    oh = midinote "9"
+    bd = midinote "36"
+    sd = midinote "1"
+    rs = midinote "2"
+    cp = midinote "3"
+    bt = midinote "4"
+    lt = midinote "5"
+    mt = midinote "6"
+    cy = midinote "10"
+    cb = midinote "11"
+    bpm x = bps (x/120)
+    brakk samps = ((|=| unit "c") . (|=| speed "8")) $ sound (samples samps (irand 30))
+    brakk4 samps = ((|=| unit "c") . (|=| speed "4")) $ sound (samples samps (irand 30))
+
+import Sound.Tidal.MIDI.Context
+displayOutputDevices >>= putStrLn
+
+bps (140/120)
+
+test $ (|+| note "[-7 -12]/8") $
+note "[12*8?, 5*8?, 9*8?]"
+|=| dur "0.7"
+|=| detune (scale 0.501 1 $ slow 9 tri1)
+|=| kdecay (scale 0 1 $ slow 7 tri1)
+|=| ksustain (scale 0 1 $ slow 6 tri1)
+
+c1 $ sound "k:9*8?" |=| cut "7"
+
+test silence
+c1 silence
+
+r1 $ midinote "0*2 ~ ~"
+m $ note "~ 0*2 ~"
+c1 $ sound "~ ~ peri:3*2" |=| pan "[0 1]/2"
+
+m $ note "0"
+
+m silence
+r1 silence
+
+hush
+
+
+
+erebus $ slow 2 $  note "[0 -12/4] -3/2 3/3 ~ [16 18] ~ 7 5 [18 21] ~" |=| dur "0.2"
+
+erebus $ note "0*8?"
+
+erebus silence
+
+coast silence

@@ -1,0 +1,90 @@
+bps (170/120)
+
+let ry = sound (samples "{[ch]*2 k*4? [s cp] ch*2 cp/2}%4" (run 30))
+    sfill = const $ stack [sound (samples "{seq2 ch k}%16" (run 20)) |+| cut "-1"]
+
+c2 $ spike' $ sometimes (jux (iter 4)) $ shift $ sometimes (|=| speed "[0.5 0.25]*3") $
+(|=| cutoff (scale 0.01 0.2 $ sine1)) $
+slow 16 $ striate 128 $ sound (samples "dr:0" "[0 1]/8")
+|=| resonance "0.1" |+| gain "1.1"
+
+c1 $
+every 6 (|=| coarse "16 32 8") $
+whenmod 7 5 (jux (iter 4)) $
+whenmod 11 9 (sfill) $
+every 8 (|=| accelerate "-1 -0.5") $
+slow 8 $ striate' 32 (1/10) $
+stack [
+sometimes (density 2) $ shift $
+rarely (|+| begin "0.5") $ shift $ sometimes (0.125 ~>) $ slow 1 $ sound (samples "seq1" (irand 20)) |+| cut "4",
+slowcat [ry,
+sound (samples "akuma1*8" (irand 20)) |=| unit "c" |=| speed "8" |=| shape "0.2",
+sound (samples "amenall*8" (irand 20)) |=| unit "c" |=| speed "8" |=| shape "0.5",
+sound (samples "jung1*8" (irand 20)) |=| unit "c" |=| speed "8" |=| shape "0.5"],
+sound (samples "{~ seq2 ~}%2" (irand 20)) |+| cut "2" |+| speed "{1 -1 1}%16",
+sound (samples "{seq3 ~ ~ ~ ~}%2" (irand 20)) |+| cut "5"]
+
+bps (150/120)
+
+c1 $ degrade $
+whenmod 20 15 (slow 1.25) $
+whenmod 11 8 (|=| crush (scale 1.25 10 $ slow 2.1 sine1)) $
+every 5 (|=| coarse "16 32 16") $
+whenmod 7 5 (jux (iter 4)) $
+every 7 (rip' 0 1 8 0.25 0.125) $
+every 8 (rip 0.25 0.125) $
+foldEvery [3,2] (0.25 <~) $ stack [
+sound "kr/2" |=| cut "4" |=| shape "0.4",
+every 4 ((|=| speed "-1")) $ every 3 ((|=| speed "0.5")) $
+sound "~ defdo:1/2 nau/2 defdo/3" |=| delay "0.4" |=| cutoff "0.1" |=| resonance "0.01",
+whenmod 7 5 ((|=| speed "[1.5, 1.4]") . (|=| gain "0.9")) $ whenmod 12 8 (|=| gain "0") $
+sound "ch*4 [monst:2/5 monst/4] [~ ch*2] [~ beak:1*2?]" |=| shape "0 0.5 0 0",
+sound "~ beas:1" |=| speed "1.5",
+whenmod 9 6 (const $ sound "~") $ every 3 (rev) $ every 2 (jux(iter 4)) $ density 2 $
+sound "teks(3,8)" |=| speed (foldEvery [3,2] (0.25 ~>) $ "[1 0.8 -1 [1 0.5]]/2"),
+whenmod 17 10 (const $ sound "~") $ every 3 (|=| speed "0.5") $ slow 6 $
+(striate 128 $ sound "alonevox*4") |=| speed "[0.8, 0.7]",
+density 2 $ sound "fk*4? beas",
+jux (|=| speed "1.1") $ slow 2 $ sound "~ ~ beak*8? ~",
+slow 2 $ sound "~ [~ b18b/2] ~ sub/3" |=| gain "1.1 1" |=| shape "0.1 0"]
+|=| delaytime "0.3" |=| delayfeedback "0.4"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+c1 $ density 2 $ whenmod 17 14 (iter 4) $
+every 9 (rip' 0 1 8 0.2 0.1) $ whenmod 10 8 (|=| crush "-5 4 -3 7") $
+every 12 (# speed "-1") $
+whenmod 16 14 (spike') $
+every 13 (jux (iter 4)) $
+every 7 (|=| coarse "32 16 8") $ every 5 (gap 4) $ every 6 (chop 4) $ every 8 (|+| accelerate "-1 1") $
+slow 2 $
+whenmod 11 9 (const $ stack [sound (samples "{seq2 ch k}%16" (run 20)) |=| cut "-1"]) $
+stack [
+shift $
+sometimes (density 2) $ shift $ rarely (|+| begin "0.5") $ shift $ sometimes (0.125 ~>) $ slow 1 $ sound (samples "seq1" (irand 20)) |+| cut "4",
+sound (samples "{[ch]*2 k*4? [s cp] ch*2 cp/2}%4" (run 30)),
+sound (samples "{~ seq2 ~}%2" (irand 20)) |=| cut "2" |=| speed "{1 -1 1}%16",
+sound (samples "{seq3 ~ ~ ~ ~}%2" (irand 20)) |=| cut "5"]
+
+c2 $ spike' $ sometimes (jux (iter 4)) $ shift $ sometimes (|=| speed "[0.5 0.25]*3") $
+(|=| cutoff (scale 0.01 0.2 $ sine1)) $ slow 16 $ striate 128 $ sound (samples "dr:1" "[0 1]/8") |=| resonance "0.1"
+
+hush

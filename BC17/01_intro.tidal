@@ -1,0 +1,22 @@
+---- 01.intro
+
+d1
+$s "supersaw" #n "-36"
+#sustain "2.0"
+#gain "1.0"
+-- #cutoff (scale 400 8000 $slow 8 $sine1) #resonance "0.2"
+
+d2
+-- $sometimes (jux (iter 8))
+-- $sometimes (jux (iter 4))
+-- $sometimes (jux (rev))
+-- $sometimes (rev)
+$stack[
+  -- s "myMoog(9,16,6)" #n "12" #resonance "1.11 2.22 4.44 5.55 6.66",
+  -- s "myMoog(3,16,3)" #n "0" #resonance "1.11 2.22 4.44 5.55 6.66",
+  -- s "supersaw(3,16,5)" #n "-12",
+  s "supersaw(5,16)" #n "-24"
+]
+#sustain "0.2"
+#gain "0.75"
+-- #delay "0.3" #delaytime "0.03 0.01 0.02" #delayfeedback "0.8"

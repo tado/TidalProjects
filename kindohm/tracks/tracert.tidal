@@ -1,0 +1,7 @@
+bps (200/120)
+
+-- ML 007
+m $ slow 2 $ stut' 1 (0.0625) (|+| note "-12") $ rev $ (|+| note "55") $ mel phryg 16 ( foldEvery [3] (density ((4/3))) $ "0*4")
+
+
+d1 $ sound (samples "jung1*2 [jung2 jung4] jung3*2 jung5*2" (every 2 (0.25 <~) $ run 20)) |+| cut "1" |+| unit "c" |+| speed "8"

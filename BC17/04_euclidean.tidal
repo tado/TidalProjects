@@ -1,0 +1,34 @@
+---- 04 Euclidean
+
+d2
+-- $whenmod 4 3 (chop 16)
+-- $whenmod 5 4 (gap 8)
+-- $sometimes(jux (iter 16))
+-- $sometimes(jux (iter 8))
+-- $sometimes(jux (iter 4))
+-- $sometimes(jux (rev))
+-- $every 4 (rev)
+$stack[
+  -- sound (samples "arpy(3,16,11)" (irand 17)) #up "-24",
+  -- sound (samples "arpy(7,16,9)" (irand 16)) #up "-12",
+  --sound (samples "arpy(5,16,8)" (irand 15)) #up "24",
+  --sound (samples "arpy(3,16,3)" (irand 14)) #up "0",
+  --sound (samples "arpy(3,16,5)" (irand 13)) #up "5",
+  --sound (samples "arpy(3,16)" (irand 12)) #up "12",
+  --sound (samples "felld(3,16,12)" (irand 128)) #pan (rand),
+  sound "fell2(5,16,5)" #pan (rand),
+  sound "fell(5,16,11)" #pan (rand),
+  sound (samples "bass(3,16,2)" (irand 128)),
+  sound (samples "dr55(3,16,10)" (irand 128)) #pan (rand),
+  --sound (samples "tr-808(3,16,8)" (irand 128)) #pan (rand),
+  --sound (samples "casio(5,16,6)" (irand 128)) #pan (rand),
+  sound (samples "glitch(3,16,5)" (irand 128)) #pan (rand),
+  sound (samples "808bd(3,16,9)" (irand 128)),
+  sound (samples "bd(3,16,3)" (irand 128)) #gain "1.2"
+]
+#n (irand 128)
+-- #up "{7 0 -7 0 5 -12 0 12 0 7 0 -7 0 12}%16"
+#cutoff (scale 800 10000 $slow 3 $rand) #resonance "0.2"
+#delay "0.3" #delaytime "0.03 0.01 0.02" #delayfeedback "0.5"
+#gain "1.5"
+-- #vowel "o i a e i o e"

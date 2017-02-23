@@ -1,0 +1,39 @@
+bpm 140
+
+let pat0 = "{0 ~ ~ ~ ~}%4"
+    pat1 = "{1 ~ ~ ~ ~}%4"
+    patmod p = foldEvery [2,3,4] (0.25 ~>) $ rep' 5 $ p
+
+c1 silence
+
+hush
+
+c2 $ sound "milong:2([9 7 11 10]/4,16)" |=| begin "0.05" |=| cut "921" |=| gain "0.8"
+
+c2 $ sound "milong:2/4" |=| cut "921" |=| gain "0.8"
+
+hush
+
+c1 $ whenmod 9 7 (jux (iter 4)) $ whenmod 17 14 (iter 8) $
+every 5 (chop 4) $
+every 4 (gap 4) $
+every 6 (rip 0.25 0.125) $
+every 7 (rip' 0 1 8 0.25 0.125) $
+every 8 (|=| coarse "{8 16 32}%8") $
+every 9 (|=| accelerate "-1 1") $
+foldEvery [3,4] (0.25 ~>) $
+stack [
+whenmod 8 3 (const $ degradeBy 0.3 $ brakk "amenall2*8" |=| shape "0.3") $
+sound "~",
+patmod $ n pat0 # s "risckit" |=| gain "1.05",
+iter 8 $ sound "~ risckit:2",
+every 7 (stut' 5 0.0625 (|*| gain "0.5")) $
+whenmod 4 2 (0.125 ~>) $ sound "~ risckit:1",
+whenmod 7 5 (slow (4/3)) $ whenmod 5 3 (density 2) $ sound "risckit:4*8",
+sound "risckit:7/16",
+whenmod 22 17 (const $ sound "~") $
+rarely (|=| up "-1") $ patmod $ (|+| n (slow 49 $ irand 49)) $ n pat0 # s "riscm" |=| cut "20" |=| gain "1.07",
+whenmod 20 14 (const $ sound "~") $
+whenmod 18 15 (iter 8) $ (|+| up "[1 -2 0 -5 3 -1 5]/28") $ patmod $ gain pat1 #
+s "mi" # n "[0 1 5 6 17 7 8 9 10 11 12 13 15 17]/56" |=| cut "2" |=| gain "0.9" ]
+|=| delaytime "0" |=| delayfeedback "0"

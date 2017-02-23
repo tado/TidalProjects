@@ -1,0 +1,21 @@
+c1 $ jux (rev) $
+  every 4 (stut' 1 (0.125*3) (|*| speed "1.5")) $
+  every 6 (|=| coarse "16 8 12") $
+  every 7 (rip 0.25 0.25) $
+  every 8 (rip' 0 1 8 0.25 0.25) $
+every 2 (rev) $ every 3 (chop 8) $
+ stack [sound "ulk([3 5]/2,8)",
+ degradeBy 0.3 $ brakk "brkh3*8",
+ sound "~ cpr/2 ~ ~" |=| speed "[1 -1 1]/2",
+ (0.5 <~) $ every 3 (stut' 7 (0.125) (|*| gain "0.8")) $ sound "s2",
+  sound "~ teks [~ teks] ~"]
+
+c1 silence
+
+c2 $ slow 2 $ sound "lessb" |=| cut "-1"
+
+keys $ note "0 11 22"
+
+keys silence
+
+hush

@@ -1,0 +1,13 @@
+bps (200/120)
+
+-- ML 102
+m $ slow 2 $ stut' 1 (0.0625) (|+| note "-12") $ rev $ (|+| note "55") $ mel phryg 16 ( foldEvery [3] (density ((4/3))) $ "0*4")
+
+-- ML 102 VERSION 0.8
+m $  slow 2 $ stut' 1 (0.0625) (|+| note "-24") $ rev $ mel phryg 16 (every 3 (density (4/3)) $ note "0*4")
+
+c1 $ stack [
+sound (samples "jung1*4 jung3*4" (foldEvery [2,3] (0.25 <~) $ run 10)) |=| unit "c" |=| speed "8"]
+
+
+hush

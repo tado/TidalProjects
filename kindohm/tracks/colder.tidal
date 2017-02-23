@@ -1,0 +1,33 @@
+bps (400/120)
+
+c1 $ whenmod 35 30 (degradeBy 0.6 . shift' 7) $
+whenmod 30 26 (slow 2) $
+whenmod 17 15 (slow (4/3)) $
+whenmod 26 20 (spike') $
+whenmod 20 16 (trunc 0.25) $
+whenmod 18 15 (jux (iter 4)) $
+whenmod 50 40 ((|+| cutoff (scale 0.005 0.02 $ slow 4 sine1)) . (|+| resonance (scale 0.1 0.5 $ slow 5 sine1))) $
+every 5 (chop 4) $ every 6 (gap 4) $
+every 7 (|+| coarse "16 32 24") $
+every 15 (|+| coarse "32 64 128") $
+every 8 (rip 0.2 0.1) $
+every 9 (|+| accelerate (choose [-1,1])) $
+every 10 (|+| crush "-5 5 4 -3") $
+every 11 (rip' 0 1 8 0.2 0.1) $
+slowspread ($) [id, rev, superimpose (rev . striate' 8 (1/10) . slow 4), (|*| speed "0.5") . slow 2, id, spin 2, spin 4, (|+| vowel "a o u i"), stut' 3 0.375 (|*| speed "1.25"), id] $
+foldEvery [3,4] (3.25 <~) $ whenmod 18 16 (const $ sound "{cold:38 fk fk:9}%8" |+| cut "1") $ stack [
+degradeBy 0.6 $ sound (samples "cold*8" (slow 4 $ slowcat [choose [9,5,11,7,8,10], choose [200,250,240,260,270], choose [20,21,22,25,27], choose [55,57,65,66,61,69], choose [100,101,98,105,108,109]])) |+| cut "1",
+sound (samples "frozen/2" (irand 10)) |+| cut "2",
+slow 2 $ sound (samples "fk*8? ~" (run 50)),
+rarely (|=| speed "0.5") $ slow 2 $ sound "~ s2",
+foldEvery [2,3,4,5] (density (2)) $ sound "kit4:8*2" |=| speed "4" |+| gain "0.8" ]
+
+hush
+
+
+c1 $ whenmod 18 16 (const $ sound "{cold:38 fk fk:9}%8" |+| cut "1") $ stack [
+degradeBy 0.6 $ sound (samples "cold*8" (slow 4 $ slowcat [choose [9,5,11,7,8,10], choose [200,250,240,260,270], choose [20,21,22,25,27], choose [55,57,65,66,61,69], choose [100,101,98,105,108,109]])) |+| cut "1",
+sound (samples "frozen/2" (irand 10)) |+| cut "2",
+slow 2 $ sound (samples "fk*8? ~" (run 50)),
+rarely (|=| speed "0.5") $ slow 2 $ sound "~ s2",
+foldEvery [2,3,4,5] (density (2)) $ sound "kit4:8*2" |=| speed "4" |+| gain "0.8" ]

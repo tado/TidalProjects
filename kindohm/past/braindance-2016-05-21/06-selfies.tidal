@@ -1,0 +1,49 @@
+bps (200/120)
+
+d1 $ stack [
+sound "{heem ~ ~}%1" |=| shape "0.3" |=| speed "0.1225",
+sound "cpr/5" |=| coarse "{16 24 32}%8" |=| speed "{0.9 0.8 1 0.75 0.85}%16",
+slow 4 $ sound "~ ~ ~ melt" |=| coarse "32" |=| cut "1" |=| gain "1"]
+
+k7 $ note ((+56) <$> (every 3 ((subtract 4) <$>) . every 2 ((subtract 3) <$>)) ("{0 2 0 -1 -6*2}%8"))
+|=| dur "0.05"
+
+d1 $ d $ every 5 (gap 4) $ every 6 (chop 4) $
+every 7 (rip 0.125 0.25) $
+every 8 (rip' 0 1 8 0.125 0.25) $
+whenmod 6 3 (iter 4) $
+foldEvery [3,4] (0.25 <~) $ stack [
+foldEvery [2,3,4] (5.75 ~>) $
+slowcat [
+sound (samples "brkh3*8" (irand 30)) |=| unit "c" |=| speed "8" |=| shape "0.1",
+sound (samples "ion2*8" (irand 30)) |=| unit "c" |=| speed "8" |=| shape "0.1",
+sound (samples "think*4" (irand 30)) |=| unit "c" |=| speed "4" |=| shape "0.7",
+sound (samples "funky*8" (irand 30)) |=| unit "c" |=| speed "8" |=| shape "0.1"],
+sound "{heem ~ ~}%1" |=| shape "0.3" |=| speed "0.1225",
+sound "cpr/2" |=| coarse "{16 24 32}%8" |=| speed "{0.9 0.8 1 0.75 0.85}%16",
+slow 4 $ sound "~ ~ ~ melt" |=| coarse "32" |=| cut "1" |=| gain "1",
+slow 2 $ sound (samples "fk*16 shard:8" (run 30)) ]
+
+
+
+bps (100/120)
+
+d2 $ spike' $ jux (iter 4) $ sound "k*16" |=| gain (density 2 $ scale 0.3 1 $ saw1)
+
+
+hush
+
+
+d1 silence
+k7 silence
+
+
+-- interlude
+d1 $ stack [
+sound "{heem ~ ~}%1" |=| shape "0.3" |=| speed "0.1225",
+sound "cpr/3" |=| coarse "{16 24 32}%8" |=| speed "{0.9 0.8 1 0.75 0.85}%16",
+slow 4 $ sound "~ ~ ~ melt" |=| coarse "32" |=| cut "1" |=| gain "1",
+jux (iter 4) $ slow 2 $ sound (samples "fk*16 [~ fk*8]" (run 30))]
+
+
+k7 silence

@@ -1,0 +1,55 @@
+bps (170/120)
+
+let derp p = stut' 1 0.0625 (|+| note (choose [36,24,12,36,-12])) $ p
+    pmod p = sometimesBy 0.1 (sometimesBy 0.1 (derp) . shift' 1 . sometimesBy 0.1 (derp) . shift' 1 . derp) $ p
+    smod p = (|=| release (scale 0.2 0.6 $ slow 17 tri1)) $
+              (|=| xmod (scale 0 0.5 $ slow 20 tri1)) $
+              (|=| cutoff (scale 0.6 0.8 $ slow 11 tri1)) $
+              (|=| egint (scale 0.6 0.8 $ slow 13 tri1)) $
+              (|=| oct2 (scale 0.3 1 $ slow 25.5 tri1)) $
+              (|=| oct1 (scale 0 1 $ slow 21 tri1)) $
+              (|=| noise (scale 0 0.7 $ shift' 2 $ rand)) $ p
+    reset p = (|=| xmod "0.0001") $
+              (|=| egint "0.8") $
+              (|=| oct2 "1") $
+              (|=| oct1 "0.6") $
+              (|=| noise "0") $ p
+
+-- ML 124
+m $ pmod $
+whenmod 16 12 (foldEvery [3,4] (0.25 <~)) $ whenmod 20 14 (foldEvery [3,4] (0.25 <~)) $
+density 2 $ note "-8(3,8)" |=| cutoff "0.2"
+
+|=| release "0.3" |=| cutoff "0.8"
+
+m silence
+
+
+hush
+
+-- 4
+c1 $ rarely (stut' 1 (0.0625*3) (|*| speed "1.5")) $
+foldEvery [3,4] (0.25 ~>) $
+every 5 (chop 4) $
+every 4 (gap 4) $
+every 6 (rip' 0 1 12 0.25 0.25) $
+every 7 (|=| coarse "64 128 32") $
+every 8 (rip 0.125 0.25) $
+every 9 (|=| speed "-1") $
+stack [
+rep 10 $ sound "{4k/4 ~ ~ ~ ~}%4" |=| gain "0.95",
+slow 2 $ sound "~ 4cp/2",
+rarely (0.25 ~>) $ sound "~ 4s",
+sound "{4ch*4 4ch*2 [4oh ~ ~ 4oh] 4ch ~ ~ ~}%4",
+sound "{4cy/12 ~ ~ ~ ~}%4" |=| gain "0.9",
+sound "~ [~ 4cb/4] ~ ~" |=| shape "0" ] |=| gain "1.2"
+
+
+hush
+
+erebus $ every 3 (rev) $ density 2 $ every 2 (|+| note "12") $ (|+| note "-8") $ note "0 4 7 11 12 16 19 23"
+
+r1 silence
+m silence
+erebus silence
+c1 silence

@@ -1,0 +1,29 @@
+
+bpm 155
+
+c1 $ sound "burnch*4" |=| gain "1"
+
+c1 $ degrade $
+foldEvery [2,3] (0.25 <~) $
+every 7 (rip 0.25 0.125) $
+every 6 (rip' 0 1 8 0.25 0.125) $
+every 8 (|=| accelerate "-0.5 0.5") $
+every 9 (|=| coarse "{16 32 8}%8") $
+stack [
+jux (iter 4) $ stut' 3 (0.125*3) (|*| gain "0.8") $
+sound "{run ~ ~}%4" |=| speed "0.5",
+degradeBy 0.4 $
+slowcat [brakk "fur1*8" |=| shape "0.1",
+sound "fur2*8" |=| shape "0.1",
+sound "fur3*8" |=| shape "0.1"],
+sometimes (slow 2) $ superimpose (|=| coarse "{8 16 24}%4") $ sound "electrowave*8"
+|=| begin (scale 0 0.7 $ rand) |=| cut "1"
+|=| speed "0.9" |=| gain "0.9",
+sound (samples "k*8 [burns ~ ~ [k*2 ~]/2]" (run 20)),
+jux (iter 8) $
+stut' 4 (0.125) (|*| gain "0.8") $ (0.5 <~) $ sound "burncp",
+foldEvery [2,3,4] (density 2) $ sound "burnch*4" |=| gain "1"]
+
+c1 $ sound (samples "k*8 [burns ~ ~ [k*2 sub:0]/2]" (run 20))
+
+hush

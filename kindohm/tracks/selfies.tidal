@@ -1,0 +1,8 @@
+bps (200/120)
+
+k7 $ note ((+56) <$> (every 4 ((subtract 2) <$>) . every 3 ((subtract 4) <$>) . every 2 ((subtract 3) <$>)) ("{0 2 0 -1 -6*2}%8"))
+|+| dur "0.03"
+
+
+k7 silence
+m silence

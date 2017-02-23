@@ -1,0 +1,11 @@
+erebus $ every 3 (slow 2) $ slow 2 $ preplace (1,3) (note "{1 [~ 1] ~ 1*1 ~ ~ ~ 1*2 ~}%8") (foldEvery [2,3] (|+| note "-12") $ (|+| note "12") $ note "0 2 -1 0 4 12 -3 5 0 14 2")
+|=| dur "{0.1 0.2 0.05 0.1 0.2}%8"
+|=| modwheel (shift' 6 $ rand)
+
+
+keys $ every 3 (slow 2) $ slow 2 $
+preplace (1,3) (note "{1 [~ 1] ~ 1*1 ~ ~ ~ 1*2 ~}%8") (foldEvery [2,3] (|+| note "-12") $ (|+| note "12") $ note "0 2 -1 0 4 12 -3 5 0 14 2")
+|=| dur "{0.25 0.2 0.3 0.35 0.2}%8"
+|=| x "0.3"
+
+keys silence

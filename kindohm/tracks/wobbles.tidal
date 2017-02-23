@@ -1,0 +1,18 @@
+bps (200/120)
+
+k7 $ whenmod 16 8 (|+| note "-5") $
+stack [
+note "45/4" |+| dur "4.5",
+(|+| note (choose [0,12,12,24])) $ degrade $ shift' 5 $ chooseMidi "45" phryg "0*8" |+| dur "0.15" ]
+|+| modwheel (shift' 2 $ rand)
+
+m $ slow 4 $ chooseMidi "57" phryg2 "~ ~ ~ 0(3,8)" |+| dur "0.2"
+
+m $ (|+| note (choose [0,12,24,-12,0])) $ chooseMidi "57" phryg2 "0*8" |+| dur "0.2"
+
+d1 $ slow 2 $ sound "k*4? cp k*4? cp"
+
+
+k7 silence
+m silence
+hush

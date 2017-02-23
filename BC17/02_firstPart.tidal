@@ -1,0 +1,20 @@
+---- 02 first part
+
+d3
+$slow 2
+$sometimes (jux (iter 8))
+$sometimes (jux (iter 4))
+$sound "ifdrums*2 ~ ~ ~ ~ ~ ~ ~"
+#gain "1.5"
+#n "[0 2] 0 0 0 0 0 0 0"
+-- #pan (rand)
+
+d3
+-- $whenmod 8 4 (jux (iter 8))
+-- $whenmod 4 3 (jux (iter 2))
+-- $sometimes (rev)
+$sound "{ifdrums(3, 16, 3), bd(3, 16, 2), glitch(3, 16)}"
+#gain "1.5"
+#n (irand 64)
+#pan (rand)
+

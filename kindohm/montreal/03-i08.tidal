@@ -1,0 +1,34 @@
+cps 0.65
+
+let k = s "i08k"
+    cp = s "i08cp"
+    ch = s "i08ch" |=| cut "-1"
+    oh = s "i08oh" |=| cut "-1"
+    b = s "i08b" |=| n (irand 100)
+    b2 = s "i08b2" |=| n (irand 100)
+    sd = s "i08s"
+    t = s "i08t"
+    perc = s "i08p"
+    jump p = stut' 4 (0.125) (|*| speed "2") $ p
+
+let pat = ("{1 0 1*2 0 0 1*2 0 1 1 0 1 0 0*2}%8")
+
+
+
+
+
+do
+  let pat = ("{1 0 1*2 0 0 1*2 0 1 1 0 1 0 0*2}%8")
+  let x = gain pat
+  let y = gain (inverse <$> pat)
+  c1 $
+      stack [
+      x # b,
+      y # k,
+      gtfo $ (0.125 <~) $ y # t,
+      x # cp,
+      y # ch,
+      x # oh,
+      gtfo $ y # sd]
+
+hush

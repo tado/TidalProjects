@@ -1,0 +1,11 @@
+cps 1
+
+
+
+c1 $
+foldEvery [4,3] (|+| begin "0.07") $
+sound "ringsurfing([3 5 7]/3,8)" |=| cut "1"
+|=| begin "{0.6 0.6 0.66}%4"
+|=| delay "0.5" |=| delayfeedback "0.7" |=| delaytime "0.5"
+
+c1 $ sound "r" |=| cut "1"

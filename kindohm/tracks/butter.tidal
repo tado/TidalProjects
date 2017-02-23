@@ -1,0 +1,46 @@
+bps (200/120)
+
+-- m 2.1, ML 100
+m $ slow 8 $ whenmod 16 8 (|+| note "-5") $
+stack [(|+| note (choose[0,12,0,-12,-24])) $ shift' 71 $ chooseMidi "45" mpent "{0 ~ ~ ~ ~}%4"
+|+| dur (scale 1 2 $ shift' 2 $ rand),
+(|+| note (choose[0,12,0,-12,-24])) $ shift' 7 $ chooseMidi "57" mpent "{0 ~ ~}%8"
+|+| dur (scale 1 2 $ shift' 3 $  rand)]
+
+-- osc1 16, osc2 whatever
+k7 $ density 1 $ whenmod 16 8 (|+| note "-5") $ (|+| note (choose[0,12,0])) $ shift' 81 $
+degrade $ shift' 82 $ chooseMidi "45" mpent "0"
+|+| dur (scale 0.4 0.5 $ shift' 14 $ rand)
+|+| modwheel (shift' 13 $ rand)
+
+keys $ whenmod 16 8 (|+| note "-5") $ (|+| note (choose [-12,0,12,24])) $ shift' 66 $
+chooseMidi "57" mpent "{0*4 0*4 ~ ~ ~ ~ ~}%2" |+| dur "0.15"
+
+-- butk/buts
+
+
+m silence
+
+k7 silence
+
+keys silence
+
+d1 $ whenmod 11 9 (spike')$
+every 5 (gap 4) $
+every 6 (chop 4) $
+every 7 (|=| coarse "16 24 32") $
+every 9 (|=| speed "-1 0.7 1.2 -0.5") $
+every 8 (rip 0.2 0.1) $
+every 11 (|=| crush "-3 4 -5 6") $
+every 10 (rip' 0 1 8 0.2 0.1) $
+foldEvery [3,4] (3.25 <~) $
+stack [slow 2 $ sound (samples "k*8? [buts cp]/2" (run 20)),
+degrade $ shift $ sound "ch:9*4" |+| gain "0.8",
+sound "cpr/8" |+| shape "0.1",
+sometimes (density 2) $ every 2 (0.25 <~) $
+shift' 5 $ degrade $ shift' 3 $ sound (samples "{peri*2 pson doru*2 doru*2 wet*2 peri*2}%2" (irand 30)) |=| cut "1" |=| speed "1"]
+|=| delay "0"
+|=| delaytime "0"
+|=| delayfeedback "0"
+
+hush

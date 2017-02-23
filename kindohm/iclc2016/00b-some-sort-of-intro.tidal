@@ -1,0 +1,66 @@
+bps (170/120)
+
+
+
+
+
+
+
+
+
+
+-- OH HAI!!!!!
+
+-- I'm Mike (a.k.a. Kindohm)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+keys $ (|+| note "[0 -2]/8") $ whenmod 10 7 (|+| note "-12") $ whenmod 6 3 (|+| note "-12") $
+every 3 (rev) $ density 2 $ every 2 (|+| note "12") $ (|+| note "-8") $
+  note "0 4 7 11 12 16 19 23"
+ # kportamento "0.05"
+ # dur "0.18"
+ # kdecay "1"
+ # ksustain "0.999"
+ # voice "0.2"
+ # detune (scale 0.001 0.3 $ slow 13.66 sine1)
+ # kcutoff "0.1"
+ # klforate "0.001"
+ # klfocutoffint "0.001"
+ # vcfegint "0.5"
+ # vcoegint "0.001"
+
+c1 silence
+
+c1 $ foldEvery [3,4] (0.25 <~) $
+stack [
+slow 2 $ sound (samples "k*8 ~ ~ ~" (run 30)),
+every 2 (|=| speed "-1") $ sound "cpr/3",
+sound "~ teks [~ teks] ~",
+slow 2 $ sound "~ sdeep ~ psh",
+degradeBy 0.15 $ slowcat [
+brakk "akuma1*8",
+brakk "akuma3*8",
+brakk "akuma4*8",
+brakk "akuma2*8"],
+degrade $ sound (samples "{peri*2 tite*2 doru*2 c64 peri*2}%8" (run 30)) |=| speed "1 1.5 2" ]
+|=| delaytime "0" |=| delayfeedback "0" |=| nudge "0"
+
+c1 silence
+
+keys silence
+
+d1 silence

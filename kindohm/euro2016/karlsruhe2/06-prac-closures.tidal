@@ -1,0 +1,55 @@
+bpm 180
+
+
+
+let hatpat = "{~ ~ ~ ~ ~ ~ ~ [~ 0] [~ 0] [~ 0] [~ 0]}%8"
+    kickpat = "{~ ~ ~ ~ 0*2? 0*2? ~ [0 ~] [0 ~] [0 ~] [0 ~]}%8"
+
+-- no! not yet!
+keys $
+(|=| x (scale 0.1 0.3 $ slow 7 tri1)) $
+(|=| y (scale 0.01 0.9 $ slow 9 tri1)) $
+(|=| z (scale 0.01 0.9 $ slow 10 tri1)) $
+(|=| ab (scale 0.01 0.99 $ slow 11 tri1)) $
+density 2 $ foldEvery [2,3,5] (0.25 <~) $
+whenmod 4 2 (|+| note "12") $ every 2 (|+| note "12") $ (|+| note "-13") $ note "0 3 5 7 10 12 15 19"
+|=| dur "0.05"
+
+keys silence
+
+c1 silence
+
+-- boring.
+c2 $ sound "r" |=| cut "3"
+c2 silence
+hush
+
+
+
+c3 $ density 1.2 $ stack [
+foldEvery [2,3,4] (0.75 ~>) $ degradeBy 0.6 $ shift $ s "pracpad*2" # n (irand 24) |=| gain "1.05" |=| pan (scale 0.3 0.7 $ shift' 12 $ rand),
+slow (3.5/3) $ foldEvery [2,3,4] (0.75 ~>) $ degradeBy 0.6 $ s "pracpad/2" # n (irand 24) |=| gain "1.05" |=| pan (scale 0.3 0.7 $ shift' 13 $ rand)
+]
+
+
+c1 $  foldEvery [3,4] (0.25 ~>) $
+every 5 (chop 4) $
+every 6 (|=| coarse "{8 12 16}%4") $
+every 7 (rip 0.125 0.25) $
+every 8 (rip' 0 1 8 0.25 0.25) $
+whenmod 9 7 (jux (iter 4)) $
+stack [
+degradeBy 0.2 $ shift' 4 $
+slowcat [brakk "funky*8" |=| shape "0.5",
+sound (samples "think*4" (irand 10)) |=| unit "c" |=| speed "4" |=| shape "0.7"],
+whenmod 18 12 (gtfo) $ foldEvery [3,4] (0.25 <~) $ n kickpat # s "8k",
+foldEvery [3,4] (0.75 <~) $ n hatpat # s "8ch",
+(0.25 ~>) $ s "8oh(3,8)",
+(0.125 ~>) $ whenmod 25 20 (gtfo) $ foldEvery [3,4] (0.25 <~) $ n "{0 ~ ~ [~ 0] ~ ~ ~ ~ ~ ~ ~}%8" # s "8s",
+whenmod 30 20 (gtfo) $ n "{~ 0 ~ 0 ~ ~ ~}%4" # s "cp",
+(0.125 ~>) $ sound "8cy/6" |=| shape "0.5"]
+|=| delaytime "0" |=| delayfeedback "0"
+
+
+hush
+keys silence

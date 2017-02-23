@@ -1,0 +1,124 @@
+bps (200/120)
+
+
+c1 $  degradeBy 0.8 $
+every 5 (|=| coarse "16 32 64") $
+every 9 (|=| accelerate "-1") $
+foldEvery [2,3] (|+| beginend "0.1" "0") $
+sound "melts([3 5 7 4]/4,8)"
+|=| beginend "{0.3 0.22 0.56}%4" "0.01" |=| cut "1"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+-- ML 104
+m $ slow 8 $ whenmod 16 8 (|+| note "-5") $
+stack [(|+| note (choose[0,12,0,-12,-24])) $ shift' 71 $ (|+| note "-12") $ chooseMidi "9" mpent "{0 ~ ~ ~ ~}%4"
+|=| dur (scale 1 2 $ shift' 2 $ rand),
+(|+| note (choose[0,12,0,-12,-24])) $ shift' 7 $ chooseMidi "9" mpent "{0 ~ ~}%8"
+|=| dur (scale 1 2 $ shift' 3 $  rand)]
+|=| xmod (scale 0.001 0.3 $ shift' 1 $ rand)
+|=| voicedepth (scale 0.001 0.5 $ shift' 2 $ rand)
+|=| ring "0.01"
+
+
+-- osc1 16, osc2 whatever
+erebus $ density 1 $ whenmod 16 8 (|+| note "-5") $ (|+| note (choose[0,12,0])) $ shift' 81 $
+degrade $ shift' 82 $ (|+| note "-24") $ chooseMidi "9" mpent "0"
+|=| dur (scale 0.5 0.7 $ shift' 14 $ rand)
+|=| modwheel (shift' 13 $ rand)
+
+keys $ (0.25 <~) $ whenmod 16 8 (|+| note "-5") $ (|+| note (choose [-12,0,12,24])) $ shift' 66 $
+chooseMidi "9" mpent "{0*4 0*4 ~ ~ ~ ~ ~}%2" |+| dur "0.15"
+|=| vcoegint "0.15"
+
+m silence
+
+hush
+
+c1 $ spike' $ degrade $
+every 5 (gap 4) $ every 4 (chop 4) $
+every 6 (|=| coarse "16 32 24") $
+every 7 (|=| accelerate "-1 1") $
+every 8 (rip 0.2 0.1) $
+every 9 (rip' 0 1 8 0.25 0.25) $
+whenmod 7 5 (jux (iter 8)) $
+foldEvery [3,4] (0.25 <~) $
+stack [
+slow 2 $ sound (samples "k*4 ~ sdeep:0/2 cp/3" (irand 30)),
+every 4 (|=| speed "-1") $
+sound "~ cpr/3" |=| coarse "{0 4 8 16 32}%8",
+foldEvery [2,3,4] (density 2) $ sound "ch:8*2" |=| gain "0.8",
+sound "~ teks [~ teks] ~",
+degrade $
+sound (samples "{peri*2 doru*2 peri*2 tite peri*2}%4" (run 30)) ]
+|=| delaytime "0" |=| delayfeedback "0"
+
+c1 silence
+erebus silence
+
+
+
+
+
+
+
+m silence
+erebus silence
+keys silence
+hush
+
+
+c1 silence
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+d1 silence
+
+c1 $ whenmod 11 9 (spike')$
+every 5 (gap 4) $
+every 6 (chop 4) $
+every 7 (|=| coarse "16 24 32") $
+every 9 (|=| speed "-1 0.7 1.2 -0.5") $
+every 8 (rip 0.2 0.1) $
+every 11 (|=| crush "-3 4 -5 6") $
+every 10 (rip' 0 1 8 0.2 0.1) $
+foldEvery [3,4] (3.25 <~) $
+stack [slow 2 $ sound (samples "k*8? [buts cp]/2" (run 20)),
+degrade $ shift $ sound "ch:9*4" |+| gain "0.8",
+sound "cpr/8" |+| shape "0.1",
+sometimes (density 2) $ every 2 (0.25 <~) $
+shift' 5 $ degrade $ shift' 3 $ sound (samples "{peri*2 pson doru*2 doru*2 wet*2 peri*2}%2" (irand 30)) |=| cut "1" |=| speed "1"]
+|=| delay "0"
+|=| delayfeedback "0"
+|=| delaytime "0"
+
+hush
+keys silence
+erebus silence
+m silence

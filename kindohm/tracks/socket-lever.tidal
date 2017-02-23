@@ -1,0 +1,9 @@
+bps (175/120)
+
+
+c1 $ stack [
+slow 2 $ sound (samples "[kh:5 ch]*4 [sna:0 ch ch sna:1] [~ ch*5 ~ ~] [sna:0 kh:5 ch*2 sna:1]" "6"),
+slow 2 $ sound "[at:0 b:4]/2" |=| speed "0.8",
+slow 2 $ sound (samples "~ drop [~ [drop sub]/2] ~" (slow 0.8 $ run 29)) |=| cut "2" |=| gain "1 0.8"]
+
+hush

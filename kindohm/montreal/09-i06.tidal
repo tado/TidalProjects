@@ -1,0 +1,47 @@
+-- ml 141
+-- rytm 42
+
+c3 $ slow 9 $ sound "hawk heem" |=| speed "0.125"
+|=| delay "0.5"
+|=| delaytime "0.5"
+|=| delayfeedback "0.5"
+
+bps (336/120)
+
+let
+    ml = note "-7"
+    ch = midinote "8"
+    oh = midinote "9"
+    bd = midinote "36"
+    sd = midinote "1"
+    rs = midinote "2"
+    cp = midinote "3"
+    bt = midinote "4"
+    lt = midinote "5"
+    mt = midinote "6"
+    cy = midinote "10"
+    cb = midinote "11"
+
+let pat = "{1 0 1 1 1 1 1 0 1 ~ 0 1  0  ~ ~ ~ 0 0 0}%8"
+
+do
+  let pat = "{1 0 1 1 1 1 1 0 1 ~ 0 1  0  ~ ~ ~ 0 0 0}%8"
+  let x = velocity pat
+  let y = velocity (inverse <$> pat)
+  m $ (|+| note "[-12 0]/16") $
+    x # ml
+  r1 $
+    stack [
+      x # bd,
+      gtfo' $ (0.125 <~) $ slow 7 $ cb,
+      gtfo' $ y # sd,
+      gtfo' $ y # cp,
+      gtfo' $ y # ch,
+      gtfo' $ y # oh]
+      |=| perf1 (scale 0.01 0.1 $ slow 14 tri1)
+      |=| perf2 (scale 0.01 0.1 $ slow 13 tri1)
+      |=| perf3 (scale 0.01 0.1 $ slow 15 tri1)
+
+do
+  r1 silence
+  m silence

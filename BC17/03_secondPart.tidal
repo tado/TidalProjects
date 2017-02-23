@@ -1,0 +1,28 @@
+---- 03 second part
+
+d1
+$whenmod 8 4 (jux (iter 4))
+$whenmod 8 7 (jux (iter 8))
+$sometimes (rev)
+$sound "[bd [~ ifdrums] [~ bd] cp]*2"
+#cutoff (scale 1500 18000 $slow 4 $rand) #resonance (scale 0.0 0.3 $ rand)
+# n (irand 64) # pan (rand)
+# gain "1.2"
+
+d3
+$whenmod 8 4 (jux (iter 8))
+$whenmod 4 3 (rev)
+$sound "{ifdrums(5, 16, 3), bd(5, 16, 2), glitch(11, 16, 2)}"
+#gain "1.5"
+#n (irand 64)
+#pan (rand)
+
+d3
+-- $ sometimes (jux (iter 8))
+-- $ sometimes (jux (iter 4))
+-- $ sometimes (jux (iter 2))
+-- $ sometimes (rev)
+$ sound "{bd(3, 16, 0), ifdrums(3, 16, 5), glitch(3, 16, 5), bass(3, 16, 2), cp(3, 16, 3), dr55(3,16,4)}"
+#gain "1.5"
+# n (irand 64)
+# pan (rand)

@@ -1,0 +1,46 @@
+bps (180/120)
+
+-- 129
+m $ (|+| note "[0 0 0]/64") $
+stack [foldEvery [2,3,4] (0.25 <~) $ chooseMidi' "-13" mpent [0,12,24,36] "0*2?",
+chooseMidi' "-13" mpent [-12,0,12,24] "0/2"] |=| dur "0.9"
+|=| cutoff (scale 0.7 0.99 $ slow 8.5 tri1)
+|=| xmod (scale 0 0.4 $ slow 10 tri1)
+
+erebus  $ (|+| note "[0 0 0]/64") $ density 2 $ foldEvery [2,3,5] (0.25 ~>) $
+whenmod 4 2 (|+| note "12") $ every 2 (|+| note "12") $ (|+| note "-13") $ note "0 3 5 7 10 12 15 19"
+
+m silence
+
+let pat = "{~ ~ ~ ~ 0*2? 0*2? ~ [0 ~] [0 ~] [0 ~] [0 ~]}%8"
+
+
+c1 $ shift $ every 4 (gap 4) $ every 5 (chop 4) $
+every 6 (|=| coarse "64 16 32") $
+every 7 (|=| crush (scale 1 7 $ density 1.3 $ sine1)) $
+slowspread ($) [id, rev, (|=| speed "1.2 0.8 -1.2"), (|=| accelerate "-1 1 0.5 -0.5"), rip' 0 1 12 0.125 0.125] $
+shift $ whenmod 14 11 (iter 8) $
+foldEvery [3,4] (0.75 ~>) $ stack [
+n pat # sound "8k" |=| gain "0.9",
+(0.0625 ~>) $ n pat # sound "8ch",
+(0.25 ~>) $ sound "8oh(3,8)" |=| cut "1",
+whenmod 25 20 (const $ sound "~") $ foldEvery [3,4] (0.25 <~) $ sound "{8s ~ ~ [~ 8s] ~ ~ ~ ~ ~ ~ ~}%8",
+whenmod 30 20 (const $ sound "~") $ sound "{~ 8cp ~ 8cp ~ ~ ~}%4",
+(0.125 ~>) $ slow 4 $ sound "8cy(3,8)" |=| up (choose [-3,0,-2,-1,1,-4,-5,-6,-7,-8]) ]
+|=| delaytime "0" |=| delayfeedback "0"
+
+c1 silence
+
+c1 $
+stack [
+foldEvery [3,4] (0.25 <~) $ n pat # sound "8k",
+foldEvery [3,4] (0.25 <~) $ (0.0625 ~>) $ n pat # sound "8ch" |=| cut "1",
+(0.25 ~>) $ sound "8oh(3,8)" |=| cut "1",
+whenmod 25 20 (const $ sound "~") $ foldEvery [3,4] (0.25 <~) $ sound "{8s ~ ~ [~ 8s] ~ ~ ~ ~ ~ ~ ~}%8",
+whenmod 30 20 (const $ sound "~") $ sound "{~ 8cp ~ 8cp ~ ~ ~}%4",
+(0.125 ~>) $ slow 3 $ sound "8cy(3,8)" |=| up (choose [-3,0,-2,-1,1,-4,-5,-6,-7,-8])  ]
+
+c1 silence
+m silence
+
+erebus silence

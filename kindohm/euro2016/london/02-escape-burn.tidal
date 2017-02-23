@@ -1,0 +1,28 @@
+bpm 155
+
+hush
+
+c1 $ sound "burnch*4"
+
+c2 silence
+
+keys silence
+
+c1 silence
+
+c2 $ slow 1000 $ striate 128 $ sound "teddyfull"
+
+hush
+
+c1 $ foldEvery [3,4] (0.25 <~) $
+stack [
+sometimes (slow 2) $ superimpose (|=| coarse "{8 16 24}%4") $ sound "electrowave*8"
+|=| begin (scale 0 0.7 $ rand) |=| cut "1"
+|=| speed "0.9" |=| gain "0.9",
+sound "fk:1*8?",
+sound "burnch*4",
+sound (samples "~ [burns ~ ~ [~ sub:0]/2]" (run 20)),
+jux (iter 8) $ stut' 4 (0.125/2) (|*| gain "0.8") $ (0.5 <~) $ sound "burncp"]
+
+-- break
+c1 $ sound (samples "k*8 [burns ~ ~ [k*2 sub:0]/2]" (run 20))

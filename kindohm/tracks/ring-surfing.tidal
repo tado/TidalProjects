@@ -1,0 +1,32 @@
+bps (200/120)
+
+-- ringkit / rings / kingk / ringch
+-- vocad/ringpad
+-- gli1/peri
+
+
+-- reference
+d1 $ whenmod 14 12 (trunc 0.25) .
+every 8 (gap 8 . rev . slow 2) . every 7 (rip' 0 1 4 0.2 0.1) .
+every 6 (chop 16 . rev) .
+every 11 (|=| speed "1, 1.5, 2") .
+every 10 (|=| accelerate "[0.5]") .
+every 9 (striate 4 . slow 2 . rev) .
+whenmod 36 26 (every 2 (|=| up "[-4 2]*4") . rarely (gap 8) . sometimes (rev) . every 3 (rip' 0 1 4 0.1 0.33) . (|=| coarse "{8 12 16 32 24}%16")) $
+whenmod 8 6 (|=| up "-2") $ foldEvery [3,2] (7.25 <~) $
+stack [
+whenmod 25 25 (const $ sound "~") $ sound (samples "ringkit*8?" (slow 0.7 $ run 15)),
+whenmod 40 30 (const $ sound "~") $ whenmod 9 7 (const $ sound "~") $ sound "~ [rings]" |=| shape "0.5",
+whenmod 12 8 (const $ sound "~") $ foldEvery [2,3,4] (density 2) $ every 3 (density 2) $
+sound "ringch*8" |=| cut "10",
+whenmod 29 19 (const $ sound "~") $ weave' 3 (sound "~ vocad/2" |=| delay "0.3" |=| shape "0.1")
+    [(|=| speed "0.5"), (0.25 <~), density 2, (|=| speed "-1"), (|=| accelerate "-1")],
+whenmod 22 15 (const $ sound "~") $ sound (samples "[gli1 peri]*8?" (slow 0.783 $ run 20))
+|=| shape "0.4" |=| speed "3" |=| cut "12" |=| gain "[0.8 1]*8",
+whenmod 20 12 (const $ sound "~") $ density 2 $ sound (samples "ringk [~ ringk/2]" "5"),
+whenmod 25 20 (const $ sound "~") $
+whenmod 30 20 (degradeBy 0.7) $ rarely (|=| end "0.5") $ sound "~ ringpad" |=| end "0.05"
+|=| cut "56" |=| delay "0.5" |=| up "{0 0 -12}%4"]
+|=| delaytime "0.45" |=| delayfeedback "0.5"
+
+hush

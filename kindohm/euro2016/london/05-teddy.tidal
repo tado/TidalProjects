@@ -1,0 +1,7 @@
+c2 $ sound "teddyfull([9 11 13 10]/4,16)" |=| cut "3"
+
+c1 silence
+
+c2 $ sound "teddyfull/4" |=| cut "3"
+
+hush

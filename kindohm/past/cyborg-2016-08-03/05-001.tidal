@@ -1,0 +1,38 @@
+bps (140/120)
+
+
+c1 $
+stack [
+(# cutoff (scale 0.05 0.3 $ rand)) $
+rep' 7 $ gain "{1.2 ~ ~ ~ ~ ~ ~}%4" # s "1pad1" # n "[0 1]/8" # cut "1" # resonance "0.5" # shape "0.1"]
+
+c1 $
+stack [
+(# cutoff (scale 0.3 0.05 $ rand)) $
+rep' 7 $ gain "{1.2 ~ ~ ~ ~ ~ ~}%4" # s "1pad1" # n "[0 1]/8" # cut "1" # resonance "0.5" # shape "0.1",
+rep' 7 $ gain "{0.95 ~ ~ ~ ~ ~ ~}%4" # s "1k" # n "[0 1]/6" |=| cut "2"]
+
+c1 $
+stack [
+(# cutoff (scale 0.3 0.05 $ rand)) $
+rep' 7 $ (whenmod 24 16 (const $ s "{1pad2 ~ ~ ~ ~ ~ ~}%4" # n "[0 1]/4" |=| shape "0.1") $
+s "{1pad1 ~ ~ ~ ~ ~ ~}%4" # n "[0 1 2 3 4 5]/24") # cut "1" # resonance "0.5" # shape "0.1" |=| gain (whenmod 24 16 (const $ "1.6") $ "1.2"),
+rarely (one) $ rep' 7 $ gain "{1 ~ ~ ~ ~ ~ ~}%4" # s "1k" # n "[0 1]/12" |=| cut "2" |=| gain "0.95",
+whenmod 8 4 (jux (iter 4)) $ density 4 $ every 4 (0.25 ~> ) $ s "1cp",
+s "{1ch 1ch*2 1ch ~ [~ 1ch]*2 ~ 1ch ~ ~}%8" # n "{0 0 0 0 0 0 1}%16" |=| cut "3",
+every 7 (rep 5) $ every 6 (# up "-12") $ (0.125 <~) $ s "{1stab ~ ~ ~ ~}%4" |=| gain "0.85" |=| cut "7",
+s "{~ 1s ~ [~ 1s/2] ~}%4" # n "1" # cut "4" ] |=| delaytime "0" |=| delayfeedback "0"
+
+
+
+c1 $
+stack [
+rarely (one) $ rep' 7 $ gain "{1 ~ ~ ~ ~ ~ ~}%4" # s "1k" # n "[0 1]/12" |=| cut "2" |=| gain "0.95",
+whenmod 8 4 (jux (iter 4)) $ density 4 $ every 4 (0.25 ~> ) $ s "1cp",
+s "{1ch 1ch*2 1ch ~ [~ 1ch]*2 ~ 1ch ~ ~}%8" # n "{0 0 0 0 0 0 1}%16" |=| cut "3",
+every 7 (rep 5) $ every 6 (# up "-12") $ (0.125 <~) $ s "{1stab ~ ~ ~ ~}%4" |=| gain "0.85" |=| cut "7",
+s "{~ 1s ~ [~ 1s/2] ~}%4" # n "1" # cut "4" ] |=| delaytime "0" |=| delayfeedback "0"
+
+hush
+
+erebus silence

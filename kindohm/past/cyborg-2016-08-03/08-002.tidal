@@ -1,0 +1,27 @@
+bps (200/120)
+
+let themod = (|=| shape1 (scale 0 0.95 $ slow 12.1 tri1)) . (|=| shape2 (scale 0 0.95 $ slow 15.57 tri1)) . (|=| voicedepth (scale 0 0.7 $ slow 17.31 tri1)) . (|=| xmod (scale 0 1 $ slow 20 tri1)) . (|=| release (scale 0 0.4 $ slow 22.18 tri1))
+    pmod = (|=| pitchmod (scale 0 1 $ slow 16.22 tri1))
+
+
+c1 $
+stack [
+sound "2ch*8" |=| cut "1",
+(0.0625 <~) $ sound "2oh/4" |=| cut "1",
+sound "{2k ~ ~ 2k ~}%8" |=| gain "1",
+sound "{[~ 2cp]/2 ~ ~ ~ ~ }%8",
+sound "{2cy/16 ~ ~ ~ ~}%8",
+sound "{~ 2stab/6 ~ ~ ~}%8" # n (choose [0,1,2,3,4,5,6,7])] |=| shape "0"
+
+-- ML 122
+m $ themod $ pmod $ (|+| note "42") $ midinote "{0 ~ ~ 0 ~}%8" # dur "{0.3 ~ ~ 0.15 ~ }%8"
+|=| nudge "0"
+
+m silence
+
+
+c1 $ sound "r" |=| cut "1"
+
+hush
+
+c1 silence
