@@ -3,12 +3,13 @@
 solo $
 d3 $ slow 32
 $ striate' 800 (1/64)
-$ sometimes (rev)
 $ stack[
-  rev $sound "bev" |+| speed "0.66" |+| pan "0.2" |+| gain "0.5",       
+  rev $sound "bev" |+| speed "0.667" |+| pan "0.2" |+| gain "0.5",       
   sound "bev" |+| speed "1.0" |+| pan "0.8" |+| gain "0.5",
   sound "bev" |+| speed "1.5" |+| pan "0.4" |+| gain "0.5",
   rev $sound "bev" |+| speed "1.25" |+| pan "0.6" |+| gain "0.5"
 ]
-|+|delay "0.9" #delaytime "0.125" #delayfeedback "0.8"
+|+|delay "0.9" #delaytime "0.5" #delayfeedback "0.95"
 #gain "0.5"
+
+hush

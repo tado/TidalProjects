@@ -27,6 +27,14 @@ $stack[
 #gain "1.2"
 #shape "0.9"
 
+d6
+$ stack [
+  sound "gabba(3, 16, 7)" #n "5",
+  sound "ifdrums(3, 16, 10)" #n "0"
+]
+#gain "1.5"
+#shape "0.9"
+
 d5
 -- $ whenmod 8 6 (jux (iter 8))
 -- $ whenmod 4 2 (jux (iter 4))
@@ -45,3 +53,25 @@ up pat6 |=| sound (samples "rave2?" (irand 8)) |+| gain "1.0"
 -- sound (samples "sitar*4?" (irand 8)) |+| gain "1.0" |+| speed "1.5 1.0 0.5 0.25"
 ]
 #gain "1.5"
+
+d5
+$whenmod 8 4 (jux (iter 8))
+$whenmod 4 3 (jux (iter 2))
+-- $sometimes (rev)
+$sound "{ifdrums(3, 16, 3), bd(3, 16, 2), glitch(3, 16)}"
+#gain "1.5"
+#n (irand 64)
+#pan (rand)
+
+d4
+$stack[
+  s "supersaw(9,16,11)" #n "{0, 7, 10, 17, 19}" #speed "1.0" #pan (rand),
+  s "supersaw(3,16,7)" #n "{0, 7, 10, 17, 19}" #speed "0.75" #pan (rand),
+  s "supersaw(3,16,5)" #n "{0, 7, 10, 17, 19}" #speed "0.5" #pan (rand),
+  s "supersaw(3,16,3)" #n "{0, 7, 10, 17, 19}" #speed "0.25" #pan (rand)
+]
+-- |+|n "0 7 -7 12 -12"
+#cutoff (scale 800 15000 $slow 16 $sine1) #resonance "0.1"
+#sustain "0.1"
+#gain "1.0"
+#shape "0.5"
