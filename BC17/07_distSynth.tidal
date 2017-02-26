@@ -1,6 +1,6 @@
 ---- 06 distort synth
 
-solo $
+-- solo $
 d4
 $sometimes (jux (iter 4))
 $sometimes (jux (iter 8))

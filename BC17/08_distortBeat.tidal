@@ -72,6 +72,6 @@ $stack[
 ]
 -- |+|n "0 7 -7 12 -12"
 #cutoff (scale 800 15000 $slow 16 $sine1) #resonance "0.1"
-#sustain "0.1"
+#sustain "0.05"
 #gain "1.0"
 #shape "0.5"
