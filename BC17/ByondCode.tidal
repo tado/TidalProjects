@@ -297,8 +297,8 @@ $stack[
 -- |+|n "0 7 -7 12 -12"
 -- |+| n (irand 7)
 #cutoff (scale 800 15000 $slow 16 $sine1) #resonance "0.1"
-#sustain "0.4"
-#gain "0.2"
+#sustain (scale 0.04 0.2 $slow 32 $sine1)
+#gain "1.2"
 #shape "0.5"
 
 solo $
@@ -335,6 +335,4 @@ $ stack[
 |+|delay "0.9" #delaytime "0.5" #delayfeedback "0.95"
 #gain "0.5"
 
-
-
-
+hush

@@ -1,0 +1,43 @@
+cps(120/120)
+
+hush
+
+solo $
+d1
+-- $jux (rev)
+$sometimes (rev)
+$s "supersaw(2, 9, {1, 2})" # n "{c5, e5, f5, g5, a5}"
+#pan (rand)
+#voice (rand)
+#sustain "0.15 0.1 0.05"
+#resonance "0.5"
+#room "0.1"
+
+d2
+$sometimes (rev)
+$s "superpwm(4, 9, {3, 4})" # n "{c5, e5, f5, g5, a5}"
+#pan (rand)
+#voice (rand)
+#sustain "0.25 0.1 0.05"
+#resonance "0.8"
+
+d3
+$sometimes (rev)
+$s "myMoog(3, 9, {5, 6})" # n "{c5, e5, f5, g5, a5}"
+#speed "2.0"
+#resonance "1.11 2.22 4.44 5.55 6.66"
+#pan (rand)
+#voice (rand)
+#sustain "0.2"
+
+d4
+$s "ifdrums(3, 9, {7, 8})" #n (irand 64)
+#pan (rand)
+#gain "1.0"
+#shape "0.8"
+
+hush
+
+
+
+
