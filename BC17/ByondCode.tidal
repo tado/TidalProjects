@@ -75,7 +75,7 @@ $ sound "{bd(3, 16, 0), ifdrums(3, 16, 5), glitch(3, 16, 5), bass(3, 16, 2), cp(
 # pan (rand)
 
 d2
-$every 8 (chop 16)
+-- $every 8 (chop 16)
 -- $whenmod 5 4 (gap 8)
 -- $sometimes(jux (iter 16))
 $sometimes(jux (iter 8))
@@ -90,12 +90,12 @@ $stack[
   --sound (samples "arpy(3,16,5)" (irand 13)) #up "5",
   --sound (samples "arpy(3,16)" (irand 12)) #up "12",
   sound (samples "felld(3,16,12)" (irand 128)) #pan (rand),
-  --sound "fell2(5,16,5)" #pan (rand),
-  --sound "fell(5,16,11)" #pan (rand),
+  sound "fell2(5,16,5)" #pan (rand),
+  sound "fell(5,16,11)" #pan (rand),
   sound (samples "bass(3,16,2)" (irand 128)),
   sound (samples "dr55(3,16,10)" (irand 128)) #pan (rand),
-  --sound (samples "tr-808(3,16,8)" (irand 128)) #pan (rand),
-  --sound (samples "casio(5,16,6)" (irand 128)) #pan (rand),
+  sound (samples "tr-808(3,16,8)" (irand 128)) #pan (rand),
+  sound (samples "casio(5,16,6)" (irand 128)) #pan (rand),
   sound (samples "glitch(3,16,5)" (irand 128)) #pan (rand),
   sound (samples "808bd(3,16,9)" (irand 128)),
   sound (samples "bd(3,16,3)" (irand 128)) #gain "1.2"
@@ -125,7 +125,7 @@ d4
 $ jux (iter 8)
 $ jux (iter 4)
 $ slow 1
-$ stack[
+$ slowcat[
  up pat2 |=| sound "bass:3 bass:1 bass:0 bass:2",
  sound (samples "fell*16?" (irand 6)) |+| speed "2.0 1.0 1.5",
  up pat5 |=| sound (samples "fell?" (irand 2)) |+| speed "2.0 1.0 1.5",
@@ -133,7 +133,7 @@ $ stack[
  up pat2 |=| sound "909",
  up pat1 |=| sound "fell1"
 ]
-# vowel "a i u e o"
+-- # vowel "a i u e o"
 |+| delay "0.5" |+| delaytime "0.01 0.02 0.03" |+| delayfeedback "0.5"
 #cutoff (scale 800 18000 $slow 3 $sine1) #resonance "0.3"
 #gain "1.5"

@@ -1,17 +1,22 @@
-cps(120/120)
+cps(110/120)
 
 hush
 
 solo $
 d1
-$sometimes (rev)
-$s "supersaw(3, 9, {1, 2})" # n "{c5, e5, f5, g5, a5}"
+-- $sometimes (rev)
+-- $jux (iter 9)
+$slowcat [
+  s "supersaw(3, 9, {1, 2})" # n "{c5, e5, f5, g5, a5}",
+  s "supersaw(3, 9, {1, 2})" # n "{c5, e5, f5, g5, a5}",
+  s "supersaw(3, 9, {3, 4})" # n "{c5, e5, f5, g5, b5}"
+]    
 #pan (rand)
 #voice (scale 0.0 0.2 $rand)
 #sustain "0.15 0.1 0.05 0.3"
 #cutoff (scale 1000 10000 $slow 24 $sine1)
 #room "0.1"
-#resonance "0.3"
+#resonance "0.4"
 
 d2
 $sometimes (rev)
@@ -24,9 +29,14 @@ $s "superpwm(3, 9, {3, 4})" # n "{c5, e5, f5, g5, a5}"
 
 d3
 $jux (iter 9)
-$s "myMoog(3, 9, {5, 6})" # n "{c5, e5, f5, g5, a5}"
+$s "myMoog(3, 9, {5, 6})"
+#n "{c5, e5, f5, g5, a5}"
 #speed "3.0"
-#voice "1.23 2.34 1.45 0.56"
+#slowcat[
+  voice "1.23 2.34 1.45 0.56",
+  voice "7.23 3.34 2.45 5.56",
+  voice (scale 0.1 2 $rand)
+]  
 #pan (rand)
 #sustain "0.3 0.1"
 #cutoff (scale 800 10000 $slow 32 $sine1)
