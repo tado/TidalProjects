@@ -326,32 +326,3 @@ $s "supersaw(7, 16, {3, 4})" # n "{c7, e7, f7, g7, a7, d8}"
 #cutoff (scale 2000 15000 $slow 5 $sine1) #resonance "0.3"
 #gain "0.8"
 #shape "0.5"
-
-d8 $s "sync"
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
