@@ -1,4 +1,61 @@
-cps (63/120)
+cps(62/120)
+
+hush
+
+solo $
+d1
+$sometimes (rev)
+$jux (iter 4)
+$s "supersaw(7, 16, {0, 1})" # n "{c5, e5, f5, g5, a5, e6}"
+|+| n "0 12"
+#pan (rand)
+#voice (scale 0.0 0.2 $rand)
+#sustain "0.05 0.1"
+#room "0.1"
+#gain "0.8"
+#cutoff (scale 2000 10000 $slow 32 $sine1)
+#resonance "0.3"
+
+d2
+$sometimes (rev)
+$s "superpwm(7, 16, {2, 3})" # n "{c5, e5, f5, g5, a5}"
+|+| n "12 0"
+#pan (rand)
+#voice (rand)
+#sustain "0.1 0.05"
+#gain "0.8"
+#cutoff (scale 5000 10000 $slow 24 $sine1)
+#resonance "0.3"
+
+d3
+$jux (iter 4)
+$s "myMoog(7, 16, {6, 7})" #n "{c5, e5, f5, g5, a5}"
+|+| n "12 7 0"
+#speed "3.0"
+#voice "1.11 2.22 3.33 4.44"
+#pan (rand)
+#sustain "0.2 0.1"
+#gain "1.0"
+#cutoff (scale 800 10000 $slow 32 $sine1)
+#resonance "0.2"
+
+d4
+$jux (iter 4)
+$sometimes (rev)
+$s "ifdrums(5, 16, {7, 8})" #n (irand 64)
+#pan (rand)
+#delay "0.0" #delaytime "0.03 0.01 0.02" #delayfeedback "0.5"
+#gain "1.2"
+#shape "0.6"
+
+d5
+$jux (iter 8)
+$sometimes (rev)
+$slowcat[
+  s "hc(5, 16, {7, 8, 9})" #n (irand 64) #gain "0.8",
+  s "gabba(1, 16, {3, 4, 5})" #n "5" #gain "1.2"
+]
+#shape "0.6"
 
 let pat1 = "{0*2 ~ [12 ~] ~ 0*4 [~ 0] 0}%8"
     pat2 = "{[~ 0] 0 ~ 0 [~ 0] ~ 0}%8"
@@ -11,28 +68,7 @@ d8 $sound "sync"
 
 hush
 
-d1
-$s "supersaw" #n "-36"
-#sustain "2.0"
-#gain "1.0"
-#cutoff (scale 400 8000 $slow 8 $sine1) #resonance "0.1"
-
-d2
-$sometimes (jux (iter 8))
-$sometimes (jux (iter 4))
-$sometimes (jux (rev))
--- $sometimes (rev)
-$stack[
-  s "myMoog(9,16,6)" #n "12" #resonance "1.11 2.22 4.44 5.55 6.66",
-  s "myMoog(3,16,3)" #n "0" #resonance "1.11 2.22 4.44 5.55 6.66",
-  s "supersaw(3,16,5)" #n "-12",
-  s "supersaw(5,16)" #n "-24"
-]
-#sustain "0.2"
-#gain "0.75"
-#delay "0.3" #delaytime "0.03 0.01 0.02" #delayfeedback "0.8"
-
-d3
+d5
 $slow 2
 $sometimes (jux (iter 8))
 $sometimes (jux (iter 4))
@@ -40,7 +76,7 @@ $sound "ifdrums*2 ~ ~ ~ ~ ~ ~ ~"
 #gain "1.5"
 #n "[0 2] 0 0 0 0 0 0 0"
 
-d3
+d5
 $whenmod 8 4 (jux (iter 8))
 $whenmod 4 3 (jux (iter 2))
 $sometimes (rev)
@@ -49,7 +85,7 @@ $sound "{ifdrums(3, 16, 3), bd(3, 16, 2), glitch(3, 16)}"
 #n (irand 64)
 #pan (rand)
 
-d1
+d5
 $whenmod 8 4 (jux (iter 4))
 $whenmod 8 7 (jux (iter 8))
 -- $sometimes (rev)
@@ -58,7 +94,7 @@ $sound "[bd [~ ifdrums] [~ bd] cp]*2"
 # n (irand 64) # pan (rand)
 # gain "1.2"
 
-d3
+d4
 -- $whenmod 8 4 (jux (iter 8))
 -- $whenmod 4 3 (rev)
 $sound "{ifdrums(5, 16, 3), bd(5, 16, 2), glitch(11, 16, 2)}"
@@ -76,11 +112,11 @@ $ sound "{bd(3, 16, 0), ifdrums(3, 16, 5), glitch(3, 16, 5), bass(3, 16, 2), cp(
 # n (irand 64)
 # pan (rand)
 
-d2
+d4
 -- $every 8 (chop 16)
 -- $whenmod 5 4 (gap 8)
-$sometimes(jux (iter 16))
-$sometimes(jux (iter 8))
+-- $sometimes(jux (iter 16))
+-- $sometimes(jux (iter 8))
 $sometimes(jux (iter 4))
 $sometimes(jux (rev))
 $every 4 (rev)
@@ -91,9 +127,9 @@ $stack[
   --sound (samples "arpy(3,16,3)" (irand 14)) #up "0",
   --sound (samples "arpy(3,16,5)" (irand 13)) #up "5",
   --sound (samples "arpy(3,16)" (irand 12)) #up "12",
-  --sound (samples "felld(3,16,12)" (irand 128)) #pan (rand),
-  --sound "fell2(5,16,5)" #pan (rand),
-  --sound "fell(5,16,11)" #pan (rand),
+  sound (samples "felld(3,16,12)" (irand 128)) #pan (rand),
+  sound "fell2(5,16,5)" #pan (rand),
+  sound "fell(5,16,11)" #pan (rand),
   sound (samples "bass(3,16,2)" (irand 128)),
   sound (samples "dr55(3,16,10)" (irand 128)) #pan (rand),
   sound (samples "tr-808(3,16,8)" (irand 128)) #pan (rand),
@@ -109,10 +145,10 @@ $stack[
 #gain "1.5"
 -- #vowel "o i a e i o e"
 
-d3
+d1
 -- $ jux (iter 4)
 -- $ jux (iter 8)
-$slow 2
+$slow 1
 $ stack[
   sound (samples "fell*16?" (irand 6)) |+| speed "2.0 1.0 1.5" |+| vowel "a i u e o",
   up pat6 |=| sound "fell:2",
@@ -123,7 +159,7 @@ $ stack[
   up pat1 |=| sound "felld:1"     
 ]
 
-d4
+d1
 $ jux (iter 8)
 $ jux (iter 4)
 $ slow 1
@@ -138,11 +174,11 @@ $ slowcat[
 -- # vowel "a i u e o"
 |+| delay "0.5" |+| delaytime "0.01 0.02 0.03" |+| delayfeedback "0.5"
 #cutoff (scale 800 18000 $slow 3 $sine1) #resonance "0.3"
-#gain "1.5"
+#gain "1.6"
 
-d3
+d2
 $ jux (iter 4)
--- $ whenmod 8 7 (chop 16)
+$ whenmod 8 7 (chop 16)
 $ every 4 (|+| coarse "24 16 32")
 $ stack[
   up pat2 |=| sound "909",
@@ -157,7 +193,7 @@ $ stack[
 |+| delay "0.75" |+| delaytime "0.02 0.03" |+| delayfeedback "0.25"
 -- #room "1.0"
 
-d3
+d2
 -- $ every 2 (#coarse "24 16 32") 
 $ stack[
   up pat3 |=| sound "ifdrums" #n (irand 64),
@@ -166,9 +202,10 @@ $ stack[
   up pat1 |=| sound "atom",
   up pat5 |=| sound "atom:2"
 ]
+#gain "1.3"
 #cutoff (scale 400 16000 $slow 8 $sine1) #resonance "0.1"
 
-d2
+d3
 -- $ jux (rev)
 $ every 5 (|+| accelerate "[1 -1]*3")  
 $ stack [
@@ -179,13 +216,13 @@ $ stack [
 #gain "1.2"
 #shape "0.7"
 
-d3 $ stack [
+d4 $ stack [
  sound "gabba*4"
 ]
-#gain "1.0"
+#gain "1.5"
 #shape "0.3"
 
-d1
+d5
 $ every 2 (chop 8)
 -- $ every 3 (gap 16)
 $ brak
@@ -221,7 +258,7 @@ $stack[
 #sustain "0.1"
 #resonance (scale 0.1 0.4 $slow 5.5 $sine1)
 #cutoff (scale 800 10000 $slow 3 $rand) #resonance "0.2"
-#delay "0.9" #delaytime "0.05 0.01 0.02 0.005" #delayfeedback "0.8"
+#delay "0.3" #delaytime "0.05 0.01 0.02 0.005" #delayfeedback "0.8"
 #gain "1.0"
 #shape "0.5"
 
@@ -288,10 +325,7 @@ $sound "{ifdrums(3, 16, 3), bd(3, 16, 2), glitch(3, 16)}"
 #n (irand 64)
 #pan (rand)
 
-
-hush
-
-solo $
+-- solo $
 d4
 $stack[
   s "supersaw(9,16,11)" #n "{0, 7, 10, 17, 19}" #speed "1.0" #pan (rand),
@@ -301,7 +335,7 @@ $stack[
 -- |+|n "0 7 -7 12 -12"
 -- |+| n (irand 7)
 #cutoff (scale 800 15000 $slow 16 $sine1) #resonance "0.3"
-#sustain "0.4"
+#sustain "0.08"
 #gain "1.0"
 #shape "0.0"
 
@@ -340,3 +374,10 @@ $ stack[
 #gain "0.5"
 
 hush
+
+
+hush
+
+
+
+

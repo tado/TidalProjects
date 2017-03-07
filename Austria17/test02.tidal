@@ -1,0 +1,65 @@
+cps(120/120)
+
+hush
+
+-- solo $
+d1
+$sometimes (rev)
+$jux (iter 9)
+$s "supersaw(3, 9, {0, 1})" # n "{c5, e5, f5, g5, a5, e6}"
+#pan (rand)
+#voice (scale 0.0 0.2 $rand)
+#sustain "0.05 0.1 0.08"
+#cutoff (scale 2000 10000 $slow 32 $sine1)
+#resonance "0.3"
+#room "0.1"
+
+d2
+$sometimes (rev)
+$s "superpwm(5, 9, {2, 3})" # n "{c5, e5, f5, g5, a5}"
+#pan (rand)
+#voice (rand)
+#sustain "0.25 0.1 0.05"
+#cutoff (scale 1000 10000 $slow 24 $sine1)
+#resonance "0.3"
+
+d3
+$jux (iter 9)
+$s "myMoog(3, 9, {5, 6})"
+#n "{c5, e5, f5, g5, a5}"
+#speed "3.0"
+#voice "1.11 2.22 3.33"
+#pan (rand)
+#sustain "0.3 0.1 0.4"
+#cutoff (scale 800 10000 $slow 32 $sine1)
+#resonance "0.2"
+#gain "1.2"
+
+d4
+$jux (iter 9)
+$sometimes (rev)
+$s "ifdrums(3, 9, {7, 8})" #n (irand 64)
+#pan (rand)
+#delay "0.0" #delaytime "0.03 0.01 0.02" #delayfeedback "0.5"
+#gain "1.5"
+#shape "0.2"
+
+d5
+$jux (iter 9)
+$sometimes (rev)
+$slowcat[
+  s "hc(5, 9, {7, 8, 9})" #n (irand 64) #gain "0.8",
+  s "gabba(1, 9, {3, 4, 5})" #n "5" #gain "1.5"
+]  
+-- #shape "0.1"
+
+d6
+$s "bass(3, 9, {7, 8})" #n (irand 64)
+#pan (rand)
+#gain "1.5"
+
+hush
+
+
+
+

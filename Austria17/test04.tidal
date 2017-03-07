@@ -1,0 +1,53 @@
+cps(62/120)
+
+hush
+
+-- solo $
+d1
+$sometimes (rev)
+$jux (iter 4)
+$jux (iter 2)
+$s "supersaw(11, 16, {0, 1,2})" # n "{c5, e5, f5, g5, a5, d6}"
+|+| n "0 12"
+#pan (rand)
+#voice (scale 0.0 0.2 $rand)
+#sustain "0.05 0.1"
+#gain "0.75"
+#cutoff (scale 2000 15000 $slow 32 $sine1)
+#resonance "0.2"
+
+-- solo $
+d2
+$jux (iter 8)
+$jux (iter 4)
+$jux (iter 2)
+$sometimes (rev)
+$s "myFM(3, 16, {0,2,5})" # n "c5 c3 c4 c2 c6 c7"
+#pan (scale 0.3 0.7 $rand)
+#voice (scale 1 20 $rand)
+#pitch1 (scale 1 8 $rand)
+#sustain "0.05 0.1"
+#cutoff (scale 800 15000 $slow 32 $sine1)
+#resonance "0.5"
+#delay "0.8" #delaytime "0.01 0.02 0.04 0.08" #delayfeedback "0.6"
+#gain "0.7"
+
+d3
+$every 8 (#gain "0")
+$whenmod 8 4 (jux (iter 8))
+$whenmod 4 3 (jux (iter 2))
+$sometimes (rev)
+$sound "{ifdrums(3, 16, {5, 6, 7}), bd(2, 16, 2), glitch(2, 16)}"
+#gain "1.5"
+#shape "0.3"
+#n (irand 64)
+#pan (rand)
+
+d3
+$jux (iter 4)
+$sometimes (rev)
+$s "ifdrums(5, 16, {7, 8})" #n (irand 64)
+#pan (rand)
+#delay "0.0" #delaytime "0.03 0.01 0.02" #delayfeedback "0.5"
+#gain "1.5"
+#shape "0.6"

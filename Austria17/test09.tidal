@@ -1,0 +1,310 @@
+-- 00
+
+cps(65/120)
+
+let pat1 = "{0*2 ~ [12 ~] ~ 0*4 [~ 0] 0}%8"
+    pat2 = "{[~ 0] 0 ~ 0 [~ 0] ~ 0}%8"
+    pat3 = "{0 0*4 [~ 0] [~ 0] 0*2 0 ~ 0*4 ~ 0 -12 0 ~ [~ 0] [~ 0] ~ 0*2 -12}%8"
+    pat4 = "{0 0*2 [~ 0] [~ 0] 0 0 -12 0*4 ~ 0 ~ 0 ~ [~ 0] [~ 0] ~ 0*2 -12}%8"
+    pat5 = "{[~ 0] 0  0*2 ~ [~ 0] [~ 0] ~ 0 -12 0*4 ~ [~ 0] [~ 0] ~ 0*2 -12}%8"
+    pat6 = "{~ 0 ~ 0 -12 0*4 0 0*2 0*4 ~ 0 -12 0*2 ~ [~ 0] [~ 0] ~ 0*2 -12}%8"
+
+d8 $s "sync"
+
+-- 01
+d1
+$jux (iter 4)
+$s "ikeda1(3, 16, {0, 3})"
+#gain "1.5"
+#cutoff (scale 800 8000 $rand) #resonance "0.3"
+#delay "0.8" #delaytime "0.01 0.02 0.03 0.005" #delayfeedback "0.8"
+
+d2
+$jux (iter 8)
+$sometimes (rev)
+$s "ikeda2(3,16,{5,7})"
+#sustain "1.0"
+#gain "1.0"
+ 
+d3
+$s "ikeda3(3,16,9)"
+#sustain "1.0"
+#gain "1.0"
+
+-- 02
+d4
+$jux (iter 16)
+$stack[
+  s "supersaw(5,16,10)" # n "{c5, e5, f5, g5, a5}" |+|up "14",
+  s "supersaw(5,16,5)" # n "{c5, e5, f5, g5, a5}" |+|up "7",
+  s "supersaw(5,16)" # n "{c5, e5, f5, g5, a5}"
+]
+#pan(rand)
+#cutoff (scale 800 15000 $slow 4 $sine1) #resonance "0.2"
+#sustain "0.08 0.16"
+#gain "0.7"
+
+-- 03
+
+d5
+$slow 2
+$sound "ifdrums*2 ~ ~ ~ ~ ~ ~ ~"
+#n "[0 2] 0 0 0 0 0 0 0"
+#gain "1.5"
+
+d6
+$jux (iter 4)
+$every 2 (#gain "0")
+$stack [
+  s "ifdrums(3, 16, 5)",
+  s "bd(2, 16, 2)",
+  s "glitch(2, 16)"
+]
+#pan (rand)
+#n (irand 64)
+#gain "1.5"
+
+-- 04
+
+d6
+$jux (iter 8)
+$sound "{ifdrums(3, 16, 3), bd(3, 16, 2), glitch(3, 16)}"
+#gain "1.5"
+#n (irand 64)
+#pan (rand)
+
+d6
+$jux (iter 8)
+$sound "[bd [~ ifdrums] [~ bd] cp]*2"
+#cutoff (scale 1500 18000 $slow 4 $rand)
+#resonance "0.2"
+# n (irand 64) # pan (rand)
+# gain "1.5"
+
+d6
+$jux (iter 8)
+$sound "{ifdrums(5, 16, 3), bd(5, 16, 2), glitch(11, 16, 2)}"
+#gain "1.5"
+#n (irand 64)
+#pan (rand)
+
+d6
+$jux (iter 8)
+$ stack [
+ s "ifdrums(2, 16, 1)",
+ s "bd(3, 16, 0)",
+ s "glitch(3, 16, 2)",
+ s "cp(3, 16, 4)",
+ s "bass(2, 16, 3)",
+ s "dr55(2,16,5)}"
+]
+#pan (rand)
+#n (irand 64)
+#gain "1.5"
+#shape "0.5"
+
+-- 05
+
+d6
+$jux (iter 4)
+$jux (iter 8)
+$stack[
+  --sound "arpy(3,16,3)",
+  --sound "felld(3,16,0)",
+  --sound "fell2(3,16,8)"|+|up "-7 0 7 14",
+  sound "fell(5,16,4)",
+  sound "bass(2,16,2)",
+  sound "dr55(2,16,10)",
+  sound "tr-808(2,16,8)",
+  sound "casio(5,16,6)",
+  sound "glitch(3,16,5)",
+  sound "808bd(3,16,9)"
+  -- sound "bd(2,16,3)"
+]
+#n (irand 128)
+#pan (rand)
+#up "{7 0 -7 0 5 -12 0 12 0 7 0 -7 0 12}%16"
+#cutoff (scale 800 15000 $slow 3 $rand) #resonance "0.3"
+#gain "1.5"
+#shape "0.5"
+
+-- 06
+
+d4
+$ jux (iter 8)
+$ slow 1
+$ stack[
+ up pat2 |=| sound "bass:3 bass:1 bass:0 bass:2",
+ sound (samples "fell*16?" (irand 6)) |+| speed "2.0 1.0 1.5",
+ up pat5 |=| sound (samples "fell?" (irand 2)) |+| speed "2.0 1.0 1.5",
+ up pat4 |=| sound "fell1" |+| speed "2.0 1.0 1.5 0.5",
+ up pat2 |=| sound "909",
+ up pat1 |=| sound "fell1"
+]
+-- # vowel "a i u e o"
+-- |+| delay "0.5" |+| delaytime "0.01 0.02 0.03" |+| delayfeedback "0.5"
+#cutoff (scale 800 18000 $slow 3 $sine1) #resonance "0.3"
+#gain "1.5"
+
+d6
+$ jux (iter 4)
+$ every 8 (chop 16)
+-- $ every 4 (|+| coarse "24 16 32")
+$ stack[
+  up pat2 |=| sound "909",
+  sound "panda:0*16?" |+| speed "1.0 3.0 2.0 1.5",
+  up pat4 |=| sound "panda:1 panda:2 panda" |+| speed "2.0 0.5",
+  up pat5 |=| sound "atom:2",
+  up pat3 |=| sound "panda:1 panda:2 panda" |+| speed "0.5 1.5 2.0"   
+]
+#pan (rand)
+#gain "1.2"
+-- #delay "0.75" #delaytime "0.02 0.03" |+|delayfeedback "0.25"
+
+d6
+$ every 4 (#coarse "24 16 32") 
+$ stack[
+  up pat3 |=| sound "ifdrums" #n (irand 64),
+  up pat2 |=| sound "bass:2 bass:1 bass bass:3",       
+  sound "atom:1" #speed "1.0 0.5",
+  up pat1 |=| sound "atom",
+  up pat5 |=| sound "atom:2"
+]
+#cutoff (scale 4000 16000 $slow 8 $sine1) #resonance "0.3"
+#gain "1.4"
+
+-- 07
+
+d5
+$ stack [
+  sound "cp(7, 16, {1, 3, 5, 7})" |+|up "{7 14 21 0 12 24}%8" #pan (rand),
+  sound "dr55(3,16,10)",
+  sound "gabba:4*4",
+  sound "bd(5, 16)"
+]
+#gain "1.2"
+#shape "0.5"
+
+d6
+$jux (iter 4)
+$ sound "hc:2*16" |+| speed "1.0 2.0 1.5"
+#gain "1.2"
+
+d6
+$sometimes (rev)
+$ slowcat [
+  sound "gabbaloud*4",
+  sound (samples "flick*16?" (irand 6)) |+| speed "2.0 1.0 1.5 3.0",
+  sound "bd:4*4",
+  sound "[bd bd ~ bd ~ ~ ~ bd]*2" |+| speed "0.75 1.0 0.5"
+]
+#gain "1.2"
+#shape "0.5"
+
+-- 08
+
+-- solo $
+d1
+$jux (iter 8)
+$every 3 (|=| coarse "{8 24 16}%8")
+$every 2 (stut' 1 0.125 (|*| speed "1.5"))
+$stack[
+  s "superpwm(5,16,3)" #n "-12" #voice (scale 12 36 $rand),
+  s "superpwm(11,16,1)" #n "12" #voice (scale 12 48 $rand),
+  s "superpwm(9,16)" #n "0" #voice (scale 8 12 $rand)
+]
+#up "{0 0 12 7 5 36 7 12 24}%11"
+#pitch1 (scale 1.0 2.0 $slow 2.5 $sine1)
+#sustain "0.15"
+#resonance (scale 0.1 0.4 $slow 5.5 $sine1)
+#cutoff (scale 800 10000 $slow 3 $rand) #resonance "0.2"
+#delay "0.6" #delaytime "0.05 0.01 0.02 0.005" #delayfeedback "0.5"
+#gain "1.0"
+#shape "0.5"
+
+-- 09
+
+d2
+$sound "ifdrums*2 ~ ~ ~"
+#gain "1.5"
+#n "[0 2] 0 0 0"
+#pan (rand)
+
+d2
+$jux (iter 8)
+$stack[
+  sound "bass(3,16,10)" #n (irand 64),
+  sound "gabba*2" #gain "1.7",
+  sound "glitch(3,16,3)" #n (irand 64),
+  sound "gabba(3,16,2)" #n (irand 64),
+  sound "ifdrums(7, 16)" #n (irand 64)
+]
+-- #delay "0.5" #delaytime "0.005 0.1 0.03 0.01 0.02" #delayfeedback "0.75"
+-- #cutoff "800" #resonance "0.2"
+-- #cutoff (scale 400 8000 $slow 16 $sine1) #resonance "0.2"
+#gain "1.2"
+#shape "0.9"
+
+d3
+$ stack [
+  sound "gabba(3, 16, 7)" #n "5",
+  sound "ifdrums(3, 16, 10)" #n "0"
+]
+#gain "1.5"
+#shape "0.9"
+
+d2
+-- $ whenmod 8 6 (jux (iter 8))
+-- $ whenmod 4 2 (jux (iter 4))
+$ sound "{bd(3, 16, 0), ifdrums(3, 16, 5), glitch(3, 16, 5), bass(3, 16, 2), cp(3, 16, 3), dr55(3,16,4)}"
+#gain "1.5"
+# n (irand 64)
+# pan (rand)
+
+d2
+$ every 8 (|+| accelerate "[1 -1]*3")
+$ whenmod 4 3 (jux (iter 4))
+$ stack [
+  up pat3 |=| sound "bd ~ bd*2 sn" |+| gain "1.0",
+  up pat4 |=| sound "[bass:2]" |+| gain "1.0",
+  up pat6 |=| sound (samples "rave2?" (irand 8)) |+| gain "1.0"
+]
+#gain "1.5"
+
+d2
+$whenmod 8 4 (jux (iter 8))
+$whenmod 4 3 (jux (iter 2))
+$sometimes (rev)
+$sound "{ifdrums(3, 16, 3), bd(3, 16, 2), glitch(3, 16)}"
+#gain "1.5"
+#n (irand 64)
+#pan (rand)
+
+-- 10
+-- solo $
+d1
+-- $sometimes (rev)
+$stack[
+  s "supersaw(7,16,13)" #n "{0, 7, 10, 17, 19}" #speed "1.5" #pan (rand),
+  s "supersaw(7,16,11)" #n "{0, 7, 10, 17, 19}" #speed "1.0" #pan (rand),
+  s "supersaw(3,16,7)" #n "{0, 7, 10, 17, 19}" #speed "0.75" #pan (rand),
+  s "supersaw(3,16,5)" #n "{0, 7, 10, 17, 19}" #speed "0.5" #pan (rand),
+  s "supersaw(3,16,3)" #n "{0, 7, 10, 17, 19}" #speed "0.25" #pan (rand)
+]
+-- |+|n "0 7 -7 12 -12"
+#cutoff (scale 800 18000 $slow 16 $sine1) #resonance "0.4"
+#sustain "0.08 0.16"
+#gain "1.0"
+#shape "0.5"
+
+d5
+-- $sometimes (rev)
+$jux (iter 16)
+$s "supersaw(7, 16, {3, 4})" # n "{c7, e7, f7, g7, a7, d8}"
+-- |+|n "0 7 -7 12 -12"
+#sustain "0.08"
+#cutoff (scale 2000 15000 $slow 5 $sine1) #resonance "0.2"
+#gain "0.7"
+#shape "0.5"
+
+

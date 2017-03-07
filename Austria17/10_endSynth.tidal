@@ -1,0 +1,26 @@
+-- 10
+
+d1
+$stack[
+  s "supersaw(7,16,13)" #n "{0, 7, 10, 17, 19}" #speed "1.5" #pan (rand),
+  s "supersaw(7,16,11)" #n "{0, 7, 10, 17, 19}" #speed "1.0" #pan (rand),
+  s "supersaw(3,16,7)" #n "{0, 7, 10, 17, 19}" #speed "0.75" #pan (rand),
+  s "supersaw(3,16,5)" #n "{0, 7, 10, 17, 19}" #speed "0.5" #pan (rand),
+  s "supersaw(3,16,3)" #n "{0, 7, 10, 17, 19}" #speed "0.25" #pan (rand)
+]
+-- |+|n "0 7 -7 12 -12"
+#cutoff (scale 800 18000 $slow 16 $sine1) #resonance "0.2"
+#sustain "0.05"
+#gain "1.0"
+#shape "0.5"
+
+d5
+$jux (iter 16)
+$s "supersaw(7, 16, {3, 4})" # n "{c7, e7, f7, g7, a7, d8}"
+-- |+| up "5 0 -5 0 -12 12 7 0 -7 0"
+#sustain "0.05"
+#cutoff (scale 2000 15000 $slow 5 $sine1) #resonance "0.3"
+#gain "0.8"
+#shape "0.5"
+
+d8 $s "sync"
