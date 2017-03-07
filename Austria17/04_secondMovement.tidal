@@ -3,7 +3,7 @@
 d6
 $jux (iter 8)
 $sound "{ifdrums(3, 16, 3), bd(3, 16, 2), glitch(3, 16)}"
-#gain "1.5"
+#gain "1.3"
 #n (irand 64)
 #pan (rand)
 
@@ -13,12 +13,12 @@ $sound "[bd [~ ifdrums] [~ bd] cp]*2"
 #cutoff (scale 1500 18000 $slow 4 $rand)
 #resonance "0.2"
 # n (irand 64) # pan (rand)
-# gain "1.5"
+# gain "1.3"
 
 d6
 $jux (iter 8)
 $sound "{ifdrums(5, 16, 3), bd(5, 16, 2), glitch(11, 16, 2)}"
-#gain "1.5"
+#gain "1.3"
 #n (irand 64)
 #pan (rand)
 
@@ -34,5 +34,5 @@ $ stack [
 ]
 #pan (rand)
 #n (irand 64)
-#gain "1.5"
+#gain "1.3"
 #shape "0.5"

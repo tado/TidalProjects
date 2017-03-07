@@ -17,6 +17,18 @@ $ stack[
 #gain "1.5"
 
 d6
+-- $ every 4 (#coarse "24 16 32") 
+$ stack[
+  up pat3 |=| sound "ifdrums" #n (irand 64),
+  up pat2 |=| sound "bass:2 bass:1 bass bass:3",       
+  sound "atom:1" #speed "1.0 0.5",
+  up pat1 |=| sound "atom",
+  up pat5 |=| sound "atom:2"
+]
+#cutoff (scale 400 16000 $slow 8 $sine1) #resonance "0.2"
+#gain "1.2"
+
+d6
 $ jux (iter 4)
 -- $ every 8 (chop 16)
 -- $ every 4 (|+| coarse "24 16 32")
@@ -30,15 +42,3 @@ $ stack[
 #pan (rand)
 #gain "1.2"
 #delay "0.75" #delaytime "0.02 0.03" |+|delayfeedback "0.25"
-
-d6
--- $ every 4 (#coarse "24 16 32") 
-$ stack[
-  up pat3 |=| sound "ifdrums" #n (irand 64),
-  up pat2 |=| sound "bass:2 bass:1 bass bass:3",       
-  sound "atom:1" #speed "1.0 0.5",
-  up pat1 |=| sound "atom",
-  up pat5 |=| sound "atom:2"
-]
-#cutoff (scale 400 16000 $slow 8 $sine1) #resonance "0.2"
-#gain "1.2"

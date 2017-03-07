@@ -5,20 +5,20 @@ $jux (iter 4)
 $jux (iter 8)
 $stack[
   --sound "arpy(3,16,3)",
-  --sound "felld(3,16,0)",
-  --sound "fell2(3,16,8)"|+|up "-7 0 7 14",
-  sound "fell(2,16,4)",
-  sound "bass(2,16,2)",
-  sound "dr55(2,16,10)",
-  sound "tr-808(2,16,8)",
-  sound "casio(2,16,6)",
-  sound "glitch(2,16,5)",
-  sound "808bd(2,16,9)"
-  -- sound "bd(2,16,3)"
+  --sound "felld(5,16,0)",
+  --sound "fell2(5,16,8)"|+|up "-7 0 7 14",
+  --sound "fell(3,16,4)",
+  sound "bass(3,16,2)",
+  sound "dr55(3,16,10)",
+  sound "tr-808(3,16,8)",
+  -- sound "casio(3,16,6)",
+  sound "glitch(3,16,5)",
+  sound "808bd(3,16,9)",
+  sound "bd(3,16,3)"
 ]
 #n (irand 128)
 #pan (rand)
 -- #up "{7 0 -7 0 5 -12 0 12 0 7 0 -7 0 12}%16"
 -- #cutoff (scale 800 15000 $slow 3 $rand) #resonance "0.3"
-#gain "1.5"
+#gain "1.3"
 #shape "0.5"

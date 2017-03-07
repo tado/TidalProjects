@@ -1,7 +1,7 @@
 -- 01
 d1
 $s "ikeda1(3, 16)"
-#gain "1.5"
+#gain "1.0"
 -- #cutoff (scale 800 8000 $rand) #resonance "0.3"
 -- #delay "0.8" #delaytime "0.01 0.02 0.03 0.005" #delayfeedback "0.8"
 
