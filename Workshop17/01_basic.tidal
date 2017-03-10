@@ -1,0 +1,125 @@
+cps 1
+
+d1 $sound "bd"
+
+d2 $sound "cp"
+
+d3 $sound "hc"
+
+d4 $sound "ho"
+
+d1 $sound "bd bd"
+
+d1 $sound "bd sn bd cp"
+
+d1 $sound "bd*4"
+
+d1 $sound "bd*2 cp*2"
+
+d1 $sound "bd [cp*2]"
+
+d1 $sound "bd/2"
+
+d1 $sound "bd [hc ho] bd [hc*2 ho]"
+
+d1 $sound "{cp(5,8), bd(3,8)}"
+
+d1 $sound "bass:1 sn:4 bass:2 sn:5"
+
+d1 $sound "bass sn bass sn" #n "1 4 2 5"
+
+d1 $sound "bd ~ sn:1 [~ cp]"
+
+solo $ d1 $sound "bd ~ bass [~ cp]"
+
+d1 $rev $sound "bd ~ bass [~ cp]"
+
+d1 $ every 4 (rev) $sound "bd ~ bass [~ cp]"
+
+d1 $slow 2 $sound "bd ~ bass [~ cp]"
+
+d1 $density 2 $sound "bd ~ bass [~ cp]"
+
+d1 $ every 4 (density 2) $sound "bd ~ bass [~ cp]"
+
+d1 $sound "bd*8" #pan "0.0 1.0"
+
+d1 $sound "bd*8" #pan (rand)
+
+d1 $sound "hc" #delay "0.7" #delaytime "0.125" #delayfeedback "0.8"
+
+d1 $sound "hc*8" #delay "0.7" #delaytime "0.01 0.03" #delayfeedback "0.9"
+
+solo $ d1 $sound "bd sn bd cp"
+
+d1 $sound "bd [~ cp]*2"
+
+d1 $sound "bd [~ cp]/2"
+
+d1 $ sound "[bd [cp cp]*2]/2 [bd [cp bd]/2]*2"
+
+d1 $sound "{bd*2, cp*3}"
+
+d1 $sound "{cp*3, bd*2}"
+
+d1 $sound "{bd cp bd bd cp, hc ho}"
+
+d1 $sound "{hc ho, bd cp bd bd cp}"
+
+d1 $sound "bd(3, 8)"
+
+d2 $sound "cp(5, 8)"
+
+d1 $cat[
+  sound "bd hc*2",
+  sound "cp*2 ho",
+  sound "bass"
+]
+
+d1 $slowcat[
+  sound "bd hc*2",
+  sound "cp*2 ho",
+  sound "bass"
+]
+
+d1 $stack[
+  sound "bd hc*2",
+  sound "cp*2 ho",
+  sound "bass"
+]
+
+hush
+
+d1
+$every 4 (rev)
+$sometimesBy 0.2 (slow 2)
+$sometimesBy 0.8 (jux (iter 4))
+$stack [
+  sound "ifdrums(3, 8, 0)",
+  sound "bd(3, 8, 3)",
+  sound "glitch(2, 8)"
+]
+#n (irand 64)
+#pan (rand)
+-- #cutoff (scale 1000 18000 $slow 4 $sine1) #resonance "0.2"
+#delay "0.3" #delaytime "0.125" #delayfeedback "0.2"
+#gain "1.0"
+
+d1
+$jux (iter 4)
+$jux (iter 2)
+$stack[
+  s "supersaw(7,8,4)" #n "{0, 7, 10, 17, 19}" #speed "1.5" #pan (rand),
+  s "supersaw(7,8,2)" #n "{0, 7, 10, 17, 19}" #speed "1.0" #pan (rand),
+  s "supersaw(3,8,7)" #n "{0, 7, 10, 17, 19}" #speed "0.75" #pan (rand),
+  s "supersaw(3,8,5)" #n "{0, 7, 10, 17, 19}" #speed "0.5" #pan (rand),
+  s "supersaw(3,8,3)" #n "{0, 7, 10, 17, 19}" #speed "0.25" #pan (rand)
+]
+|+|n "0 7 -7 12 -12"
+#cutoff (scale 2000 18000 $slow 16 $sine1) #resonance "0.4"
+#sustain "0.15 0.05" 
+#gain "1.0"
+
+
+hush
+
