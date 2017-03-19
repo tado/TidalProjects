@@ -38,10 +38,10 @@ $stack[
   s "supersaw(5,16,3)" # n "{c5, e5, f5, g5, a5}" |+| n "7",
   s "supersaw(5,16)" # n "{c5, e5, f5, g5, a5}"
 ]
--- |+| n "-7 7 5 -5 0 12 -12"
+|+| n "-7 7 5 -5 0 12 -12"
 -- |+| n (irand 24)
 #cutoff (scale 800 15000 $slow 4 $sine1) #resonance "0.2"
-#sustain "0.05 0.15"
+#sustain "0.04 0.16"
 #gain "0.8"
 
 -- 03
@@ -295,7 +295,7 @@ $stack[
   s "supersaw(3,16,5)" #n "{0, 7, 10, 17, 19}" #speed "0.5" #pan (rand),
   s "supersaw(3,16,3)" #n "{0, 7, 10, 17, 19}" #speed "0.25" #pan (rand)
 ]
-|+|n "0 7 -7 12 -12 5 - 5 24 -24"
+-- |+|n "0 7 -7 12 -12 5 - 5 24 -24"
 #cutoff (scale 800 18000 $slow 16 $sine1) #resonance "0.2"
 #sustain "0.08"
 #gain "1.0"
@@ -332,20 +332,6 @@ $s "ikeda3(3,16,9)"
 #sustain "1.0"
 #gain "1.0"
 
-d5 silence
+d1 silence
 
 hush
-
-
-
-
-
-
-
-
-
-
-
-
-
-
