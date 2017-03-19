@@ -6,7 +6,6 @@ $s "ikeda1(3, 16)"
 -- #delay "0.8" #delaytime "0.01 0.02 0.03 0.005" #delayfeedback "0.8"
 
 d2
-$sometimes (rev)
 $s "ikeda2(3,16,5)"
 #sustain "1.0"
 #gain "1.0"

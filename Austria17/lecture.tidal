@@ -1,0 +1,52 @@
+cps 1.0
+
+d9 $sound "sync"
+
+d1
+$jux(iter 2)
+$stack[
+  sound "ifdrums*4",
+  sound "bd*2",
+  sound "cp*4"
+]
+#n (irand 16)
+#room "0.0"
+#delay "0.1" #delaytime "0.125" #delayfeedback "0.2"
+
+d1
+$stack[
+  sound "glitch(5,8,5)",
+  sound "ifdrums(3,8,2)",
+  sound "hc(3,8,2)",
+  sound "bd(3,8,5)"
+]
+#n (irand 16)
+#gain "1.0"
+
+-- solo $
+d2
+$jux(rev)
+$stack[
+  s "supersaw(3,8,11)" #n "{0, 7, 10, 17, 19}" |+|n "-7" #pan (rand),
+  s "supersaw(3,8,5)" #n "{0, 7, 10, 17, 19}" |+|n "7" #pan (rand),
+  s "supersaw(3,8,0)" #n "{0, 7, 10, 17, 19}" |+|n "0" #pan (rand)
+]
+|+| n "7 -7 0 12 -12 -5 5"
+#cutoff (scale 2000 18000 $slow 16 $sine1) #resonance "0.3"
+#sustain "0.05"
+#gain "0.75"
+
+d3
+$ stack [
+  sound "gabba(3, 8, 5)" #n "2",
+  sound "ifdrums(3, 8, 1)" #n "0"
+]
+#gain "1.0"
+#shape "0.9"
+
+hush
+
+
+
+
+

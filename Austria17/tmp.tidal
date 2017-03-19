@@ -1,0 +1,14 @@
+d1 $s "supersaw*8" #sustain "0.1"
+#n "c3" |+| up (scale 0 12 $slow 8 $sine1)
+
+d1 $sound "cp(3, 8, 0)"
+
+d2 $sound "hc(3, 8, 1)"
+
+
+d8 $sound "sync"
+
+hush
+
+
+
