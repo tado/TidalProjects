@@ -13,6 +13,7 @@ let pat5 = "{[~ 0] 0 0 ~ 0 -12 0*2 ~ [~ 0] [~ 0] ~ 0 -12 0*4 ~ [~ 0] [~ 0] ~ 0*2
 let pat6 = "{~ 0 ~ 0 -12 0*4 0 0*2 [~ 0] -12 0*4 ~ 0 ~ 0 -12 0*2 ~ [~ 0] [~ 0] ~ 0*2 -12}%4"
 
 
+
 d1
 $ jux (iter 8)
 -- $ every 3 (gap 4)
@@ -31,7 +32,8 @@ $ stack[
   up pat6 |=| sound "cr:4" # speed (scale 1.0 5.0 $ rand),
   up pat4 |=| sound "cr:6" # speed (scale 1.0 5.0 $ rand),
   up pat5 |=| sound "cr:2" # speed (scale 1.0 5.0 $ rand)
-]
+k
+  ]
 -- |=| cutoff (scale 2000 18000 $ slow 3 $ sine1) # resonance (scale 0.1 0.5 $ rand)
 |=| delay "0.5" # delaytime "0.375" # delayfeedback "0.8"
 
@@ -77,9 +79,9 @@ d5
 $ jux (iter 16)
 -- $ every 3 (chop 8)
 $ stack[
--- up pat5 |=| sound "reichg:1" |=| speed "0.5 0.25 1.0 -1.0",
--- up pat2 |=| sound "reichg:0" |=| speed "1.0 0.5 0.25 1.0 -1.0",
--- up pat3 |=| sound "reichg:3" |=| speed "1.0 -0.5 0.25 1.0 -1.0 1.0 1.5",
+ up pat5 |=| sound "reichg:1" |=| speed "0.5 0.25 1.0 -1.0",
+ up pat2 |=| sound "reichg:0" |=| speed "1.0 0.5 0.25 1.0 -1.0",
+ up pat3 |=| sound "reichg:3" |=| speed "1.0 -0.5 0.25 1.0 -1.0 1.0 1.5",
  up pat4 |=| sound "reichg:2" |=| speed "0.5 0.25 -1.5 1.0 -0.75 1.0 -0.25"
 ]
 -- |+| vowel "i e u a o"

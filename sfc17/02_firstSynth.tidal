@@ -1,0 +1,8 @@
+-- 02
+d4
+$stack[
+  s "supersaw(5,16)" # n "{c5, e5, f5, g5, a5}"
+]
+#cutoff (scale 800 15000 $slow 4 $sine1) #resonance "0.2"
+#sustain "0.08"
+#gain "0.8"
