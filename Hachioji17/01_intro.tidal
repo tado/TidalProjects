@@ -1,0 +1,20 @@
+-- 01
+d1
+$s "ikeda1(3, 16)"
+#gain "1.0"
+-- #cutoff (scale 800 8000 $rand) #resonance "0.3"
+-- #delay "0.8" #delaytime "0.01 0.02 0.03 0.005" #delayfeedback "0.8"
+
+d2
+$s "ikeda2(3,16,5)"
+#sustain "1.0"
+#gain "1.0"
+ 
+d3
+$s "ikeda3(3,16,9)"
+#sustain "1.0"
+#gain "1.0"
+
+
+
+

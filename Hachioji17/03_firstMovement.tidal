@@ -1,0 +1,19 @@
+-- 03
+
+d5
+$slow 2
+$sound "ifdrums*2 ~ ~ ~ ~ ~ ~ ~"
+#n "[0 2] 0 0 0 0 0 0 0"
+#gain "1.5"
+
+d6
+$jux (iter 16)
+$every 2 (#gain "0")
+$stack [
+  s "ifdrums(3, 16, 5)",
+  s "bd(2, 16, 2)",
+  s "glitch(2, 16)"
+]
+#n (irand 64)
+#gain "1.5"
+#pan (rand)

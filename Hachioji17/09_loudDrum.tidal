@@ -1,0 +1,60 @@
+-- 09
+
+d2
+$sound "ifdrums*2 ~ ~ ~"
+#gain "1.5"
+#n "[0 2] 0 0 0"
+#pan (rand)
+
+d2
+$jux (iter 8)
+$stack[
+  sound "bass(3,16,10)" #n (irand 64),
+  sound "gabba*2" #gain "1.7",
+  sound "glitch(3,16,3)" #n (irand 64),
+  sound "gabba(3,16,2)" #n (irand 64),
+  sound "ifdrums(7, 16)" #n (irand 64)
+]
+-- #delay "0.5" #delaytime "0.005 0.1 0.03 0.01 0.02" #delayfeedback "0.75"
+-- #cutoff "800" #resonance "0.2"
+-- #cutoff (scale 400 8000 $slow 16 $sine1) #resonance "0.2"
+#gain "1.2"
+#shape "0.9"
+
+d3
+$ stack [
+  sound "gabba(3, 16, 7)" #n "5",
+  sound "ifdrums(3, 16, 10)" #n "0"
+]
+#gain "1.5"
+#shape "0.9"
+
+d2
+-- $ whenmod 8 6 (jux (iter 8))
+-- $ whenmod 4 2 (jux (iter 4))
+$ sound "{bd(3, 16, 0), ifdrums(3, 16, 5), glitch(3, 16, 5), bass(3, 16, 2), cp(3, 16, 3), dr55(3,16,4)}"
+#gain "1.5"
+# n (irand 64)
+# pan (rand)
+
+d2
+$ every 8 (|+| accelerate "[1 -1]*3")
+$ whenmod 4 3 (jux (iter 4))
+$ stack [
+  up pat3 |=| sound "bd ~ bd*2 sn" |+| gain "1.0",
+  up pat4 |=| sound "[bass:2]" |+| gain "1.0",
+  up pat6 |=| sound (samples "rave2?" (irand 8)) |+| gain "1.0"
+]
+#gain "1.5"
+
+d2
+$whenmod 8 4 (jux (iter 8))
+$whenmod 4 3 (jux (iter 2))
+$sometimes (rev)
+$sound "{ifdrums(3, 16, 3), bd(3, 16, 2), glitch(3, 16)}"
+#gain "1.5"
+#n (irand 64)
+#pan (rand)
+
+
+

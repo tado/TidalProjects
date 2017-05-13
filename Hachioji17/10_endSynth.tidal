@@ -1,0 +1,25 @@
+-- 10
+
+d1
+$stack[
+  --s "supersaw(7,16,13)" #n "{0, 7, 10, 17, 19}" |+|n "7",
+  --s "supersaw(7,16,11)" #n "{0, 7, 10, 17, 19}" |+|n "5",
+  s "supersaw(3,16,7)" #n "{0, 7, 10, 17, 19}" |+|n "0",
+  s "supersaw(3,16,5)" #n "{0, 7, 10, 17, 19}" |+|n "-5",
+  s "supersaw(3,16,3)" #n "{0, 7, 10, 17, 19}" |+|n "-12"
+]
+#cutoff (scale 800 18000 $slow 16 $sine1) #resonance "0.2"
+#sustain "0.1"
+#gain "1.0"
+#shape "0.5"
+
+d5
+$jux (iter 16)
+$s "superhammond(7, 16, {3, 4})" # n "{c6, e6, f6, g6, a6, d7}"
+-- |+|n "5 0 -5 0 -12 12 7 0 -7 0"
+#sustain "0.1"
+#cutoff (scale 2000 15000 $slow 5 $sine1) #resonance "0.3"
+#gain "0.8"
+#shape "0.5"
+
+d8 $s "sync"
