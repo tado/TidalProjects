@@ -1,0 +1,103 @@
+d1 $s"gabba*8"#n(choose[0,0,0,1])#cutoff(slow 2$scale 20 9999rand)#pan(slow 3$choose[0,0.125..0.875])#cut(choose[0,1,1])#shape 0.99
+d1 $spread _slow[0.3..1]$s"ade*16cp?v"#n(irand 9)#pan rand#nudge(slow 9$scale(-0.5)3sine1)#up"-9"#release 0.7#cut(choose[0,1])
+d1 $fast(choose[2,2,2.5,3,4])$slow(choose[1,1.1..4])$s"odx*8cp hc gabba"#pan(slow 3rand)#gain 3#begin(slow 2saw)#hpf 60 #gain 1.4
+d1 $slow 0.08$randcat[s"odx",s"cp",s"hc",s"bd",s"clak"]#release 0.1#gain(spreadChoose slow[9,5,7]$scale 0.5 2saw)#pan(slow 2rand)
+d1 $degradeBy 0.88$spread _density[9,7.5..1]$jux(iter 19)$s"hh*3gab*5if*7future*4?808bd"#n(choose[3..8])#up(choose[0,-9,3,-4,9,5])
+d1 $spread fast[0.5,2,3.5,5,6.5,9]$fast 9$s"jvbass"#up(choose[0,12,24,36,14,26,38,15,27,39])#loop 9#pan(slow 2rand)#gain(slow 3rand)
+d1 $fast(choose[1,2,3,4,5,6,7,8,9,10,11])$s"808cy*29?"#speed(slow(choose[1,2,3,4,5,6,7,8,9])$scale 0.25 4sine)#pan(fast 9rand)
+d1 $fast 1.75$s"808*49"#n 5#pan(fast(choose[1,4,7,10])$scale 1 0$saw)#up(slow 40$scale(-79)9$saw)#end 0.1#shape 0.9
+d1 $s"sn*12"#n(slow 7$irand 9)#release(slow 8$scale 0.1 0.3saw)#coarse(irand 9)#hcutoff(slow 9$scale 20 4000$saw1)#pan(fast 9rand)
+d1 $fast(choose$[1,1.5..4]++[3.75,3.5..1.25]++[2,2.75..5.75]++[4.5,3.25..0.75])$s"odx hc cp sf d if"#pan(fast 2rand)#cut 1
+d1 $s"gab rave*9?"#n(fast 15$irand 9)#lpf(fast 16$scale 20 20000rand)#pan(fast 17rand)#cut 1#up"-6"#shape(fast 19rand)
+d1 $slow(choose[0.2,0.3,0.1])$s"bev"#lpf(slow 9$scale 20 9999saw)#pan(fast 9rand)#begin(fast 2rand)#end(slow 2saw)#gain 1.6#release 1
+d1 $slow(choose$[0.2,0.3..1]++[0.04,0.039..0.003])$s"odx*9?"#gain(fast 2$scale 1 2rand)#hpf(slow 2$scale 20 20000saw)#pan(slow 9rand)
+d1 $slow(choose$[0.2,0.5..3])$s"gab?*9hc?*9"#pan"{1,0}"#lpf(fast 2$scale 999 20000rand)#cut(choose[0,1,1])#n(run 19)#up"-6 -3 0 3 6"
+d1 $slow 3.5$spread slow[0.2,0.1,0.1]$superimpose(iter 4)$sound"808:7?house:5*2?"#release"0.1 2"#gain"1.3 1"#shape 0.3#pan(fast 9rand)
+d1 $foldEvery[3..19](slow 0.9)$spread slow[0.05,0.1,0.2]$smash 9[9]$s"bd v*99"#n(run 4)#pan tri#up"1 0 80 60 70 50 30 20 10 40 90 1 3"
+d1 $slow 0.1$s(randcat["hc","bd","odx","jazz","~"])#pan(slow 66saw)#shape(slow 77saw)#end(slow 88saw)#lpf(slow 99$scale 200 20000saw)
+d1 $slow(choose[0.4..1.9])$slow"0.02 0.07 0.12 0.17 0.22"$s"hc cp?odx"#pan"0 0.5 1"#end(slow 9$scale 2 0.5saw)#lpf(slow 19$run 9999)
+d1 $iter(choose[1,2,3])$spread _slow[0.05,0.09..1]$s"d hc?cp"#delayt(scale 1.0e-6 0.1$rand)#delay 1#delayfb 1#pan(fast 9rand)
+d1 $slow 0.09$stack[s"blip?"#cut 1#up(choose[-24,-22,-21,-9])#lpf 999,s"odx?"]#gain(fast 2$scale 0.8 1.4rand)#pan(fast 3rand)#gain 1.3
+d1 $slow(choose[0.06..2])$s"pad"#cut 1#n 2#begin(slow 18$scale 0 0.2saw)#pan(slow 17rand)#loop 9#end(slow 19$scale 0 0.5saw)
+d1 $slow 0.25$stack[s"jungbass?"#n(slow 2$choose[0,1,5,14,16,18,19])#cut 1#shape rand#gain 0.8,s"hh"#up 19#pan rand,s"bd?"#pan rand]
+d1 $slow 0.35$stack[s"sequential(3,9)"#n(choose[0,2,3])#shape 0.5,s"jungbass/6"#n 6#up(choose[-9,-6..9])#loop 4#pan(fast 9rand)]
+d1 $fast 1.1$every 7(rev)$every 9(1.5~>)$every 5(slow 1.5)$s"hc ul~drum bd*2feel"#n(choose([1,2]++[5..7]))#cut"{1,0}"#pan saw#gain 1.1
+d1 $slow 0.1$stack[s"haw"#end 0.1#n(irand 5)#pan 0.25,s"stab"#n(irand 22)#cut 1#pan 0.75,s"bd",s"hc?"]#shape 0.5#up"-9"
+d1 $every 3(0.25<~)$every 2(0.125<~)$s(every 5(fast 2)$"drum*8?")#n"0 1 2 5"#pan(slow 7rand)#begin(slow 9$scale 0 0.4saw)#gain 1.8
+d1 $iter(choose[1,2,3])$rev$slow(choose[3,5..11])$striate(choose[128,24,96,48,12,9,3])$s"bev"#cut 1#speed 0.5#pan(slow 19tri)#gain 1.7
+d1 $iter"1 2"$slow 0.1$spread gap[55,99,66,22,77,88,99,44,9,33,1]$s"bd"#end(slow 8tri)#speed(slow 19tri)#up 9#gain 1.2#pan(slow 2rand)
+d1 $iter"4 8"$s"subroc3d*8"#n 10#up(fast 9$choose[-20,-15,-12-19,-17,-22,-14])#release 0.13#pan(fast 9rand)#hpf 333#gain 1.5
+d1 $jux(slow 0.5)$every 7(slow 3)$every 5(0.5<~)$s(every 7(rev)$"drum*3?jazz*5?bass?")#n(rarely(rev)$"5 4 3 7")#end saw#gain 1.4
+d1 $jux rev$slow 0.1$s"click?"#n(choose[2,3,3])#lpf(scale 20 20000rand)#hpf(slow 0.6$scale 18000 20rand)#shape(slow 2rand)#gain 1.4
+d1 $s"sine"#release 0.2#up(fast 9$choose[0,12,-14,3,5,7,8,11])#delay 1#delayt(scale 0.07 0.3rand)#delayfb 1#pan(slow 19sine)
+d1 $slow(choose$[0.05,0.1..1])$s"blip*3?"#up(discretise 9$choose[-48,-45..0])#delay 1#delayt(slow 9$scale 0.03 1.0e-31saw)#delayfb 1
+d1 $iter 2$slow 0.1$(s$randcat$"808":(p.("808"++)<$>words"bd cy hc ht lc lt mc mt oh sd"))#n(irand 24)#pan(fast 9rand)#cut 1#gain 1.2
+d1 $every 2(1~>)$iter 5$slow 0.1$s"hh27"#n(slow 0.1$choose[0..12])#pan(fast 9rand)#cut(choose[0,1,1,1])#up(choose[-12,-9..12])#gain 2
+d1 $every 4(1.5<~)$iter 2$slow 0.1$stack[s"808bd?"#up(choose[-6,-3..9]),s"bass?"#up(choose[-9,-3,9])]#n(choose[0..9])#cut 1#gain 1.3
+d1 $stack[sound"{hc,erk?,808bd:1?}%11"#gain(slow 2$choose[0.4,1,1.2])#cut(choose[0,1,1,1]),sound"808:3/3?"#gain 2]#pan(fast 9$rand)
+d1 $iter(choose[0..9])$s"tabla*9?tabla2*9?"#n(fast 9$choose[9..25])#pan(fast 8rand)#up(fast 7$choose[0,-3.. -12])#hpf 200#gain 1.2
+d1 $slow 0.1$s"tech"#n(choose[5..9])#speed 2#delay 1#delayt(slow(choose[1,4.5..99])$scale 0.005 0.0325saw)#delayfb 0.8#gain 1.8
+d1 $slow 0.1$stack[s"moog"#up(choose[24,26,27]),s"moog"#up(choose[36,31,36,50]),s"moog"#up(choose[48,55,41,43,39])]#release 0.15
+d1 $slow 0.15$s(randcat["if*3","ifdrums","if*2"])#cut 1#n(irand 4)#pan(fast 9rand)#lpf(scale 200 9999rand)#up(scale(-9)9rand)#gain 1.4
+d1 $degradeBy 0.8$fast 50$spread zoom[(0,0.25),(0.25,0.5),(0.5,0.75),(0,1)]$s"cp d if?ul"#n(irand 9)#cut"1 0"#pan(fast 9rand)#gain 1.5
+d1 $fast 9(brak(s"cp?bd?psr"))#speed((*)<$>saw<*>(slow 29$scale(-1)4saw))#pan(fast 9rand)#n(irand 99)#end(slow 3rand)#hpf 150#gain 1.2
+d1 $fast(choose[1..16])$randcat[s"bass1?",s"bass1*2?",s"bass1*4?"]#n"0 1 2"#release 0.01#up(choose[9,9.125..96])#n 27#pan(slow 333saw)
+d1 $slow(choose[0.015,0.02..0.18])$s"bass1"#release(slow 8saw)#n 17#up(choose[1,5.5..24])#hpf(slow 7$scale 20 2000saw)#pan(fast 9rand)
+d1 $spread _slow[0.003..0.5]$s"808hc?"#speed(scale 9 999rand)#pan(slow 13332$scale 0.1 0.9sine)#end(slow 6666$sine)#loop 299#gain 0.9
+d1 $s"hc*11?"#orbit(choose[0,0,0,0,0,0,0,0,1])#room(slow 2saw)#size(slow 3saw)#lpf(fast 8$scale 80 9999rand)#pan(fast 9rand)#gain rand
+d1 $s"foo*9"#n(irand 99)#speed(scale(-1)2rand)#cut 1#bandf(scale 200 4000rand)#end(scale 0.01 0.3rand)#accelerate(-0.25)#gain 1.7
+d1 $iter 9$slow 0.08$sound"cp?808bd:1?"#pan(fast 9rand)#bandf(choose[20,40..665])#bandq 99#nudge(slow 0.2$scale 0 3rand)#hpf 99
+d1 $slow 0.75$s"pad*3?koy?"#n(irand 9)#pan rand#end rand#cut 1#accelerate"-2"#nudge(slow 2rand)#up(choose[-9..1])#loop 9#gain 1.3
+d1 $stack[spread slow[1,1,1,1]$iter 4$s"bass1*8"#cut 1#n(choose([2..4]++[12,22])),s"808*4?"#n 1#up 5,s"odx*8?"#up 11]#pan saw
+d1 $iter"1 2 3"$jux(rev)$every 2(striate' 9(4/7))$striate' 12(2/2)$s"drumtraks*4"#n(slow 3$choose[0,1,2,6,8,9,11,12])#pan(slow 999saw)
+d1 $fast 5$sound(randcat["bass1","bass1*2","808bd","808"])#coarse(irand 29)#cut"0 1"#n(irand 29)#release rand#gain 1.1#pan(fast 9rand)
+d1 $let p=n(choose([0]++[2..5]))#s"house*9?"in stack[p#speed"9 12",p#shape 0.9#gain 0.85,p#speed(choose[-1,1,1,1])]#pan(fast 9rand)
+d1 $slow 0.01$iter"0 9"$s"stab trump"#n(irand 99)#end(scale 0 0.5rand)#speed(scale 0 99rand)#pan rand#coarse(irand 99)#loop 9#gain 0.9
+d1 $slow 0.2$stack[s(randcat["tech*2","808bd","d","cp"])#n(choose[0,2,5,6])#cut 1#up(choose[0,12]),s"808bd*2"#n"0 1"]#pan(fast 9rand)
+
+d1 $spread trunc([0,8]++[9..0.3])$s"{if?bass1?hc?d?e?}%399"#speed(scale 0 2rand)#n(irand 9)#nudge saw1#pan(slow 2rand)#release rand
+
+d1 $spread _slow[0.4..2.2]$stack[s"if([1,3],9)",s"if([1,3],5?)"#n 2,s"808"#n 1#up 9#gain 3]#pan(fast 9rand)#lpf(scale 20 20000rand)
+
+d1 $slow(1%8)$s(randcat["pad/2","pad","pad/4"])#n 1#begin 0.8#end 0.89#up(choose[-36,-33..7])#cut 1#pan(slow 33tri1)#gain 1.4
+d1 $s(randcat["bd","cp","hh27"])#n 0#begin 0#end 0.8#up(slow 0.1$choose[-24,-23..12])#loop 99# 3#release 3#pan(slow 2rand)
+d1 $degradeBy 0.1$jux(slow 1.000002)$iter 4$stack[s"stab*8"]#n(choose([1..9]++[12,15,16]))#up(choose[12,14,15,17,7,8,11])#gain"1.12 1"
+d1 $slow 0.225$s"bass1"#n(1<~(discretise(1/8)$choose[2..5]))#gain(slow 8sine1)#pan(slow 16sine1)#up(1<~(discretise(1/8)$choose[0..9]))
+d1 $slow 0.049$s"{odx?tabla?chin?}%1"#n(discretise(1/9)(slow 0.1$choose[0,3,6,8,10,12,13]))#cut 1#pan(slow 9saw1)#nudge(slow 4saw1)
+d1 $slow 0.5$iter 4$stack[s"jvbass*4?"#up(choose[29,27,26,24]),s"jvbass*2"#up(choose[31,34,33]),s"jvbass"#up(choose[0,5,3,2,7])]
+d1 $iter 8$stack[s"e*11"#delay 1#delayfeedback 1#delaytime(scale 0.02 0.0025rand)#orbit 0,s"odx*11?"#orbit 1]#pan(slow 2rand)
+d1 $slow 0.1$whenmod 3 5(spread slow([2..7]++[6..1]))(s"house?odx")#n(choose[0,3,6,8,10,12,13])#pan(slow 2rand)#cut 1#nudge rand
+d1 $s"foo*3?"#(speed$slow 5$scale 1.3 0.8sine1)|*|(speed$scale 2 1sine1)#n(irand 26)#end(scale 0.4 0.06rand)#loop 9#pan(slow 2rand)
+d1 $spread slow[0.05..1]$s"glasstap"#n(choose[0..2])#nudge(slow 2$scale(-3)3rand)#end(slow 3rand)#pan(slow 4rand)#speed rand#gain 1.45
+d1 $slow 0.13$s(randcat["bass1","rave2","stab","cp"])#n(slow 0.1$irand 29)#up(discretise(1/29)(choose[0..33]))#cut 1#pan(slow 66saw1)
+d1 $stack[s"cp*9"#nudge(slow 9$scale 0 3sine1)#hcutoff(slow 5$scale 9999 20sine1)#pan(slow 7sine1),sound"808bd:6*2"#pan(slow 3saw1)]
+d1 $every 3(2<~)$s"pluck*29"#n(irand 16)#nudge(slow 9$scale 0 3sine1)#pan(slow 8sine1)#up(choose[0,9/8,5/4,4/3,3/2,5/3,15/8,2/1])
+d1 $spread slow[0.5..3]$stut 99 9 1$spread density[5,7%9]$s"gab?"#n(irand 7)#up(choose[-29..0])#pan(slow 2rand)#end 0.1#gain 0.11
+d1 $stack[s"808*9"#n"1"#nudge(slow 5sine1),s"808*5"#n"4"#nudge(slow 7sine1),s"808*7"#n 5#nudge(slow 6sine1)]#pan(slow 0.1rand)#up 3
+d1 $spreadChoose slow[0.1,0.2,0.5,0.3]$weave 9(gain sine1)[sound"808bd:6?808:1"#nudge(slow 9sine1),s"cp?jazz"#n"0 5"]#pan(slow 2rand)
+d1 $spreadChoose slow[0.15,0.15,0.1,0.1,0.2]$s(randcat["bass1","bass1*2?","~"])#n(irand 29)#up(choose[0,1,4,5,7,8,10])#pan rand#cut 1
+d1 $spread density[2,2]$iter 3$stut 2 9 1$spread density[5,7%9]$s"808ht"#speed(choose[-2.00,-1.75..2])#pan(slow 39saw1)#gain 0.25
+d1 $jux(#nudge(slow 19$(/2)<$>tri1))$stack[s"[bass1*9,tink*8]"#n"[2 5]/5"]#up(slow 0.1$choose[0,4..99])#nudge(slow 29$scale 0 4tri1)
+d1 $s"ades2*9"#n(choose[0..8])#gain(scale 1 2rand)#loop(slow 19$run 9)#nudge(slow 9sine1)#pan(slow 2rand)#end(slow 9$scale 0.3 1sine1)
+d1 $spreadChoose slow[0.7..1]$iter 4$s"{909?,ab,rm,east?}%8"#n(choose[2,4,5,7,8,11])#pan(choose[0,0.12..1])#up(slow 2$choose[0,2..12])
+d1 $slow 0.125$s(randcat["ades3/2","ades3","ades3*3","ades3*5"])#n(slow 0.2$choose[0..6])#release(slow 19sine1)#pan rand#gain 1.2
+d1 $s"alex"#n(choose[0,1])#begin(slow 3$scale 0 0.1sine1)#end(slow 2$scale 0.1 0.11sine1)#loop 33#pan rand# 3#release 3#gain 1.2
+d1 $s"if*2cp"#n(irand 9)#pan rand#nudge(slow 9$scale 0 9rand)#begin(slow 9$scale 0 3rand)#end(slow 9$scale 0 1rand)#loop 9#gain 1.2
+d1 $slow 0.1$s"amencutup"#n(choose[0..31])#pan(slow 198saw1)#nudge(slow 99$scale(-0.5)3sine1)#up 3#release(slow 2rand)#gain 2
+d1 $slow 0.1$s"armora*2"#n 6#release 0.5#cutoff(slow 0.1$scale 20 9999rand)#resonance rand#speed(scale 0 3rand)#pan"0 0.25 0.5 0.75 1"
+d1 $slow 0.11$stack[s(randcat["arp","arp/2","arp/4"])#up(choose[0,1,3,4,8])#n(slow 0.1$choose[0,0,0,0,0,0,0,0,1]),s"gabba?"#gain rand]
+d1 $slow 0.21$s"arpy?"#up(choose[-24,-12,-5,2,-7,-9,-16,-14,-52])# 4#release 0#pan(slow 2rand)#coarse(irand 9)#shape 0.99
+d1 $s"auto*7?"#n(irand 10)#cut"1"#speed(slow 9$scale 0.25 2sine1)#shape(slow 18$sine1)#pan(slow 17$tri1)#nudge(slow 16$sine1)#loop 19
+d1 $slow 0.01$s(randcat["bass","bass*2","bass*3","bass*4"])#end(slow 667tri1)#speed(slow 999$scale 99 0saw1)#pan(slow 555sine1)
+d1 $slow 0.3$s"bass1*3?"#n(choose[1,2])#pan(slow 2$choose[0,1])#end(slow 3$choose[0.5,1])#up(choose[-9,-6.99..20])#gain 1.2
+d1 $slow 0.08$s"bass2?bass3 cp hc"#n(irand 10)#pan"0 1 0.5 0.5"#gain(slow 2$rand)#up(slow 3$choose[-19..19])#loop(slow 4$choose[0..2])
+d1 $iter 9$spreadChoose slow[0.125,0.25,0.5,1]$s"bassdm*24cp?"#n(run 24)#up(run 23)#shape(slow 9$scale 0.5 0.9saw1)#pan(slow 18saw1)
+d1 $spreadChoose slow[0.05..0.35]$s"bd bend?bin"#n(irand 23)#speed(scale(-1)2rand)#nudge(slow 19$scale(-2)2sine1)#pan(slow 29sine1)
+d1 $slow 0.01$s"birds3?"#n(irand 18)#up(scale(-99)0rand)#pan(slow 999saw1)#hcutoff 80#begin(slow 99$saw1)#end(slow 88$saw1)#loop 4
+d1 $spreadChoose slow[0.05..2]$iter 5$s"[bleep*8,808bd*2?,808*5,gabba,hc]"#n 1#up"1 1.5 2 2.5 2"#begin(slow 8saw1)#end rand#pan sine1
+d1 $stack[s"bleep*9?",s"bleep*3?"#up(-5),s"bleep?"#up"-12"]#end(slow 9$scale 0.3 0.6saw1)#gain(spread slow[1..8]$scale 0.3 1saw1)#n 6
+d1 $s"bleep*9?"#n"2"#accelerate(choose[-0.1..0.1])#pan sine1#up(choose[-9..9])#begin(slow 8saw1)#end(scale 0 0.01$rand)#cut 1#gain 1.6
+d1 $spread slow([0.1..1]++[1])$s"[bleep*8?cp?bass,blip,bd]"#n"2 7"#release(slow 3rand)#up(choose[0,0.1..4])#pan"0 1 0.5"#nudge saw
+d1 $s"{blue?bottle breaks125,breaks157}%9"#n(choose[0..12])#begin saw#end(slow 2saw)#pan(slow 9rand)#up(choose[-9,-8.5..9])#cut(run 1)
+d1 $every 3(iter 9)$slow 0.13$spreadChoose slow[1..39]$spreadChoose slow[0.9..18]$striate' 333(1/10)$s"bleep*9?cp?odx"#pan(slow 2rand)
+d1 $spread slow(replicate 5 0.6)$spreadChoose slow[0.15..0.001]$s(randcat["cp","hc?","bass","gab?"])#pan(slow 2rand)#n(irand 9)#cut 1

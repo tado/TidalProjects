@@ -25,7 +25,7 @@ d2
 $jux (iter 4)
 $sometimes (rev)
 $s "ikeda2(3,16,{5, 7})"
-#sustain "1.0"
+#sustain "0.1"
 #gain "1.0"
  
 d3
@@ -42,7 +42,7 @@ $stack[
 ]
 -- |+| up "-7 7 0"
 #cutoff (scale 800 15000 $slow 4 $sine1) #resonance "0.3"
-#sustain "0.12 0.2"
+#sustain "0.12 0.05"
 #gain "0.8"
 
 -- 03

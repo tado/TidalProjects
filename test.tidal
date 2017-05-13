@@ -1,5 +1,13 @@
 cps(120/120)
 
+hush
+
+d2 $ sound "bd" #n "0"
+
+d1 $ sound "~ ~ cp ~  cp ~ ~ cp"
+
+d1 $ sound "~ ~ cp ~ cp ~ ~ ~"
+
 d1 $ sound "bd*2 [sn cp]"
 
 d1 $stack[
