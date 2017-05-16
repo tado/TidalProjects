@@ -11,16 +11,25 @@ let pat1 = "{0*2 ~ [12 ~] ~ 0*4 [~ 0] 0}%8"
 
 d8 $s "sync"
 
--- 01
+--- Live coding!!
+
 d1
-$jux (iter 4)
-$s "ikeda1(3, 16)"
-#gain "1.0"
-#cutoff (scale 800 8000 $rand) #resonance "0.3"
-#delay "0.8" #delaytime "0.01 0.02 0.03 0.005" #delayfeedback "0.8"
+$jux (iter 8)
+$s "ikeda1(5, 8, {0, 3})"
+#delay "0.8" #delaytime "0.05 0.02 0.01 0.005" #delayfeedback "0.7"
 
 d2
-$jux (iter 8)
+$jux (iter 4)
+$s "ikeda2(5, 8, 5)"
+
+-- 01
+d1
+$s "ikeda1(3, 16)"
+#gain "1.0"
+-- #cutoff (scale 800 8000 $rand) #resonance "0.3"
+-- #delay "0.8" #delaytime "0.01 0.02 0.03 0.005" #delayfeedback "0.8"
+
+d2
 $s "ikeda2(3,16,5)"
 #sustain "1.0"
 #gain "1.0"
@@ -32,17 +41,18 @@ $s "ikeda3(3,16,9)"
 
 -- 02
 d4
+$sometimes (jux (rev))
+$sometimes (jux (iter 8))
 $stack[
-  s "supersaw(5,16)" # n "{c5, e5, f5, g5, a5}",
-  s "supersaw(5,16,6)" # n "{c5, e5, f5, g5, a5}" |+| n "-12",  
-  s "supersaw(5,16,2)" # n "{c5, e5, f5, g5, a5}" |+| n "12",
-  s "supersaw(5,16,4)" # n "{c5, e5, f5, g5, a5}" |+| n "7"  
+  s "supersaw(5,16,9)" # n "{c5, e5, f5, g5, a5}" |+| n "-12",    
+  s "supersaw(5,16,7)" # n "{c5, e5, f5, g5, a5}" |+| n "7",  
+  s "supersaw(5,16,3)" # n "{c5, e5, f5, g5, a5}" |+| n "-7",
+  s "supersaw(5,16)" # n "{c5, e5, f5, g5, a5}"
 ]
-|+| n "<0 5 7 12>/4"
-|-| n "12"
+|+| n "<0 7 5 -7 -12 12 0>"
 #cutoff (scale 800 15000 $slow 4 $sine1) #resonance "0.2"
-#sustain "0.08"
-#gain "0.8"
+#sustain "0.08 0.01 0.1"
+#gain "0.75"
 
 -- 03
 
@@ -132,7 +142,7 @@ $stack[
 
 d4
 $ jux (iter 8)
-$ slow 2
+$ slow 1
 $ stack[
  up pat2 |=| sound "bass:3 bass:1 bass:0 bass:2",
  sound (samples "fell*16?" (irand 6)) |+| speed "2.0 1.0 1.5",
@@ -173,7 +183,6 @@ $ stack[
 #gain "1.2"
 #delay "0.75" #delaytime "0.02 0.03" |+|delayfeedback "0.25"
 
-
 -- 07
 
 d5
@@ -202,7 +211,6 @@ $ slowcat [
 #shape "0.5"
 
 -- 08
-
 solo $
 d1
 $jux (iter 8)
@@ -215,10 +223,10 @@ $stack[
 ]
 #up "{0 0 12 7 5 36 7 12 24}%11"
 #pitch1 (scale 1.0 2.0 $slow 2.5 $sine1)
-#sustain "0.1"
+#sustain "0.08"
 #resonance (scale 0.1 0.4 $slow 5.5 $sine1)
 #cutoff (scale 800 10000 $slow 3 $rand) #resonance "0.2"
-#delay "0.6" #delaytime "0.05 0.01 0.02 0.005" #delayfeedback "0.5"
+#delay "0.6" #delaytime "0.05 0.01 0.02 0.005" #delayfeedback "0.8 0.01"
 #gain "1.0"
 #shape "0.5"
 
@@ -285,7 +293,6 @@ $sound "{ifdrums(3, 16, 3), bd(3, 16, 2), glitch(3, 16)}"
 -- 10
 
 d1
-$jux (iter 8)
 $stack[
   s "supersaw(7,16,13)" #n "{0, 7, 10, 17, 19}" |+|n "7",
   s "supersaw(7,16,11)" #n "{0, 7, 10, 17, 19}" |+|n "5",
@@ -293,30 +300,32 @@ $stack[
   s "supersaw(3,16,5)" #n "{0, 7, 10, 17, 19}" |+|n "-5",
   s "supersaw(3,16,3)" #n "{0, 7, 10, 17, 19}" |+|n "-12"
 ]
-#cutoff (scale 800 18000 $slow 16 $sine1) #resonance "0.2"
-#sustain "0.3"
-#gain "1.0"
+|+| n "<0 12 -12 5 -5>"
+#cutoff (scale 800 18000 $slow 16 $sine1) #resonance "0.3"
+#sustain "0.1 0.01 0.2 0.02"
+|*| sustain "0.8 0.5"
+#gain "0.8"
 #shape "0.5"
 
 d5
 $jux (iter 16)
 $s "superhammond(7, 16, {3, 4})" # n "{c6, e6, f6, g6, a6, d7}"
+|+| n "<0 12 -12 5 -5>"
 -- |+|n "5 0 -5 0 -12 12 7 0 -7 0"
-#sustain "0.8"
-#cutoff (scale 2000 15000 $slow 5 $sine1) #resonance "0.1"
-#gain "1.0"
+#sustain "0.05"
+#cutoff (scale 2000 15000 $slow 5 $sine1) #resonance "0.3"
+#gain "0.8"
 #shape "0.5"
 
 d8 $s "sync"
 
 -- 11. last sequence
-
 d2
 $jux (rev)
 $s "ikeda1(3, 16, {7, 3})"
 #gain "1.0"
 #cutoff (scale 800 8000 $rand) #resonance "0.3"
-#delay "1.0" #delaytime "0.01 0.02 0.03 0.005" #delayfeedback "0.9"
+#delay "1.0" #delaytime "0.01 0.02 0.03 0.005" #delayfeedback "0.99"
 
 d3
 $jux (iter 4)
@@ -328,6 +337,8 @@ $s "ikeda2(3,16,5)"
 d4
 $s "ikeda3(3,16,9)"
 #sustain "1.0"
-#gain "1.5"
+#gain "1.0"
 
 hush
+
+
