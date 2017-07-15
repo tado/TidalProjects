@@ -1,1 +1,26 @@
-d1 $sound "{bd cp, bass hc:2}"
+d1
+$jux (iter 4)
+$sound "{bd sn:2, [~ hc]*2}"
+
+
+$stack[
+ s "supersaw(5, 8)" #n "{c, g, f, a}",
+ s "supersaw(5, 8, 1)" #n "{c, g, f, a}" |+| n "7",
+ s "supersaw(5, 8, 3)" #n "{c, g, f, a}" |+| n "12"
+]
+|+| n "<0 5 -7 12 -7>/4"
+#cutoff (scale 400 12000 $slow 8 $sine1)
+#sustain "0.05"
+#gain "0.7"
+
+d3
+$stack[
+ sound "ifdrums*9" #n (irand 16),
+ sound "ifdrums*8" #n (irand 16),
+ sound "ifdrums*<7, 5>" #n (irand 16)
+]
+#delay "0"
+
+hush
+
+d4 

@@ -2,7 +2,10 @@ cps(110/120)
 
 hush
 
+d8 $sound "sync"
+
 solo $
+
 d1
 -- $sometimes (rev)
 -- $jux (iter 9)

@@ -151,7 +151,7 @@ $ stack[
 -- |+| vowel "a i u e o"
 |+| delay "0.75" |+| delaytime "0.02 0.03" |+| delayfeedback "0.25"
 
-d2 silence
+d1 silence
 
 hush
 

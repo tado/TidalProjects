@@ -1,11 +1,11 @@
 -- Example
 d1 $ sound "hh*4"
 
-d2 $ metre "220" $ sound "bd"
+d2 $ metre "200" $ sound "bd"
 
 d2 $ metre "<100 101 102 103 104 105>" $ sound "bd"
 
-d3 $ metre "<200 201 202 203 204 205>" $ sound "hh"
+d3X!X@X#\\$ metre "<100 110>" $ sound "ifdurums:1"
 
 d4
 $ metre "2" $ sound "fell2:2*8" #up "7 -5 0 5 -7"
@@ -281,6 +281,5 @@ let metre metrep p = unwrap $ (\metren -> struct (xs !!! metren) p) <$> metrep
       ]
 
 -- [1] Sioros, G., & Guedes, C. (2011). Complexity Driven Recombination of MIDI Loops. Int. Society for Music Information Retrieval Conference, (Ismir), 381–386. http://doi.org/10.3389/fpsyg.2014.01036
-
 
 hush
