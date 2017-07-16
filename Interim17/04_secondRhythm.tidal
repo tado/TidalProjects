@@ -1,0 +1,45 @@
+-- 04
+d6
+$jux (iter 8)
+$sound "[bd [~ ifdrums] [~ bd] cp]"
+#cutoff (scale 1500 18000 $slow 4 $rand)
+#resonance "0.2"
+# n (irand 64) # pan (rand)
+# gain "1.3"
+
+d7
+$sometimes (rev)
+$jux (iter 4)
+$stack[
+  s "superpwm(5,8,{0,6})" #n "[c e f g]*2" |+|n "7",
+  -- s "superpwm(5,8,{2,4})" #n "[c e f g]*2" |+|n "12",
+  s "superpwm(5,8,{3,5})" #n "[c e f g]*2" |+|n "0"
+]
+#pan (rand)
+|+|n "<0 -7 -5 -12>/8"
+-- #voice (scale 1 3 $rand)
+-- #resonance (scale 0.1 0.4 $slow 8 $sine1)
+#sustain "0.12"
+#slide "0.2"
+#cutoff (scale 200 8000 $slow 12 $rand) #resonance "0.4"
+#vowel "a e i u e o a o"
+#gain "1.0"
+
+d6
+$sometimes (rev)
+-- $jux (iter 2)
+-- $jux (iter 4)
+$sound "{ifdrums(3, 8, 3), bd(3, 8, 2), glitch(3, 8)}"
+#pan (rand)
+#gain "1.3"
+#n (irand 64)
+#pan (rand)
+
+d6
+$jux (iter 8)
+$sound "{ifdrums(3, 8, 3), bd(3, 8, 2), glitch(7, 8, 2)}"
+#gain "1.3"
+#n (irand 64)
+-- #vowel "a e i u e o a o"
+#cutoff (scale 500 18000 $slow 4 $rand) #resonance "0.2"
+#pan (rand)
