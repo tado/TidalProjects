@@ -1,13 +1,17 @@
 -- 02
 d4
-$sometimesBy 0.6 (jux (iter 4))
 $slow 2
 $stack[
-  s "supersaw(3,16,{6,3})" # n "{c5, e5, f5, g5, a5}" |+|n "12",
-  s "supersaw(3,16,{5,7})" # n "{c5, e5, f5, g5, a5}" |+|n "7",
-  s "supersaw(3,16,{0,8})" # n "{c5, e5, f5, g5, a5}"
+  sound "supersaw(3,16,{0,8})" # n "{c5, e5, f5, g5, a5}" |+|n "0"
 ]
-|+|n "<-7 7 0 5 -5>/4"
-#cutoff (scale 800 20000 $slow 4 $sine1) #resonance "0.3"
 #sustain "0.1"
 #gain "0.8"
+
+
+-- sound "supersaw(3,16,{2,4})" # n "{c5, e5, f5, g5, a5}" |+|n "12",
+-- sound "supersaw(3,16,{3,5})" # n "{c5, e5, f5, g5, a5}" |+|n "7",
+-- $sometimesBy 0.6 (jux (iter 4))
+-- |+|n "<-7 7 0 5 -5>/4"
+-- #cutoff (scale 800 20000 $slow 4 $sine1) #resonance "0.3"
+
+

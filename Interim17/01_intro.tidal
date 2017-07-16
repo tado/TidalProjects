@@ -1,15 +1,14 @@
 -- 01
 d1
-$jux (iter 8)
-$s "ikeda1(3, 8, {0, 5})"
+$s "ikeda1(3, 8, 0)"
 #gain "1.0"
-#cutoff (scale 800 8000 $rand) #resonance "0.3"
-#delay "0.8" #delaytime "0.01 0.02 0.03 0.005" #delayfeedback "0.8"
+
+-- $jux (iter 8)
+-- #cutoff (scale 800 8000 $rand) #resonance "0.3"
+-- #delay "0.8" #delaytime "0.01 0.02 0.03 0.005" #delayfeedback "0.8"
 
 d2
-$jux (iter 4)
-$sometimes (rev)
-$s "ikeda2(3,8,{4,6})"
+$s "ikeda2(5,8,6)"
 #gain "1.0"
  
 d3

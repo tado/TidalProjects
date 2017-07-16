@@ -18,7 +18,7 @@ $stack[
 -- #cutoff "800" #resonance "0.2"
 -- #cutoff (scale 400 8000 $slow 16 $sine1) #resonance "0.2"
 #gain "1.5"
-#shape "0.8"
+#shape "0.5"
 
 d3
 $ stack [
@@ -26,7 +26,7 @@ $ stack [
   sound "ifdrums(3, 8, 0)" #n "0"
 ]
 #gain "1.5"
-#shape "0.9"
+#shape "0.8"
 
 d2
 -- $ whenmod 8 6 (jux (iter 8))

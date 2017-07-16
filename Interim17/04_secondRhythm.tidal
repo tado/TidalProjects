@@ -8,22 +8,21 @@ $sound "[bd [~ ifdrums] [~ bd] cp]"
 # gain "1.3"
 
 d7
-$sometimes (rev)
-$jux (iter 4)
+-- $sometimesBy 0.6 (jux (iter 4))
 $stack[
-  s "superpwm(5,8,{0,6})" #n "[c e f g]*2" |+|n "7",
-  -- s "superpwm(5,8,{2,4})" #n "[c e f g]*2" |+|n "12",
-  s "superpwm(5,8,{3,5})" #n "[c e f g]*2" |+|n "0"
+  s "supersquare(5,8,{2,4})" #n "[c e f g]*2" |+|n "0",
+  s "supersquare(5,8,{0,6})" #n "[c e f g]*2" |+|n "-5",
+  s "supersquare(5,8,{3,5})" #n "[c e f g]*2" |+|n "-12"
 ]
-#pan (rand)
-|+|n "<0 -7 -5 -12>/8"
--- #voice (scale 1 3 $rand)
--- #resonance (scale 0.1 0.4 $slow 8 $sine1)
-#sustain "0.12"
-#slide "0.2"
-#cutoff (scale 200 8000 $slow 12 $rand) #resonance "0.4"
-#vowel "a e i u e o a o"
+#sustain "0.08"
+#voice (scale 0 1 $rand)
+#cutoff (scale 200 8000 $slow 12 $rand) #resonance "0.5"
 #gain "1.0"
+
+-- |+|n "<0 -7 -5 -12>/8"
+-- #slide "0.2"
+-- #resonance (scale 0.1 0.4 $slow 8 $sine1)
+-- #vowel "a e i u e o a o"
 
 d6
 $sometimes (rev)
