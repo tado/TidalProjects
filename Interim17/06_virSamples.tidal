@@ -24,8 +24,8 @@ $ stack[
  up pat1 |=| sound "fell1"
 ]
 -- #vowel "a i u e o"
-#cutoff (scale 800 18000 $slow 3 $sine1) #resonance "0.4"
-#shape "0.5"
+-- #cutoff (scale 800 18000 $slow 3 $sine1) #resonance "0.4"
+#shape "0.4"
 #gain "1.5"
 
 d6

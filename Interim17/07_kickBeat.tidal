@@ -6,8 +6,8 @@ $stack [
   sound "bd(5, 8)",
   sound "gabba:4*2"
 ]
-#gain "0.2"
-#shape "0.5"
+#shape "0.8"
+#gain "0.5"
 
 d6
 $ sound "hc(2,8,{0,1,2,3,4})" |+| speed "1.0 2.0 1.5 0.5"

@@ -5,8 +5,8 @@ $slow 2
 -- $jux (iter 4)
 $jux (iter 2)
 $stack[
-  s "supersaw(7,16,13)" #n "{0, 7, 10, 17, 19}" |+|n "12" #pan (rand),
-  s "supersaw(7,16,7)" #n "{0, 7, 10, 17, 19}" |+|n "7" #pan (rand),
+  -- s "supersaw(7,16,13)" #n "{0, 7, 10, 17, 19}" |+|n "12" #pan (rand),
+  -- s "supersaw(7,16,7)" #n "{0, 7, 10, 17, 19}" |+|n "7" #pan (rand),
   s "supersaw(3,16,3)" #n "{0, 7, 10, 17, 19}" |+|n "-7" #pan (rand),
   s "supersaw(3,16,5)" #n "{0, 7, 10, 17, 19}" |+|n "-5" #pan (rand),
   s "supersaw(3,16,11)" #n "{0, 7, 10, 17, 19}" #pan (rand)
@@ -14,7 +14,7 @@ $stack[
 |+|n "<0 7 -7 -5 5 -12>"
 #cutoff (scale 2000 18000 $slow 16 $sine1) #resonance "0.3"
 #sustain "0.1"
-#gain "1.0"
+#gain "0.5"
 
 d5
 $slow 2
@@ -23,7 +23,7 @@ $jux (iter 2)
 $s "supersaw(7, 16, {3, 4})" # n "{c7, e7, f7, g7, a7, d8}"
 |+|n "<0 7 -7 -5 5 -12>"
 #sustain "0.05"
-#cutoff (scale 2000 15000 $slow 5 $sine1) #resonance "0.3"
+-- #cutoff (scale 2000 15000 $slow 5 $sine1) #resonance "0.3"
 #gain "1.0"
 #shape "0.5"
 
@@ -34,7 +34,7 @@ $stack[
   sound "808ch(11,32,{7,10})" #delay "1.0" #delaytime "0.02 0.01 0.006 0.03" #delayfeedback "0.8" #n (irand 12),
   sound "bd(14,32,{0 2 4})" #n "0" |*|gain "1.5"
 ]
-#room "0.5" #size "0.96"
+#room "0.6" #size "0.98"
 #shape "0.8"
 #gain "1.0"
 
@@ -51,7 +51,7 @@ $sometimes (rev)
 $s "ikeda2(3,8,{5, 7})"
 #gain "1.0"
  
-d4
+d5
 $s "ikeda3(3,8,9)"
 #gain "1.0"
 
