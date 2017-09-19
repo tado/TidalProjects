@@ -1,0 +1,44 @@
+-- 04
+d6
+$jux (iter 8)
+$sound "[bd [~ ifdrums] [~ bd] cp]"
+#cutoff (scale 1500 18000 $slow 4 $rand)
+#resonance "0.2"
+# n (irand 64) # pan (rand)
+# gain "1.3"
+
+d7
+-- $sometimesBy 0.6 (jux (iter 4))
+$stack[
+  -- s "supersquare(5,8,{2,4})" #n "[c e f g]*2" |+|n "0",
+  -- s "supersquare(5,8,{0,6})" #n "[c e f g]*2" |+|n "-5",
+  s "supersquare(5,8,{3,5})" #n "[c e f g]*2" |+|n "-12"
+]
+#sustain "0.08"
+#gain "0.4"
+
+-- #voice (scale 0.2 1 $rand)
+-- #cutoff (scale 200 8000 $slow 12 $rand) #resonance "0.2"
+-- |+|n "<0 -7 -5 -12>/8"
+-- #slide "0.2"
+-- #resonance (scale 0.1 0.4 $slow 8 $sine1)
+-- #vowel "a e i u e o a o"
+
+d6
+$sometimes (rev)
+-- $jux (iter 2)
+-- $jux (iter 4)
+$sound "{ifdrums(3, 8, 3), bd(3, 8, 2), glitch(3, 8)}"
+#pan (rand)
+#gain "1.3"
+#n (irand 64)
+#pan (rand)
+
+d6
+$jux (iter 8)
+$sound "{ifdrums(3, 8, 3), bd(3, 8, 2), glitch(7, 8, 2)}"
+#gain "1.3"
+#n (irand 64)
+-- #vowel "a e i u e o a o"
+#cutoff (scale 500 18000 $slow 4 $rand) #resonance "0.2"
+#pan (rand)
