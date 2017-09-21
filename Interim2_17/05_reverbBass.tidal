@@ -1,0 +1,25 @@
+-- 05
+d4
+$sometimesBy 0.6 (jux (iter 2))
+$sometimesBy 0.6 (jux (iter 4))
+$slow 4
+$stack[
+  sound "808ch(11,32,{7,10})" #delay "1.0" #delaytime "0.02 0.01 0.006 0.03" #delayfeedback "0.9" #n (irand 12),
+  sound "bd(8,32,{0,5})" #n "2" |+|gain "1.4" |+|n "-12"
+]
+#shape "0.8"
+|*|gain "0.5"
+
+d7
+$jux (iter 16)
+$slow 4
+$stack[
+  sound "jvbass(5,32,{10,12})" #n (irand 32),
+  sound "jvbass(5,32,{0,4})" #n (irand 32),
+  sound "jvbass(5,32,{1,14})" #n (irand 32)
+]
+#speed "<1 1.5 2 0.5 1 0.25>/4"
+#shape "0.2"
+#cutoff (scale 20 2000 $rand) #resonance "0.6"
+#gain "1.0"
+
