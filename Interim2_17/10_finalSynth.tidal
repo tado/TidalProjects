@@ -12,6 +12,7 @@ $stack[
   s "supersaw(7,16,11)" #n "{0, 7, 10, 17, 19}" #pan (rand)
 ] 
 |+|n "<0 7 -7 -5 5 -12>"
+#room "0.2" #size "0.5"
 #cutoff (scale 2000 18000 $slow 16 $sine1) #resonance "0.3"
 #sustain "0.1"
 #gain "1.0"

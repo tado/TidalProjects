@@ -1,5 +1,5 @@
 -- 06
-d6
+d1
 $ slow 2
 -- $ every 2 (#coarse "24 16 32") 
 $ stack[
@@ -12,7 +12,7 @@ $ stack[
 -- #cutoff (scale 400 16000 $slow 8 $sine1) #resonance "0.3"
 #gain "1.5"
 
-d6
+d5
 $ jux (iter 8)
 $ slow 2
 $ stack[
@@ -28,7 +28,7 @@ $ stack[
 #shape "0.4"
 #gain "1.5"
 
-d6
+d1
 $ slow 2
 $ jux (iter 4)
 $ every 8 (chop 16)
