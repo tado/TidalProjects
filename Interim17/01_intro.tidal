@@ -1,5 +1,6 @@
 -- 01
 d1
+$jux (iter 8)
 $s "ikeda1(3, 8, 0)"
 #gain "1.0"
 

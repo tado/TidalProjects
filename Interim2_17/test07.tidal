@@ -42,6 +42,7 @@ $stack [
 
 d2
 $s "ikeda1(3, 8, 0)"
+#delay "0.8" #delaytime "0.01 0.02 0.03 0.005" #delayfeedback "0.8"
 #gain "1.0"
 
 -- $jux (iter 8)

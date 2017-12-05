@@ -1,26 +1,28 @@
-cps(120/120)
+cps(80/120)
 
-hush 
-
-d8 $sound "sync"
+hush
 
 d1 $ sound "bd*2"
 
-d1 $ sound "cp*8"
+d2 $ sound "cp*8"
 
-d2 $ sound "hc(3,8,9)"
+d3 $ sound "hc(7,32,10)"
 
-d2 $ sound "cp(5,8,2)"
+d3 $ sound "hc(3,8,5)"
+
+d4 $ sound "ifdrums(3,8,2)" #n "1 2 0 4 7"
+
+hush
 
 d2 $ sound "[~ ~ ~ cp]*2"
 
 d2 $ sound "~ cp ~ ~ ~ cp ~ cp"
 
-d2 $ sound "[~ bass]*2 [sn cp]"
+d1 $ sound "[~ bass]*2 [sn cp]"
 
-d2 silence
+d4 silence
 
-d2
+d1
 $jux (iter 8)
 $sometimesBy 0.4 (rev)
 $stack[
@@ -31,7 +33,7 @@ $stack[
 #n "0 1 2 3 4 5"
 #pan (rand)
 
-d2 $ brak $ sound "bd sn"
+d1 $ brak $ sound "bd sn"
 
 d2
 $ jux (iter 8)
@@ -42,7 +44,7 @@ $ stack[
    sound "bass(3, 8)"|+| vowel "u i e o w"
 ]
 
-d2
+d1
 $jux(iter 2)
 $jux(iter 8)
 $stack[
@@ -55,5 +57,7 @@ $stack[
 d2 silence
 
 d1 silence
+
+d1 $ slow 2 $ shuffle 12 $ chop 16 $ sound "supersaw"
 
 hush

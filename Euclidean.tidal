@@ -20,8 +20,8 @@ $sound "{ifdrums(9, 18), bd(5, 18, 2), glitch(8, 18, 4)}"
 
 d1
 $slow 2
-$sometimes(jux (rev))
-$sometimes(jux (iter 18))
+-- $sometimes(jux (rev))
+-- $sometimes(jux (iter 18))
 -- $sometimes(chop 18)
 -- $every 4 (rev)
 $stack[
@@ -30,10 +30,10 @@ $stack[
   --sound (samples "arpy(9,18,8)" (irand 15)) #up "24",
   --sound (samples "arpy(8,18,3)" (irand 14)) #up "0",
   --sound (samples "arpy(10,18,5)" (irand 13)) #up "5",
-  sound (samples "arpy(13,18)" (irand 12)) #up "12",
-  sound "fell2:2(8,18,5)" #up "0 12 0 -12 0 0" #pan (rand),
-  sound "fell2:3(12,18,2)" #up "0 12 0 -12 0 0" #pan (rand),
-  sound (samples "felld(5,18,12)" (irand 128)) #pan (rand),
+  --sound (samples "arpy(13,18)" (irand 12)) #up "12",
+  --sound "fell2:2(8,18,5)" #up "0 12 0 -12 0 0" #pan (rand),
+  --sound "fell2:3(12,18,2)" #up "0 12 0 -12 0 0" #pan (rand),
+  --sound (samples "felld(5,18,12)" (irand 128)) #pan (rand),
   sound (samples "bass(7,18,2)" (irand 128)) #up "0 0 12 0 -12",
   sound (samples "dr55(6,18,10)" (irand 128)) #pan (rand),
   sound (samples "tr-808(7,18,8)" (irand 128)) #pan (rand),
