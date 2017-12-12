@@ -1,0 +1,71 @@
+
+
+d1 $s "bd bd*2 cp hc"
+
+-- 01
+d1
+$jux (iter 8)
+$s "ikeda1(3, 8, 0)"
+#gain "1.0"
+#delay "0.8" #delaytime "0.01 0.02 0.03 0.005" #delayfeedback "0.8"
+
+-- $jux (iter 8)
+-- #cutoff (scale 800 8000 $rand) #resonance "0.3"
+-- #delay "0.8" #delaytime "0.01 0.02 0.03 0.005" #delayfeedback "0.8"
+
+d2
+$s "ikeda2(5,8,6)"
+#gain "1.0"
+ 
+d3
+$s "ikeda3(3,8,0)"
+#gain "1.0"
+
+
+-- 02
+d4
+$slow 2
+$stack[
+  sound "supersaw(3,16,{5,9})" # n "{c5, e5, f5, g5, a5}" |+|n "12",
+  sound "supersaw(3,16,{2,10})" # n "{c5, e5, f5, g5, a5}" |+|n "7",
+  sound "supersaw(3,16,{0,8})" # n "{c5, e5, f5, g5, a5}" |+|n "0"
+]
+|+|n "<-7 7 0 5 -5>/4"
+#sustain "0.1"
+#gain "0.8"
+
+
+-- sound "supersaw(3,16,{2,4})" # n "{c5, e5, f5, g5, a5}" |+|n "12",
+-- sound "supersaw(3,16,{3,5})" # n "{c5, e5, f5, g5, a5}" |+|n "7",
+-- $sometimesBy 0.6 (jux (iter 4))
+-- |+|n "<-7 7 0 5 -5>/4"
+-- #cutoff (scale 800 20000 $slow 4 $sine1) #resonance "0.3"
+
+-- 05
+d4
+$sometimesBy 0.6 (jux (iter 2))
+$sometimesBy 0.6 (jux (iter 4))
+$slow 4
+$stack[
+  sound "808ch(11,32,{7,10})" #delay "1.0" #delaytime "0.02 0.01 0.006 0.03" #delayfeedback "0.9" #n (irand 12),
+  sound "bd(8,32,{0,5})" #n "2" |+|gain "1.4" |+|n "-12"
+]
+#shape "0.8"
+|*|gain "0.5"
+
+d7
+$jux (iter 16)
+$slow 4
+$stack[
+  sound "jvbass(5,32,{10,12})" #n (irand 32),
+  sound "jvbass(5,32,{0,4})" #n (irand 32),
+  sound "jvbass(5,32,{1,14})" #n (irand 32)
+]
+#speed "<1 1.5 2 0.5 1 0.25>/4"
+#shape "0.2"
+#cutoff (scale 20 2000 $rand) #resonance "0.6"
+#gain "1.0"
+
+
+
+hush
