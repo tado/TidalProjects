@@ -1,0 +1,37 @@
+-- 01
+
+d1
+$s "mymoog*2" #n "c"
+|-|n "36"
+#sustain "2.0"
+#gain "1.0"
+
+d1
+$stack [
+  s "mymoog(5,8)" #n "c d g f"
+]
+|-|n "36"
+#sustain "0.6"
+#gain "1.0"
+
+-- s "mymoog(3,8,5)" #n "c d g f" |+|n "12",
+-- s "mymoog(3,8,3)" #n "c d g f" |+|n "7",
+-- |+|n "<-7 7 0 5 -5>/4"
+-- #cutoff (scale 2000 8000 $slow 16 $sine1) #resonance "0.2"
+-- #delay "0.8" #delaytime "0.01 0.02 0.03 0.005" #delayfeedback "0.8"
+
+d2
+$s "ikeda1(3, 8, 0)"
+#gain "1.0"
+
+-- $jux (iter 8)
+-- #cutoff (scale 800 8000 $rand) #resonance "0.3"
+
+
+d3
+$s "ikeda2(5,8,6)"
+#gain "1.0"
+ 
+d4
+$s "ikeda3(3,8,0)"
+#gain "1.0"

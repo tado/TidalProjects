@@ -1,10 +1,10 @@
-bps (120/120)
+bps (180/120)
 
-hush
+hush 
 
-d2 $ sound "sync"
+d1 $s "bd"
 
-d1 $ sound "cp" -- 0
+d1 $ sound "[cp*5, bd*3]" -- 0
 
 d1 $ sound "cp cp cp cp cp cp cp cp" -- 0
 
@@ -27,10 +27,12 @@ d1 $sound "{cp(5, 16, 5)}"           -- 10
 d1 $sound "{bd(6, 16, 0), cp(5, 16, 5)}" -- 3, 11
 
 d1
+$slow 2
 $every 2 (jux (iter 16))
 $sound "[bd [~ ifdrums] [~ bass] cp]*2" #n (irand 128)
 
 d1
+$slow 2
 $sometimes (jux (iter 16))
 $jux (iter 8)
 $jux (iter 4)
@@ -38,7 +40,7 @@ $sound "bd [~ cp]*2 [~ ifdrums ~ bass] [~ cp ~ ~]"
 # n (irand 32)
 
 d1
-$ slow 1
+$ slow 2
 $ sometimes (jux (iter 16))
 $ sometimes (jux (iter 8))
 $ sometimes (jux (iter 4))
@@ -59,10 +61,11 @@ $stack [
     sound (samples "glitch*2" (irand 12)),
     sound (samples "hc/2" (irand 12))
 ]
-#delay "1.0" #delayfeedback "0.25" #delaytime "0.015 0.02 0.04"
-#delay "0.5" #delayfeedback "0.25" #delaytime "4.5"
+-- #delay "1.0" #delayfeedback "0.25" #delaytime "0.015 0.02 0.04"
+-- #delay "0.5" #delayfeedback "0.25" #delaytime "4.5"
 
 d1
+$slow 2
 $jux (iter 8)
 $sometimes (jux (iter 16))
 $sometimes (jux (iter 4))

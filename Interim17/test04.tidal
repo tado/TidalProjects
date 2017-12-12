@@ -54,7 +54,7 @@ $sound "ifdrums*2 ~"
 #gain "1.5"
 
 d6
-$sometimesBy 0.4 (jux (iter 4))
+-- $sometimesBy 0.4 (jux (iter 4))
 $stack [
   s "ifdrums(2, 8, 5)" #n (irand 3),
   s "bass(2, 8, 2)",

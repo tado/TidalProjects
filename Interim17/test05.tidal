@@ -42,7 +42,7 @@ $stack[
   sound "supersaw(3,16,{3,5})" # n "{c5, e5, f5, g5, a5}" |+|n "7",
   sound "supersaw(3,16,{0,8})" # n "{c5, e5, f5, g5, a5}" |+|n "0"
 ]
-|+|n "<-7 7 0 5 -5>/4"
+-- |+|n "<-7 7 0 5 -5>/4"
 #cutoff (scale 800 8000 $slow 12 $sine1) #resonance "0.2"
 #sustain "0.1"
 #gain "0.7"
@@ -223,7 +223,7 @@ $slowcat [
 #shape "0.7"
 
 -- 08
--- solo $
+solo $
 d1
 $slow 2
 $jux (iter 2)
@@ -241,7 +241,7 @@ $stack[
 #resonance (scale 0.1 0.4 $slow 5.5 $sine1)
 #cutoff (scale 800 10000 $slow 3 $rand) #resonance "0.2"
 #delay "0.6" #delaytime "0.05 0.01 0.02 0.005" #delayfeedback "0.5"
-#gain "1.0"
+#gain "1.5"
 #shape "0.2"
 
 d8 $s "sync"

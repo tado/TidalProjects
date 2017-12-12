@@ -1,9 +1,7 @@
 -- 02
 d4
-$sometimesBy 0.6 (jux (iter 4))
 $slow 2
 $stack[
-  sound "supersaw(3,16,{2,4})" # n "{c5, e5, f5, g5, a5}" |+|n "12",
   sound "supersaw(3,16,{0,8})" # n "{c5, e5, f5, g5, a5}" |+|n "0"
 ]
 #sustain "0.1"
