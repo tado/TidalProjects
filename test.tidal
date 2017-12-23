@@ -1,8 +1,8 @@
-cps(80/120)
+cps(60/120)
 
 hush
 
-d1 $ sound "bd*2"
+d1 $ sound "[bd*32 hh*24] bd"
 
 d2 $ sound "cp*8"
 
