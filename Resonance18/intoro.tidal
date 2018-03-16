@@ -1,0 +1,239 @@
+-- 1.1
+
+d1 $sound "bd"
+
+d1 $sound "bd:1"
+
+d1 $sound "bd:2"
+
+d1 $sound "bd:3"
+
+d1 $sound "bd:4"
+
+--1.2
+
+d1 $ sound "bd sn"
+
+--1.3
+
+d1 $ sound "bd sn"
+
+d2 $ sound "hh hh hh hh"
+
+d3 $ sound "arpy"
+
+-- 1.4
+
+d1 $ sound "bd sn"
+
+d1 $ sound "bd sn hh cp mt arpy drum"
+
+d1 $ sound "bd sn hh cp mt arpy drum odx bd arpy bass2 feel future"
+
+-- 2.1
+
+d1 silence
+
+hush
+
+-- 3.1
+
+d1 $ sound "[bd sn sn] cp"
+
+-- 3.2
+
+d1 $ sound "bd [sn sn]"
+
+d1 $ sound "bd [sn sn sn]"
+
+d1 $ sound "bd [sn sn sn sn]"
+
+d1 $ sound "[bd bd] [sn sn sn sn]"
+
+d1 $ sound "[bd bd bd] [sn sn]"
+
+d1 $ sound "[bd bd bd bd] [sn]"
+
+d1 $ sound "[bd bd] [bd [sn [sn sn] sn] sn]"
+
+-- 3.3
+
+d1 $ sound "[bd bd bd, sn cp sn cp]"
+
+d1 $ sound "[bd bd bd, sn cp sn cp, arpy arpy, odx]"
+
+d1 $ sound "[bd bd bd, [sn sn] cp, arpy [arpy [arpy arpy] arpy arpy], odx]"
+
+-- 3.4
+
+d1 $ sound "bd*2"
+
+d1 $ sound "bd/2"
+
+-- 3.5
+
+d1 $ sound "[bd sn]*2 cp"
+
+d1 $ sound "[bd sn] cp/2"
+
+d1 $ sound "[[bd sn] cp]*2"
+
+d1 $ sound "[[bd sn] cp]/2"
+
+-- 3.6
+
+d1 $ sound "[bd sn sn*3]/2 [bd sn*3 bd*4]/3"
+
+d1 $ sound "[bd [sn sn]*2]/2 [bd [sn bd]/2]*2"
+
+-- 4.1
+
+d1 $ rev (sound "[bd bd] [bd [sn [sn sn] sn] sn]")
+
+d1 $ every 4 (rev) (sound "bd*2 [bd [sn sn*2 sn] sn]")
+
+-- 4.2
+
+d1 $ slow 4 $ sound "bd*2 [bd [sn sn*2 sn] sn]"
+
+d1 $ density 4 $ sound "bd*2 [bd [sn sn*2 sn] sn]"
+
+-- 4.3
+
+d1 $sound "bd cp"
+
+d1 (sound "bd cp")
+
+d1 $ every 4 (density 4) $ sound "bd*2 [bd [sn sn*2 sn] sn]"
+
+d1 $ every 4 (density 4) (sound "bd*2 [bd [sn sn*2 sn] sn]")
+
+d1 (every 4 (density 4) (sound "bd*2 [bd [sn sn*2 sn] sn]"))
+
+d1 $ sound (every 4 (density 4) "bd*2 [bd [sn sn*2 sn] sn]")
+
+d1 (sound (every 4 (density 4) "bd*2 [bd [sn sn*2 sn] sn]"))
+
+-- 5.1
+
+d1 $ sound "bd*4" # gain "0.5"
+
+d1 $ sound "bd*4" # gain "0.5" # delay "0.5"
+
+d1 $ sound "bd*4" # gain "1 0.8 0.5 0.7"
+
+d1 $ sound "bd*4 sn*4" # gain "[[1 0.8]*2 [0.5 0.7]]/2"
+
+d1 $ sound "bd*4" # gain (every 3 (rev) $ "1 0.8 0.5 0.7")
+
+-- 5.2
+
+d1 $ gain "1 0.8 0.5 0.7" # sound "bd"
+
+-- 6.1
+
+d1 $ sound "arpy" # speed "1"
+
+d1 $ sound "arpy" # speed "0.5"
+
+d1 $ sound "arpy" # speed "2"
+
+d1 $ sound "arpy*4" # speed "1 0.5 2 1.5"
+
+d1 $ sound "arpy*4" # speed "-1 -0.5 -2 -1.5"
+
+d1 $ sound "arpy" # speed "[1, 1.5]"
+
+d1 $ sound "arpy*4" # speed "[1 0.5, 1.5 2 3 4]"
+
+-- 6.2
+
+d1 $ sound "arpy*12" # up "0 1 2 3 4 5 6 7 8 9 10 11"
+
+d1 $ sound "arpy*12" # up (run 12)
+
+d1 $ sound "arpy*12" # up (irand 12)
+
+-- 7.0
+
+d1 $ sound "bd(3,8)"
+
+d1 $ sound "bd(3,8) sn*2"
+
+d1 $ sound "bd(3,8) sn(5,8)"
+
+d1 $ sound "bd([5 3]/2,8)"
+
+d1 $ sound "bd(5,8,[1 5 3 0]/4)"
+
+-- 8.0
+
+cps 1
+
+cps 1.5
+
+cps 0.75
+
+cps 10
+
+bps(120/60)
+
+-- 9.0
+
+d1 $ sound "arpy*8" # up ( run 8 ) 
+
+d1 $ sound "arpy*8" # speed ( run 8 )
+
+d1 $ sound "arpy*8" # up ( every 2 ( rev ) $ run 8 ) 
+
+-- 10.0
+
+d1 $ sound $ samples "drum*4" "0 1 2 3"
+
+d1 $ sound "drum:0 drum:1 drum:2 drum:3"
+
+d1 $ sound $ samples "drum*4" (run 4)
+
+d1 $ n (run 4) # sound "drum"
+
+d1 $ sound "drum*4" # n (run 4)
+
+d1 $ sound "drum arpy cp hh" # n (run 10)
+
+-- 11.0
+
+d1 $ sound "{bd hh sn cp, arpy bass2 drum notes can}"
+
+d1 $ sound "{arpy bass2 drum notes can, bd hh sn cp}"
+
+d1 $ sound "{~ ~ ~ ~, arpy bass2 drum notes can}"
+
+d1 $ sound "{arpy bass2 drum notes can}%4"
+
+
+d1
+$ every 5 (|+| speed "0.5")
+$ every 4 (0.25 <~)
+$ every 3 (rev)
+$ every 7 (density 2)
+$sound "bd sn ifdrums*2 cp"
+# n (irand 10)
+# speed "[1 1.25 0.75 -1.5]/3"
+
+
+
+
+
+
+hush
+
+
+
+
+
+
+
+
+
+
+
