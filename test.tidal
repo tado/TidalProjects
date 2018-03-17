@@ -1,16 +1,40 @@
-cps(60/120)
+cps(120/120)
 
 hush
 
+--
+
+d1 $sound "bd cp"
+
+
+d1 $sound "[[bd cp hc ifdrums gabba], [bd cp] * 3]"
+
+d1 $sound "bd hc bd cp"
+
 d1 $ sound "[bd*32 hh*24] bd"
 
-d2 $ sound "cp*8"
+d1 $ sound "cp*16"
 
-d3 $ sound "hc(7,32,10)"
+d1 $ sound "hc(7,32,10)"
 
-d3 $ sound "hc(3,8,5)"
+d1 $ sound "hc(3,8,5)"
 
-d4 $ sound "ifdrums(3,8,2)" #n "1 2 0 4 7"
+d1 $ sound "ifdrums(3,8,2)" #n "1 2 0 4 7"
+
+d1 $ sound "[bd cp, bd cp hc]"
+
+d1 $ sound "{bd cp hc}%8"
+
+d2 $ sound "{bd cp hc bass}%8"
+
+d1
+$ jux (iter 2)
+$ sound "[{bass glitch 808bd hc hh}%8, cp hc]"
+-- # n (irand 30)
+-- # delay "0.5" #delaytime "{0.1 0.01 0.03 0.5}%8" #delayfeedback "0.5"
+-- # speed "{1.0 1.0 2.0 0.5 1.5}%8"
+# shape "0.7"
+# pan rand
 
 hush
 
@@ -19,6 +43,10 @@ d2 $ sound "[~ ~ ~ cp]*2"
 d2 $ sound "~ cp ~ ~ ~ cp ~ cp"
 
 d1 $ sound "[~ bass]*2 [sn cp]"
+
+d1 $ sound "bd*3"
+
+d2 $ sound "hc cp cp cp cp"
 
 d4 silence
 

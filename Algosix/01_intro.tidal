@@ -1,0 +1,31 @@
+-- 01
+
+d1
+$s "ikeda1"
+#gain "1.0"
+
+
+
+
+d2
+$s "ikeda2(5,8,1)"
+#gain "1.0"
+ 
+d3
+$s "ikeda3(3,8,2)"
+#gain "1.0"
+
+-- $s "ikeda1(3, 8, 0)"
+-- $jux (iter 8)
+-- #cutoff (scale 800 8000 $rand) #resonance "0.3"
+-- #delay "0.8" #delaytime "0.01 0.02 0.03 0.005" #delayfeedback "0.8"
+
+d7
+$sometimes (jux (rev))
+$slow 4
+$stack[
+  sound "808ch(11,32,{7,10})" #delay "1.0" #delaytime "0.02 0.01 0.006 0.03" #delayfeedback "0.8" #n (irand 12),
+  sound "bd(14,32,{0 2 4})" #n "0" |*|gain "1.5"
+]
+#shape "0.8"
+#gain "1.0"

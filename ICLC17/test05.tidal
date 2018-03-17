@@ -85,14 +85,14 @@ $sound "[bd [~ ifdrums] [~ bd] cp]"
 d7
 $sometimesBy 0.6 (jux (iter 4))
 $stack[
-  s "supersquare(5,8,{2,4})" #n "[c e f g]*2" |+|n "0",
-  s "supersquare(5,8,{0,6})" #n "[c e f g]*2" |+|n "-5",
+  -- s "supersquare(5,8,{2,4})" #n "[c e f g]*2" |+|n "0",
+  -- s "supersquare(5,8,{0,6})" #n "[c e f g]*2" |+|n "-5",
   s "supersquare(5,8,{3,5})" #n "[c e f g]*2" |+|n "-12"
 ]
 #cutoff (scale 200 8000 $slow 12 $rand) #resonance "0.2"
 #sustain "0.02 0.1"
 #resonance (scale 0.1 0.4 $slow 8 $sine1)
-#gain "0.8"
+#gain "0."
 
 -- #voice (scale 0.2 1 $rand)
 -- #cutoff (scale 200 8000 $slow 12 $rand) #resonance "0.2"
