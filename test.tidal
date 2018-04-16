@@ -1,11 +1,99 @@
-cps(120/120)
+cps(140/120)
 
 hush
 
 --
 
-d1 $sound "bd*2"
+-- solo $
+d1
+$sometimes (rev)
+$sometimesBy 0.3 (jux (rev))
+$stack[
+  --s "numbers(3, 7, 3)" #n (irand 30),
+  --s "sitar*2" #gain "1.2" #n (irand 30),
+  --s "tabla2(3, 7, {5,2})" #gain "1.0" #n (irand 30),
+  --s "tabla(3, 7, 2)" #gain "1.3" #n (irand 30),
+  s "alphabet(3, 7)" #n (irand 30) #speed (scale 1.0 1.5 $rand),
+  s "kon(5, 7, {0,4})" #n (irand 20) #gain "1.1",
+  s "cp(2,7,5)" #gain "1.0",
+  s "bd" #gain "1.7"
+]
+#delay "0.6" #delaytime "{0.015 0.03 0.02}%4" #delayfeedback "0.8"
 
+d2
+$stack[
+  s "ifdrums(4, 7, {0})"  #n "{0 1 2 3}%5"
+]
+#gain "1.5" #shape "0.6"
+
+d3
+$sometimesBy 0.5 (jux (rev))
+$sometimesBy 0.5 (jux (iter 7))
+$stack[
+  s "supersaw(3, 7, 6)" #n "[0, 4, 7, 9, 11]" |+| n "5",
+  s "supersaw(3, 7, 4)" #n "[0, 4, 7, 9, 11]" |+| n "-12",
+  s "supersaw(3, 7, 2)" #n "[0, 4, 7, 9, 11]" |+| n "7",
+  s "supersaw(3, 7, 0)" #n "[0, 4, 7, 9, 11]" |+| n "0"
+]
+|+|n "<-7 0 7 0 5 0 -5>/8"
+#cutoff (scale 800 10000 $slow 8 $sine1) #resonance "0.2"
+#sustain "{0.12 0.01 0.1}%3"
+-- #sustain "0.12"
+
+d4
+$sometimes (rev) $sound "{bd, ifdrums(3, 7, 3), hc(3, 7, 2), glitch(3, 7)}" #shape "0.6" #n (irand 8) #gain "1.5" #shape "0.4"
+
+
+d1 $ 
+sometimes (rev) $every 2 (iter 4) $sound "{bd*4, ifdrums(3, 8, 3), hc(3, 8, 2), glitch(3, 8)}" #shape "0.6" #n (irand 8) #gain "1.5"
+#delay "0.9" #delaytime "{0.01 0.03 0.02}%4" #delayfeedback "0.8"
+
+d2 $
+s "supersquare(5, 7, {0, 5})" #n "[0, 4, 7, 9, 11, 16]" |+| n "{0, -5, 12}"
+|+|n "<-7 7 0 5 -5 12 -12>/8"
+#cutoff (scale 800 20000 $slow 4 $sine1) #resonance "0.3"
+#sustain "{0.01 0.2 0.1}%8"
+#pan (rand)
+-- #room "0.8"
+
+
+  #gain "0.6"
+
+
+d1
+$sometimes (jux rev)
+$stack [
+  s "ifdrums(3, 8, 0)" #n (irand 3),
+  s "bass(2, 8, 2)",
+  s "bd:0*2" #shape "0.2"
+]
+#gain "1.75"
+
+
+d1 $sound "testsynth" #n ((irand 48) - 24)
+
+d1 $sound "super808(3, 8)"
+
+d1 $ s "super808*7"
+# sustain "0.5" # pan "1 0.5 0" # gain "1 0.5 0.75 0 1"
+
+d1 $ s "super808(5, 7, {0, 3, 6})"
+# sustain "0.5" # pan "1 0.5 0" # gain "{1 0.5 0.75}%8"
+
+d1
+$every 2 (jux (iter 4))
+$sometimes (rev)
+$ stack[
+  s "super808(3, 8, {2, 5, 7})" # sustain "0.5" # pan "1 0.5 0" # gain "1 0.5 0.75 0 1",
+  s "testsynth(5, 8, {0,3})" # sustain "0.25" # pan "0 0.7 0.3 0.5 1" # note "12 20 37" # gain "1 0.5 0.8 1"
+]
+#delay "0.8" #delaytime "0.01 0.02 0.03" #delayfeedback "0.8"
+
+d1
+$ stack[
+  s "super808*8" # sustain "0.5" # pan "1 0.5 0" # gain "1 0.5 0.75 0 1",
+  s "testsynth*8" # sustain "0.05" # pan "0 0.7 0.3 0.5 1" # note "52 40 47" # gain "1 0.5 0.8 1"
+]
 
 d1 $sound "[[bd cp hc ifdrums gabba], [bd cp] * 3]"
 

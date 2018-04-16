@@ -1,0 +1,30 @@
+cps(140/120)
+
+hush
+
+solo $
+d1
+$slow 2
+-- $sometimesBy 0.2 (rev)
+$sometimesBy 0.4 (jux (rev))
+$stack[
+  --s "numbers(3, 7, 3)" #n (irand 30),
+  --s "sitar*2" #gain "1.2" #n (irand 30),
+  --s "tabla(3, 7, 2)" #gain "1.3" #n (irand 30),
+  --s "alphabet(3, 7)" #n (irand 30) #speed (scale 1.0 1.2 $rand),
+  s "tabla2(5, 14, {3, 6})" #gain "1.0" #n (irand 30),
+  s "kon(3, 7, {0, 4, 8})" #n (irand 20) #gain "1.0",
+  s "bd" #gain "1.4",
+  s "cp cp ~ cp ~ cp ~" #gain "1.2"
+]
+
+d2
+$sometimesBy 0.3 (rev)
+$sometimesBy 0.4 (jux (rev))
+$stack[
+  s "super808(4, 7, 3)" #n "{-12 -7 -5 0 5 7}%3",
+  s "ifdrums(4, 7, 0)"  #n "{1 2 3}%4",
+  slow 2 $s "ifdrums(2, 7)" #gain "1.5"
+]
+#delay "0.4" #delaytime "{0.01 0.04 0.03 0.02}%3" #delayfeedback "0.4"
+#shape "0.4"
