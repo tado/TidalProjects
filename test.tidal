@@ -1,8 +1,10 @@
-cps(140/120)
+cps(120/120)
 
 hush
 
 --
+
+d1 $density 4 $ superimpose (fast 1.0001) $up "<0 5 12> <2 9>" # sound "arpy"
 
 -- solo $
 d1
@@ -18,7 +20,7 @@ $stack[
   s "cp(2,7,5)" #gain "1.0",
   s "bd" #gain "1.7"
 ]
-#delay "0.6" #delaytime "{0.015 0.03 0.02}%4" #delayfeedback "0.8"
+-- #delay "0.6" #delaytime "{0.015 0.03 0.02}%4" #delayfeedback "0.8"
 
 d2
 $stack[

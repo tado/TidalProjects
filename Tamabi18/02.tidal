@@ -22,7 +22,7 @@ d2
 $sometimesBy 0.3 (rev)
 $sometimesBy 0.4 (jux (rev))
 $stack[
-  s "super808(4, 7, 3)" #n "{-12 -7 -5 0 5 7}%3",
+  -- s "super808(4, 7, 3)" #n "{-12 -7 -5 0 5 7}%3",
   s "ifdrums(4, 7, 0)"  #n "{1 2 3}%4",
   slow 2 $s "ifdrums(2, 7)" #gain "1.5"
 ]
