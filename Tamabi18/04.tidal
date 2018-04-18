@@ -2,7 +2,6 @@ cps(140/120)
 
 hush
 
-
 solo $
 d1
 $slow 2
@@ -68,21 +67,21 @@ $stack [
 -- solo $
 d3
 $stack [
-  s "supersaw*7" #n "{0 5 7 12}%9" |+| n "0",
+  s "supersaw*7" #n "{0 5 7 12}%9" |+| n "7",
   s "supersaw*7" #n "{0 5 7 12}%7"
 ]
 #delay "0.7" #delaytime "{0.04 0.08 0.015 0.02}%14" #delayfeedback "0.8"
 #pan (rand)
--- #pitch1 (scale 1.0 2.0 $slow 64 $sine1)
+#pitch1 (scale 1.0 2.0 $slow 64 $sine1)
 #semitone "{12 19 17 24 0}%14"
 #sustain "{0.12}%7"
-#cutoff (scale 1000 12000 $slow 32 $sine1) #resonance "0.1"
+#cutoff (scale 1000 12000 $slow 32 $sine1) #resonance "0.4"
 -- #room "0.8"
 |+|n "{-24, -12}"
 #gain "1.5"
 
 d5
-$s "super808*7" #n "-48"
+$s "super808*7" #n "-60"
 #sustain "0.15"
 #shape "0.8"
 #gain "1.5"
@@ -92,9 +91,9 @@ $slow 2
 $sometimesBy 0.8 (jux (rev))
 $sometimesBy 0.2 (rev)
 $s "kon(5,14,{0,4,8,12})"
-#cutoff "8000" #resonance "0.4"
+#cutoff "8000" #resonance "0.3"
 -- #n "{0 1 4}%7"
-#gain "1.7"
+#gain "1.5"
 
 d5
 $stack [
