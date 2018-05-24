@@ -1,0 +1,22 @@
+-- 07
+
+d3
+$slow 2
+$sometimesBy 0.8 (jux (rev))
+$s "kon(8, 14, {0, 4, 8})"
+#cutoff "8000" #resonance "0.5"
+#n "{0}%4"
+#gain "1.6"
+
+d4
+$jux (rev)
+$slow 2
+$stack [
+  --s "supersaw(9, 14, 8)" #n "[0, 5, 7, 12]" |+| n "7",
+  --s "supersaw(9, 14, 4)" #n "[0, 5, 7, 12]" |+| n "5",
+  s "supersaw(9, 14)" #n "[0, 5, 7, 12]" |+| n "0"
+]
+|+| n "12"
+#cutoff (scale 4000 8000 $slow 8 $sine1) #resonance "0.4"
+#sustain "0.04"
+#gain "1.5"
