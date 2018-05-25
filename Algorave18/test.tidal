@@ -23,7 +23,7 @@ d2
   $sometimesBy 0.3 (jux (rev))
   $s "cr(3, 8)"
   #n (irand 100)
-  |*| speed "{1.0 0.5}%7"
+  |*| speed "{1.0 0.5}%9"
   |*| speed "{1.0 1.5 1.0}%4"
   #gain "0.8"
   #pan (rand)
@@ -40,7 +40,7 @@ d3
   [
     s "kon*8" #gain pat1 #n "0 2 3"
   , s "kon*8" #gain pat2 #n "1"
-  , s "tabla2*8" #gain pat3 #n (irand 32) |*|gain "1.4"
+--  , s "tabla2*8" #gain pat3 #n (irand 32) |*|gain "1.4"
   ]
   |*|gain "0.85"
 
@@ -61,7 +61,7 @@ d2
   $every 4 (0.125 <~)
   $stack
   [
-    s "super808*8" #gain pat4 #n "{0 0 9 1 5 0 3 7}%4"
+    s "super808(5, 8)" #n (irand 10)
   ]
   #pan (rand)
   #shape "0.5"
@@ -101,7 +101,7 @@ d3
     -- s "glitch(2, 8, 1)" #n (irand 16),
     s "ifdrums(3, 8, 0)" #n (irand 3),
     s "dr55(2, 8, 3)" #n (irand 16),
-    s "bd:0*2" #shape "0.2"
+    s "bd:0*2" #shape "0.7"
   ]
   #gain "1.5"
 
@@ -115,34 +115,35 @@ let bass1 = "{-24 -23 -24 -24 -24 ~ -24 -11}%8"
 d6
 $stack
   [
-    n bass3 |=| s "supersaw"
-  , n bass4 |=| s "supersaw" |+|n "-12"
+    n bass1 |=| s "supersaw"
+  , n bass4 |=| s "supersaw" |+|n "-5"
   ]
 #delay "1.2" #delaytime "{0.01 0.02 0.03 0.01}%8" #delayfeedback "0.8"
 #voice "0.1"
 #cutoff (scale 800 12000 $slow 32 $sine1)
 #resonance "0.4"
-#sustain "0.1"
+#sustain "0.06"
 #shape "0.7"
 |*|gain "1.0"
 
 d4
-$every 8 (jux (rev))
--- $every 4 (0.25 <~)
-$stack[
- s "distd(3, 8, {0, 3})" #n "0 0 0 1 0 3 1 2"
- , s "uni*2"
- , s "bd cp bd hc" #n (irand 12)
-] 
--- #gain "<1 1 1 1 1 1 0>"
--- #delay "0.5" #delaytime "{0.01 0.02 0.03 0.01 0.008}%8" #delayfeedback "0.8"
--- #shape "0.5"
-|*|gain "1.5"
+  $every 8 (jux (rev))
+  $sometimesBy 0.2 (0.25 <~)
+  $stack
+  [
+    s "distd(3, 8, {0, 3})" #n "0 0 0 1 0 3 1 2"
+  , s "uni*2"
+  , s "bd cp bd hc" #n (irand 12)
+  ] 
+  -- #gain "<1 1 1 1 1 1 0>"
+  -- #delay "0.5" #delaytime "{0.01 0.02 0.03 0.01 0.008}%8" #delayfeedback "0.8"
+  -- #shape "0.5"
+  |*|gain "1.5"
 
 d3
   $s "kon(5, 8, {2, 4})"
   -- #n (irand 100)
-  #n "{0 1 2}%6"
+  #n "{0 2}%6"
   #pan (scale 0.3 0.7 $rand)
   #gain "1.2"
 
@@ -273,14 +274,14 @@ $s "supersaw"
 #shape "0.5"
 #gain "1.0"
 
--- solo $
+solo $
 d5
   $jux (rev)
   $s "supersaw*8"
-  #sustain "0.12"
+  #sustain "0.08"
   #n "-12"
   #n "{0 -5 -7 -12 -17 -19}%9"
-  |+| n "{0, 7}"
+  |+| n "{0, 5, 7}"
   #semitone "{0 7 -5}%5"
   |+|semitone "{12, 0}"
   #voice (scale 0.1 0.3 $slow 24 $sine1)
@@ -298,7 +299,7 @@ $stack[
   , s "distd*2" #gain "1.0"
   -- , s "plastic(3, 8)" #n "{1 0 3 0 2}%6" #gain "1.2"
 ]
-#shape "0.4"
+#shape "0.2"
 |*|gain "1.4"
 -- #delay "0.5" #delaytime "{0.01 0.02 0.03}%8" #delayfeedback "0.3"
 -- #lpf "9000"
@@ -308,12 +309,12 @@ $stack[
 d3
 $slow 1
 $s "my808(5, 8, {0, 5})"
-#sustain "0.06"
+#sustain "0.1"
 |+|n "0 -12"
 #lpf (scale 1000 8000 $slow 12 $sine1)
 #resonance "0.2"
-#gain "1.5"
-#room "0.5"
+#gain "1.2"
+-- #room "0.5"
 
 hush
 
