@@ -4,23 +4,24 @@ hush
 
 d1
   $slow 2
-  $s "spiano"
-  #n "<0 1 2>"
-  |*| speed "{0.5, 1.0, 1.5}"
-  |*| speed "{1.0 -0.5 -1.0 0.5}%9"
-
-d3
-  $slow 2
   $s "numbers"
   #n "<0 1 2 3 4 5 6 7 8>"
-
+  
 d2
-  $every 2 (jux (0.125 ~>))
-  $s "click:2(5, 8, {0, 3})"
-  #lpf (scale 800 9000 $slow 16 $sine1)
-  #resonance "0.3"
+  $slow 2
+  $s "spiano"
+  #n "<0 1 2>"
+  |*| speed "{0.25, 0.5, 1.0, 1.5}"
+  |*| speed "{1.0 -1.0 0.5 -0.5}%6"
 
 d3
+  $every 2 (jux (0.125 ~>))
+  $s "click:2(3, 8, {0, 3})"
+  #speed (rand)
+  #lpf (scale 800 9000 $slow 16 $sine1)
+  #resonance "0.1"
+
+d4
   $slow 1
   $sometimesBy 0.3 (jux (rev))
   $s "cr(3, 8)"
@@ -31,34 +32,33 @@ d3
   #pan (rand)
 
 let
-  pat1 = "{1 1 1 0 0 0 0 1 0 0 1 0 0}%4"
+  pat1 = "{1 1 1 0 0 0 0 1 0 0 1 0 0}%9"
   pat2 = "{0 0 1 0 1 1 1 0 1 0 0 1 0 1 0}%6"
-  pat3 = "{0 0 1 0 0 0 1 0 0 1 0 0 0 1}%5"
-  pat4 = "{1 1 0 1 1 1 0 0 1 1 0 1}%5"
+  pat3 = "{0 0 1 0 0 0 1 0 0 1 0 0 0 1}%3"
+  pat4 = "{1 1 0 1 1 1 0 0 1 1 0 1}%6"
 
-d3
-  $every 3 (jux (rev))
+d1
+  $every 3 (jux (0.125 <~))
   $stack
   [
     s "kon*4" #gain pat1 #n "0"
-  , s "kon*8" #gain pat2 #n "1 2"
+  , s "kon*8" #gain pat2 #n "1"
   , s "tabla2*8" #gain pat4 #n (irand 32) |*|gain "1.2"
   ]
-  |*|gain "0.9"
 
-d1
--- $every 3 (rev)
--- $sometimesBy 0.1 (0.25 ~>)
+d2
+$every 4 (jux (0.25 ~>))
+$sometimesBy 0.1 (0.25 ~>)
 $stack
   [
     s "[~ uni:1]*2"
-    , s "distd*2" |*|gain "1.2"
-    , s "uni(5, 8)" #n "{0 1 2}%8"
+  , s "distd*2" |*|gain "1.2"
+  , s "uni(5, 8)" #n "{0 1 2}%8"
   ]
   #delay "0.6" #delaytime "{0.01 0.03 0.02}%8" #delayfeedback "0.7"
   #shape "0.7"
   
-d2
+d3
   $iter 4
   $every 4 (0.125 <~)
   $stack
@@ -73,14 +73,14 @@ let chord1 = "{c5, f5, g5}"
 d4
 $slow 2
 $stack[
-  --sound "supersaw(3,16,{0,8})" # n chord1 |+|n "-12",
+  sound "supersaw(3,16,{0,8})" # n chord1 |+|n "-12",
   sound "supersaw(3,16,{2,4})" # n chord1 |+|n "7",
   sound "supersaw(3,16,{3,5})" # n chord1 |+|n "0"
 ]
 #sustain "0.1"
 #gain "0.9"
 #cutoff (scale 800 20000 $slow 4 $sine1) #resonance "0.3"
-|+|n "<-7 7 0 5 -5>/4"
+-- |+|n "<-7 7 0 5 -5>/4"
 -- sound "supersaw(3,16,{2,4})" # n "{c5, e5, f5, g5, a5}" |+|n "12",
 -- sound "supersaw(3,16,{3,5})" # n "{c5, e5, f5, g5, a5}" |+|n "7",
 -- $sometimesBy 0.6 (jux (iter 4))
@@ -95,13 +95,13 @@ d3
   #gain "1.5"
   
 d3
-  $sometimesBy 0.4 (jux (iter 4))
+--  $sometimesBy 0.4 (jux (iter 4))
   $stack
   [
     -- s "glitch(2, 8, 1)" #n (irand 16),
     --s "dr55(2, 8, 3)" #n (irand 16),
-    s "ifdrums(5, 8, 0)" #n (irand 3),
     s "bass(2, 8, 2)",
+    s "ifdrums(5, 8, 0)" #n (irand 3),
     s "bd:0*2" |*|gain "1.5"
   ]
   #gain "1.5"
@@ -142,7 +142,7 @@ d3
 d5
   $s "kon(5, 8, {2, 4})"
   -- #n (irand 100)
-  #n "{0 2 1 3}%9"
+  #n "{0}%9"
   #pan (scale 0.3 0.7 $rand)
   #gain "1.2"
 
