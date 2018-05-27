@@ -6,7 +6,7 @@ d1
   $slow 2
   $s "numbers"
   #n "<0 1 2 3 4 5 6 7 8>"
-  
+
 d2
   $slow 2
   $s "spiano"
@@ -14,46 +14,51 @@ d2
   |*| speed "{0.25, 0.5, 1.0, 1.5, 2.0}"
   |*| speed "{1.0 -1.0 0.5 -0.5}%9"
 
-d3
-  $every 2 (jux (0.125 ~>))
-  $s "click:2(3, 8, {0, 3, 6})"
-  #speed (scale 1 2 $rand)
-  #lpf (scale 800 9000 $slow 16 $sine1)
-  #resonance "0.1"
+do
+  let
+    click1 = "{1 0 0 0 1 0 1 1 0}%8"
+  d3
+    $every 2 (jux (0.125 ~>))
+    $s "click:2*8"
+    #gain click1
+    #lpf (scale 800 9000 $slow 16 $sine1)
+    #resonance "0.2"
 
-d4
-  $slow 1
-  $sometimesBy 0.3 (jux (rev))
-  $s "cr(3, 8)"
-  #n (irand 100)
-  |*| speed "{1.0 0.5}%9"
-  |*| speed "{1.0 1.5 1.0}%4"
-  #gain "0.8"
-  #pan (rand)
+do
+  let
+    click2 = "{1 0 0 1 1 1}%8"
+  d4
+    $sometimesBy 0.2 (0.125 <~)
+    $sometimesBy 0.3 (jux (0.125 ~>))
+    $s "cr*8"
+    #gain click2
+    #n (irand 100)
+    #speed "{1.0 0.5}%3"
+    #pan (rand)
+    |*|gain "0.9"
 
-let
-  pat1 = "{1 1 1 0 1 0 0 1 0 0 1 0 0}%9"
-  pat2 = "{0 0 1 0 1 1 1 0 1 0 0 1 0 1 0}%6"
-  pat3 = "{0 0 1 0 0 0 1 0 0 1 0 0 0 1}%3"
-  pat4 = "{1 1 0 1 1 1 0 0 1 1 0 1}%6"
-
-d1
-  $every 3 (jux (0.125 <~))
-  $stack
-  [
-    s "kon*4" #gain pat1 #n "0 2"
-  , s "kon*8" #gain pat2 #n "1"
-  , s "tabla2*4" #gain pat4 #n (irand 32) |*|gain "1.2"
-  ]
+do 
+  let
+    pat1 = "{1 1 0 1}%9"
+    pat2 = "{0 0 1 0 1}%6"
+    pat3 = "{1 0 1 0}%3"
+  d1
+    $every 3 (jux (0.125 <~))
+    $stack
+    [
+      s "tabla2*4" #gain pat4 #n (irand 32) |*|gain "1.2", 
+      s "kon*8" #gain pat2 #n "1", 
+      s "kon*4" #gain pat1 #n "0"
+    ]
 
 d2
-$every 4 (jux (0.125 ~>))
---  $sometimesBy 0.1 (0.125 ~>)
+  $every 4 (jux (0.125 ~>))
+  -- $sometimesBy 0.1 (0.125 ~>)
   $stack
   [
+    s "uni(5, 8)" #n "{0 1 2}%8", 
+    s "distd*2" |*|gain "1.2", 
     s "[~ uni:1]*2"
-  , s "distd*2" |*|gain "1.2"
-  , s "uni(5, 8)" #n "{0 1 2}%8"
   ]
   #delay "0.6" #delaytime "{0.01 0.03 0.02}%8" #delayfeedback "0.7"
   #shape "0.7"
@@ -81,12 +86,6 @@ do
     #sustain "0.1"
     #gain "0.9"
     #cutoff (scale 800 20000 $slow 4 $sine1) #resonance "0.3"
-    -- |+|n "<-7 7 0 5 -5>/4"
-    -- sound "supersaw(3,16,{2,4})" # n "{c5, e5, f5, g5, a5}" |+|n "12",
-    -- sound "supersaw(3,16,{3,5})" # n "{c5, e5, f5, g5, a5}" |+|n "7",
-    -- $sometimesBy 0.6 (jux (iter 4))
-    -- |+|n "<-7 7 0 5 -5>/4"
-    -- #cutoff (scale 800 20000 $slow 4 $sine1) #resonance "0.3"
 
 -- 03
 d3
@@ -96,33 +95,33 @@ d3
   #gain "1.5"
   
 d3
-  $sometimesBy 0.4 (jux (0.125 ~>))
+  $sometimesBy 0.1 (jux (0.125 ~>))
   $stack
   [
     -- s "glitch(2, 8, 1)" #n (irand 16),
     --s "dr55(2, 8, 3)" #n (irand 16),
-    --s "bass(2, 8, 2)",
-    s "ifdrums(3, 8, 0)" #n (irand 3),
+    s "bass(2, 8, 2)",
+    s "ifdrums(3, 8, 0)" #n "{1 2 1 2 3}%9", 
     s "bd:0*2" |*|gain "1.5"
   ]
   #gain "1.5"
 
-do 
-  let bass1 = "{-24 -23 -24 -24 -24 ~ -24 -11}%8"
-      bass2 = "{-24 -23 -24 -24 ~ -0 -12}%8"
-      bass3 = "{-24 -7 -24 -24 ~ 0 -11}%8"
-      bass4 = "{-24 -23 -24 0 -24 -23 -11}%8"
+do
+  let bass1 = "{-24 -23 -24 -11}%6"
+      bass2 = "{-24 -23 -24 -24 -0 -11}%6"
+      bass3 = "{-24 -23 -24 -0 ~ -24}%9"
   d4
     $stack
     [
-      n bass4 |=| s "supersaw"
+      -- s "supersaw*8" #n bass3, 
+      s "supersaw*8" #n bass1
     ]
+    #sustain "0.08"
     #pan (rand)
-    #pitch1 "7"
+    #pitch1 "5"
     #voice "0.1"
     #cutoff (scale 400 9000 $slow 32 $sine1)
     #resonance "0.2"
-    #sustain "0.08"
     |*|gain "1.2"
 
 d3
@@ -136,8 +135,8 @@ d3
   ] 
   -- #gain "<1 1 1 1 1 1 0>"
   -- #delay "0.5" #delaytime "{0.01 0.02 0.03 0.01 0.008}%8" #delayfeedback "0.8"
-  #shape "0.3"
-  |*|gain "1.4"
+  -- #shape "0.1"
+  |*|gain "1.2"
 
 d5
   $s "kon(5, 8, {2, 4})"
@@ -162,15 +161,14 @@ $stack[
 d4
   $jux (rev)
   $s "supersaw*8"
-  #sustain "0.1"
+  #sustain "0.11"
   #n "{0 -5 -7 -12 -17 -19}%9"
-  |+| n "{0, 7, 9}"
-  #semitone "{0 7 5}%5"
-  |+|semitone "{7 0 12 5 19 24}%8"
+  |+| n "{0, 7}"
   #voice (scale 0.1 0.2 $slow 24 $sine1)
   #cutoff (scale 400 4000 $slow 32 $sine1)
   #resonance "0.3"
   #gain "1.2"
+  -- |+|semitone "{7 0 12 5 19 24}%3"
 
 d2
   $slow 2
@@ -239,12 +237,12 @@ $stack[
 
 d4
   $slow 1
-  $s "my808(5, 8, {0, 5})"
-  #sustain "0.1"
-  |+|n "0 -12 5"
-  #lpf (scale 1000 8000 $slow 12 $sine1)
-  #resonance "0.2"
-  #gain "1.2"
+  $s "mybass(5, 8, {0, 3})"
+  #sustain "0.04 0.1"
+  |+|n "0 -12 [7 -5]"
+  #lpf (scale 3000 8000 $slow 12 $sine1)
+  #resonance "0.3"
+  #gain "1.4"
   -- #room "0.5"
 
 hush

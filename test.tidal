@@ -1,5 +1,35 @@
 cps(130/120)
 
+hush
+
+
+d1
+  $slow 2
+  $s "myfm"
+  #n "{0, 7}"
+  -- |+|n "{0 7 5 -5}%3"
+  #sustain "3"
+  #pitch1 (scale 0.1 0.5 $rand)
+  #voice (scale 1 4 $slow 24 $rand)
+--  #lpf (scale 100 12000 $slow 32 $sine1)
+--  #resonance "0.2"
+  #shape "0.5"
+
+d1
+  $s "myfm(5, 8, {0, 5, 3})"
+  #sustain "0.15"
+  #n "{0, -7, 9, -12}"
+  |+|n "{0 5 7 12}%6"
+  #pan (rand)
+  #pitch1 "{0.3333 0.75 0.6666 0.5 0.25}%9"
+  #voice (scale 1 8 $slow 24 $sine1)
+  #lpf (scale 200 8000 $slow 32 $rand)
+  #resonance "0.2"
+  -- #room "0.8"
+
+
+d2 $s "hc*2"
+
 d1 $s "revbd/4"
 #gain "1.5"
 
