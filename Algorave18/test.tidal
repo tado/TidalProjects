@@ -265,3 +265,13 @@ $s "my808(5, 8, {0, 5})"
 -- #room "0.5"
 
 hush
+
+
+d1
+  $s "spiano/2"
+  #n "<0 1 2>/4"
+  |*| speed "{1.0, -0.5, 1.5}"
+  |*| speed "{1.0 0.5 -1.0}%4"
+  #lpf (scale 1000 8000 $slow 4 $sine1)
+  #resonance "0.3"
+  #room "0.5"
