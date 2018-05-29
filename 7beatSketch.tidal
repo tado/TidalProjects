@@ -2,7 +2,7 @@ bps(110/120)
 
 hush
 
-var bbb = 10
+let bbb = 10
 
 d1
 -- $jux (iter 10)
