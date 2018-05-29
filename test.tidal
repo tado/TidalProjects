@@ -1,6 +1,47 @@
-cps(140/120)
+cps(120/120)
 
 hush
+
+d1
+$every 3 (0.125 ~>)
+$jux (iter 4)
+$iter 8
+$ stack[
+ s "test808*8" # sustain "0.5" # pan "1 0.5 0" # gain "1 0.5 0.75 0 1",
+ s "testsynth*8" # sustain "0.25" # pan "0 0.7 0.3 0.5 1" # note (run 36) # gain "1 0.5 0.8 1"
+]
+
+d1
+$every 3 (0.125 ~>)
+$every 2 (jux (iter 4))
+$sometimes (rev)
+$ stack[
+ s "test808(3, 8, {2, 5, 7})" # sustain "0.5"
+ # pan "1 0.5 0" # gain "1 0.5 0.75 0 1",
+ s "testsynth(5, 8, {0,3})" # sustain "0.25"
+ # pan "0 0.7 0.3 0.5 1" # note "12 20 37" # gain "1 0.5 0.8 1"
+]
+#delay "0.8" #delaytime "0.01 0.02 0.03" #delayfeedback "0.8"
+
+d1
+$jux (iter 4)
+$every 3 (0.125 ~>)
+$s "testsynth*8" #n (run 12)
+#gain "0.8"
+#sustain "0.04 0.15"
+
+d2 $ s "test808*8" 
+# sustain "0.5" # pan "1 0.5 0" # gain "1 0.5 0.75 0 1"
+
+d2 $ s "test808(5, 8, {0 3 6})" 
+# sustain "0.5" # pan "1 0.5 0" # gain "{1 0.5 0.75}%8"
+
+d1 $s "testsynth*8"
+
+hush
+
+d2 $
+  sound "{bd, super808*8}" #n (irand 16) #gain "1.2"
 
 --
 
