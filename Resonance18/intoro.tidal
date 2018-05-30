@@ -210,20 +210,94 @@ d1 $ sound "{~ ~ ~ ~, arpy bass2 drum notes can}"
 
 d1 $ sound "{arpy bass2 drum notes can}%4"
 
+-- 12.0
+
+d1 $ (0.25 <~) $ sound "bd*2 cp*2 hh sn"
+
+d1 $ (0.25 ~>) $ sound "bd*2 cp*2 hh sn"
+
+d1 $ every 3 (0.25 <~) $ sound "bd*2 cp*2 hh sn"
+
+d1 $ every 3 (0.25 ~>) $ sound "bd*2 cp*2 hh sn"
+
+d1 $ every 3 (0.0625 <~) $ sound "bd*2 cp*2 hh sn"
+
+d1 $ every 3 (1000.125 ~>) $ sound "bd*2 cp*2 hh sn"
+
+d1 $ "[0 0.25]/4" <~ (sound "bd*2 cp*2 hh sn")
+
+-- 13.0
+
+d1 $ sound "arpy*4" # pan (rand)
+
+d1 $ sound "arpy*4" # pan (scale 0.25 0.75 $ rand)
+
+d1 $ sound "arpy*8" # n (irand 30)
+
+-- 14.0
+
+
+d1 $ fastcat
+[
+  sound "bd cp ~ hc",
+  sound "casio casio:1"
+]
+
+d1 $ fastcat
+[
+  sound "bd sn:2" # vowel "[a o]/2",
+  sound "casio casio:1 casio:2*2"
+]
+
+d1 $sound "cp*3"
+
+d1 $ fastcat
+[
+  sound "cp*3",
+  sound "hh*2",
+  sound "bd"
+]
+
+d1 $ cat
+[
+  sound "cp*3",
+  sound "hh*2",
+  sound "bd"
+]
+
+d1 $ stack [
+  sound "bd bd*2",
+  sound "hh*2 [sn cp] cp future*4",
+  sound (samples "arpy*8" (run 16))
+]
+
+d1
+$ every 4 (slow 2)
+$ whenmod 5 3 (# speed "0.75 1.5")
+$ stack [
+  sound "bd bd*2",
+  sound "hh*2 [sn cp] cp future*4",
+  sound (samples "arpy*8" (run 16))
+]
+# speed "[[1 0.8], [1.5 2]*2]/3"
 
 d1
 $ every 5 (|+| speed "0.5")
 $ every 4 (0.25 <~)
 $ every 3 (rev)
-$ every 7 (density 2)
-$sound "bd sn ifdrums*2 cp"
+$ every 7 (brak)
+$ every 8 (density 2)
+$ every 6 (jux (rev))
+$ stack [
+  sound "bd*4" #shape "0.7",
+  -- sound "hh*2 [sn cp] cp future*4",
+  sound "numbers*2",
+  sound "ifdrums(3, 8)",
+  sound "super808*8"
+]
+# delay "0.4" #delaytime "0.01 0.03 0.02" #delayfeedback "0.8"
 # n (irand 10)
 # speed "[1 1.25 0.75 -1.5]/3"
-
-
-
-
-
 
 hush
 
