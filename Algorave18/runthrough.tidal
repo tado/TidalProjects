@@ -1,4 +1,4 @@
-cps(134/120)
+cps(130/120)
 
 hush
 
@@ -34,7 +34,7 @@ do
     #gain click2
     |*|gain "0.8"
     #n (irand 100)
-    #speed "{1.0 0.5 1.5}%3"
+    #up "{0 5 -5 7 -7}%8"
     #pan (scale 0.3 0.7 $rand)
 
 do 
@@ -96,7 +96,7 @@ d4
 d4
   $stack
   [
-    -- s "glitch(2, 8, 1)" #n (irand 16),
+    s "glitch(2, 8, 1)" #n (irand 16),
     -- s "dr55(2, 8, 3)" #n (irand 16),
     -- s "bass(2, 8, 2)",
     s "ifdrums(3, 8, 0)" #n "{1 2 1 2 3}%9", 
@@ -111,9 +111,9 @@ do
   d5
     $stack
     [
-      s "supersaw*8" #n bass2
+      s "supersaw*8" #n bass1
     ]
-    #sustain "0.11"
+    #sustain "0.08"
     #pan (rand)
     #pitch1 "5"
     #voice "0.1"
@@ -136,16 +136,16 @@ d1
 
 d3
   $s "kon(5, 8, {2, 4})"
-  #n "{0 1 2}%9"
+  #n "{0}%9"
   #pan (scale 0.3 0.7 $rand)
   #gain "1.1"
 
 d6
-  $gap 8
+  $chop 8
   $jux (rev)
   $s "eh(5, 8, {2, 4})"
   #n "{0 1 2 3}%8"
-  #up "0 -5 0 5"
+  -- #up "0 -5 0 5"
   #gain "1.0"
 
 d5
@@ -234,8 +234,8 @@ do
   let
     inverse 1 = 0
     inverse 0 = 1
-    pat1 = "{1 0 1 0 0 0 0}%6"
-    pat2 = "{1 0 1 1 0 1 0}%9"
+    pat1 = "{1 0 1 0 0 0}%6"
+    pat2 = "{1 0 1 1 0 1 0 1}%9"
   d1
     $s "distd:0*8"
     #gain pat1
