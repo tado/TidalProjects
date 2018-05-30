@@ -136,7 +136,7 @@ d1
 
 d3
   $s "kon(5, 8, {2, 4})"
-  #n "{0}%9"
+  #n "{0 1 2}%9"
   #pan (scale 0.3 0.7 $rand)
   #gain "1.1"
 
@@ -145,7 +145,7 @@ d6
   $jux (rev)
   $s "eh(5, 8, {2, 4})"
   #n "{0 1 2 3}%8"
-  -- #up "0 -5 0 5"
+  #up "0 -5 0 5"
   #gain "1.0"
 
 d5
@@ -164,7 +164,7 @@ d5
   $s "supersaw*8"
   #sustain "0.11"
   #n "{0 -5 -7 -12 -17 -19}%9"
-  |+| n "{0, 7, 5}"
+  |+| n "{0, 7}"
   #voice (scale 0.1 0.2 $slow 24 $sine1)
   #cutoff (scale 400 4000 $slow 32 $sine1)
   #resonance "0.3"
@@ -224,27 +224,30 @@ d5
 $sometimesBy 0.3 (rev)
 $sometimesBy 0.4 (jux (iter 8))
 $stack[
-  s "uni(5, 8, {0, 5})" #n "{0 1 0 2 0 3}%8", 
-  s "distd*2" #gain "1.0"
+  -- s "distd*2" #gain "1.0",
+  s "hc(5, 8, {3, 6})",
+  s "uni(5, 8, {0, 5})" #n "{0 1 0 2 0 3}%8" 
 ]
-#shape "0.4"
-|*|gain "1.2"
+|*|gain "1.3"
 
+solo $
 do
   let
     inverse 1 = 0
     inverse 0 = 1
-    pat1 = "{1 0 1 0 0 0}%6"
-    pat2 = "{1 0 1 1 0 1 0 1}%9"
+    pat1 = "{1 1 1 0 1 0}%6"
+    pat2 = "{0 0 1 0 1 0}%9"
   d1
-    $s "distd:0*8"
+    $s "bd*8"
     #gain pat1
-    #shape "0.4"
-    |*|gain "1.2"
+    #shape "0.7"
+    |*|gain "1.5"
   d2
-    $s "uni:1*8"
+    $s "{uni:1*8}"
     #gain (inverse <$> pat1)
     #shape "0.7"
+    #delay "0.8" #delaytime "{0.01 0.03 0.02}%8" #delayfeedback "0.9"
+    #room "0.0" #size "0.8"
   d3
     $s "myfm*8"
     #n "{0, 7, 9 -5}"
@@ -252,60 +255,28 @@ do
     #voice (scale 0 10 $rand)
     #gain pat2
     #sustain "0.08"
-    #shape "0.7"
-    |*|gain "0.8"
+    #shape "0.3"
+    |*|gain "1.0"
   d4
     $s "kon*8"
     #n "{0 1 2 3 4 5 6 7 8}%8"
     #gain (inverse <$> pat2)
-    #delay "0.75"
-    #delaytime "{0.1 0.03 0.01 0.02}%8"
-    #delayfeedback "0.75"
-
-d5 silence    
-
-hush
-
-
-d5
-  $s "spiano/2"
-  #n "<0 1 2>/2"
-  |*| speed "{1.0, -0.5, 1.5}"
-  |*| speed "{1.0 0.5 -1.0 0.75 1.5}%4"
-  #lpf (scale 1000 8000 $slow 4 $sine1)
-  #resonance "0.3"
-  #gain "1.3"
-  #room "1.0"
-
-d3 silence  
-
-d3
-  $every 2 (jux (0.25 <~))
-  $s "eh(3, 8)"
-  #n "{0 1 2}%4"
-  #gain "1.3"
-  #delay "0.8" #delaytime "{0.01 0.03 0.02}%8" #delayfeedback "0.7"
-
-
-
-d1
-  $s "body/2"
-  #speed "{1.0, 1.5}"
-  #gain "1.0"
-  #shape "0.8"
-
-d2
-  $s "revbd/2"
-  #shape "0.8"
+  d5
+    $chop 8
+    $jux (rev)
+    $s "eh*8"
+    #gain (inverse <$> pat2)
+    #n "{0 1 2 3}%9"
+    #up "0 -5 0 5"
+    #lpf (scale 200 4000 $rand)
+    #resonance "0.1"
 
 d6
-  $s "mybass(3, 8, {0, 3})"
-  #sustain "0.08"
-  |+|n "{0 -12}%6"
-  #lpf (scale 3000 8000 $slow 12 $sine1)
-  #resonance "0.3"
-  #gain "1.4"
-  -- #room "0.5"  
-
+  $slow 2
+  $s "spiano"
+  #n "<0 1 2>"
+  |*| speed "{0.5, 1.0, 1.5, 2.0}"
+  |*| speed "{1.0 -1.0 0.5 -0.5}%9"
+  |*| gain "1.5"
 
 hush
