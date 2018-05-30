@@ -55,7 +55,7 @@ d2
   $every 4 (jux (0.125 <~))
   $stack
   [
-    s "uni(5, 8)" #n "{0 1 2}%8", 
+    --s "uni(5, 8)" #n "{0 1 2}%8", 
     s "distd*2" |*|gain "1.3",
     s "[~ uni:1]*2"
   ]
@@ -96,8 +96,8 @@ d4
 d4
   $stack
   [
-    s "glitch(2, 8, 1)" #n (irand 16),
-    -- s "dr55(2, 8, 3)" #n (irand 16),
+    --s "glitch(2, 8, 1)" #n (irand 16),
+    s "dr55(2, 8, 3)" #n (irand 16),
     -- s "bass(2, 8, 2)",
     s "ifdrums(3, 8, 0)" #n "{1 2 1 2 3}%9", 
     s "bd:0*2" |*|gain "1.5"
@@ -219,7 +219,7 @@ $sound "{ifdrums(3, 8, 0), bd(3, 8, 0), glitch(3, 8, 4)}"
 #n (irand 64)
 #pan (rand)
 
-d5
+d6
 -- $sometimesBy 0.2 (0.125 ~>)
 $sometimesBy 0.3 (rev)
 $sometimesBy 0.4 (jux (iter 8))
