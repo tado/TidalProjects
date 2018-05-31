@@ -26,6 +26,7 @@ do
 
 do
   let
+<<<<<<< HEAD
     click2 = "{1 0 1 1 0 0}%8"
   d4
     $sometimesBy 0.5 (0.125 <~)
@@ -42,6 +43,24 @@ do
     pat1 = "{1 1 0 1}%9"
     pat2 = "{1 0 1 1}%6"
     pat3 = "{1 0 1 0}%3"
+=======
+    click2 = "{1 0 0 1 0 1 1 0}%9"
+  d4
+    -- $sometimesBy 0.3 (0.125 <~)
+    -- $sometimesBy 0.4 (jux (0.125 ~>))
+    $s "cr*8"
+    #gain click2
+    |*|gain "0.8"
+    #n (irand 100)
+    #up "{0 5 -5 7 -7}%8"
+    #pan (scale 0.3 0.7 $rand)
+
+do 
+  let
+    pat1 = "{1 1 0 0}%9"
+    pat2 = "{1 0 0 1}%9"
+    pat3 = "{1 0 1 0}%9"
+>>>>>>> df9eb053d0d823a3e689f806601da299526e51e1
   d1
     $every 2 (jux (0.125 <~))
     $stack
@@ -52,16 +71,20 @@ do
     ]
 
 d2
+<<<<<<< HEAD
   $every 4 (jux (0.125 ~>))
   -- $sometimesBy 0.3 (0.25 <~)
+=======
+  $every 4 (jux (0.125 <~))
+>>>>>>> df9eb053d0d823a3e689f806601da299526e51e1
   $stack
   [
-    s "uni(5, 8)" #n "{0 1 2}%8", 
-    s "distd*2" |*|gain "1.2", 
+    --s "uni(5, 8)" #n "{0 1 2}%8", 
+    s "distd*2" |*|gain "1.3",
     s "[~ uni:1]*2"
   ]
-  #delay "0.6" #delaytime "{0.01 0.03 0.02}%8" #delayfeedback "0.7"
-  #shape "0.7"
+  #delay "0.7" #delaytime "{0.01 0.03 0.02}%8" #delayfeedback "0.8"
+  #shape "0.5"
   
 d4
   $iter 4
@@ -91,8 +114,12 @@ do
 
 do 
   let chord1 = "{c5, g5, f5}" 
+<<<<<<< HEAD
   d3
     $sometimesBy 0.3 (jux (0.125 ~>))
+=======
+  d5
+>>>>>>> df9eb053d0d823a3e689f806601da299526e51e1
     $slow 2
     $stack
     [
@@ -113,17 +140,41 @@ d4
   #gain "1.5"
   
 d4
-  -- $sometimesBy 0.1 (jux (0.125 ~>))
   $stack
   [
+<<<<<<< HEAD
     -- s "glitch(2, 8, 1)" #n (irand 16),
     -- s "dr55(2, 8, 3)" #n (irand 16),
+=======
+    --s "glitch(2, 8, 1)" #n (irand 16),
+    s "dr55(2, 8, 3)" #n (irand 16),
+>>>>>>> df9eb053d0d823a3e689f806601da299526e51e1
     -- s "bass(2, 8, 2)",
-    s "ifdrums(3, 8, 0)" #n "{1 2 1 2 3}%6", 
+    s "ifdrums(3, 8, 0)" #n "{1 2 1 2 3}%9", 
     s "bd:0*2" |*|gain "1.5"
   ]
   #gain "1.5"
 
+<<<<<<< HEAD
+=======
+do
+  let bass1 = "{-24 -23 -24 -12}%8"
+      bass2 = "{-24 -23 -24 -24 -12 -17}%9"
+      bass3 = "{-24 -23 -24 -0 -24}%9"
+  d5
+    $stack
+    [
+      s "supersaw*8" #n bass1
+    ]
+    #sustain "0.08"
+    #pan (rand)
+    #pitch1 "5"
+    #voice "0.1"
+    #cutoff (scale 400 9000 $slow 32 $sine1)
+    #resonance "0.2"
+    |*|gain "1.2"
+
+>>>>>>> df9eb053d0d823a3e689f806601da299526e51e1
 d1
   $every 8 (jux (rev))
   $sometimesBy 0.2 (0.25 <~)
@@ -133,30 +184,39 @@ d1
     s "bd cp bd hc" #n (irand 12),
     s "distd(3, 8, {0, 3})"
     #n "0 0 0 1 0 3 1 2"
-  ] 
+  ]
   #gain "<1 1 1 0>"
   |*|gain "1.2"
 
 d3
   $s "kon(5, 8, {2, 4})"
-  #n "{0 1}%9"
+  #n "{0 1 2}%9"
   #pan (scale 0.3 0.7 $rand)
-  #gain "1.2"
+  #gain "1.1"
 
 d6
+  $chop 8
+  $jux (rev)
+  $s "eh(5, 8, {2, 4})"
+  #n "{0 1 2 3}%8"
+  #up "0 -5 0 5"
+  #gain "1.0"
+
+d5
 $stack[
   s "glitch:4(5, 8, {1, 3})" #gain "1.2"
    #cutoff (scale 800 9000 $slow 24 $sine1)
-   #resonance "0.4"
+   #resonance "0.2"
   , s "uni*2" #gain "1.3"
   , sometimesBy 0.8 (0.125 ~>) $ s "uni*8" #gain "1.0" #n (irand 20)
 ]
-#delay "0.8" #delaytime "{0.01 0.02 0.03 0.01}%8" #delayfeedback "0.5"
+|*|gain "1.3"
 
 -- solo $
-d4
+d5
   $jux (rev)
   $s "supersaw*8"
+<<<<<<< HEAD
   #sustain "0.12 0.04"
   #n "{0 -5 -7 -12 -17 -19}%9"
   |+| n "{0, 7, 9}"
@@ -165,6 +225,16 @@ d4
   #resonance "0.3"
   #gain "1.2"
   |+|semitone "{0 5 7 9 12 19 24}%12"
+=======
+  #sustain "0.11"
+  #n "{0 -5 -7 -12 -17 -19}%9"
+  |+| n "{0, 7}"
+  #voice (scale 0.1 0.2 $slow 24 $sine1)
+  #cutoff (scale 400 4000 $slow 32 $sine1)
+  #resonance "0.3"
+  #gain "1.1"
+  |+|semitone "{7 0 12 5 19 24}%12"
+>>>>>>> df9eb053d0d823a3e689f806601da299526e51e1
 
 d2
   $slow 2
@@ -184,7 +254,7 @@ d2
     sound "gabba(3,8,0)" #n (irand 64),
     sound "ifdrums(5,8)" #n (irand 64)
   ]
-  -- #delay "0.5" #delaytime "0.005 0.1 0.03 0.01 0.02" #delayfeedback "0.75"
+  -- #delay "0.8" #delaytime "0.005 0.1 0.03 0.01 0.02" #delayfeedback "0.75"
   -- #cutoff "800" #resonance "0.2"
   -- #cutoff (scale 400 8000 $slow 16 $sine1) #resonance "0.2"
   #gain "1.5"
@@ -213,58 +283,55 @@ $sound "{ifdrums(3, 8, 0), bd(3, 8, 0), glitch(3, 8, 4)}"
 #gain "1.5"
 #n (irand 64)
 #pan (rand)
-  
 
--- solo $
-d2
+d6
 -- $sometimesBy 0.2 (0.125 ~>)
 $sometimesBy 0.3 (rev)
 $sometimesBy 0.4 (jux (iter 8))
 $stack[
-  s "uni(5, 8, {0, 5})" #n "{0 1 0 2 0 3}%8", 
-  s "distd*2" #gain "1.0"
+  -- s "distd*2" #gain "1.0",
+  s "hc(5, 8, {3, 6})",
+  s "uni(5, 8, {0, 5})" #n "{0 1 0 2 0 3}%8" 
 ]
-#shape "0.2"
-|*|gain "1.2"
+|*|gain "1.3"
 
-d4
-  $s "mybass(3, 8, {0, 3})"
-  #sustain "0.08"
-  |+|n "{0 -12}%6"
-  #lpf (scale 3000 8000 $slow 12 $sine1)
-  #resonance "0.3"
-  #gain "1.4"
-  -- #room "0.5"
-
-
-let
-  inverse 1 = 0
-  inverse 0 = 1
-  
+solo $
 do
   let
+<<<<<<< HEAD
     pat1 = "{1 0 1 0 0 1 0}%6"
     pat2 = "{1 0 0 1 0 0 1}%6"
+=======
+    inverse 1 = 0
+    inverse 0 = 1
+    pat1 = "{1 1 1 0 1 0}%6"
+    pat2 = "{0 0 1 0 1 0}%9"
+>>>>>>> df9eb053d0d823a3e689f806601da299526e51e1
   d1
-    $s "bd:1*8"
+    $s "bd*8"
     #gain pat1
     #shape "0.7"
-    |*|gain "1.4"
+    |*|gain "1.5"
   d2
-    $s "uni:1*8"
+    $s "{uni:1*8}"
     #gain (inverse <$> pat1)
     #shape "0.7"
-  d3 
+    #delay "0.8" #delaytime "{0.01 0.03 0.02}%8" #delayfeedback "0.9"
+    #room "0.0" #size "0.8"
+  d3
     $s "myfm*8"
     #n "{0, 7, 9 -5}"
-    #voice (scale 3 12 $rand)
+    |+|n "{0 7 12 19}%9"
+    #voice (scale 0 10 $rand)
     #gain pat2
-    #sustain "0.1"
+    #sustain "0.08"
     #shape "0.3"
+    |*|gain "1.0"
   d4
-    $s "cp*8"
-    #n (irand 100)
+    $s "kon*8"
+    #n "{0 1 2 3 4 5 6 7 8}%8"
     #gain (inverse <$> pat2)
+<<<<<<< HEAD
     #shape "0.7"
 
 d2 silence    
@@ -278,5 +345,24 @@ d1
   #resonance "0.3"
   #gain "1.3"
   #room "1.0"
+=======
+  d5
+    $chop 8
+    $jux (rev)
+    $s "eh*8"
+    #gain (inverse <$> pat2)
+    #n "{0 1 2 3}%9"
+    #up "0 -5 0 5"
+    #lpf (scale 200 4000 $rand)
+    #resonance "0.1"
+
+d6
+  $slow 2
+  $s "spiano"
+  #n "<0 1 2>"
+  |*| speed "{0.5, 1.0, 1.5, 2.0}"
+  |*| speed "{1.0 -1.0 0.5 -0.5}%9"
+  |*| gain "1.5"
+>>>>>>> df9eb053d0d823a3e689f806601da299526e51e1
 
 hush
