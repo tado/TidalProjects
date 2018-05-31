@@ -5,13 +5,13 @@ hush
 d1
   $slow 2
   $s "numbers"
-  #n "<1 2 3 4 5 6 7 8>"
+  #n "<0 1 2 3 4 5 6 7 8>"
 
 d2
   $slow 2
   $s "spiano"
   #n "<0 1 2>"
-  # speed "{0.25, 0.5, 1.0, 1.5, 2.0}"
+  |*| speed "{0.25, 0.5, 1.0, 1.5, 2.0}"
   |*| speed "{1.0 -1.0 0.5 -0.5}%9"
 
 do
@@ -25,19 +25,6 @@ do
     #resonance "0.4"
 
 do
-  let
-    click2 = "{1 0 1 1 0 0}%8"
-  d4
-    $sometimesBy 0.5 (0.125 <~)
-    $sometimesBy 0.4 (jux (0.125 ~>))
-    $s "cr*8"
-    #gain click2
-    |*|gain "0.85"
-    #pan (scale 0.2 0.8 $rand)
-    #n (irand 100)
-    #speed "{1.0 0.5 1.5}%3"
-
-do 
   let
     click2 = "{1 0 0 1 0 1 1 0}%9"
   d4
@@ -56,17 +43,16 @@ do
     pat2 = "{1 0 0 1}%9"
     pat3 = "{1 0 1 0}%9"
   d1
-    $every 2 (jux (0.125 <~))
+    $every 3 (jux (0.125 <~))
     $stack
     [
       s "tabla2*8" #gain pat3 #n (irand 32) |*|gain "1.2", 
-      s "kon*8" #gain pat2 #n "1 4", 
+      s "kon*8" #gain pat2 #n "1", 
       s "kon*4" #gain pat1 #n "0 2"
     ]
 
 d2
-  $every 4 (jux (0.125 ~>))
-  -- $sometimesBy 0.3 (0.25 <~)
+  $every 4 (jux (0.125 <~))
   $stack
   [
     --s "uni(5, 8)" #n "{0 1 2}%8", 
@@ -86,30 +72,8 @@ d4
 
 -- 02
 do 
-  let bass1 = "{c3 ef3 c3 ef3 fs4}%9"
-      bass2 = "{g4 ef3 g4 ef3 fs5}%3"
-  d3
-    $stack
-    [
-      s "supersaw*8" #n bass2,
-      s "supersaw*8" #n bass1
-    ]
-    #sustain "0.08"
-    #pan (rand)
-    #pitch1 "5"
-    #voice "0.1"
-    #cutoff (scale 400 9000 $slow 32 $sine1)
-    #resonance "0.2"
-    |*|gain "1.2"
-
-do 
   let chord1 = "{c5, g5, f5}" 
-<<<<<<< HEAD
-  d3
-    $sometimesBy 0.3 (jux (0.125 ~>))
-=======
   d5
->>>>>>> df9eb053d0d823a3e689f806601da299526e51e1
     $slow 2
     $stack
     [
@@ -132,21 +96,14 @@ d4
 d4
   $stack
   [
-<<<<<<< HEAD
-    -- s "glitch(2, 8, 1)" #n (irand 16),
-    -- s "dr55(2, 8, 3)" #n (irand 16),
-=======
     --s "glitch(2, 8, 1)" #n (irand 16),
     s "dr55(2, 8, 3)" #n (irand 16),
->>>>>>> df9eb053d0d823a3e689f806601da299526e51e1
     -- s "bass(2, 8, 2)",
     s "ifdrums(3, 8, 0)" #n "{1 2 1 2 3}%9", 
     s "bd:0*2" |*|gain "1.5"
   ]
   #gain "1.5"
 
-<<<<<<< HEAD
-=======
 do
   let bass1 = "{-24 -23 -24 -12}%8"
       bass2 = "{-24 -23 -24 -24 -12 -17}%9"
@@ -164,7 +121,6 @@ do
     #resonance "0.2"
     |*|gain "1.2"
 
->>>>>>> df9eb053d0d823a3e689f806601da299526e51e1
 d1
   $every 8 (jux (rev))
   $sometimesBy 0.2 (0.25 <~)
@@ -180,15 +136,15 @@ d1
 
 d3
   $s "kon(5, 8, {2, 4})"
-  #n "{0 1 2}%9"
+  #n "{0 1}%9"
   #pan (scale 0.3 0.7 $rand)
   #gain "1.1"
 
 d6
-  $chop 8
+  $chop 10
   $jux (rev)
   $s "eh(5, 8, {2, 4})"
-  #n "{0 1 2 3}%8"
+  #n "{0 3 2 1}%9"
   #up "0 -5 0 5"
   #gain "1.0"
 
@@ -206,25 +162,14 @@ $stack[
 d5
   $jux (rev)
   $s "supersaw*8"
-<<<<<<< HEAD
-  #sustain "0.12 0.04"
+  #sustain "0.11"
   #n "{0 -5 -7 -12 -17 -19}%9"
   |+| n "{0, 7, 9}"
   #voice (scale 0.1 0.2 $slow 24 $sine1)
   #cutoff (scale 400 4000 $slow 32 $sine1)
   #resonance "0.3"
-  #gain "1.2"
-  |+|semitone "{0 5 7 9 12 19 24}%12"
-=======
-  #sustain "0.11"
-  #n "{0 -5 -7 -12 -17 -19}%9"
-  |+| n "{0, 7}"
-  #voice (scale 0.1 0.2 $slow 24 $sine1)
-  #cutoff (scale 400 4000 $slow 32 $sine1)
-  #resonance "0.3"
   #gain "1.1"
   |+|semitone "{7 0 12 5 19 24}%12"
->>>>>>> df9eb053d0d823a3e689f806601da299526e51e1
 
 d2
   $slow 2
@@ -234,7 +179,7 @@ d2
   #shape "0.7"
 
 d2
-  $sometimesBy 0.2 (0.25 ~>)
+  -- $sometimesBy 0.2 (0.25 ~>)
   -- $sometimesBy 0.1 (0.125 <~)
   $stack
   [
@@ -285,18 +230,13 @@ $stack[
 ]
 |*|gain "1.3"
 
-solo $
+-- solo $
 do
   let
-<<<<<<< HEAD
-    pat1 = "{1 0 1 0 0 1 0}%6"
-    pat2 = "{1 0 0 1 0 0 1}%6"
-=======
     inverse 1 = 0
     inverse 0 = 1
     pat1 = "{1 1 1 0 1 0}%6"
     pat2 = "{0 0 1 0 1 0}%9"
->>>>>>> df9eb053d0d823a3e689f806601da299526e51e1
   d1
     $s "bd*8"
     #gain pat1
@@ -321,21 +261,6 @@ do
     $s "kon*8"
     #n "{0 1 2 3 4 5 6 7 8}%8"
     #gain (inverse <$> pat2)
-<<<<<<< HEAD
-    #shape "0.7"
-
-d2 silence    
-
-d1
-  $s "spiano/4"
-  #n "<0 1 2>/4"
-  |*| speed "{1.0, -0.5, 1.5}"
-  |*| speed "{1.0 0.5 -1.0 0.75 1.5}%4"
-  #lpf (scale 1000 8000 $slow 4 $sine1)
-  #resonance "0.3"
-  #gain "1.3"
-  #room "1.0"
-=======
   d5
     $chop 8
     $jux (rev)
@@ -352,7 +277,6 @@ d6
   #n "<0 1 2>"
   |*| speed "{0.5, 1.0, 1.5, 2.0}"
   |*| speed "{1.0 -1.0 0.5 -0.5}%9"
-  |*| gain "1.5"
->>>>>>> df9eb053d0d823a3e689f806601da299526e51e1
+  |*| gain "1.2"
 
 hush
