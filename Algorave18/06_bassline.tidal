@@ -9,8 +9,7 @@ do
     [
       s "supersaw*8" #n bass1
     ]
-    #sustain "0.08"
-    #pan (rand)
+    #sustain "0.05"
     #pitch1 "5"
     #voice "0.1"
     #cutoff (scale 400 9000 $slow 32 $sine1)

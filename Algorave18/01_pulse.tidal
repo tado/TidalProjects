@@ -2,7 +2,7 @@
 
 do
   let
-    click1 = "{1 0 0 0}%8"
+    click1 = "{1 0 0 0 0 0 0 0}%8"
   d3
     $s "click:2*8"
     #gain click1
@@ -13,7 +13,7 @@ do
 
 do
   let
-    click2 = "{1 0 0 0}%8"
+    click2 = "{1 0 0 0 0 0 0 0}%8"
   d4
     $s "cr:2*8"
     #gain click2
