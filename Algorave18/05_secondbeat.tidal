@@ -1,0 +1,19 @@
+-- 05
+
+d4
+  $every 2 (#gain "0")
+  $sound "ifdrums*2 ~"
+  #n "[0 2] 0"
+  #gain "1.5"
+  
+d4
+  $sometimesBy 0.3 (0.125 ~>)
+  $stack
+  [
+    -- s "glitch(2, 8, 1)" #n (irand 16),
+    -- s "dr55(2, 8, 3)" #n (irand 16),
+    -- s "bass(2, 8, 2)",
+    s "ifdrums(3, 8, 0)" #n "{1 2 1 2 3}%9", 
+    s "bd:0*2" |*|gain "1.5"
+  ]
+  #gain "1.5"

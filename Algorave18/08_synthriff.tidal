@@ -1,0 +1,14 @@
+-- 08
+
+-- solo $
+d5
+  $jux (rev)
+  $s "supersaw*8"
+  #sustain "0.02"
+  #n "{0 -5 -7 -12 -17 -19}%9"
+  |+| n "{0, 7}"
+  #voice (scale 0.1 0.2 $slow 24 $sine1)
+  #cutoff (scale 400 4000 $slow 32 $sine1)
+  #resonance "0.3"
+  #gain "1.2"
+  -- |+|semitone "{7 0 12 5 19 24}%12"

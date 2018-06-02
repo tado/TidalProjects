@@ -1,0 +1,27 @@
+-- 01
+
+do
+  let
+    click1 = "{1 0 0 0}%8"
+  d3
+    $s "click:2*8"
+    #gain click1
+    #lpf (scale 800 9000 $slow 16 $sine1)
+    #resonance "0.2"
+
+    -- $every 2 (jux (0.125 ~>))    
+
+do
+  let
+    click2 = "{1 0 0 0}%8"
+  d4
+    $s "cr:2*8"
+    #gain click2
+    
+    -- $sometimesBy 0.3 (jux (0.125 ~>))
+    -- $sometimesBy 0.4 (0.125 <~)
+
+    -- #n (irand 100)
+    -- #up "{0 5 -5 7 -7}%8"
+
+
