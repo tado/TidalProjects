@@ -61,7 +61,7 @@ do
 
 d2
   $every 4 (jux (0.125 <~))
-  $sometimesBy 0.3 (0.125 <~)
+  -- $sometimesBy 0.3 (0.125 <~)
   $stack
   [
     s "uni(5, 8)" #n "{0 1 2}%8", 
@@ -82,7 +82,7 @@ d4
 -- 04
 
 do 
-  let chord1 = "{c5, g5, f5}" 
+  let chord1 = "{c5, f5, g5}" 
   d5
     $slow 2
     $stack
@@ -119,26 +119,24 @@ d4
 -- 06
 
 do
-  let bass1 = "{-24 -23 -24 -12}%8"
-      bass2 = "{-24 -23 -24 -24 -5 -17}%9"
-      bass3 = "{-24 -23 -24 -5 -24}%9"
+  let bass1 = "{c3 cs3 c3 c4}%8"
   d5
     $stack
     [
       s "supersaw*8" #n bass1
     ]
-    #sustain "0.06 0.12"
-    #pitch1 "5"
-    #voice "0.1"
+    #sustain "0.15 0.06"
+    #pitch1 "3"
+    #voice "0.2"
     #cutoff (scale 400 9000 $slow 32 $sine1)
-    #resonance "0.2"
-    |*|gain "1.1"
+    #resonance "0.3"
+    |*|gain "1.3"
 
 -- 07
 
 d1
   $every 8 (jux (rev))
-  -- $sometimesBy 0.2 (0.25 <~)
+  $sometimesBy 0.4 (0.125 <~)
   $stack
   [
     s "uni*2", 
@@ -151,7 +149,7 @@ d1
 
 d3
   $s "kon(5, 8, {2, 4})"
-  #n "{0 1 2 3}%9"
+  #n "{0 1 2}%9"
   #pan (scale 0.3 0.7 $rand)
   #gain "1.1"
 
@@ -164,7 +162,7 @@ d6
 
 -- 08
 
-solo $
+-- solo $
 d5
   $jux (rev)
   $s "supersaw*8"
@@ -230,7 +228,7 @@ $sound "{ifdrums(3, 8, 0), bd(3, 8, 0), glitch(3, 8, 4)}"
 -- 10
 
 do
-  let chord2 = "{0, 7, 10, 17, 19}"
+  let chord2 = "{c5, g5, a5, f5}"
   d7
     $slow 2
     $jux (0.25 ~>)
@@ -255,9 +253,9 @@ d6
   #resonance "0.3"
   #gain "1.1"
   #shape "0.5"
-  #room "0.9" #size "0.98"
+  -- #room "0.9" #size "0.98"
 
-d2
+d5
   $every 4 (jux (0.125 <~))
   $sometimesBy 0.3 (0.125 <~)
   $stack
@@ -267,7 +265,7 @@ d2
     s "[~ uni:1]*2"
   ]
   #delay "0.7" #delaytime "{0.01 0.03 0.02}%8" #delayfeedback "0.8"
-  #shape "0.5"
+  #shape "0.6"
   
 d4
   $iter 4

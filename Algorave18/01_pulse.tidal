@@ -15,12 +15,13 @@ do
   let
     click2 = "{1 0 0 0 0 0 0 0}%8"
   d4
-    $s "cr:2*8"
+    $s "cr:7*8"
     #gain click2
+    |*|gain "0.75"
     
     -- $sometimesBy 0.3 (jux (0.125 ~>))
     -- $sometimesBy 0.4 (0.125 <~)
-
+    -- $sometimesBy 0.3 (stut 16 0.125 4)
     -- #n (irand 100)
     -- #up "{0 5 -5 7 -7}%8"
 

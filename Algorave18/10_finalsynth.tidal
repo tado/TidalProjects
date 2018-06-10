@@ -1,7 +1,7 @@
 -- 10
 
 do
-  let chord2 = "{0, 7, 10, 17, 19}"
+  let chord2 = "{c5, g5, a5, f6, g6}"
   d7
     $slow 2
     $jux (0.25 ~>)
@@ -10,56 +10,48 @@ do
       s "supersaw(7,16,0)" #n chord2 |+|n "0" #pan (rand)
     ] 
     #cutoff (scale 2000 18000 $slow 16 $sine1)
-    #resonance "0.3"
+    #resonance "0.2"
     #sustain "0.08"
-    #gain "1.1"
+    #gain "1.0"
     -- |+|n "<0 7 -7 -5 5 -12>"
 
-d6
-  $slow 2
-  $jux (0.125 <~)
-  $s "supersaw(7, 16, {3, 4})"
-  # n "{c7, e7, f7, g7, a7, d8}"
-  #sustain "0.05"
-  #lpf (scale 2000 15000 $slow 5 $sine1)
-  #resonance "0.3"
-  #gain "1.1"
-  #shape "0.5"
-  -- #room "0.9" #size "0.98"
+do
+  let chord3 = "{c5, g5, a5, f6, g6}"
+  d6
+    $slow 2
+    $jux (0.125 <~)
+    $s "supersaw(7, 16, {3, 4})"
+    # n chord3
+    |+|n "19"
+    #sustain "0.05"
+    #lpf (scale 2000 15000 $slow 5 $sine1)
+    #resonance "0.1"
+    #gain "1.1"    
 
-d2
+d5
   $every 4 (jux (0.125 <~))
-  $sometimesBy 0.3 (0.125 <~)
   $stack
   [
     s "uni(5, 8)" #n "{0 1 2}%8", 
-    s "distd*2" |*|gain "1.3",
+    s "skick*2" |*|gain "1.5" #sustain "0.2" #n "0" #voice "2",
     s "[~ uni:1]*2"
   ]
-  #delay "0.7" #delaytime "{0.01 0.03 0.02}%8" #delayfeedback "0.8"
-  #shape "0.5"
-  
-d4
+  #shape "0.7"    
+
+d3
   $iter 4
   $stack
   [
-    s "super808(5, 8, {0, 3})" #n (irand 7)
+    s "super808(5, 8, {0, 3, 6})" #n (irand 7)
   ]
+  #n (irand 7)
+  #gain "1.5"
   #pan (rand)
 
-d1
-  $every 8 (jux (rev))
-  $sometimesBy 0.2 (0.25 <~)
-  $stack
-  [
-    s "uni*2", 
-    s "bd cp bd hc" #n (irand 12),
-    s "distd(3, 8, {0, 3})"
-    #n "0 0 0 1 0 3 1 2"
-  ]
-  #gain "<1 1 1 0>"
-  |*|gain "1.3"
-
-  
-  
+d2
+  $slow 2
+  $ sound "{bd(3, 8, 0), ifdrums(3, 8, 5), glitch(3, 8, 5), bass(3, 8, 2), cp(3, 8, 3), dr55(3,8,4)}"
+  #gain "1.5"
+  # n (irand 64)
+  # pan (rand)  
 

@@ -9,7 +9,7 @@ do
     -- $sometimesBy 0.3 (0.125 <~)
     $stack
     [
-      -- s "tabla2*8" #gain pat3 #n (irand 32) |*|gain "1.2", 
+      -- s "tabla2*4" #gain pat3 #n (irand 32) |*|gain "1.2", 
       -- s "kon*8" #gain pat2 #n "1", 
       s "kon*4" #gain pat1 #n "0"
     ]
