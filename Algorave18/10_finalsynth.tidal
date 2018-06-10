@@ -26,7 +26,8 @@ do
     #sustain "0.05"
     #lpf (scale 2000 15000 $slow 5 $sine1)
     #resonance "0.1"
-    #gain "1.1"    
+    #gain "1.1"
+    -- #room "0.3" #size "0.8"
 
 d5
   $every 4 (jux (0.125 <~))

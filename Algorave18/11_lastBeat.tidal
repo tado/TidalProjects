@@ -1,0 +1,42 @@
+-- 11
+
+do
+  d1 silence
+  d2 silence
+  d3 silence
+  d4 silence
+
+do
+  let
+    pat1 = "{0 ~ ~ 0 ~ ~ 0 ~ 0 0 ~ 0 ~ ~}%8"
+  d2
+    $sometimesBy 0.1 (rev)
+    $sometimesBy 0.4 (0.25 <~)
+    $stack
+    [
+      s "uni(5, 8)" #n "{0 1 2}%8", 
+      s "distd(2, 8)" |*|gain "1.8" #voice "4" #sustain "0.2",
+      s "[~ uni:1]*2"
+    ]
+    #shape "0.85"
+    |*|gain "1.5"
+  d6
+    $every 3 (jux (0.125 ~>))
+    $stack
+    [
+      up pat1
+      |=| s "bfm"
+      |+|n (choose [12, 0, -12, -24, -36])
+      |+|n "{0, 5, 7, 9}"
+    ]
+    #sustain (choose [0.05, 0.12, 0.4])
+    #pitch1 (choose [0.33, 3.33, 19.33])
+    #voice (choose [30, 1000, 4000, 12000])
+    #delay "0.8"
+    #delaytime (choose [0.01, 0.03, 0.02, 0.008])
+    #delayfeedback "0.8"
+    |*|gain "1.7"
+
+do
+  d7 silence
+  d5 silence
