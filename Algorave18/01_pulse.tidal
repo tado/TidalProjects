@@ -15,7 +15,7 @@ do
   let
     click2 = "{1 0 0 0 0 0 0 0}%8"
   d4
-    $s "cr:7*8"
+    $s "cr:8*8"
     #gain click2
     |*|gain "0.75"
     
