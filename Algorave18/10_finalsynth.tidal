@@ -29,30 +29,4 @@ do
     #gain "1.1"
     -- #room "0.3" #size "0.8"
 
-d5
-  $every 4 (jux (0.125 <~))
-  $stack
-  [
-    s "uni(5, 8)" #n "{0 1 2}%8", 
-    s "skick*2" |*|gain "1.5" #sustain "0.2" #n "0" #voice "2",
-    s "[~ uni:1]*2"
-  ]
-  #shape "0.7"    
-
-d3
-  $iter 4
-  $stack
-  [
-    s "super808(5, 8, {0, 3, 6})" #n (irand 7)
-  ]
-  #n (irand 7)
-  #gain "1.5"
-  #pan (rand)
-
-d2
-  $slow 2
-  $ sound "{bd(3, 8, 0), ifdrums(3, 8, 5), glitch(3, 8, 5), bass(3, 8, 2), cp(3, 8, 3), dr55(3,8,4)}"
-  #gain "1.5"
-  # n (irand 64)
-  # pan (rand)  
 
