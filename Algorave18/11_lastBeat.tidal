@@ -77,14 +77,14 @@ do
     #gain "1.9"
 
 d4
-  $s "superzow*8"
+  $s "{superzow*8, uni:1*8}"
   #n "{0,5,7,9,11}"
   |+|n "{-12,0,12,24,48}"
   #sustain "0.01"
   #gain (scale 0.0 2.5 $slow 24 $saw1)
   #vowel "{a i u e o}%12"
-  #room "0.6"
-  #size "0.8"
+  #room "0.9"
+  #size "0.2"
 
 do
   d1 silence

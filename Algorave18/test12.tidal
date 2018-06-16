@@ -77,7 +77,7 @@ do
     #gain "1.9"
 
 d4
-  $s "superzow*8"
+  $s "{superzow*8, uni:1*8}"
   #n "{0,5,7,9,11}"
   |+|n "{0,12,24,36}"
   #sustain "0.07"
