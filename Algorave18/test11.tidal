@@ -64,7 +64,7 @@ do
 
 do
   let
-    pat3 = "{0 ~ 0 ~ ~ 0 0 ~ 0}%8"
+    pat3 = "{0 ~ 0 ~ ~ 0 0 ~}%8"
   d3
     $sometimesBy 0.4 (jux (0.125 ~>))
     $up pat3
@@ -74,21 +74,20 @@ do
     |+|n (choose [0, 5, 7, 9, 11])
     |+|n (choose [-12, -24, 0, 12, 24])
     #pan (rand)
-    #gain "1.9"
+    #gain "1.7"
 
 d4
   $s "superzow*8"
   #n "{0,5,7,9,11}"
   |+|n "{-12,0,12,24,48}"
-  #sustain "0.01"
-  #gain (scale 0.0 2.75 $slow 24 $saw1)
+  #sustain "0.08"
+  #gain (scale 0.0 2.25 $slow 24 $saw1)
   #room "0.6"
   #size "0.8"
 
 do
-  d1 silence
-  d3 silence
-  d4 silence
+  d2 silence
+  d6 silence
 
 
 hush
