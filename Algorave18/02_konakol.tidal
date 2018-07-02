@@ -1,0 +1,15 @@
+-- 02
+
+do 
+  let
+    pat1 = "{1 1 0 0}%9"
+    pat2 = "{1 0 0 1}%9"
+    pat3 = "{1 0 1 0}%9"
+  d1
+    -- $sometimesBy 0.3 (0.125 <~)
+    $stack
+    [
+      -- s "tabla2*4" #gain pat3 #n (irand 32) |*|gain "1.2", 
+      -- s "kon*8" #gain pat2 #n "1", 
+      s "kon*4" #gain pat1 #n "0"
+    ]

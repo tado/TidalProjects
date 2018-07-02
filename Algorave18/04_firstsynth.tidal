@@ -1,0 +1,16 @@
+-- 04
+
+do 
+  let chord1 = "{c5, g5, f5}" 
+  d5
+    $slow 2
+    $stack
+    [
+      -- sound "supersaw(3,16,{0,8})" # n chord1 |+|n "12", 
+      -- sound "supersaw(3,16,{2,5})" # n chord1 |+|n "7",
+      sound "supersaw(3,16,{0,3})" # n chord1 |+|n "0"
+    ]
+    #sustain "0.08"
+    #gain "0.9"
+    #lpf (scale 800 8000 $slow 16 $sine1)
+    #resonance "0.2"

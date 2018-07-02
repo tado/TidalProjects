@@ -1,0 +1,16 @@
+-- 06
+
+do
+  let bass1 = "{c3 bs2 c3 c4}%8"
+      bass2 = "{c3 bs2 c3 bs2 c5 cs4}%9"
+  d5
+    $stack
+    [
+      s "supersaw*8" #n bass1
+    ]
+    #sustain "0.08"
+    #pitch1 "5"
+    #voice "0.1"
+    #cutoff (scale 400 9000 $slow 32 $sine1)
+    #resonance "0.2"
+    |*|gain "1.15"

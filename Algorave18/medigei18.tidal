@@ -1,0 +1,355 @@
+-- 00
+
+cps(130/120)
+
+hush
+
+d1
+  $slow 2
+  $s "numbers"
+  #n "<1 2 3 4 5 6 7 8>"
+
+d2
+  $slow 2
+  $s "spiano:2/2"
+  #n "<2 3 1 0>/2"
+  #speed "{1.0, -1.0, 0.5, -0.5}"
+  |*| speed (choose [1.0, -1.0, 0.5, -0.5])
+
+-- 01
+
+do
+  let
+    click1 = "{1 0 0 1 1 0 0 0}%8"
+  d3
+    $jux (0.125 ~>)
+    $s "click:2*8"
+    #gain click1
+    #lpf (scale 800 9000 $slow 16 $sine1)
+    #resonance "0.3"
+
+    -- $every 2 (jux (0.125 ~>))    
+
+do
+  let
+    click2 = "{1 0 0 1 1 0 1 0}%8"
+  d4
+    $sometimesBy 0.3 (jux (0.125 ~>))
+    $s "cr:8*8"
+    #gain click2
+    |*|gain "0.75"
+    #n (irand 100)
+    #up "{0 5 -5 7 -7}%8"
+
+-- 02
+
+do 
+  let
+    pat1 = "{1 1 0 0}%9"
+    pat2 = "{1 0 0 1}%9"
+    pat3 = "{1 0 1 0}%9"
+  d1
+    $sometimesBy 0.3 (0.125 <~)
+    $stack
+    [
+      s "tabla2*8" #gain pat3 #n (irand 32) |*|gain "1.2", 
+      s "kon*8" #gain pat2 #n "2", 
+      s "kon*4" #gain pat1 #n "0 1"
+    ]
+
+-- 03
+
+-- Motto Dance!!
+
+d2
+  $every 4 (jux (0.125 <~))
+  $stack
+  [
+    s "uni(5, 8)" #n "{0 1 2}%8",
+    s "distd*2" |*|gain "1.3",
+    s "[~ uni:1]*2"
+  ]
+  #delay "0.7" #delaytime "{0.01 0.03 0.02}%8" #delayfeedback "0.8"
+  #shape "0.5"
+  
+d4
+  $iter 4
+  $stack
+  [
+    s "super808(5, 8, {0, 3})" #n (irand 7)
+  ]
+  #pan (rand)
+
+-- 04
+
+do 
+  let chord1 = "{c5, g5, f5, c6}" 
+  d5
+    $sometimesBy 0.3 (0.125 ~>)
+    $slow 2
+    $stack
+    [
+      sound "supersaw(3,16,{0,8})" # n chord1 |+|n "12", 
+      sound "supersaw(3,16,{2,5})" # n chord1 |+|n "7",
+      sound "supersaw(3,16,{0,3})" # n chord1 |+|n "0"
+    ]
+    #sustain "0.05"
+    #gain "0.9"
+    #lpf (scale 800 8000 $slow 16 $sine1)
+    #resonance "0.2"
+
+-- 05
+
+d4
+  $every 2 (#gain "0")
+  $sound "ifdrums*2 ~"
+  #n "[0 2] 0"
+  #gain "1.5"
+  
+d4
+  $sometimesBy 0.3 (0.125 ~>)
+  $stack
+  [
+    s "glitch(2, 8, 1)" #n (irand 16),
+    -- s "dr55(2, 8, 3)" #n (irand 16),
+    -- s "bass(2, 8, 2)",
+    s "ifdrums(3, 8, 0)" #n "{1 2 1 2 3}%9", 
+    s "bd:0*2" |*|gain "1.5"
+  ]
+  #gain "1.5"
+
+-- 06
+
+do
+  let bass1 = "{c3 bs2 c3 c4}%8"
+      bass2 = "{c3 bs2 c3 bs2 c5 cs4}%9"
+  d5
+    $stack
+    [
+      s "supersaw*8" #n bass1 |+|n "-7",
+      s "supersaw*8" #n bass2
+    ]
+    #sustain "0.08"
+    #pitch1 "5"
+    #voice "0.1"
+    #cutoff (scale 400 9000 $slow 32 $sine1)
+    #resonance "0.2"
+    |*|gain "1.15"
+
+-- 07
+
+d1
+  $every 8 (jux (rev))
+  $sometimesBy 0.2 (0.25 <~)
+  $stack
+  [
+    s "uni*2", 
+    s "bd cp bd hc" #n (irand 12),
+    s "distd(3, 8, {0, 3})"
+    #n "0 0 0 1 0 3 1 2"
+  ]
+  #gain "<1 1 1 0>"
+  |*|gain "1.4"
+
+d3
+  $s "kon(5, 8, {2, 4})"
+  #n "{0 1 2 3}%9"
+  #pan (scale 0.3 0.7 $rand)
+  #gain "0.8"
+
+d6
+  $chop 6
+  $jux (rev)
+  $s "eh(5, 8, {2, 4})"
+  #n "{3 2 1 0}%9"
+  #gain "0.6"
+  #up "0 -5 0 5"
+
+  -- #n "{0}%6"
+  -- #up "0 -5 0 5"
+    
+-- 08
+
+solo $
+d5
+  $jux (rev)
+  $s "supersaw*8"
+  #sustain "0.12"
+  #n "{0 -5 -7 -12 -17 -19}%9"
+  |+| n "{0, 7, 5, 12}"
+  #voice (scale 0.1 0.2 $slow 24 $sine1)
+  #cutoff (scale 400 4000 $slow 32 $sine1)
+  #resonance "0.3"
+  #gain "1.2"
+  |+|semitone "{7 0 12 5 19 24}%9"
+
+-- 09
+
+d2
+  $slow 2
+  $sound "ifdrums:0 ifdrums:2 ~ ~ ~ ~ ~ ~"
+  #n "0 2 0 0 0 0 0 0 0"
+  #gain "1.5"
+  #shape "0.7"
+
+d2
+  $sometimesBy 0.2 (0.125 ~>)
+  $sometimesBy 0.1 (0.125 <~)
+  $stack
+  [
+    sound "bass*2" #n (irand 64),
+    sound "gabba" #gain "1.7",
+    sound "glitch(3,8,3)" #n (irand 64),
+    sound "gabba(3,8,0)" #n (irand 64),
+    sound "ifdrums(5,8)" #n (irand 64)
+  ]
+  -- #delay "0.8" #delaytime "0.005 0.1 0.03 0.01 0.02" #delayfeedback "0.75"
+  -- #cutoff "800" #resonance "0.2"
+  -- #cutoff (scale 400 8000 $slow 16 $sine1) #resonance "0.2"
+  #gain "1.5"
+  #shape "0.5"
+  -- #vowel "a e i u o"
+
+d3
+$ stack [
+  sound "gabba(3, 8, 5)" #n "5",
+  sound "ifdrums(3, 8, 0)" #n "0"
+]
+#gain "1.5"
+#shape "0.8"
+
+d2
+$slow 2
+$ sound "{bd(3, 8, 0), ifdrums(3, 8, 5), glitch(3, 8, 5), bass(3, 8, 2), cp(3, 8, 3), dr55(3,8,4)}"
+#gain "1.5"
+# n (irand 64)
+# pan (rand)
+
+d2
+$whenmod 8 4 (jux (iter 8))
+$whenmod 4 3 (jux (iter 2))
+$sometimes (rev)
+$sound "{ifdrums(3, 8, 0), bd(3, 8, 0), glitch(3, 8, 4)}"
+#gain "1.5"
+#n (irand 64)
+#pan (rand)
+
+-- 10
+
+do
+  let chord2 = "{c5, g5, a5, f6, g6}"
+  d7
+    $slow 2
+    $sometimesBy 0.4 (0.25 ~>)
+    $jux (0.25 ~>)
+    $stack
+    [
+      s "supersaw(7,16,6)" #n chord2 |+|n "12" #pan (rand,)
+      s "supersaw(7,16,3)" #n chord2 |+|n "7" #pan (rand),
+      s "supersaw(7,16,0)" #n chord2 |+|n "0" #pan (rand)
+    ] 
+    #cutoff (scale 2000 18000 $slow 16 $sine1)
+    #resonance "0.2"
+    #sustain "0.15"
+    #gain "1.0"
+    -- |+|n "<0 7 -7 -5 5 -12>"
+
+do
+  let chord3 = "{c5, g5, a5, f6, g6}"
+  d6
+    $slow 2
+    $jux (0.125 <~)
+    $s "supersaw(7, 16, {3, 4})"
+    # n chord3
+    |+|n "19"
+    #sustain "0.08"
+    #lpf (scale 2000 15000 $slow 5 $sine1)
+    #resonance "0.1"
+    #gain "1.1"
+    #room "0.7" #size "0.8"
+
+-- 11
+
+do
+  d1 silence
+  d2 silence
+  d3 silence
+  d4 silence
+
+do
+  let
+    pat1 = "{ ~ 0 ~ 0 0 0 0 ~ 0}%8"
+  d2
+    $sometimesBy 0.1 (rev)
+    $sometimesBy 0.4 (0.25 <~)
+    $stack
+    [
+      s "uni(5, 8)" #n "{0 1 2}%8", 
+      s "distd(2, 8)" |*|gain "1.8" #voice "4" #sustain "0.2",
+      s "[~ uni:1]*2"
+    ]
+    #shape "0.9"
+    |*|gain "0.001"
+  d6
+    $every 3 (jux (0.125 ~>))
+    $stack
+    [
+      up pat1
+      |=| s "bfm"
+      |+|n (choose [12, 0, -12, -24, -36])
+      |+|n "{0, 5, 7, 9}"
+    ]
+    #sustain (choose [0.05, 0.12, 0.15])
+    #pitch1 (choose [0.33, 3.33, 19.33])
+    #voice (choose [30, 1000, 4000, 12000])
+    #delay "0.8"
+    #delaytime (choose [0.01, 0.03, 0.02, 0.008])
+    #delayfeedback "0.8"
+    |*|gain "0.0"
+    #room "0.7"
+    #size "0.8"
+
+do
+  d7 silence
+  d5 silence
+
+do
+  let
+    pat2 = "{0 ~ 0 ~ ~}%8"
+  d1
+    $every 4 (jux (0.125 ~>))
+    $up pat2
+    |=| s "superzow"
+    |+|n (choose [19, 12, 0])
+    |+|n "{0, 7, 11}"
+    #sustain (choose [0.08, 0.12, 0.3])
+    #shape "0.8"
+    #lpf (scale 1000 20000 $rand)
+    #resonance "0.4"
+    #detune "10"
+    #accelerate (choose [0, 0, 1, 4]) #slide "1"
+    #gain "0.0"
+
+hush
+    
+-- 12
+
+solo $
+d7
+  $slow 2
+  $s "spiano/2"
+  #n "<0 1 2>/2"
+  |*| speed "{1.0}"
+  |*| speed "{1.0}%9"
+  |*| gain "0.4"
+
+hush
+
+
+  
+  
+  
+
+
+
+  

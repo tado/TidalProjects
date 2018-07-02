@@ -1,0 +1,30 @@
+-- 07
+
+d1
+  $every 8 (jux (rev))
+  $sometimesBy 0.2 (0.25 <~)
+  $stack
+  [
+    s "uni*2", 
+    s "bd cp bd hc" #n (irand 12),
+    s "distd(3, 8, {0, 3})"
+    #n "0 0 0 1 0 3 1 2"
+  ]
+  #gain "<1 1 1 0>"
+  |*|gain "1.4"
+
+d3
+  $s "kon(5, 8, {2, 4})"
+  #n "{0}%9"
+  #pan (scale 0.3 0.7 $rand)
+  #gain "1.2"
+
+d6
+  $chop 10
+  $jux (rev)
+  $s "eh(5, 8, {2, 4})"
+  #n "{0}%9"
+  #gain "0.9"
+
+  -- #n "{0}%6"
+  -- #up "0 -5 0 5"
