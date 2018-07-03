@@ -10,7 +10,7 @@ do
 
 do
   let
-    pat1 = "{0 ~ ~ 0 ~ ~ 0 ~ 0 0 ~ 0 ~ ~}%8"
+    pat1 = "{0 ~ ~ 0 ~ 0 0 ~}%8"
   d2
     $sometimesBy 0.1 (rev)
     $sometimesBy 0.4 (0.25 <~)
