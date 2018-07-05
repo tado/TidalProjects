@@ -1,3 +1,19 @@
+d1 $ sound "bd ~ ~ cp"
+
+d1
+  $sound "[bd [hc [cp cp]] [~ bd] hc] [bd [~ cp]]"
+
+d1
+  $every 4 (0.75 <~)
+  $sound "bd*2 [cp*2 hc*4]"
+
+d1 $ sound "bd cp bd cp"
+
+d2 $ sound "hc hc hc hc hc"
+
+d3 $ sound "arpy arpy arpy"
+
+hush
 
 cps(130/120)
 
