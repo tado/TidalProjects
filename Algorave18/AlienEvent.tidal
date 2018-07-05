@@ -1,5 +1,11 @@
+hush
 
--- Live Coding Simasu
+
+d1
+  $sometimesBy 0.1 (jux (rev))
+  $sometimesBy 0.2 (0.125 ~>)
+  $sound "bd cp bd hc*2"
+  #delay "0.5" #delay "0.01"
 
 -- 00
 
@@ -13,46 +19,48 @@ d1
 d2
   $slow 2
   $s "spiano:2/2"
-  #n "<3 2 1 0>/2"
-  #speed "{1.0, -1.0, 0.5, 1.5}"
-  |*|speed (choose [1.0, -1.0, 1.5, 0.5, -0.5])
+  #n "<2 1 0>/2"
+  # speed "{0.5, 1.0, -1.5, -1.0}"
+  |*| speed (choose [1.0, -1.0, 0.5, -0.5])
 
   -- # speed "{0.5, 1.0, -1.5, -1.0}"
   -- #n "<2 1 0>/2"
   -- |*| speed (choose [1.0, -1.0, 0.5, -0.5])
 
+
 -- 01
+
 do
   let
     click1 = "{1 0 0 1 1 0 0 0}%8"
   d3
-    $sometimesBy 0.4 (0.25 <~)
-    $sometimesBy 0.3 (jux (0.125 ~>))
+    $jux (0.125 ~>)
     $s "click:2*8"
     #gain click1
     #lpf (scale 800 9000 $slow 16 $sine1)
-    #resonance "0.3"
+    #resonance "0.2"
 
     -- $every 2 (jux (0.125 ~>))    
 
 do
   let
-    click2 = "{1 0 0 1 0 1 1 0}%8"
+    click2 = "{1 0 0 1 0 0 0 0}%8"
   d4
-    $sometimesBy 0.5 (0.25 <~)
-    $jux (0.125 ~>)
+    $slow 2
+    -- $every 4 jux(0.125 ~>)
     $s "cr:8*8"
     #gain click2
     |*|gain "0.75"
-    #pan (rand)
     #n (irand 100)
-    |*|speed (choose [1.0, 1.5, 0.5, 2.0])
+    #up "{0 5 -5 7 -7}%8"
+    #room "0.8"
     
     -- $sometimesBy 0.3 (jux (0.125 ~>))
     -- $sometimesBy 0.4 (0.125 <~)
     -- $sometimesBy 0.3 (stut 16 0.125 4)
     -- #n (irand 100)
     -- #up "{0 5 -5 7 -7}%8"
+
 
 -- 02
 
@@ -62,7 +70,6 @@ do
     pat2 = "{1 0 0 1}%9"
     pat3 = "{1 0 1 0}%9"
   d1
-    $every 4 (0.125 ~>)
     $sometimesBy 0.3 (0.125 <~)
     $stack
     [
@@ -77,8 +84,8 @@ d2
   -- $every 4 (jux (0.125 <~))
   $stack
   [
-    -- s "uni(5, 8)" #n "{0 1 2}%8",
-    s "distd*2" |*|gain "1.3",
+    s "uni(5, 8)" #n "{0 1 2}%8",
+    s "distd(3, 8)" |*|gain "1.1",
     s "[~ uni:1]*2"
   ]
   #delay "0.7" #delaytime "{0.01 0.03 0.02}%8" #delayfeedback "0.8"
@@ -92,8 +99,8 @@ d4
   ]
   #pan (rand)
 
-
-  -- 05
+  
+-- 05
 
 d4
   $every 2 (#gain "0")
@@ -101,7 +108,7 @@ d4
   #n "[0 2] 0"
   #gain "1.5"
   
-d4n
+d4
   $sometimesBy 0.3 (0.125 ~>)
   $stack
   [
@@ -116,14 +123,15 @@ d4n
 -- 06
 
 do
-  let bass1 = "{c3 bs2 c3 c4}%8"
+  let bass1 = "{c3 bs2 c3 c5}%8"
       bass2 = "{c3 bs2 c3 bs2 c5 cs4}%9"
   d5
     $stack
     [
+      s "supersaw*8" #n bass2,
       s "supersaw*8" #n bass1
     ]
-    #sustain "0.08"
+    #sustain "0.05 0.08"
     #pitch1 "5"
     #voice "0.1"
     #cutoff (scale 400 9000 $slow 32 $sine1)
@@ -160,21 +168,22 @@ d6
 
   -- #n "{0}%6"
   -- #up "0 -5 0 5"
-
+    
 -- 08
 
--- solo $
+solo $
 d5
   $jux (rev)
   $s "supersaw*8"
   #sustain "0.11"
-  #n "{0 -5 -7 -12 -17 -19}%9"
-  |+| n "{0, 7}"
+  #n "{0 -5 -7 -12 -17 -19}%6"
+  |+| n "{0, 7, 5}"
   #voice (scale 0.1 0.2 $slow 24 $sine1)
   #cutoff (scale 400 4000 $slow 32 $sine1)
-  #resonance "0.3"
-  #gain "1.2"
+  #resonance "0.4"
+  #gain "1.3"
   |+|semitone "{7 0 12 5 19 24}%12"
+
 
 -- 09
 
@@ -226,6 +235,39 @@ $sound "{ifdrums(3, 8, 0), bd(3, 8, 0), glitch(3, 8, 4)}"
 #n (irand 64)
 #pan (rand)
 
+-- 10
+
+do
+  let chord2 = "{c5, g5, a5, f6, g6}"
+  d7
+    $slow 2
+    $jux (0.25 ~>)
+    $stack
+    [
+      s "supersaw(7,16,9)" #n chord2 |+|n "12" #pan (rand),
+      s "supersaw(7,16,6)" #n chord2 |+|n "7" #pan (rand),
+      s "supersaw(7,16,0)" #n chord2 |+|n "0" #pan (rand)
+    ] 
+    #cutoff (scale 2000 18000 $slow 16 $sine1)
+    #resonance "0.2"
+    #sustain "0.12"
+    #gain "1.0"
+    -- |+|n "<0 7 -7 -5 5 -12>"
+
+do
+  let chord3 = "{c5, g5, a5, f6, g6}"
+  d6
+    $slow 2
+    $jux (0.125 <~)
+    $s "supersaw(7, 16, {3, 4})"
+    # n chord3
+    |+|n "19"
+    #sustain "0.08"
+    #lpf (scale 2000 15000 $slow 5 $sine1)
+    #resonance "0.1"
+    #gain "1.1"
+    #room "0.3" #size "0.8"
+
 -- 11
 
 cps(130/120)
@@ -249,7 +291,7 @@ do
       s "[~ uni:1]*2"
     ]
     #shape "0.85"
-    |*|gain "1.5"
+    |*|gain "0.0"
   d6
     $every 3 (jux (0.125 ~>))
     $stack
@@ -265,7 +307,7 @@ do
     #delay "0.8"
     #delaytime (choose [0.01, 0.03, 0.02, 0.008])
     #delayfeedback "0.8"
-    |*|gain "1.8"
+    |*|gain "0.8"
     #room "0.4"
     #size "0.2"
 
@@ -288,7 +330,7 @@ do
     #resonance "0.4"
     #detune "10"
     #accelerate (choose [0, 0, 1, 4]) #slide "1"
-    #gain "1.5"
+    #gain "0.1"
 
 do
   let
@@ -318,6 +360,22 @@ do
   d1 silence
   d3 silence
   d4 silence
+
+-- 12
+
+solo $
+d7
+  $slow 2
+  $s "spiano"
+  #n "<0 1 2>"
+  |*| speed "{1.0, 1.5"
+  |*| speed "{1.0 -1.0}%9"
+  |*| gain "1.4"
+  #room "1.5"
+  #size "0.4"
+
+hush
+  
 
 
 hush
