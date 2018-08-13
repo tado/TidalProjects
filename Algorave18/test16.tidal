@@ -41,7 +41,7 @@ do
     #gain click2
     #n (irand 100)
     |*|gain "0.75"
-    #up "{0 5 -5 7 -7}%8"
+    #up (choose [-5, 5, 7, -7, 0, 12])
     
     -- $sometimesBy 0.3 (jux (0.125 ~>))
     -- $sometimesBy 0.4 (0.125 <~)
