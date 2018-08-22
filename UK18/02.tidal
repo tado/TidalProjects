@@ -1,0 +1,10 @@
+-- 02
+
+d2
+$stack[
+  -- s "super808(4, 7, 3)" #n "{-12 -7 -5 0 5 7}%3",
+  -- s "ifdrums(4, 7, 0)"  #n "{1 2 3}%4",
+  slow 2 $s "ifdrums(2, 7)" #gain "1.5"
+]
+-- #delay "0.7" #delaytime "{0.04 0.08 0.015 0.02}%14" #delayfeedback "0.5"
+#shape "0.5"
