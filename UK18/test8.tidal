@@ -218,12 +218,6 @@ d4
 -- 08
 
 do
-  d1 silence
-  d2 silence
-  d3 silence
-  d4 silence
-
-do
   let
     pat1 = "{0 ~ ~ 0 ~ ~ 0 ~ 0 0 ~ 0 ~ ~}%7"
   d2
@@ -236,7 +230,7 @@ do
       s "[~ uni:1](2, 7)"
     ]
     #shape "0.85"
-    |*|gain "1.5"
+    |*|gain "0.5"
   d6
     $every 3 (jux ((1/7) ~>))
     $stack
@@ -252,7 +246,7 @@ do
     #delay "0.8"
     #delaytime (choose [0.01, 0.03, 0.02, 0.008])
     #delayfeedback "0.8"
-    |*|gain "1.8"
+    |*|gain "0.5"
     #room "0.4"
     #size "0.2"
 
@@ -322,7 +316,7 @@ do
     # control (scale 0 120 $rand)
     #s "midi"
   
-
+hush
 
     
   
