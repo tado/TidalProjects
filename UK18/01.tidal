@@ -1,12 +1,13 @@
 -- 01
 
 d1
-$slow 2
-$stack[
-  --s "tabla2(8, 14, {0, 3})" #gain "1.0" #n (irand 30),
-  --s "kon(3, 7, {0})" #gain "1.2",
-  s "uni" #gain "1.2" #shape "0.4",
-  s "uni uni ~ uni ~ uni ~" #n 1 #gain "1.0"
-]
+  $slow 2
+  $stack
+  [
+    --s "tabla2(8, 14, {0, 3})" #gain "1.0" #n (irand 30),
+    --s "kon(3, 7, {0})" #gain "0.9",
+    s "uni" #gain "1.2" #shape "0.4",
+    s "uni uni ~ uni ~ uni ~" #n 1 #gain "1.0"
+  ]
 
 

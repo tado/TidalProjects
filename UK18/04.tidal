@@ -1,6 +1,6 @@
 -- 04
 
-01
+d1
   -- $sometimes (jux (rev))
   $slow 2
   $stack
@@ -34,7 +34,7 @@ d5
     --s "ifdrums(8, 14)" #n (irand 64),
     --s "808ch(12,14,{0,8})" #n (irand 12),
     --s "glitch(5,14,5)" #n (irand 64),
-  s "gabba*2"
+  s "gabba(2, 7)"
   ]
   #shape "0.5"
   #gain "1.5"

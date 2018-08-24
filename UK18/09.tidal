@@ -1,3 +1,22 @@
+do
+  d7
+    -- Whirlpool
+    $ slow "<2, 4, 8>"
+    $ note "0"
+    |+| note "{0, 7}"
+    |+| note "{-12, 0, 9, 24}"
+    |+| note (choose [-5, 0, 5, 7, 9])
+    |+| note "0"
+    #gain 1.3
+    #legato "3"
+    #s "midi"
+  d8
+    $note "0*4"
+    # midicmd "control"
+    # ctlNum "[0, 1, 23, 24, 25, 26]"
+    # control (scale 0 120 $rand)
+    #s "midi"
+
 d7
   $ sound "tet(4, 7, {0, 2})"
   # up "[0, 7]"

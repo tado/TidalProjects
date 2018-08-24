@@ -9,7 +9,7 @@ d5
     s "bass(3, 7, 2)",
     s "cp(3, 7, 3)",
     s "dr55(3, 7, 4)",
-    s "gabba*2"
+    s "gabba(2, 7)"
   ]
   -- #cutoff (scale 800 4000 $slow 12 $sine1) #resonance "0.4"
   #gain "1.5"
@@ -26,7 +26,7 @@ d5
     s "bass(2, 14, 2)",
     s "dr55(2, 14, 3)" #n (irand 16),
     s "glitch2(2, 14, 1)" #n (irand 16),
-    s "bd*2"
+    s "bd(2, 7)"
   ]
   #gain "1.7"
   #shape "0.7"

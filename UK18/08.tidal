@@ -1,12 +1,6 @@
 -- 08
 
 do
-  d1 silence
-  d2 silence
-  d3 silence
-  d4 silence
-
-do
   let
     pat1 = "{0 ~ ~ 0 ~ ~ 0 ~ 0 0 ~ 0 ~ ~}%7"
   d2
