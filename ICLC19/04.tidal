@@ -1,0 +1,40 @@
+-- 04
+
+d1
+  -- $sometimes (jux (rev))
+  $slow 2
+  $stack
+  [
+    sound "808ch(7,14,{7,10})" #n (irand 12),
+    sound "bd(5,14,{0 2 4})" #n "0" |*|gain "1.5"
+  ]
+  #shape "0.8"
+  #gain "1.0"
+
+d5
+  $slow 4
+  $jux (iter 7)
+  $stack
+  [
+    -- s "fell:1(12, 28, 3)",
+    s "fell:0(12, 28)"
+  ]
+  -- #cutoff "8000" #resonance "0.3"
+  #shape "0.8"
+  #gain "1.5"
+  #speed "{1.0 1.5 2.0}%28"
+  #cutoff (scale 800 2000 $rand)
+  #resonance "0.2"
+
+d5
+  $slow 2
+  -- $jux (iter 7)
+  $stack
+  [
+    --s "ifdrums(8, 14)" #n (irand 64),
+    --s "808ch(12,14,{0,8})" #n (irand 12),
+    --s "glitch(5,14,5)" #n (irand 64),
+  s "gabba(2, 7)"
+  ]
+  #shape "0.5"
+  #gain "1.5"

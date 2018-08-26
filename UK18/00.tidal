@@ -18,13 +18,22 @@ do
   d2
     $note "0*7"
     # midicmd "control"
-    # ctlNum "[24, 25, 26]"
-    # control (scale 0 120 $rand)
+    # ctlNum "[0, 25, 26]"
+    # control (scale 0 0 $slow 8 $sine1)
     #s "midi"
 
+d4
+  $slow 4
+  $sound "autech1 uni:1"
+  #n "0 1"
+  #up "-3 5"
+  #delay "0.8" #delaytime "0.03" #delayfeedback "0.8"
+  #gain "0.0"
+  
 do
   d1 silence
-  d2 silence    
+  d2 silence
+  d4 silence
 
 d3
   -- $jux ((3/7) ~>)
