@@ -12,15 +12,15 @@ d5
   -- Full Bass
   $ note "-12*7"
   |+|note "{c d f g}%7"
-  |+|note "{0 -5 7}%7"
+  -- |+|note "{0 -5 7}%7"
   #gain (scale 1.1 1.5 $slow 12 $sine1)
   |*| gain 0.0
-  #legato "2"
+  #legato "0.6"
   #s "midi"
 
 d7
   $note "0*7"
   # midicmd "control"
-  # ctlNum "1"
+  # ctlNum "[0, 1]"
   # control (scale 0 50 $slow 8 $sine1)
   #s "midi"

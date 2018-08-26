@@ -32,24 +32,20 @@ d2
   ]
   -- #cutoff "800" #resonance "0.2"
   -- #cutoff (scale 400 8000 $slow 16 $sine1) #resonance "0.2"
-  #gain "1.7"
-  #shape "0.8"
+  #gain "1.5"
+  #shape "0.5"
 
 d3
   $slow 2
-  $sometimesBy 0.4 (jux ((5/7) ~>))
-  $sound "uni(8, 14, {0, 5})"
+  -- $sometimesBy 0.8 (jux ((5/7) ~>))
+  -- $sometimesBy 0.5 (jux ((3/7) <~))
+  $stack
+  [
+    -- sound "autech3(9, 14, 5)",
+    sound "uni(8, 14, 0)"
+  ]
   #n (irand 100)
-  #shape "0.7"
-  #gain "1.7"
-
-d3
-  $slow 2
-  $sometimesBy 0.4 (jux ((5/7) ~>))
-  $sound "bye3(9, 14, {0, 4})"
-  #n (irand 100)
-  #shape "0.7"
-  #gain "1.7"
-  
+  #shape "0.5"
+  #gain "1.5"
 
 
