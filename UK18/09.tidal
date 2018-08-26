@@ -1,5 +1,5 @@
 
-d7
+d1
   $ sound "tet(4, 7, {0, 2})"
   # up "[0, 7]"
   -- |*| up "0 12 24"
@@ -13,7 +13,7 @@ d7
   -- #lpf (scale 1200 15000 $slow 16 $sine1)
   -- #resonance "0.1"
 
-d8
+d2
   $jux ((3/7) <~)  
   $sound "jimsyn(5, 7)"
   #n "<20 1>"

@@ -15,7 +15,7 @@ d6
 
 d1
   $s "super808*7" #n "-24"
-  #delay "0.9" #delaytime "{0.04 0.08 0.015 0.02}%14" #delayfeedback "0.9"
+  #delay "0.5" #delaytime "{0.04 0.08 0.015 0.02}%14" #delayfeedback "0.7"
   #cutoff (scale 4000 8000 $slow 24 $sine1) #resonance "0.3"
   #sustain "0.2"
   #shape "0.5"
