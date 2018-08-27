@@ -230,23 +230,20 @@ d4
   #gain "1.3"
 
 d5
-  -- Full Bass
+  -- Masha
   $ note "-12*7"
-  |+|note "{c d f g}%15"
-  |+|note "{0 -5 7}%22"
-  |+|note "0"
-  #gain (scale 1.1 1.5 $slow 12 $sine1)
-  |*| gain 1.3
+  |+|note "{c d f g}%7"
+  |+|note "{0 -5 7 -12}%5"
+  |*| gain 1.4
   #legato "2"
   #s "midi"
 
 d7
   $note "0*7"
   # midicmd "control"
-  # ctlNum "[0, 1]"
-  # control (scale 0 60 $slow 2 $sine1)
+  # ctlNum "[0, 1, 23, 24, 25]"
+  # control (scale 10 100 $slow 8 $rand)
   #s "midi"
-  
 
 -- 08
 
@@ -331,7 +328,7 @@ do
     |+| note "{-12, 0, 9, 24}"
     |+| note (choose [-5, 0, 5, 7, 9])
     |+| note "0"
-    #gain 1.7
+    #gain 0.0
     #legato "8"
     #s "midi"
   d7
@@ -371,19 +368,3 @@ d2
   #resonance "0.0"
 
 hush
-  
-
-
-  
-  
-  
-
-  
-  
-
-
-  
-
-
-
-
