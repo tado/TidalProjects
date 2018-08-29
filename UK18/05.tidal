@@ -17,6 +17,22 @@ d5
   # n (irand 64)
   # pan (rand)
 
+d1
+  $ s "distd(2, 7)"
+  #gain "1.4"
+
+d1
+  $every 8 (jux (rev))
+  $sometimesBy 0.2 (0.25 <~)
+  $stack
+  [
+    s "uni(2, 7)", 
+    s "mrdk18*7" #n (irand 12),
+    s "distd(3, 7, {0, 3})"
+    #n "0 0 1 0 3 1 2"
+  ]
+  |*|gain "1.4"  
+
 d5
   $slow 2
   $sometimesBy 0.4 (jux (rev))

@@ -33,7 +33,7 @@ d2
   -- #cutoff "800" #resonance "0.2"
   -- #cutoff (scale 400 8000 $slow 16 $sine1) #resonance "0.2"
   #gain "1.5"
-  #shape "0.5"
+  #shape "0.7"
 
 d3
   $slow 2

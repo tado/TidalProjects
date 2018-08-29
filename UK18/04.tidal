@@ -12,6 +12,16 @@ d1
   #gain "1.0"
 
 d5
+  $sometimesBy 0.4 (jux ((3/7) ~>))
+  $slow 2
+  $stack
+  [
+    sound "jimcp(10, 14, {4, 7})" #n (irand 100)
+  ]
+  #speed "{1.0 1.5 2.0}%7"
+  #gain "1.5"  
+
+d5
   $slow 4
   $jux (iter 7)
   $stack
@@ -28,13 +38,14 @@ d5
 
 d5
   $slow 2
-  -- $jux (iter 7)
+  -- $sometimesBy 0.3 ((3/7) <~)
   $stack
   [
     --s "ifdrums(8, 14)" #n (irand 64),
     --s "808ch(12,14,{0,8})" #n (irand 12),
     --s "glitch(5,14,5)" #n (irand 64),
-  s "gabba(2, 7)"
+    s "ppcp(10, 14, {4, 7})" #n (irand 100),
+    s "gabba(2, 7)"
   ]
   #shape "0.5"
   #gain "1.5"

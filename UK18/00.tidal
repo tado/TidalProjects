@@ -29,21 +29,5 @@ d4
   #up "-3 5"
   #delay "0.8" #delaytime "0.03" #delayfeedback "0.8"
   #gain "0.0"
-  
-do
-  d1 silence
-  d2 silence
-  d4 silence
-
-d3
-  -- $jux ((3/7) ~>)
-  $ sound "tet(4, 7, {0, 2})"
-  -- #n "{0 1 2 3}%9"
-  -- # up "[0, 7]"
-  -- #lpf (scale 1200 15000 $slow 16 $sine1)
-  -- #resonance "0.1"
-  #gain "1.0"
-
-
 
 
