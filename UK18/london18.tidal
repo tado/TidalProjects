@@ -3,6 +3,11 @@ cps(140/120)
 
 hush
 
+--00
+cps(140/120)
+
+hush
+
 do
   d1
     -- Whirlpool
@@ -11,8 +16,8 @@ do
     |+| note "{0, 7}"
     |+| note "{-12, 0, 9, 24}"
     |+| note (choose [-5, 0, 5, 7, 9])
-    |+| note "0"
-    #gain 1.5
+    |+| note "48"
+    #gain 1.3
     #legato "2"
     #s "midi"
   d2
@@ -24,12 +29,11 @@ do
 
 d4
   $slow 4
-  $sometimesBy 0.3 (jux ((5/7) ~>))
   $sound "autech1 uni:1"
   #n "0 1"
   #up "-3 5"
   #delay "0.8" #delaytime "0.03" #delayfeedback "0.8"
-  #gain "1.5"
+  #gain "1.0"
 
 -- 01
 do
@@ -42,8 +46,8 @@ d3
   $ sound "tet(4, 7, {0, 2})"
   #n "{0 1 2 3}%9"
   # up "[0, 7]"
-  -- #lpf (scale 1200 15000 $slow 16 $sine1)
-  -- #resonance "0.1"
+  #lpf (scale 1200 15000 $slow 16 $sine1)
+  #resonance "0.1"
   #gain "1.0"
 
 d1
@@ -51,7 +55,7 @@ d1
   $stack
   [
     s "tabla2(8, 14, {0, 3})" #gain "1.0" #n (irand 30),
-    s "kon(8, 14, {0, 5})" #n (irand 100) #gain "1.0",
+    s "kon(8, 14, {0, 5})" # n (irand 100) #gain "1.0",
     s "uni" #gain "1.2" #shape "0.4",
     s "uni uni ~ uni ~ uni ~" #n 1 #gain "1.0"
   ]
@@ -59,6 +63,7 @@ d1
 -- 02
 
 d2
+  $sometimesBy 0.4 ((5/7) ~>)
   $stack
   [
     s "super808(4, 7, 3)" #n "{-12 -7 -5 0 5 7}%3",
@@ -71,21 +76,22 @@ d2
 -- 03
 
 d4
+  -- $\sometimesBy 0.4 (jux ((3/7) ~>))
   $slow 2
-  $sometimesBy 0.6 (jux ((5/7) ~>))
   $stack
   [
     s "supersaw(6, 14, 10)" #n "[0, 4, 7, 9, 11]" |+| n "12",
     s "supersaw(6, 14, 5)" #n "[0, 4, 7, 9, 11]" |+| n "7",
     s "supersaw(6, 14, 0)" #n "[0, 4, 7, 9, 11]" |+| n "0"
   ]
-  #cutoff (scale 800 10000 $slow 8 $sine1) #resonance "0.4"
+  -- |+| n "{0, 7}"
+  #cutoff (scale 800 10000 $slow 8 $sine1) #resonance "0.3"
   #sustain "0.1"
-  #gain "0.8"
+  #gain "0.7"
   -- |+|n "<-7 0 7 0 5 0 -5 0>/2"
 
 d3
-  -- $jux ((3/7) <~)  
+  $jux ((3/7) <~)  
   $sound "jimsyn(5, 7)"
   #n "<20 1>"
   |*| up "-0.2"
@@ -97,7 +103,7 @@ d3
 -- 04
 
 d1
-  $sometimes (jux (rev))
+  -- $sometimes (jux (rev))
   $slow 2
   $stack
   [
@@ -108,7 +114,8 @@ d1
   #gain "1.0"
 
 d5
-  $sometimesBy 0.4 (jux ((3/7) ~>))
+  $sometimesBy 0.4 (jux ((3/7) <~))
+  $sometimesBy 0.4 (jux ((5/7) ~>))
   $slow 2
   $stack
   [
@@ -125,7 +132,7 @@ d5
     s "fell:1(12, 28, 3)",
     s "fell:0(12, 28)"
   ]
-  #cutoff "8000" #resonance "0.3"
+  -- #cutoff "8000" #resonance "0.3"
   #shape "0.8"
   #gain "1.5"
   #speed "{1.0 1.5 2.0}%28"
@@ -134,9 +141,7 @@ d5
 
 d5
   $slow 2
-  -- $sometimesBy 0.5 (jux ((3/7) ~>))
-  -- $sometimesBy 0.2 ((5/7) ~>)
-  -- $sometimesBy 0.3 ((3/7) <~)
+  $sometimesBy 0.3 ((3/7) <~)
   $stack
   [
     s "ifdrums(8, 14)" #n (irand 64),
@@ -147,7 +152,6 @@ d5
   ]
   #shape "0.5"
   #gain "1.5"
- 
 
 -- 05
 d5
@@ -156,8 +160,8 @@ d5
   [
     s "bd(3, 7, 0)",
     s "ifdrums(3, 7, 5)",
-    s "glitch(3, 7, 5)",
-    s "bass(3, 7, 2)",
+    -- s "glitch(3, 7, 5)",
+    -- s "bass(3, 7, 2)",
     s "cp(3, 7, 3)",
     s "dr55(3, 7, 4)",
     s "gabba(2, 7)"
@@ -205,13 +209,13 @@ d6
   $jux (rev)
   $s "supersaw*7"
   #sustain "0.12"
-  #n "{0 -5 -7 -12 -17 -19}%9"
-  |+| n "{0, 7, 9, 24}"
+  #n "{0 -5 -7 -12 -17 -19}%12"
+  |+| n "{0, 7, 12}"
   #voice (scale 0.1 0.5 $slow 24 $sine1)
   #cutoff (scale 400 12000 $slow 32 $sine1)
   #resonance "0.3"
-  #gain "1.1"
-  |+|semitone "{7 0 12 5 19 24}%12"
+  #gain "1.3"
+  |+|semitone "{7 0 12 5 19 24}%9"
 
 d1
   $s "super808*7" #n "-24"
@@ -241,7 +245,7 @@ d3
   -- $sometimesBy 0.5 (jux ((3/7) <~))
   $stack
   [
-    -- sound "autech3(9, 14, 5)",
+    sound "autech3(9, 14, 5)",
     sound "uni(8, 14, 0)"
   ]
   #n (irand 100)
@@ -255,24 +259,8 @@ d4
   $sometimesBy 0.8 (jux (rev))
   $s "kon(8, 14, {0, 4, 8})"
   #cutoff "8000" #resonance "0.5"
-  #n "{0 5}%4"
-  #gain "1.3"
-
-d5
-  -- Masha
-  $ note "-12*7"
-  |+|note "{c d f g}%7"
-  |+|note "{0 -5 7 -12}%5"
-  |*| gain 1.3
-  #legato "2"
-  #s "midi"
-
-d7
-  $note "0*7"
-  # midicmd "control"
-  # ctlNum "[0, 1, 23, 24]"
-  # control (scale 10 60 $slow 8 $sine1)
-  #s "midi"
+  #n "{0}%4"
+  #gain "1.5"
 
 -- 08
 do
@@ -285,7 +273,7 @@ do
   
 do
   let
-    pat1 = "{0 ~ ~ 0 ~ 0 0 0 0 ~ 0 ~ ~}%7"
+    pat1 = "{0 ~ ~ 0 ~ 0 ~ 0 ~ ~}%7"
   d1
     $sometimesBy 0.1 (rev)
     $sometimesBy 0.4 ((4/7) <~)
@@ -305,7 +293,7 @@ do
       |=| s "bfm"
       |+|n (choose [12, 0, -12, -24, -36])
       |+|n "{0, 5, 7, 9}"
-    ]
+    ]n
     #sustain (choose [0.05, 0.12, 0.15])
     #pitch1 (choose [0.33, 3.33, 19.33])
     #voice (choose [30, 1000, 4000, 12000])
@@ -318,7 +306,7 @@ do
 
 do
   let
-    pat2 = "{0 ~ 0 ~ ~ 0 ~ 0}%7"
+    pat2 = "{0 ~ 0 ~ ~ 0 ~ 0 ~ ~}%7"
   d3
     $every 4 (jux ((1/7) ~>))
     $up pat2
@@ -350,28 +338,30 @@ do
 do
   d6
     -- Whirlpool
-    $ slow "4"
+    $ slow "2"
     $ note "0"
     |+| note "{0, 7, 12}"
     |+| note "{-12, 0, 9, 24}"
     |+| note (choose [-5, 0, 5, 7, 9])
     |+| note "0"
-    #gain 1.5
+    #gain 0.0
     #legato "8"
     #s "midi"
   d7
     $note "0*7"
     # midicmd "control"
     # ctlNum "[0, 1, 23, 24, 25, 26]"
-    # control (scale 0 120 $rand)
+    # control (scale 0 127 $rand)
     #s "midi"
 
 do
   d3 silence
   d4 silence
   d5 silence
+  
 
-d1
+d1 silence
+
   $ sound "tet(4, 7, {0, 2})"
   # up "[0, 7]"
   -- |*| up "0 12 24"
@@ -388,12 +378,21 @@ d1
 d2
   $jux ((3/7) <~)  
   $sound "jimsyn(5, 7)"
-  #n "<20 7 20 14>"
+  #n "<20 1>"
   |*| up "-0.2"
   |*| up "[0, 7]"
   |*| gain "1.0"
   #lpf (scale 2000 8000 $slow 12 $sine1)
   #resonance "0.2"
+
+hush  
+
+
+
   
-hush
+
+
+
+
+
 
