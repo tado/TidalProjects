@@ -1,0 +1,32 @@
+(cpsEsp,getNowEsp,getTempoEsp) <- cpsUtilsEsp
+
+(superDirt,tSuper) <- superDirtSettersEsp getNowEsp
+
+superDirt $ sound "uni uni:1*2" 
+
+superDirt silenc
+
+cpsEsp(80/120)
+
+
+d1 $s "bd"
+
+hush
+
+--- send extra msgy
+
+
+let
+  (red, _) = pF "red" Nothing
+  (green, _) = pF "green" Nothing
+  (blue, _) = pF "blue" Nothing
+
+d1 $sound "bd" #blue (rand)
+
+
+hush  
+
+
+
+
+

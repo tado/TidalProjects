@@ -1,0 +1,11 @@
+(cpsEsp,getNowEsp,getTempoEsp) <- cpsUtilsEsp
+
+(superDirt,tSuper) <- superDirtSettersEsp getNowEsp
+
+cpsEsp(80/120)
+
+superDirt $ sound "uni [uni:1]" #(up (run 12))
+
+
+
+
