@@ -1,4 +1,108 @@
+cps(130/120)
+
+d1
+  $slow 8
+  $sound "empty"
+  #speed "[1.0, 1.5]"
+  |*|speed "[1.0, 1.002]"
+  #lpf "6000"
+  #resonance "0.2"
+  #gain "1.0"
+
+d2
+  $slow 2
+  $sometimesBy 0.5 (jux ((3/8) ~>))
+  $sound "autech2(3, 8, [0, 3])"
+  #gain "1.0"
+  #lpf (scale 400 15000 $slow 4 $sine1)
+  #resonance "0.2"
+  #n "{0 1 2 3 4}"
+  |*|speed "[1.0, -1.5]"  
+  |*|speed "[1.005, 1.0]"
+  
+d2
+  $slow 1
+  $sometimesBy 0.2 (jux (0.25 ~>))
+  $sound "orch(3, 8, [0, 2])"
+  #n "2"
+  #up "{c f g e g}/4"
+  #lpf (scale 1000 9000 $slow 8 $sine1)
+  #resonance "0.2"
+  |*|speed "{0.5 -0.5, 1.0 1.5 0.5}"
+  -- |*|speed "0.5 1.0"
+  #delay 0.8
+  #delaytime 0.02
+  #delayfeedback 0.8
+  #room "0.5"
+
+d3
+  $sometimesBy 0.6 (jux ((3/8) ~>))
+  $sound "uni(3, 8)"
+  #n "0 1 2"
+  #gain "1.5"
+  #delay "{0.8 0.0 0.3}"
+  #delaytime "{0.015 0.02 0.01}"
+  #delayfeedback "0.8"
+
+d4
+  $sometimesBy 0.2 (jux ((3/8) <~))
+  $sound "kicklinn(2, 8)"
+  #n "0"
+  #gain "1.7"
+  #shape "0.8"
+
+d3
+  $sometimes (jux (rev))
+  $sound "ifdrums(5, 8, 4)"
+  #n (irand 100)
+  
+d1 $sound "uni*2"
+
+
+hush
+
+
+d1 $sound "MyMoog*4" #n "c4 g5 c5 g4"
+
+d1 $sound "MyMoog*4" #n "c3 g4 c3 f4"
+
 cps(120/120)
+
+d2
+  $jux ((1/8) <~)
+  $sometimesBy 0.4 (jux (rev))
+  $sound "MyMoog(3, 8, [0, 3])"
+  #n "[c4, f4, g4]"
+  -- |+| n "<0 12 0 -5 7 4>/8"
+  #sustain "{0.8 1.2 0.5 2.0}"
+  #pitch1 (scale 4 32.0 $slow 12 $sine1)
+  -- #delay "0.3" #delaytime (13/8) #delayfeedback "0.7"
+  #lpf (scale 200 15000 $slow 8 $sine1)
+  #resonance "0.2"
+
+
+hush  
+
+d1
+  $sometimesBy 0.1 (rev)
+  $sometimesBy 0.3 (jux ((5/8) <~))
+  $sound "[distd uni:1]*2"
+  #gain "1.1"
+
+
+hush  
+
+d1
+  $slow 2
+  $sometimesBy 0.2 (rev)
+  $sometimesBy 0.7 (jux (0.125 ~>))
+  $sound "tictac*16"
+  #n "[7 9 [6 15]*2 12]*2"
+  #up (choose[0.5, 1, 1.5, 2.0, 0.25, 4.0])
+  #shape "0.5"
+  -- #delay "0.3" #delaytime (5/8) #delayfeedback "0.7"
+
+hush
 
 d1 $sound "[bd*2]"
 
@@ -33,10 +137,10 @@ d4
   $sound "[uni hc]*2"
   #gain "1.3"
 
-d3
+d1
   $sound "kon(5, 8)"
   #n (irand 10)
-  #gain "1.2"
+  #gain "1.0"
 
 d3
   $ note "0*32"
@@ -637,7 +741,7 @@ do
   d2
     $whenmod 8 4 (jux (iter 8))
     $up pat2
-    # sound "{alva}"
+    # sound "{fell}"
     # n "{0 1 2 3 4 5 6 7 8 9}%5"
     # gain "1.2"
     #shape 0.7
@@ -926,9 +1030,9 @@ d1 $density 4 $ superimpose (fast 1.0001) $up "<0 5 12> <2 9>" # sound "arpy"
 
 -- solo $
 d1
-$sometimes (rev)
-$sometimesBy 0.3 (jux (rev))
-$stac[
+  $sometimes (rev)
+  $sometimesBy 0.3 (jux (rev))
+  $stack[
   --s "numbers(3, 7, 3)" #n (irand 30),
   --s "sitar*2" #gain "1.2" #n (irand 30),
   s "tabla2(3, 7, {5,2})" #gain "1.0" #n (irand 30),
@@ -1095,5 +1199,14 @@ d2 silence
 d1 silence
 
 d1 $ slow 2 $ shuffle 12 $ chop 16 $ sound "supersaw"
+
+d1
+  $slow 1
+  $sometimesBy 0.6 (jux (0.25 ~>))
+  $sound "808bd 808cp [~ 808hh] 808oh*2"
+  #n "{0 1 2 3 4 5 6}%4"
+  #shape "0.5"
+  #gain "1.0"
+
 
 hush
