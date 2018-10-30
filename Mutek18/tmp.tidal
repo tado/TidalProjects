@@ -1,0 +1,20 @@
+cps(130/120)
+
+hush
+
+d1
+  $slow 2
+  -- $sometimesBy 0.3 ((7/8) <~)
+  $stack
+  [
+    s "distd(4, 16)" #gain "1.4",
+    sometimes (jux ((5/8) ~>))
+    $s "empty(9, 16, {0, 9})"
+    #n "{1 2 3 4}%3"
+    #up "{0 7 12}%5"
+  ]
+  -- #delay "0.5" #delaytime "{0.03 0.02}%8" #delayfeedback "0.6"
+  -- #hpf 2000
+
+  
+  

@@ -1,5 +1,7 @@
 cps(130/120)
 
+hush
+
 d1
   $slow 8
   $sound "empty"
