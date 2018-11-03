@@ -1,3 +1,5 @@
+--08 hard beat
+
 d2
   $slow 2
   $sound "ifdrums:0 ifdrums:2 ~ ~ ~ ~ ~ ~"
@@ -27,8 +29,8 @@ d3
   #delay "0.5"
   #delaytime "{0.005 0.02 0.01}%4"
   #delayfeedback "0.9"
-  #gain "1.3"
-  #shape "0.8"
+  #gain "1.1"
+  #shape "0.5"
 
 d2
   $every 8 (jux (rev))
@@ -41,15 +43,15 @@ d2
     #n "0 0 0 1 0 3 1 2"
   ]
   #gain "<1 1 1 0>"
-  |*|gain "1.6"
-  #shape "0.9"  
+  |*|gain "1.5"
+  #shape "0.5"  
 
 d2
   $whenmod 8 4 (jux (iter 8))
   $whenmod 4 3 (jux (iter 2))
   $sometimes (rev)
   $sound "{ifdrums(3, 8, 3), bd(3, 8, 0), gabba(3, 8, 4)}"
-  #gain "1.7"
+  #gain "1.5"
   #shape "0.95"
   #n (irand 64)
   #pan (rand)
