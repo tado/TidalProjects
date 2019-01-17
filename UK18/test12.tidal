@@ -282,7 +282,9 @@ do
   d5 silence
   -- d6 silence
   d7 silence
-  
+
+hush
+
 do
   let
     pat1 = "{0 ~ ~ 0 ~ 0 0 0 0 ~ 0 ~ ~}%7"
@@ -292,17 +294,19 @@ do
     $stack
     [
       s "uni(5, 7)" #n "{0 1 2}%8", 
-      s "distd(2, 7)" |*|gain "1.8" #voice "4" #sustain "0.2",
+      s "distd(2, 7)" # gain "1.8" #voice "4" #sustain "0.2",
       s "[~ uni:1](2, 7)"
     ]
-    #shape "0.85"
-    |*|gain "1.5"
+    # shape "0.85"
+    |*| gain "1.5"
+    #cps (130/120)
+
   d2
     $every 3 (jux ((1/7) ~>))
     $stack
     [
       up pat1
-      |=| s "bfm"
+      # s "bfm"
       |+|n (choose [12, 0, -12, -24, -36])
       |+|n "{0, 5, 7, 9}"
     ]
