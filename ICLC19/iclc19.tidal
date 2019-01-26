@@ -1,3 +1,5 @@
+hush
+
 -- 01 first noise
 
 d1
@@ -6,6 +8,7 @@ d1
   #speed "[1.0, 1.01]"
   #gain "0.9"
   #lpf "18000"
+  #cps(132/120)
 
 
 d2
@@ -49,7 +52,7 @@ d1
 
 d2
   $ sound "tet(5, 8, {0, 2})"
-  #gain "1.3"
+  #gain "1.1"
   #lpf (range 1200 15000 $slow 16 $sine)  #resonance "0.3"
   #n "{0 1 2 3}%5"
   #up "{[0, 7, 12]}%5"

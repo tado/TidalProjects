@@ -1,5 +1,21 @@
 hush
 
+d1
+  $s "superzow(3, 8)"
+  +| note "c'maj d'min e'maj f'sus4" + note "<0 7 9 4 5>"
+  *| speed "[0.5, -1.5] [0.5, -0.25]"
+  -| note "24 12"
+
+
+
+  
+
+:t Pattern
+
+d1
+  $s "{bd*5, sd*7}"
+
+
 p 1
   $ s "bd sn" # vowel "a"
   # cps(130/120)
