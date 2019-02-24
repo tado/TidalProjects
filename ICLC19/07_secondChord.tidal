@@ -12,4 +12,4 @@ d5
   #gain "1.2"
   -- #semitone "{7 0 12 5 19 24}%12"
   
-solo "5"
+solo 5
