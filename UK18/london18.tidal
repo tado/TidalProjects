@@ -24,7 +24,7 @@ do
     $note "0*7"
     # midicmd "control"
     # ctlNum "[0, 25, 26]"
-    # control (scale 0 120 $slow 8 $sine1)
+    -- # control (scale 0 120 $slow 8 $sine1)
     #s "midi"
 
 d4

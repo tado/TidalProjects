@@ -1,0 +1,44 @@
+--09 last chord
+
+do
+  let chord2 = "{c5, g5, a5, f6, g6}"
+  d7
+    $slow 2
+    $jux (0.25 ~>)
+    $stack
+    [
+      s "supersaw(7,16,0)" #note chord2 |+|note "0" #pan (rand)
+    ] 
+    #cutoff (range 2000 18000 $slow 16 $sine)
+    #resonance "0.2"
+    #sustain "0.1"
+    #gain "1.0"
+    -- |+|n "<0 7 -7 -5 5 -12>"
+
+do
+  let chord3 = "{c5, g5, a5, f6, g6}"
+  d6
+    $slow 2
+    $jux (0.125 <~)
+    $s "supersaw(7, 16, {3, 4})"
+    # note chord3
+    |+|note "19"
+    #sustain "0.05"
+    #lpf (range 2000 15000 $slow 5 $sine)
+    #resonance "0.3"
+    #gain "1.0"
+    -- #room "0.3" #size "0.8"
+
+d4
+$jux (rev)
+  $slow 4
+  $stack
+  [
+    s "808ch(11,32,{7,10})" #delay "1.0" #delaytime "0.02 0.01 0.006 0.03" #delayfeedback "0.8" #n (irand 12),
+    s "bd(14,32,{0 2 4})" #n "0" |*|gain "1.5"
+  ]
+  #room "0.6" #size "0.98"
+  #shape "0.8"
+  #gain "1.0"
+
+
