@@ -1,7 +1,7 @@
 --09 last chord
 
 do
-  let chord2 = "{c5, g5, a5, f6, g6}"
+  let chord2 = "{c5, g5, a5}"
   d7
     $slow 2
     $jux (0.25 ~>)
@@ -29,16 +29,5 @@ do
     #gain "1.0"
     -- #room "0.3" #size "0.8"
 
-d4
-$jux (rev)
-  $slow 4
-  $stack
-  [
-    s "808ch(11,32,{7,10})" #delay "1.0" #delaytime "0.02 0.01 0.006 0.03" #delayfeedback "0.8" #n (irand 12),
-    s "bd(14,32,{0 2 4})" #n "0" |*|gain "1.5"
-  ]
-  #room "0.6" #size "0.98"
-  #shape "0.8"
-  #gain "1.0"
 
 

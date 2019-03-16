@@ -1,13 +1,7 @@
 --10 last beat
 
 do
-  d1 silence
-  d2 silence
-  d3 silence
-  d4 silence
-  d5 silence
   d6 silence
-  d7 silence
   let
     pat1 = "{0 ~ ~ 0 ~ ~ 0 ~ 0 0 ~ 0 ~ ~}%8"
   d1
@@ -50,7 +44,7 @@ do
     |+| note (choose [19, 12, 0])
     |+| note "{0, 7, 11}"
     #sustain (choose [0.08, 0.12, 0.3])
-    #shape "p0.8"
+    #shape "0.8"
     #lpf (range 1000 20000 $rand)
     #resonance "0.4"
     #detune "10"
@@ -76,7 +70,7 @@ d5
   #n "{0,5,7,9,11}"
   |+|n "{-12,0,12,24,48}"
   #sustain "0.08"
-  #gain (scale 0.0 2.5 $slow 24 $saw1)
+  #gain (range 0.0 2.5 $slow 24 $saw)
   -- #vowel "{a i u e o}%12"
   #room "0.2"
   #size "0.2"
