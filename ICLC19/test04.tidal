@@ -1,5 +1,15 @@
 -- Live Coding Simasu!!!!
 
+--00 init
+
+hush
+
+d1
+  $ s "uni:1"
+  # gain "0.6"
+  # cps(132/120)
+
+
 -- 01 first noise
 
 d1

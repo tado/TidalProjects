@@ -1,0 +1,174 @@
+d1 $s "supersaw*4"
+
+hush
+
+d1
+  $sometimes rev
+  $jux (iter 8)
+  $s "{bd [~ cp] ~ hc, ifdrums}"
+  #n (irand 100)
+
+-- 01 first noise
+
+d1
+  $jux ((5/8) ~>)
+  $slow 4
+  $s "sfh(3, 8)"
+  #gain "0.7"
+  #n (irand 200)
+  #pan (range 0.4 0.6 $rand)
+  #up "[7, 0, 12]"
+  #speed "[1.01, 1.0]"
+  #lpf "12000"
+
+d2
+  $slow 8
+  $sound "empty"
+  #speed "[1.0, 1.01]"
+  #gain "0.9"
+  #lpf "8000"
+
+d3
+  $slow 2
+  $jux ((3/8) ~>)
+  $sound "autech2(3, 8, [0])"
+  #gain "0.6"
+  
+
+  #speed "[1.005, 1.0]"
+  #n "{0}%7"
+  #lpf (range 400 18000 $slow 4 $sine) #resonance "0.1"
+  |*|speed "[-1.0, 1.5]"
+  
+--03 fist riff
+
+d1
+  $ sound "tet(5, 8, {0, 2})"
+  #gain "1.0"
+  #lpf (range 1200 15000 $slow 16 $sine)  #resonance "0.3"
+  #up "{[0, 7] [0, 14]}%5"
+  #n "{0 1 2 3}%5"
+
+
+  #up "{[0,7] [7,14]}%5"
+  #n "{0 1 2 3}%9"
+
+d3
+  $jux ((3/8) <~)  
+  $sound "jimsyn(5, 8)"
+  #n "<20 1>"
+  |*| up "-0.2"
+  |*| gain "1.0"
+  #lpf (range 2000 8000 $slow 12 $sine)
+  #resonance "0.2"
+
+do 
+  let chord1 = "{c5, g5, f5}" 
+  d4
+    $slow 2
+    $stack
+    [
+      -- sound "supersaw(3,16,{0,8})" # note chord1 |+|note "12", 
+      -- sound "supersaw(3,16,{2,5})" # note chord1 |+|note "7",
+      sound "supersaw(3,16,{0,3})" # note chord1 |+|note "0"
+    ]
+    #sustain "0.08"
+    #gain "0.9"
+    #lpf (range 800 8000 $slow 16 $sine)
+    #resonance "0.2"
+
+--02 first beat
+
+d4
+  $sometimesBy 0.6 (jux ((3/8) ~>))
+  $sound "uni(3, 8)"
+  #n "1 2"
+  #gain "1.0"
+  -- #delay "0.25" #delaytime "{0.005 0.02 0.01}%4" #delayfeedback "0.9"
+
+d2
+  -- $sometimesBy 0.2 (jux ((3/8)~>))
+  $slow 2
+  $stack
+  [
+    s "uni(4, 16)" #gain "1.3" #shape "0.5",
+    sometimes (jux ((5/8) ~>))
+    $jux (rev)
+    $s "uni(5, 16, [0, 6, 9, 12])"
+    #n "{1 2 3}%6"
+    #gain "1.2"
+    -- #up "{0 -7 7 12}%7"
+  ]
+  |*| gain "1.0"
+  #hpf 1000
+  -- |*| gain "<1 1 1 1 1 1 1 0>"
+
+
+    
+
+--04 second beat
+
+d2
+  $slow 2
+  -- $sometimesBy 0.5 ((5/8) <~)
+  $stack
+  [
+    s "tabla2(5, 16, {0})" #gain "1.3" #n (irand 30),
+    s "kon(5, 16, {0, 5})" #n (irand 100) #gain "1.2",
+    s "uni(6, 16)" #gain "1.5",
+    s "uni uni ~ uni ~ uni ~ uni" #n 1 #gain "1.3"
+  ]
+  |*|gain "1.0"
+  -- #hpf 4000
+
+d3
+  $jux ((5/8) ~>)
+  $slow 2
+  $s "deepsyn(5, 16, [0, 5])"
+  #gain "0.8"
+  #n "<6 7 8 9>*4"
+  #up "[19, 24]"
+  #speed "[1.01, 1.0]"
+  #lpf (range 300 8000 $slow 8 $rand) #resonance "0.3"
+
+--05 change beat
+
+d4
+  -- $every 8 (jux (rev))
+  -- $sometimesBy 0.2 ((5/8) <~)
+  $stack
+  [
+    s "distd*2", 
+    s "bd cp bd hc" #n (irand 12),
+    s "uni(3, 8, {0, 3})"
+    #n "0 0 0 1 0 3 1 2"
+  ]
+  #gain "<1 1 1 1 1 1 0 0>"
+  |*|gain "1.2"
+
+d1
+  $stack
+  [
+    s "super808(5, 8, 3)" #n "{-12 -7 -5 0 5 7}%3",
+    s "ifdrums(3, 8, 0)"  #n "{1 2 3}%4",
+    slow 2 $s "ifdrums(2, 8)" #gain "1.5"
+  ]
+  #shape "0.5"
+  #gain "1.0"
+
+-- 07 second chord
+
+d5
+  $jux (rev)
+  $s "supersaw*8"
+  #sustain "0.01"
+  #note "{0 -5 -7 -12 -17 -19}%6"
+  |+| note "{0, 7, 12}"
+  #voice (range 0.1 0.8 $slow 24 $sine)
+  #cutoff (range 400 18000 $slow 32 $sine)
+  #resonance "0.3"
+  #gain "1.5"
+  -- #semitone "{7 0 12 5 19 24}%12"
+  
+unsolo 5
+  

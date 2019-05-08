@@ -1,6 +1,178 @@
 hush
 
 d1
+  $slow 2
+  $sometimes (rev)
+  $jux (iter 4)
+  $s "onedec(9, 16, [0, 10])"
+  #up "{0 5 7 12 24}%9"
+  #n 0
+  #sustain "0.1" 
+  #pan "{0.5 0 0.5 1 0.25 0.75}%12"
+  -- #lpf (range 1000 8000 $slow 8 $sine)
+  -- #resonance "0.0"
+  #cps(135/120)
+
+d1
+  $slow 2
+  $jux ((5/16) ~>)
+  $s "superzow(7, 16, [0, 5])"
+  #n "c4'sus4 g6'min7"
+  -- |+| n "<9 11 0 -5>/4"
+  -- |+| n "{0 5 7}%5"
+  |+| n "<[0, 7] [0, 5]>/2"
+  |+| n "[-12, 0]"
+  #lpf (range 800 20000 $slow 8 $sine)
+  #resonance "0.1"
+  #sustain "0.08"
+  #gain "0.8"  
+
+unsolo 1  
+
+d2
+  $slow 2
+  $jux ((3/8) ~>)
+  $s "uni(9, 16, [0, 5])"
+  #n "{0 1 2 3}%5"
+  #pan "{0.5 0 0.5 1 0.25 0.75}%12"
+
+d3
+  $slow 2
+  $s "uni(5, 16)"
+  #gain "1.0"
+  #shape "0.7"
+  
+
+unsolo 1  
+
+d3
+  $jux ((5/8) <~)
+  $s "fell2(7, 16)"
+  #n "{0 1 2 3 4}%9"
+
+d2
+  $jux ((5/8) ~>)
+  $s "atom(3, 8, [0, 5])"
+  #n "{0 1 2 3}%21"
+
+
+
+
+unsolo 4
+
+hush
+
+d1
+  $jux (rev)
+  $s "uni:1(9, 16)"
+  #delay "0.8"
+  #delaytime "1.0"
+
+d2
+  $s "uni:0(5, 16)"
+  #gain "1.2"
+  #shape "0.5"
+
+
+
+
+
+  #cps 1.0
+
+  #cps (135/240)
+  
+
+--10 last beat
+
+do
+  d6 silence
+  let
+    pat1 = "{0 ~ ~ 0 ~ ~ 0 ~ 0 0 ~ 0 ~ ~}%8"
+  d1
+    $sometimesBy 0.1 (rev)
+    $sometimesBy 0.4 (0.25 <~)
+    $stack
+    [
+      s "uni(5, 8)" #n "{0 1 2}%8", 
+      s "distd(2, 8)" |*|gain "1.8" #voice "4" #sustain "0.2",
+      s "[~ uni:1]*2"
+    ]
+    #shape "0.85"
+    |*|gain "1.5"
+    #cps (130/120)
+  d2
+    $every 3 (jux (0.125 ~>))
+    $stack
+    [
+      up pat1
+      # s "bfm"
+      |+| note (choose [12, 0, -12, -24, -36])
+      |+| note "{0, 5, 7, 9}"
+    ]
+    #sustain (choose [0.05, 0.12, 0.15])
+    #pitch1 (choose [0.33, 3.33, 19.33])
+    #voice (choose [30, 1000, 4000, 12000])
+    #delay "0.8"
+    #delaytime (choose [0.01, 0.03, 0.02, 0.008])
+    #delayfeedback "0.8"
+    |*|gain "1.5"
+    #room "0.4"
+    #size "0.2"
+
+do
+  let
+    pat2 = "{0 ~ 0 ~ ~ 0 ~ 0 ~ ~}%8"
+  d3
+    $every 4 (jux (0.125 ~>))
+    $up pat2
+    # s "superzow"
+    |+| note (choose [19, 12, 0])
+    |+| note "{0, 7, 11}"
+    #sustain (choose [0.08, 0.12, 0.3])
+    #shape "0.8"
+    #lpf (range 1000 20000 $rand)
+    #resonance "0.4"
+    #detune "10"
+    #accelerate (choose [0, 0, 1, 4]) #slide "1"
+    #gain "1.5"
+
+do
+  let
+    pat3 = "{0 ~ 0 ~ ~ 0 0 ~ 0}%8"
+  d4
+    $sometimesBy 0.4 (jux (0.125 ~>))
+    $up pat3
+    # s "supersiren"
+    # sustain "0.15"
+    # note "{0,5,7,9,11}"
+    |+| note (choose [0, 5, 7, 9, 11])
+    |+| note (choose [-12, -24, 0, 12, 24])
+    #pan (rand)
+    #gain "1.9"
+
+d5
+  $s "{superzow*8, uni:1*8}"
+  #n "{0,5,7,9,11}"
+  |+|n "{-12,0,12,24,48}"
+  #sustain "0.08"
+  #gain (range 0.0 2.5 $slow 24 $saw)
+  -- #vowel "{a i u e o}%12"
+  #room "0.2"
+  #size "0.2"
+
+
+d1
+  $jux ((4/8)<~)
+  $jux ((3/8)~>)
+  $slow 2
+  $s "bmoog(5, 8, [0, 3])"
+  #n "c3'maj g3'min"
+  |+|n "[0, <0 5 7 12>/2]"
+  #sustain "0.2"
+  #lpf (range 200 10000 $slow 4 $sine)
+  #resonance "0.3"
+
+d1
   $s "uni(3, 8, [0, 3])"
   #n "[0 0 1 0]*4"
   #gain "1.3"
