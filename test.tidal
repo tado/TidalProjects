@@ -1,5 +1,74 @@
 hush
 
+d4
+  $sometimes (rev)
+  $jux ((5/8) ~>)
+  $s "kon(5, 8)"
+  #n "{0 1 2 3 4 5 6}%4"
+  #cps (130/120)
+
+d3
+  $s "{uni(3, 8), ~ ifdrums:2}"
+  #gain "1.4"
+
+d1
+  $slow 2
+  $s "superzow(7, 16, [0, 5])"
+  #n "[-24, -0]"
+  #pan "{0.0 1.0 0.3 0.7 0.5}%7"
+  |+| n "{-7, 0}%3"
+  #sustain "0.1"
+  #lpf (range 200 800 $slow 16 $sine)
+  #resonance "0.3"
+  #gain "0.8"
+
+d4 silence
+
+d1
+  $ sometimes (rev)
+  $ jux ((5/8) <~)
+  $ sound "supersaw*8"
+  # n (scale "hexSus" "{0 1 2 3 4 5 6 7 8 9 10 11 12}%4")
+  |+|n "-14"
+  |+|n "[-12, 0]"
+  |+|n "[-12, 0, 7]"
+  # sustain "{0.15 0.05 0.1 0.2 0.05}%4"
+  # lpf (range 200 18000 $slow 11 $sine)
+  # resonance "0.1"
+  # cps (130/120)
+  # gain "0.8"
+  # pan (rand)
+
+d2
+  $ slow 2
+  $ stack
+  [
+    s "uni(7, 16)",
+    s "uni:1(5, 16, 3)",
+    s "uni:2(5, 16, 10)"
+  ]
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+
+d2
+  $slow 2
+  $sometimes (jux ((3/16) ~>))
+  $jux ((5/16) <~)
+  $s "uni(7, 16, [0, 10])"
+  #n "{0 1 1 1}%5"
+  #cps (130/120)
+
 d1
   $slow 2
   $sometimes (rev)
@@ -11,35 +80,46 @@ d1
   #pan "{0.5 0 0.5 1 0.25 0.75}%12"
   -- #lpf (range 1000 8000 $slow 8 $sine)
   -- #resonance "0.0"
-  #cps(135/120)
+
 
 d1
   $slow 2
-  $jux ((5/16) ~>)
+  $sometimes (rev)
+  $jux ((5/16) <~)
   $s "superzow(7, 16, [0, 5])"
-  #n "c4'sus4 g6'min7"
-  -- |+| n "<9 11 0 -5>/4"
-  -- |+| n "{0 5 7}%5"
-  |+| n "<[0, 7] [0, 5]>/2"
-  |+| n "[-12, 0]"
-  #lpf (range 800 20000 $slow 8 $sine)
+  #cps(135/120)
+  #n "c4'maj9 c5'maj"
+  |+|n "0"
+  |+|n "[0, 9]"
+  |+|n "[0, 0.2]"
+  #lpf (range 800 8000 $slow 8 $sine)
   #resonance "0.1"
-  #sustain "0.08"
-  #gain "0.8"  
+  #sustain "0.1"
+  #gain "0.7"
+  #shape "0.8"
+
+  
+  -- |+| n "<9 11 0 -5>/4"
+  -- |+| n "<[0, 7] [0, 5]>/2"
+  |+| n "[0, -5]"
+  #lpf (range 800 8000 $slow 8 $sine)
+  #resonance "0.3"
+  #sustain "0.1"
+
 
 unsolo 1  
 
 d2
   $slow 2
   $jux ((3/8) ~>)
-  $s "uni(9, 16, [0, 5])"
+  $s "uni(12, 16, [0, 5])"
   #n "{0 1 2 3}%5"
   #pan "{0.5 0 0.5 1 0.25 0.75}%12"
 
 d3
   $slow 2
   $s "uni(5, 16)"
-  #gain "1.0"
+  #gain "1.2"
   #shape "0.7"
   
 
@@ -47,7 +127,7 @@ unsolo 1
 
 d3
   $jux ((5/8) <~)
-  $s "fell2(7, 16)"
+  $s "fell2(3, 8)"
   #n "{0 1 2 3 4}%9"
 
 d2
