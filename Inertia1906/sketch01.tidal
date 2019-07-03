@@ -42,7 +42,7 @@ d5
   #delaytime "{0.005 0.02 0.01 0.05}%5"
   #delayfeedback "{0.9 0.5}"
 
-d6
+d1
   $jux ((5/14) ~>)
   $s "atom(9, 14)"
   #n "{0 1 0 2 3 4 5 6 7 8 9}%21"
@@ -52,10 +52,10 @@ d6
   #delay "0.7"
   #delaytime "{0.03 0.01 0.001 0.002 0.005}%7"
   #delayfeedback "{0.98 0.5 0.8}"
-  #gain "0.9"
+  #gain "1.4"
   #orbit 2
 
-d7
+d2
   $slow 2
   $sometimes (rev)
   $s "felld(12, 14)"
@@ -66,9 +66,22 @@ d7
   #orbit 2
   #gain "1.0"
   #shape "0.5"
-  
-  
 
-unsolo 1  
+d1
+  $sometimesBy 0.4 (jux ((5/14) ~>))
+  $ sometimes (rev)
+  $s "hasu(5, 14, [0, 11, 7])"
+  #up "{0, {0 7 -5}%5}"
+  |*| speed "[1.0, 1.01]"
+  |*| speed "[1.0, {1.0 0.5 1.5 2.0}%5]"
+  -- #n "{0 1 2 3 4 5 6 7 8 9 10 11 12 13}%9"
+  #n (irand 100)
+  # sustain "0.15"
+  #gain "1.2"
+  #delay "0.8"
+  #delaytime "{0.03 0.01 0.05 0.001 0.002 0.005}%7"
+  #delayfeedback "{0.9 0.5 0.8}"
+
+unsolo 1
 
 hush
