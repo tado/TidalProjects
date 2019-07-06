@@ -3,19 +3,19 @@ hush
 
 d1
   $sometimesBy 0.5 (jux ((3/8) ~>))
+  -- $ s "bar*4"
   $s "bar(3, 8, [0, 5])"
-  -- |*| speed "[1.0, 1.002]"
-  -- |*| speed "[1.0, 1.5]"
+  |*| speed "[1.0, 1.002]"
+  |*| speed "[1.0, 1.5]"
   #cps (130/120)
 
 do
   let u = 0
   d1
-    -- $sometimes (jux (rev))
     $sometimesBy 0.5 (jux ((3/8) ~>))
     $s "bar(3, 8, [0, 5])"
     |*| speed "[1.0, 1.004]"
-    |*| speed "[1.0, <1.5 2.0 3.0>/4]"
+    -- |*| speed "[1.0, <1.5 2.0 3.0>/4]"
     |*| speed "[1.0, 1.5]"
     |+| up u
     #gain "1.0"
@@ -31,11 +31,11 @@ do
 
 d3
   $s "{uni(2, 8), [~ hc]*2}"
-  #gain "1.4"
+  #gain "1.2"
   #shape "0.7"
 
 d4
-  $sometimesBy 0.6 (jux ((3/8) ~>))
+  $sometimesBy 0.7 (jux ((3/8) ~>))
   $sound "uni(5, 8)"
   #n "1 2"
   #gain "1.0"
@@ -43,15 +43,12 @@ d4
   #delay "0.7" #delaytime "{0.005 0.02 0.01 0.03}%4" #delayfeedback "0.8"
 
 d1
-  $sound "tet(5, 8, {0, 2})"
+  $sound "tet(5, 8, [0, 2])"
   #gain "1.4"
-  #lpf (range 1200 15000 $slow 16 $sine)  #resonance "0.3"
-  #n "{0 1 2 3}%9"
-  #sustain "0.17"
-  #up "[0, 5]"
-
   #up "{[0,7] [7, 0]}%5"
-  
+  #lpf (range 1200 15000 $slow 16 $sine)  #resonance "0.3"
+  #sustain "0.17"
+  #n "{0 1 2 3}%9"
 
 d3
   -- $every 8 (jux (rev))
@@ -79,12 +76,11 @@ d1
 d5
   $ jux ((3/8) <~)
   $ s "moog*8"
-  # up (scale "kumai" "0 .. 19")
-  |+|up "1"
+  # up (scale "iwato" "0 .. 19")
   |*| speed "[1.0, 1.501]"
   #lpf (range 800 2000 $slow 15 $sine)
-  #resonance "0.1"
-  #sustain "0.06"
+  #resonance "0.2"
+  #sustain "0.1"
   #gain "1.4"
   #shape "0.9"
 
@@ -143,6 +139,29 @@ d4
   #resonance "0.0"
   #gain "1.2"
   #semitone "{7 0 12 5 19 24}%12"
-  
+
+do
+  let
+    pat1 = "{0 ~ ~ 0 ~ ~ 0 ~ 0 0 ~ 0 ~ ~}%8"
+  d5
+    $slow 2
+    $every 3 (jux (0.125 ~>))
+    $stack
+    [
+      up pat1
+      # s "bfm"
+      |+| note (choose [12, 0, -12, -24, -36])
+      |+| note "{0, 5, 7, 9}"
+    ]
+    #sustain (choose [0.05, 0.12, 0.15])
+    #pitch1 (choose [0.33, 3.33, 19.33])
+    #voice (choose [30, 1000, 4000, 12000])
+    #delay "0.8"
+    #delaytime (choose [0.01, 0.03, 0.02, 0.008])
+    #delayfeedback "0.8"
+    |*|gain "1.5"
+    #room "0.4"
+    #size "0.2"
+
   
 hush
