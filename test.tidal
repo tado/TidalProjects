@@ -1,5 +1,100 @@
 hush
 
+d1
+  $ sometimesBy 0.8 (jux (rev))
+  $ s "superp5str(9, 16)"
+  # sustain "0.9"
+  # decay "1.1"
+  # n (choose [0, 7, 12])
+  -- |+| n "[-12, -7, 0]"
+  |+| n "c4'min7"
+  # lpf (range 400 8000 $slow 8 $sine)
+  # resonance "0.2"
+  # cps (116/240)
+  # gain "1.0"
+
+d2
+  $ sometimesBy 0.1 (jux ((10/16) <~))
+  $ s "superost(5, 16, [5, 10])"
+  # sustain "0.09"
+  # n ((choose [0, 5, 7, 12]) + (choose [0, -12, -5]))
+  # lpf (range 1000 10000 $slow 12 $sine)
+  # resonance "0.2"
+  # gain "1.0"
+
+d2
+  $ s "superbass(7, 16, [5, 10])"
+  # sustain "0.15"
+  # n ((choose [0, 5, 7, 12]) + (choose [0, -12]))
+  # lpf (range 200 1000 $slow 6 $rand)
+  # resonance "0.3"
+  # gain "0.8"
+
+do 
+  d3
+    $ s "supermoog2(9, 16, [3, 7])"
+    # sustain "0.1" #decay "0.55"
+    # n "[0, -12]"
+    |+| n "<0 5 7 -2>/4"  
+    # lpf (range 400 1000 $slow 6 $rand)
+    # resonance "0.2"
+    # voice "10.0"
+    # gain "1.0"
+    # cps (120/240)
+  d4
+    $sometimesBy 0.3 (rev)
+    $sometimesBy 0.4 (jux ((3/16) <~))
+    $ s "superwho(11, 16, [0, 5])"
+    # sustain "0.2" #decay "0.75"
+    # n "{c4'maj9 a4'min7 g4'sus2}"
+    |+| n "[0, 12]"
+    |+| n "<0 5 7 -2>/4"
+    # lpf (range 400 4000 $slow 6 $rand)
+    # resonance "0.2"
+    # voice "10.0"
+    # gain "0.9"
+  d5
+    $sometimesBy 0.6 (jux ((7/16) <~))
+    $ s "uni(11, 16)"
+    # n "{0 1 2}%9"
+    # gain "1.6"
+
+unsolo 4
+
+hush
+
+  
+d4
+  $sometimesBy 0.3 (rev)
+  $sometimesBy 0.4 (jux ((3/16) <~))
+  $s "lump(10, 16, [0, 10])"
+  #n "{0 2 1}%7"
+  # gain "1.5"
+
+d5
+  $ s "uni(11, 16)"
+  # n "{0 1}%5"
+  # gain "1.0"
+  
+
+unsolo 3
+
+d3 silence
+
+  $s "kon(6, 14)"
+  #n "{0 1 4 5 6}%4"                  
+
+d4 silence
+
+  $slow 2
+  $s "empty:0"
+  
+unsolo 1
+
+
+
+
+
 d4
   $sometimes (rev)
   $jux ((5/8) ~>)
@@ -7,7 +102,7 @@ d4
   #n "{0 1 2 3 4 5 6}%4"
   #cps (130/120)
 
-d3
+d2
   $s "{uni(3, 8), ~ ifdrums:2}"
   #gain "1.4"
 

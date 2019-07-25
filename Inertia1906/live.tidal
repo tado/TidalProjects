@@ -1,0 +1,37 @@
+
+
+d1
+  $sometimes (jux (rev))
+  $s "bar(3, 8, [0, 5])"
+  #speed "[1.0, 1.004]"
+  |*|speed "[1.0, 1.5]"
+  #up "0"
+  #cps (130/120)
+
+d2
+  $s "supersaw(3, 8, 3)"
+  #n "[c3, g3]"
+  |+| n "0"
+  #lpf (range 100 8000 $slow 18 $sine)
+  #resonance "0.2"
+  #gain "1.1"
+
+
+d3
+  $sometimes (jux ((3/8) ~>))
+  $stack
+  [
+    s "uni(2, 8)",
+    s "[~ [~ hc]]*2"
+  ]
+  #gain "1.1"
+  #shape "0.8"
+
+d4
+  $s "uni:1*8"
+  #delay "0.7" #delaytime "{0.01 0.03}" #delayfeedback "0.7"
+
+  
+  
+
+  

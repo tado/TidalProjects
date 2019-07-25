@@ -1,0 +1,201 @@
+
+hush
+
+d1
+  $s "bar"
+  #cps (130/120)
+
+
+  $sometimesBy 0.5 (jux ((3/8) ~>))
+  $s "bar(3, 8, [0, 5])"
+  #speed "[1.0, 1.5]"
+  |*| speed "[1.0, 1.004]"
+  #up "0"
+
+d2
+  -- $sometimesBy 0.5 (jux ((3/8) <~))
+  $s "supersaw(3, 8, 3)"
+  #n "c2"
+  #lpf (range 600 800 $slow 12 $sine) #resonance "0.2"
+  #sustain "0.15"
+  #gain "1.2"  
+
+
+
+do
+  let u = 0
+  d1
+    $sometimesBy 0.5 (jux ((3/8) ~>))
+    $s "bar(3, 8, [0, 5])"
+    |*| speed "[1.0, 1.004]"
+    -- |*| speed "[1.0, <1.5 2.0 3.0>/4]"
+    |*| speed "[1.0, 1.5]"
+    |+| up u
+    #n 0
+    #gain "1.0"
+  d2
+    $sometimesBy 0.5 (jux ((3/8) <~))
+    $s "supersaw(3, 8, 3)"
+    #n "c2"
+    #lpf (range 600 800 $slow 12 $sine)
+    #resonance "0.2"
+    #sustain "0.15"
+    |+|n u
+    #gain "1.2"
+
+d3
+  $stack
+  [
+    -- s "uni(2, 8)",
+    s "[~ hc]"
+  ]
+  #gain "1.2"
+  #shape "0.8"
+
+d4
+  $sometimesBy 0.7 (jux ((3/8) ~>))
+  $sound "uni(5, 8)"
+  #n "1 2"
+  #gain "1.0"
+  #orbit 1
+
+
+  #delay "0.7" #delaytime "{0.005 0.02 0.01 0.03}%4" #delayfeedback "0.8"
+
+
+d1
+  -- $jux (rev)
+  $sound "tet(3, 8, [0, 5])"
+  #lpf (range 200 5000 $slow 16 $sine)  #resonance "0.1"
+
+
+  #gain "1.2"
+  #n "<0 1 2 3>/8"
+  #speed "[1.0, 1.5]"
+  
+
+d3
+  -- $every 8 (jux (rev))
+  -- $sometimesBy 0.2 ((5/8) <~)
+  $stack
+  [
+    s "distd*2", 
+    s "bd cp bd hc" #n (irand 12),
+    s "uni(3, 8, {0, 3})"
+    #n "0 0 0 1 0 3 1 2"
+  ]
+  #gain "<1 1 1 1 1 1 0 0>"
+  |*|gain "1.4"
+
+d1
+  $stack
+  [
+    s "super808(5, 8, 3)" #n "{-12 -7 -5 0 5 7}%3",
+    s "ifdrums(3, 8, 0)"  #n "{1 2 3}%4",
+    slow 2 $s "ifdrums(2, 8)" #gain "1.5"
+  ]
+  #shape "0.5"
+  #gain "1.0"
+
+d5
+  -- $ sometimesBy 0.4 (rev)
+  -- $ jux ((19/8) ~>)
+  -- $jux (iter 8)
+  -- $jux (iter 2)
+  $ s "moog*8"
+  # up (scale "kumai" "0 .. 19")
+  #sustain "0.05"
+  #gain "1.0"
+
+  #lpf (range 800 2000 $slow 15 $sine) #resonance "0.2"
+  |*| speed "[1.0, 0.5]"
+  -- |+| up "[0, 7]"
+
+-- minPent majPent ritusen egyptian kumai hirajoshi iwato chinese indian pelog prometheus scriabin gong shang jiao zhi yu whole augmented augmented2 hexMajor7 hexDorian hexPhrygian hexSus hexMajor6 hexAeolian major ionian dorian phrygian lydian mixolydian aeolian minor locrian harmonicMinor harmonicMajor melodicMinor melodicMinorDesc melodicMajor bartok hindu todi purvi marva bhairav ahirbhairav superLocrian romanianMinor hungarianMinor neapolitanMinor enigmatic spanish leadingWhole lydianMinor neapolitanMajor locrianMajor diminished diminished2 chromatic  
+
+d5 
+  -- $ sometimes (jux (rev))
+  $s "hasu(3, 8, [0, 5])"
+  #gain "1.2"
+  #n "{0 1 2 3 4 5 6 7 8 9 10 11 12 13}%8"
+  #up "{0, {0 7 -5}%5}"
+  |*| speed "[1.0, 1.004]"
+  |*| speed "[3.0, 2.0]"
+
+d6
+  $slow 2
+  $s "kon(8, 16)"
+  #gain "1.4"
+  
+
+  $sometimesBy 0.5 (jux ((3/8) ~>))
+  $s "kon(11, 16, [0, 10])"
+  #n "{0 1 2 3 4 5 6 7 8}%5"
+
+
+d5
+  $sometimes (jux (rev))
+  $sometimesBy 0.5 (jux ((3/8) ~>))
+  $s "bar(3, 8, [0, 5])"
+  |*| speed "[1.0, 1.002]"
+  |*| speed "[3.0, 1.5]"
+  #gain "1.2"  
+
+d7
+  $jux ((3/8) <~)
+  $s "tet(5, 8)"
+  #speed "[1.0, 1.01]"
+  #n "{0, <0 1 2 3>/8}"
+  #up "[0, 7]"
+  |+|up "-2"
+  #lpf (range 400 4000 $slow 30 $sine)
+  #resonance "0.1"
+  #sustain "0.12"
+  #gain "1.2"
+
+do
+  let
+    pat1 = "{0 ~ ~ 0 ~ ~ 0 ~ 0 0 ~ 0 ~ ~}%16"
+  d5
+    $slow 2
+    $every 3 (jux (0.125 ~>))
+    $stack
+    [
+      up pat1
+      # s "bfm"
+      |+| note (choose [12, 0, -12, -24, -36])
+      |+| note "{0, 5, 7, 9}"
+    ]
+    #sustain (choose [0.05, 0.12, 0.15])
+    #pitch1 (choose [0.33, 3.33, 19.33])
+    #voice (choose [30, 1000, 4000, 12000])
+    #delay "0.8"
+    #delaytime (choose [0.01, 0.03, 0.02, 0.008])
+    #delayfeedback "0.8"
+    |*|gain "1.0"
+    #room "0.4"
+    #size "0.2"
+
+d6
+  $slow 2
+  $s "spiano(3, 8)" 
+  #speed "[1.0, 1.5]"
+  #up 0
+  #lpf (range 800 2000 $slow 15 $sine) #resonance "0.2"
+  #n "{0 1 2 3 4}%4"
+  #gain "1.5"
+
+d5
+  $jux ((5/8) ~>)
+  $slow 4
+  $s "sfh(3, 8)"
+  #gain "1.2"
+  #n (irand 200)
+  #pan (range 0.4 0.6 $rand)
+  #up "[7, 0, 12]"
+  #speed "[1.01, 1.0]"
+  #lpf "8000"
+
+solo 6  
+  
+hush
