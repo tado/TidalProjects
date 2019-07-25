@@ -30,6 +30,38 @@ d2
   # resonance "0.3"
   # gain "0.8"
 
+d2
+  $ s "supervbass(7, 16, [5, 10])"
+  # sustain "0.15"
+  # n ((choose [0, 5, 7, 12]) + (choose [0, -12]))
+  # lpf (range 200 10000 $slow 6 $sine)
+  # resonance "0.2"
+
+d3
+  $ sometimesBy 0.4 (rev)
+  $ s "superbass*8"
+  # sustain "0.3"
+  # n (scale "gong" "{0 .. 7}%3")
+  #lpf (range 100 2000 $slow 15 $rand)
+  #resonance "0.3"
+  #voice "20"
+  #gain "1.0"
+
+d4
+  $ sometimesBy 0.4 (rev)
+  $ s "superbass*8"
+  # sustain "0.3"
+  # n (scale "indian" "{0 .. 7}%3")
+  |+| n 12
+  #lpf (range 100 2000 $slow 15 $rand)
+  #resonance "0.3"
+  #voice "20"
+  #gain "1.0"  
+
+hush
+
+-- minPent majPent ritusen egyptian kumai hirajoshi iwato chinese indian pelog prometheus scriabin gong shang jiao zhi yu whole augmented augmented2 hexMajor7 hexDorian hexPhrygian hexSus hexMajor6 hexAeolian major ionian dorian phrygian lydian mixolydian aeolian minor locrian harmonicMinor harmonicMajor melodicMinor melodicMinorDesc melodicMajor bartok hindu todi purvi marva bhairav ahirbhairav superLocrian romanianMinor hungarianMinor neapolitanMinor enigmatic spanish leadingWhole lydianMinor neapolitanMajor locrianMajor diminished diminished2 chromatic    
+
 do 
   d3
     $ s "supermoog2(9, 16, [3, 7])"
@@ -38,14 +70,14 @@ do
     |+| n "<0 5 7 -2>/4"  
     # lpf (range 400 1000 $slow 6 $rand)
     # resonance "0.2"
-    # voice "10.0"
+    # voice "20.0"
     # gain "1.0"
     # cps (120/240)
   d4
     $sometimesBy 0.3 (rev)
     $sometimesBy 0.4 (jux ((3/16) <~))
     $ s "superwho(11, 16, [0, 5])"
-    # sustain "0.2" #decay "0.75"
+    # sustain "0.3" #decay "0.75"
     # n "{c4'maj9 a4'min7 g4'sus2}"
     |+| n "[0, 12]"
     |+| n "<0 5 7 -2>/4"
@@ -58,6 +90,16 @@ do
     $ s "uni(11, 16)"
     # n "{0 1 2}%9"
     # gain "1.6"
+
+d4
+  $sometimesBy 0.3 (rev)
+  $sometimesBy 0.4 (jux ((3/16) <~))
+  $ s "superrhodes(3, 16, [0, 5])"
+  # sustain "0.4" 
+  # n "c4'sus4"
+  |+| n "[0, 12]"
+  # lpf (range 800 1000 $slow 6 $rand)
+
 
 unsolo 4
 
