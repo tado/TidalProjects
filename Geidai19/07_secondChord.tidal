@@ -1,0 +1,13 @@
+d5
+  $jux (rev)
+  $s "superhammond*8"
+  #sustain "0.01"
+  #note "{0 -5 -7 -12 -17 -19}%6"
+  -- |+| note "{0, 7}"
+  -- #voice (range 0.1 0.8 $slow 24 $sine)
+  #cutoff (range 400 18000 $slow 32 $sine)
+  #resonance "0.3"
+  #gain "1.2"
+  -- #voice "{7 0 12 5 19 24}%12"
+  
+solo 5

@@ -1,0 +1,82 @@
+hush
+
+d1
+  $sometimes (rev)
+  $jux (iter 8)
+  $jux ((3/8) ~>)
+  $stack
+  [
+    sound "bd [~ cp] bd hc*2",
+    sound "ifdrums(3, 8)" #n (irand 10),
+    sound "supersaw*2" #sustain "0.1" #n "{0 4 5 7}%3" |+|n "[0, 7]" |+|n "<-12 7>",
+    sound "kon(5, 8)"
+  ]
+  #room "0.7"
+  #cps(130/120)
+
+--00 init
+
+hush
+
+d1
+  $ s "uni:1"
+  # gain "0.6"
+  # cps(132/120)
+  
+-- 01 first noise
+
+d1
+  $jux ((5/8) ~>)
+  $slow 4
+  $s "sfh(3, 8)"
+  #gain "0.7"
+  #n (irand 200)
+  #pan (range 0.4 0.6 $rand)
+  #up "[7, 0, 12]"
+  #speed "[1.01, 1.0]"
+  #lpf "200"
+
+d2
+  $slow 8
+  $sound "empty"
+  #speed "[1.0, 1.01]"
+  #gain "0.9"
+  #lpf "200"
+
+d3
+  $slow 2
+  $jux ((3/8) ~>)
+  $sound "autech2(3, 8, [0])"
+  #gain "0.8"
+  #speed "[1.005, 1.0]"
+  #n "{0 1 2 3}%7"
+  #lpf (range 400 18000 $slow 4 $sine) #resonance "0.1"
+  |*|speed "[-1.0, 1.5]"
+
+--02 first beat
+
+d4
+  $sometimesBy 0.6 (jux ((3/8) ~>))
+  $sound "uni(3, 8)"
+  #n "1 2"
+  #gain "1.0"
+  #delay "0.25" #delaytime "{0.005 0.02 0.01}%4" #delayfeedback "0.9"
+
+d2
+  -- $sometimesBy 0.2 (jux ((3/8)~>))
+  $slow 2
+  $stack
+  [
+    s "uni(4, 16)" #gain "1.3" #shape "0.5",
+    sometimes (jux ((5/8) ~>))
+    $jux (rev)
+    $s "uni(5, 16, [0, 6, 9, 12])"
+    #n "{1 2 3}%6"
+    #gain "1.2"
+    -- #up "{0 -7 7 12}%7"
+  ]
+  |*| gain "1.0"
+  -- #hpf 1000
+  -- |*| gain "<1 1 1 1 1 1 1 0>"
+
+

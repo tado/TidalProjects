@@ -1,0 +1,37 @@
+hush
+
+d1
+  $ s "uni:1"
+  # gain "0.6"
+  # cps(132/120)
+
+do
+  let base = 0
+  d1
+    $s "superhammond(5, 8)"
+    #n "{~ ~ ~ ~, 0 4 5 7 9 11}"
+    |+| n "[0, 7]"
+    |+| n base
+  d2  
+    $s "superp5str(8, 8)"
+    #n "{~ ~ ~ ~, 0 4 5 7 9}"
+    |+| n "[0, 7, 12]"
+    |+| n base
+    #sustain "0.1"
+    #gain "0.9"
+  d4
+    $jux (iter 16)
+    $ slow 2
+    $s "superwho(11, 16)"
+    #n "{~ ~ ~ ~, 0 7 9 11 0 4 5 7}"
+    |+| n "[0, 12]"
+    |+| n base
+    #sustain "0.07"
+
+d3
+  $sometimes (jux (rev))
+  $slow 2
+  $s "kon(9, 16, 0)"
+  #n "{~ ~ ~ ~, 0 9 5}"
+  #cps (180/240)
+  

@@ -1,0 +1,118 @@
+--00 init
+
+hush
+
+d1
+  $ s "uni:1"
+  # gain "0.6"
+  # cps(132/120)
+
+-- 01 first noise
+
+d1
+  $jux ((5/8) ~>)
+  $slow 4
+  $s "sfh(3, 8)"
+  #gain "0.7"
+  #n (irand 200)
+  #pan (range 0.4 0.6 $rand)
+  #up "[7, 0, 12]"
+  #speed "[1.01, 1.0]"
+  #lpf "20000"
+
+d2
+  $slow 8
+  $sound "empty"
+  #speed "[1.0, 1.01]"
+  #gain "0.9"
+  #lpf "12000"
+
+d3
+  $slow 2
+  $jux ((3/8) ~>)
+  $sound "autech2(3, 8, [0, 5])"
+  #gain "0.7"
+  #speed "[1.005, 1.0]"
+  #n (choose [0, 1, 2])
+  #lpf (range 400 18000 $slow 4 $sine) #resonance "0.1"
+  -- |*|speed "[-1.0, 1.5]"
+
+  
+
+  
+--10 last beat
+
+do
+  d6 silence
+  let
+    pat1 = "{0 ~ ~ 0 ~ ~ 0 ~ 0 0 ~ 0 ~ ~}%8"
+  d1
+    $sometimesBy 0.1 (rev)
+    $sometimesBy 0.4 (0.25 <~)
+    $stack
+    [
+      s "uni(5, 8)" #n "{0 1 2}%8", 
+      s "distd(2, 8)" |*|gain "1.8" #voice "4" #sustain "0.2",
+      s "[~ uni:1]*2"
+    ]
+    #shape "0.85"
+    |*|gain "1.5"
+  d2
+    $every 3 (jux (0.125 ~>))
+    $stack
+    [
+      up pat1
+      # s "bfm"
+      |+| note (choose [12, 0, -12, -24, -36])
+      |+| note "{0, 5, 7, 9}"
+    ]
+    #sustain (choose [0.05, 0.12, 0.15])
+    #pitch1 (choose [0.33, 3.33, 19.33])
+    #voice (choose [30, 1000, 4000, 12000])
+    #delay "0.8"
+    #delaytime (choose [0.01, 0.03, 0.02, 0.008])
+    #delayfeedback "0.8"
+    |*|gain "1.5"
+    #room "0.4"
+    #size "0.2"
+
+do
+  let
+    pat2 = "{0 ~ 0 ~ ~ 0 ~ 0 ~ ~}%8"
+  d3
+    $every 4 (jux (0.125 ~>))
+    $up pat2
+    # s "superzow"
+    |+| note (choose [19, 12, 0])
+    |+| note "{0, 7, 11}"
+    #sustain (choose [0.08, 0.12, 0.3])
+    #shape "0.8"
+    #lpf (range 1000 20000 $rand)
+    #resonance "0.4"
+    #detune "10"
+    #accelerate (choose [0, 0, 1, 4]) #slide "1"
+    #gain "1.5"
+
+do
+  let
+    pat3 = "{0 ~ 0 ~ ~ 0 0 ~ 0}%8"
+  d4
+    $sometimesBy 0.4 (jux (0.125 ~>))
+    $up pat3
+    # s "supersiren"
+    # sustain "0.15"
+    # note "{0,5,7,9,11}"
+    |+| note (choose [0, 5, 7, 9, 11])
+    |+| note (choose [-12, -24, 0, 12, 24])
+    #pan (rand)
+    #gain "1.9"
+
+d5
+  $s "{superzow*8, uni:1*8}"
+  #n "{0,5,7,9,11}"
+  |+|n "{-12,0,12,24,48}"
+  #sustain "0.08"
+  #gain (range 0.0 2.5 $slow 24 $saw)
+  -- #vowel "{a i u e o}%12"
+  #room "0.2"
+  #size "0.2"

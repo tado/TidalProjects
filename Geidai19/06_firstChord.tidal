@@ -1,0 +1,19 @@
+do
+  let chord2 = "{c3, a4}"
+  d3
+    $slow 2
+    $jux ((5/8) ~>)
+    $s "superhammond(5, 16, [0])" #note chord2 |+|note "[0, 7]"
+    #lpf (range 500 18000 $slow 16 $sine)
+    #resonance "0.3"
+    #voice 3
+    #gain "0.8"
+    |+|note "{0 -12 12 -7 7}%16"
+
+d4
+  $chop 12
+  $jux (rev)
+  $s "eh(5, 8, {4, 8})"
+  #n "{4}%9"
+  #gain "0.9"
+    

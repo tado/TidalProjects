@@ -1,0 +1,22 @@
+d4
+  -- $every 8 (jux (rev))
+  -- $sometimesBy 0.2 ((5/8) <~)
+  $stack
+  [
+    s "distd*2", 
+    s "bd cp bd hc" #n (irand 12),
+    s "uni(3, 8, {0, 3})"
+    #n "0 0 0 1 0 3 1 2"
+  ]
+  #gain "<1 1 1 1 1 1 0 0>"
+  |*|gain "1.2"
+
+d1
+  $stack
+  [
+    s "super808(5, 8, 3)" #n "{-12 -7 -5 0 5 7}%3",
+    s "ifdrums(3, 8, 0)"  #n "{1 2 3}%4",
+    slow 2 $s "ifdrums(2, 8)" #gain "1.5"
+  ]
+  #shape "0.5"
+  #gain "1.0"
