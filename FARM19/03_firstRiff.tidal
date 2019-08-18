@@ -1,0 +1,34 @@
+--03
+d1
+  $sound "tet(5, 8, [0, 2])"
+  #gain "1.0"
+  #lpf (range 1200 15000 $slow 16 $sine)  #resonance "0.3"
+  #up "{[0]}%5"
+
+
+  #up "{[0,7] [7,14]}%5"
+  #n "{0 1 2 3}%9"
+
+d3
+  $jux ((3/8) <~)  
+  $sound "jimsyn(5, 8)"
+  #n "<20 1>"
+  |*| up "-0.2"
+  |*| gain "1.0"
+  #lpf (range 2000 8000 $slow 12 $sine)
+  #resonance "0.2"
+
+do 
+  let chord1 = "c'sus4" 
+  d4
+    $slow 2
+    $stack
+    [
+      -- sound "supersaw(3,16,{0,8})" # note chord1 |+|note "12", 
+      -- sound "supersaw(3,16,{2,5})" # note chord1 |+|note "7",
+      sound "supersaw(3,16,{0,3})" # note chord1 |+|note "0"
+    ]
+    #sustain "0.08"
+    #gain "0.9"
+    #lpf (range 800 8000 $slow 16 $sine)
+    #resonance "0.2"

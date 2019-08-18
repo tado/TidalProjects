@@ -1,0 +1,33 @@
+-- 06
+do
+  let chord2 = "c'maj7"
+  d3
+    $slow 2
+    $jux ((5/8) ~>)
+    $s "superhammond(5, 16, [0, 3])" #note chord2 |+|note "[0, 7]"
+    #lpf (range 500 18000 $slow 16 $sine)
+    #resonance "0.3"
+    #voice 3
+    #gain "0.8"
+    |+|note "{0 -12 12 -7 7}%16"
+
+d4
+  $ sometimesBy 0.4 (rev)
+  $ s "superbass*8"
+  # sustain "0.1"
+  # n (scale "ritusen" "{0 .. 7}%9")
+  #lpf (range 100 1000 $rand)
+  #resonance "0.3"
+  #gain "1.0"
+
+-- minPent majPent ritusen egyptian kumai hirajoshi iwato chinese indian pelog prometheus scriabin gong shang jiao zhi yu whole augmented augmented2 hexMajor7 hexDorian hexPhrygian hexSus hexMajor6 hexAeolian major ionian dorian phrygian lydian mixolydian aeolian minor locrian harmonicMinor harmonicMajor melodicMinor melodicMinorDesc melodicMajor bartok hindu todi purvi marva bhairav ahirbhairav superLocrian romanianMinor hungarianMinor neapolitanMinor enigmatic spanish leadingWhole lydianMinor neapolitanMajor locrianMajor diminished diminished2 chromatic      
+
+    
+
+d4
+  $chop 12
+  $jux (rev)
+  $s "eh(5, 8, {4, 8})"
+  #n "{4}%9"
+  #gain "0.9"
+    

@@ -1,29 +1,35 @@
 hush
 
 do
-  let base = -2;
+  let base = 1;
   d1
-    $ sometimesBy 0.8 (jux (rev))
     $ sometimesBy 0.4 (rev)
     $s "superbass*16"
-    #n "{~ ~ ~ ~, c5 a5 f5 g5 c4 b7}*4"
-    #sustain "0.12"
+    #n "{c5 a5 c7 b5 f5 b7}"
+    #sustain "{0.05 0.15}"
     #cps (125/240)
-    |+| n "{~ ~ ~ ~, 0  12}"
     |+| n base
     # lpf (range 200 4000 $slow 8 $rand)
     # resonance "0.2"
-    # room "0.8" #size "0.8"
-    #gain "0.7"
+    # room "0.3" #size "0.9"
+    #gain "0.8"
   d2
-    $s "supermoog2*16"
-    # sustain "0.15"
-    # n "{~ ~ ~ ~, c4 c4 g5 c6 b5}"
+    $sometimes (rev)
+    $s "superwho*16"
+    # sustain "0.1"
+    # n "{c5 g5 f6 g5 c6}"
+    |+| n "[0, 7]"
     |+| n base
-    # lpf (range 1000 8000 $slow 8 $rand)
+    # lpf (range 400 18000 $slow 8 $rand)
     # resonance "0.2"
-    # voice "8"
-    #gain "0.7"
+    -- #voice "8"
+    #gain "0.8"
+
+d3
+  $s "{distd*4, uni:1(11, 16)}"
+  #gain "1.3"
+  #shape "0.1"
+  #orbit 1
 
 hush
 
