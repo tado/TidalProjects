@@ -1,0 +1,14 @@
+d1
+  $ jux ((10/16) ~>)
+  $ s "supermoog2*16"
+  # sustain "0.12"
+  # n (scale "zhi" "{0 .. 12}%5")
+  |+| n 0
+  #lpf (range 200 8000 $rand) #room "0.2" #gain "1.0"
+
+d2
+  $s "uni*4"
+
+hush  
+
+-- minPent majPent ritusen egyptian kumai hirajoshi iwato chinese indian pelog prometheus scriabin gong shang jiao zhi yu whole augmented augmented2 hexMajor7 hexDorian hexPhrygian hexSus hexMajor6 hexAeolian major ionian dorian phrygian lydian mixolydian aeolian minor locrian harmonicMinor harmonicMajor melodicMinor melodicMinorDesc melodicMajor bartok hindu todi purvi marva bhairav ahirbhairav superLocrian romanianMinor hungarianMinor neapolitanMinor enigmatic spanish leadingWhole lydianMinor neapolitanMajor locrianMajor diminished diminished2 chromatic      
