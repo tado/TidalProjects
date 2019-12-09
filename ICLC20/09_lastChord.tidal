@@ -1,12 +1,11 @@
 --09
 do
-  let chord2 = "g'sus4"
+  let chord2 = "c'sus2"
   d7
-    $slow 2
-    $jux (0.25 ~>)
+    $jux ((3/7) <~)
     $stack
     [
-      s "supersaw(7,16,0)" #note chord2 |+|note "0" #pan (rand)
+      s "supersaw(5,14,0)" #note chord2 |+|note "0" #pan (rand)
     ] 
     #cutoff (range 2000 18000 $slow 16 $sine)
     #resonance "0.2"
@@ -17,9 +16,8 @@ do
 do
   let chord3 = "c'maj7"
   d6
-    $slow 2
-    $jux (0.125 <~)
-    $s "supersaw(7, 16, {3, 4})"
+    $jux ((3/7) ~>)
+    $s "supersaw(7, 14, {3, 4})"
     # note chord3
     |+|note "19"
     #sustain "0.05"
@@ -27,6 +25,3 @@ do
     #resonance "0.3"
     #gain "1.0"
     -- #room "0.3" #size "0.8"
-
-
-

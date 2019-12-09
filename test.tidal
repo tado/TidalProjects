@@ -1,31 +1,107 @@
 hush
 
 d1
-  $s "fell(9, 14)"
-  #cps (135/240)
+  $ slow 8
+  $s "matsu"
+  #sustain "32.0"
+  #speed "[-1.5, 1.0, 0.5]"
   #gain "1.0"
-  #n "{0 .. 10}%3"
+  #room "0.9"
+  #orbit 1
+  #cps(115/240)
 
 d2
-  $jux ((5/14) <~)
-  $s "felld(8, 14)"
-  #n "{0 .. 10}%5"
-  #gain "1.2"
+  $sometimes (rev)
+  $jux (iter 8)
+  $stack
+  [
+    --s "gambon(5, 16)",
+    s "gamsar(7, 16)",
+    s "gamdru(3, 16)"
+  ]
+  #sustain "0.2"
+  #n "{0 1 2 3 4 5 6}%7"
 
 d3
-  $s "{uni(5, 14), uni:1(5, 14, 7)}"
-  #gain "1.3"
+  $stack
+  [
+    s "uni:1(5, 16, 7)" #gain "0.9" ,
+    s "uni(4, 16)"
+  ]
+  |*| gain "1.2"
+  
+
+d1
+  $sometimes (rev)
+  $jux ((7/16) <~)
+  -- $sometimes (jux (rev))
+  $stack
+  [
+    s "gamdru(9, 16)",
+    s "gamsar(11, 16, 5)"    
+  ]
+  #gain "0.9"
+  #sustain "0.5"
+  #n "{0 .. 100}%3"
+  -- #n (irand 200)
+  -- |+| n "[0, 5]"
+  -- |+| n 20
+  -- #up "{0 4 5 7 11 -5 -7 12}%11"
+  |+|up "[0, 0.1]"
+  -- #speed "{1.0 1.5 0.5 2.0}%7"
+  -- #pan (rand)
+
+d3
+  $sometimes (rev)
+  $jux ((5/16) <~)
+  $s "kon(9, 16)"
+  #gain "0.9"
+
+  #n "{0 1 2 3 4}%9"
+
+d1
+  $jux ((5/16) ~>)
+  $s "tet(5, 16)"
+  #gain "1.2"
+  #n "{0 1 2 3}%5"
+
+d1
+  $sometimes (rev)
+  $jux ((11/16) <~)
+  $s "bar(10, 16)"
+  #gain "1.0"
+  #up "{0 12 7 -12}"
+  #n 2
+
+d1
+  $sometimes (rev)
+  -- $jux ((11/16) <~)
+  $s "distd(5, 16)"
+  #gain "1.0"
+  #up "{0 12 7 -12}"
+
+
+  #n (irand 100)
+
+
+  #n "{0 2 1 3}%3"
+
+  
+
+
+unsolo 1  
 
 d4
-  $s "uni:1(3, 14)"
+  $s "uni:1(3, 16)"
   #gain "1.2"
   #delay "0.5"
   #delaytime "{0.005 0.02 0.01 0.04}%7"
   #delayfeedback "0.5"
   
-d5
+d5 silence
+
   $sometimes (jux ((5/14) <~))
-  $s "deepsyn(9, 14)"
+  $s "deepsyn(9, 16)"
   #sustain "{0.1 1.0 0.2 0.05}%9"
   #gain "1.0"
   #n "{10 .. 50}%12"
@@ -37,7 +113,7 @@ d5
 
 d6
   $sometimes (jux ((9/14) <~))
-  $s "sfh(3, 14)"
+  $s "sfh(3, 16)"
   #sustain "{0.1 1.0 0.05}%5"
   #n (irand 100)
   -- #n "{0 .. 100}%3"
@@ -53,7 +129,7 @@ do
   let base = 0
   d5
     $ sometimesBy 0.4 (rev)
-    $s "superbass(14, 14)"
+    $s "supersaw(11, 16)"
     #n (scale "indian" "{0 .. 12}%5")
     #sustain "0.1"
     |+|n base
@@ -62,6 +138,7 @@ do
     # resonance "0.1"
     -- # room "0.2" #size "0.8"
     # gain "0.9"
+
   d6
     $jux (iter 14)
     -- $sometimes (rev)
@@ -1967,3 +2044,4 @@ d1
 
 
 hush
+>

@@ -1,0 +1,15 @@
+-- 06
+d5
+  $slow 4
+  $s "matsu"
+  #gain "1.2"
+  #speed "[1.0, 2.0]"
+
+d1
+  $ slow 2
+  $s "aleksi"
+  #cps(110/240)
+  #n 1
+  #gain "1.0"
+  #lpf 200 #resonance "0.2"
+

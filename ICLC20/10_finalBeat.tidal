@@ -1,21 +1,22 @@
 --10
 do
+  d5 silence
   d6 silence
   let
-    pat1 = "{0 ~ ~ 0 ~ ~ 0 ~ 0 0 ~ 0 ~ ~}%8"
+    pat1 = "{0 ~ ~ 0 ~ ~ 0 ~ 0 0 ~ 0 ~ ~}%14"
   d1
     $sometimesBy 0.1 (rev)
-    $sometimesBy 0.4 (0.25 <~)
+    $sometimesBy 0.4 ((1/7) <~)
     $stack
     [
-      s "uni(5, 8)" #n "{0 1 2}%8", 
-      s "distd(2, 8)" |*|gain "1.8" #voice "4" #sustain "0.2",
-      s "[~ uni:1]*2"
+      s "uni(5, 14)" #n "{0 1 2}%7", 
+      s "distd(2, 14)" |*|gain "1.8" #voice "4" #sustain "0.2",
+      s "uni:1(2, 14, 5)"
     ]
-    #shape "0.85"
+    #shape "0.9"
     |*|gain "1.5"
   d2
-    $every 3 (jux (0.125 ~>))
+    $every 3 (jux ((3/7) ~>))
     $stack
     [
       up pat1
@@ -35,9 +36,9 @@ do
 
 do
   let
-    pat2 = "{0 ~ 0 ~ ~ 0 ~ 0 ~ ~}%8"
+    pat2 = "{0 ~ 0 ~ ~ 0 ~ 0 ~ ~}%14"
   d3
-    $every 4 (jux (0.125 ~>))
+    $every 4 (jux ((1/7) ~>))
     $up pat2
     # s "superzow"
     # note (choose [19, 12, 0])
@@ -52,9 +53,9 @@ do
 
 do
   let
-    pat3 = "{0 ~ 0 ~ ~ 0 0 ~ 0}%8"
+    pat3 = "{0 ~ 0 ~ ~ 0 0 ~ 0}%14"
   d4
-    $sometimesBy 0.4 (jux (0.125 ~>))
+    $sometimesBy 0.4 (jux ((1/7) ~>))
     $up pat3
     # s "supersiren"
     # sustain "0.15"
@@ -65,11 +66,10 @@ do
     #gain "1.9"
 
 d5
-  $s "{superzow*8, uni:1*8}"
+  $s "{superzow*14, uni:1*14}"
   #n "{0,5,7,9,11}"
   |+|n "{-12,0,12,24,48}"
   #sustain "0.08"
   #gain (range 0.0 2.5 $slow 24 $saw)
   -- #vowel "{a i u e o}%12"
-  #room "0.2"
-  #size "0.2"
+  -- #room "0.2" #size "0.2"

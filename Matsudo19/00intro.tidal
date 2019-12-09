@@ -1,0 +1,49 @@
+-- 00
+
+hush
+
+d1
+  $ slow 2
+  $s "aleksi"
+  #cps(110/240)
+  #n 1
+  #gain "1.0"
+  #lpf 200 #resonance "0.2"
+  
+
+  #speed "[1.0, 0.5]"
+  |*|speed "[1.0, 1.01]"
+  
+
+d2
+  -- $sometimes (rev)
+  -- $jux (iter 8)
+  $stack
+  [
+    -- s "gamdru(3, 16, 5)",
+    -- s "gamsar(7, 16, 10)",
+    -- s "gambon(5, 16)",
+    s "gamket(3, 16)"
+  ]
+  #sustain "0.5"
+  #gain "1.0"
+
+  #n "{0 .. 100}%3"
+
+
+d3
+  $stack
+  [
+    -- s "uni:1(5, 16, 7)" #gain "0.9",
+    s "uni(3, 16)"
+  ]
+  |*| gain "1.2"
+
+d3
+  -- $sometimes (rev)
+  $jux ((5/16) <~)
+  $s "kon(7, 16)"
+  #gain "0.8"
+
+  #n "{0 1 3 4}"
+
