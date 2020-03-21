@@ -1,16 +1,17 @@
 --03
 d1
   $sound "tet(11, 14, [0, 2])"
-  #gain "1.2"
-  #lpf (range 800 10000 $rand)  #resonance "0.2"
-  #up "{[0,7] [7,14]}%5"
+  #gain "0.8"
   #n "{0 1 2 3}%9"
+  #lpf (range 800 10000 $rand)  #resonance "0.3"
+  #up "{[0,-5] [7,14]}%5"
+  
 
 d3
   $slow 4
   $s "matsu"
   #n "[1.0, 1.5]"
-  #gain "1.2"
+  #gain "1.0"
 
 d3
   $jux ((3/7) <~)  
@@ -22,15 +23,15 @@ d3
   #resonance "0.2"
 
 do 
-  let chord1 = "c'sus2" 
+  let chord1 = "c'maj7 a'min7" 
   d4
     $stack
     [
-      -- sound "supersaw(4,14,10)" # note chord1 |+|note "12", 
-      -- sound "supersaw(4,14,5)" # note chord1 |+|note "7",
+      sound "supersaw(4,14,10)" # note chord1 |+|note "19", 
+      sound "supersaw(4,14,5)" # note chord1 |+|note "7",
       sound "supersaw(4,14,0)" # note chord1 |+|note "0"
     ]
     #sustain "0.08"
     #gain "0.9"
     #lpf (range 800 8000 $slow 16 $sine)
-    #resonance "0.2"
+    #resonance "0.3"

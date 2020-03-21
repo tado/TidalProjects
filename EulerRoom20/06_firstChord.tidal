@@ -1,22 +1,25 @@
 -- 06
 do
-  let chord2 = "c4'sus2"
+  let chord2 = "c4'sus4"
   d3
-    -- $jux ((3/14) ~>)
-    $s "superhammond(6, 14, [0, 5])" #note chord2 |+|note "[0, 12]"
+    $jux ((3/14) ~>)
+    $s "superhammond(6, 14, [0, 5])" #note chord2 |+|note "[0, 24]"
     #lpf (range 500 18000 $slow 16 $sine)
-    #resonance "0.3"
-    #voice 3
-    #gain "1.0"
+    #resonance "0.4"
+    #sustain "0.07 0.2"
+    #voice 5
+    #gain "0.2"
     |+|note "{0 -12 12 -7 7}%7"
+
+    
 
 d4
   $ sometimesBy 0.2 ((2/7) ~>)
   $ s "superbass*14"
-  # sustain "0.05"
-  # n (scale "indian" "{0 .. 7}%11")
+  # sustain "0.1 0.05"
+  # n (scale "indian" "{0 .. 14}%15")
   |*| n "[1.0, 1.008]"
-  # lpf (range 100 2000 $rand)
+  # lpf (range 100 8000 $rand)
   # resonance "0.3"
   # gain "1.0"
 

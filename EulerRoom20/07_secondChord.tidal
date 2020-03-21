@@ -2,14 +2,14 @@
 d5
   $jux (rev)
   $s "supersaw(14, 14)"
-  #sustain "0.02"
-  # n (scale "indian" "{0 .. 12}%9") |-| n "12"
-  |*| n "[1.0, 1.005]"
-  -- |+| n "[0, 12]"
+  #sustain "0.12"
+  # n (scale "indian" "{0 .. 12}%19") |-| n "12"
+  |*| n "[1.0, 1.01]"
+  |+| n "[0, 7, -12]"
   #voice (range 0.1 0.2 $slow 24 $sine)
   #cutoff (range 800 8000 $slow 14 $sine)
-  #resonance "0.2"
-  #gain "1.2"
-  -- #semitone "{7 0 12 5 19 24}%13"
+  #resonance "0.4"
+  #gain "1.1"
+  #semitone "{7 0 12 5 19 24}%13"
   
-solo 5
+unsolo 5
