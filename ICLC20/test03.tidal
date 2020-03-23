@@ -1,6 +1,6 @@
 hush
 
-setcps (130/240)
+setcps (140/240)
 
 -- 01
 d1
@@ -73,7 +73,7 @@ d3
   #resonance "0.2"
 
 do 
-  let chord1 = "c5'maj" 
+  let chord1 = "c5'sus4" 
   d4
     $stack
     [
@@ -105,7 +105,7 @@ d2
   $sometimesBy 0.5 ((3/14) <~)
   $stack
   [
-    -- s "tabla2(5, 14, {0})" #gain "1.3" #n (irand 30),
+    s "tabla2(5, 14, {0})" #gain "1.3" #n (irand 30),
     s "kon(6, 7, [0, 5])" #n "{0 .. 20}%22" #gain "1.2",
     s "uni(9, 14, 2)" #n 1 #gain "1.3",
     s "uni(5, 14)" #gain "1.6"
@@ -149,12 +149,12 @@ do
 d4
   $ sometimesBy 0.2 ((2/7) ~>)
   $ s "superbass*14"
-  # sustain "0.2"
+  # sustain (range 0.1 0.2 $slow 8 $sine)
   # n (scale "indian" "{0 .. 5}%13")
   |*| n "[1.0, 1.005]"
   -- |+| up "[0, 7]"
   # lpf (range 200 4000 $rand)
-  # resonance "0.3"
+  # resonance "0.0"
   # gain "1.0"
 
 -- minPent majPent ritusen egyptian kumai hirajoshi iwato chinese indian pelog prometheus scriabin gong shang jiao zhi yu whole augmented augmented2 hexMajor7 hexDorian hexPhrygian hexSus hexMajor6 hexAeolian major ionian dorian phrygian lydian mixolydian aeolian minor locrian harmonicMinor harmonicMajor melodicMinor melodicMinorDesc melodicMajor bartok hindu todi purvi marva bhairav ahirbhairav superLocrian romanianMinor hungarianMinor neapolitanMinor enigmatic spanish leadingWhole lydianMinor neapolitanMajor locrianMajor diminished diminished2 chromatic      
@@ -174,7 +174,7 @@ d5
   #sustain "0.13"
   # n (scale "indian" "{0 .. 24}%11") |-| n "36"
   |*| n "[1.0, 1.005]"
-  |+| n "c'sus4"
+  -- |+| n "c'sus4"
   #voice (range 0.1 0.2 $slow 24 $sine)
   #cutoff (range 100 4000 $rand)
   #resonance "0.3"
@@ -186,6 +186,7 @@ unsolo 5
 --08
 d2
   $stack
+
   [
     s "gabba" #gain "1.2",
     s "glitch(6,14,3)" #n (irand 64),
@@ -394,6 +395,8 @@ do
   d7 silence
 
 hush
+
+
 
 
 
