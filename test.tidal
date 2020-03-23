@@ -1,5 +1,41 @@
+hush
+
+setcps(140/240)
 
 d1
+  $s "uni(5, 16)"
+
+d2
+  $sometimesBy 0.2 (jux (rev))
+  $s "uni:1(4, 16, 2)"  
+
+d1
+  $ sometimesBy 0.3 (jux (rev))
+  $ s "superbass(10, 16)"
+  #n (
+    (choose [0, 2, 5, 7]) 
+    + (choose [-24, -5, 0, 7])
+  )
+  #sustain "0.08"
+  #lpf (range 100 2000 $rand)
+  -- #resonance (range 0.0 0.4 $slow 4 $sine)
+  #gain "1.0"
+
+d3
+  $ sometimesBy 0.3 (fast 2)
+  $ s "[uni:0 uni:1]*4"
+
+d3
+  $ s "supersaw(9, 16, 9)"
+  # sustain "0.08"
+  # n "c3'sus4 a4'min"
+  |+|n "[0, 12]"
+  #lpf (range 100 2000 $rand)
+  #resonance (range 0.0 0.4 $slow 6 $sine)
+  #gain "0.8"
+
+d4
+$ fast 2
 $every 4 (rev)
 $sometimesBy 0.2 (slow 2)
 $sometimesBy 0.8 (jux (iter 4))
@@ -11,7 +47,7 @@ $stack [
 #n (irand 64)
 #pan (rand)
 #lpf (range 1000 18000 $slow 4 $sine) #resonance "0.2"
-#delay "0.3" #delaytime "0.25" #delayfeedback "0.5"
+-- #delay "0.3" #delaytime "0.25" #delayfeedback "0.5"
 #gain "1.0"
 
 
@@ -83,7 +119,7 @@ d1
   #up 4
   #lpf "5000"
   #resonance "0.3"
-  #n 0
+  #n "{0 1 2 3}%6"
   
   #n "{0 1 2 3}%3"
 

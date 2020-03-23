@@ -1,0 +1,28 @@
+d5
+  $slow 4
+  $s "matsu"
+  #gain "1.0"
+
+  #speed "[1.0, 2.0]"
+
+d1
+  $s "bar(10, 14)"
+  #gain "0.5"
+  #n 0
+
+d4
+  $sound "jimsyn(11, 14)"
+  #n "{20 1}"
+  |*| gain "0.3"
+  #lpf (range 2000 8000 $slow 12 $sine)
+  #resonance "0.2"  
+
+d5
+  $jux ((5/14) ~>)
+  $s "tet(11, 14)"
+  #up "[0, 7][7, 12]"
+  #gain "0.9"
+  #n 1
+
+  #n "{0 1 2 3}%5"
+

@@ -1,0 +1,14 @@
+do 
+  let pat = binaryN 21 "<912345690>"
+  d1
+    $slow 2
+    $stack
+    [
+      struct pat $ s "808" #n "{0 .. 10}%7",
+      struct (inv pat) $s "cp" #n 1
+    ]
+        
+
+d1 $struct (ascii "<a b c d>") $bd
+
+hush        

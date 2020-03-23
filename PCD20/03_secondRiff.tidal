@@ -1,0 +1,26 @@
+--03
+
+do 
+  let chord1 = "c'sus2 a'min" 
+  d5
+    $stack
+    [
+      sound "supersaw(9,14,10)" # note chord1 |+|note "12", 
+      sound "supersaw(9,14,5)" # note chord1 |+|note "7",
+      sound "supersaw(9,14,3)" # note chord1 |+|note "0"
+    ]
+    #sustain "0.12"
+    #gain "0.7"
+    #lpf (range 800 8000 $slow 16 $sine)
+    #resonance "0.2"
+
+d2
+  $jux ((5/7) ~>)
+  $s "deepsyn(5, 14, [0, 5])"
+  #gain "0.8"
+  #n "<6 7 8 9>*4"
+  #up "[19, 24]"
+  #speed "[1.01, 1.0]"
+  #lpf (range 300 8000 $slow 8 $rand) #resonance "0.3"
+
+  
