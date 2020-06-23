@@ -1,0 +1,20 @@
+d3
+  $jux ((3/7) ~>)
+  $s "deepsyn(5, 14)"
+  #gain "0.8"
+  #n "<6 7 8 9>*4"
+  #up "[19, 24]"
+  #speed "[1.01, 1.0]"
+  #lpf (range 300 8000 $slow 14 $sine) #resonance "0.3"
+
+d2
+  $sometimesBy 0.5 ((3/14) <~)
+  $stack
+  [
+    s "tabla2(5, 14, {0})" #gain "1.3" #n (irand 30),
+    s "kon(8, 14, [0, 5])" #n "{0 .. 20}%11" #gain "1.3",
+    s "uni(9, 14, 2)" #n 1 #gain "1.3",
+    s "uni(5, 14)" #gain "1.6"
+  ]
+  |*|gain "1.0"
+  -- #hpf 4000

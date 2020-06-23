@@ -1,0 +1,72 @@
+--11
+d4
+  $slow 2
+  $jux ((3/7) ~>)
+  $sound "autech2(5, 14, [0, 5, 10])"
+  #gain "0.7"
+  #speed "[1.005, 1.0]"
+  #n "{0 1 2 3}%5"
+  #lpf (range 400 18000 $slow 4 $sine) #resonance "0.1"
+  |*|speed "[-1.0, 3]"
+  #shape "0.8"
+
+d3
+  $jux (rev)
+  $sometimesBy 0.2 (jux ((3/8)~>))
+  $sometimesBy 0.1 ((3/8) <~)
+  $stack
+  [
+    s "uni(6, 14)" #gain "1.7" #shape "0.9",
+    sometimes (jux ((5/7) ~>))
+    $s "uni(5, 14, [0, 6, 9, 12])"
+    #note "{1 2 3}%6"
+    #gain "1.2"
+    #up "{0 -7 7 12}%7"
+  ]
+  |*| gain "<1 1 1 1 1 1 1 0>"
+  |*| gain "0.9"
+  #shape "0.8"
+  -- #hpf 1000
+
+d3 silence
+
+d1
+  $jux ((5/7) ~>)
+  $s "sfh(1, 14)"
+  #gain "0.8"
+  #n (irand 200)
+  #pan (range 0.4 0.6 $rand)
+  #up "[7, 0, 12]"
+  #speed "[1.01, 1.0]"
+
+d1 silence  
+
+d2
+  $slow 8
+  $sound "empty"
+  #speed "[1.0, 1.01]"
+  #gain "0.0"
+  #lpf "12800"
+
+d3
+  $slow 4
+  $s "matsu"
+  #n "[2.0, -1.5, 1.0]"
+  #gain "1.4"
+
+d silence
+
+hush
+
+--- ありがとうございました!! ご入学おめでとうございます！！！
+
+
+
+
+
+
+
+
+
+
+
