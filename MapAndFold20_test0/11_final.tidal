@@ -1,0 +1,82 @@
+do
+  let chord = "d'sus4"
+  d5
+	  $jux ((3/7)~>)
+    $stack
+    [
+			s "supersaw(5,14,5)" #note chord |+|note "7" #gain "0.8",
+      s "supersaw(5,14,0)" #note chord |+|note "0" #gain "1.0"
+    ]
+    #sustain "0.1"
+    |*| gain "1.5"
+    #room "0.3" #size "0.9"
+    |-| note "[0, 12]"
+    #cutoff (range 800 18000 $slow 16 $sine)
+    #resonance "0.3"
+		#pan (choose [-0.5, 0.0, 0.5])
+    #shape "0.7"
+
+d3
+  $ s "superbass(14, 14)"
+  # sustain "0.01"
+  # n ((scale "yu" "{0 .. 12}%5") - 10)
+  # gain "1.0"
+  # lpf (range 100 1000 $rand)
+  # resonance "0.3"
+
+d4
+  $slow 2
+  $jux ((3/7) ~>)
+  $sound "autech2(5, 14, [0, 5, 10])"
+  #gain "1.4"
+  #speed "[1.005, 1.0]"
+  #n "{0 1 2 3}%5"
+  #lpf (range 4000 18000 $slow 4 $sine) #resonance "0.3"
+  |*|speed "[-1.0, 3]"
+  #shape "0.5"
+
+d3
+  $jux (rev)
+  -- $sometimesBy 0.2 (jux ((3/8)~>))
+  -- $sometimesBy 0.1 ((3/8) <~)
+  $stack
+  [
+    s "uni(6, 14)" #gain "1.7" #shape "0.9",
+    sometimes (jux ((5/7) ~>))
+    $s "uni(5, 14, [0, 6, 9, 12])"
+    #note "{1 2 3}%6"
+    #gain "1.2"
+    #up "{0 -7 7 12}%7"
+  ]
+  -- |*| gain "<1 1 1 1 1 1 1 0>"
+  |*| gain "0.5"
+  #shape "0.8"
+  -- #hpf 1000
+
+d1
+  $jux ((5/7) ~>)
+  $s "sfh(1, 14)"
+  #gain "1.5"
+  #n (irand 200)
+  #pan (range 0.4 0.6 $rand)
+  #up "[7, 0, 12]"
+  #speed "[1.01, 1.0]"
+
+d2
+  $slow 8
+  $sound "empty"
+  #speed "[1.0, 1.01]"
+  #gain "1.5"
+  #lpf "12800"
+
+d5
+  $slow 4
+  $s "matsu"
+  #n "[1.0, -1.5]"
+  #gain "1.0"  
+
+d1 silence
+
+solo 5
+
+hush
