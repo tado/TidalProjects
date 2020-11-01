@@ -1,0 +1,17 @@
+--02
+d4
+  $jux ((3/14) <~)
+  $s "uni(5, 14)"
+  #gain "1.3"
+
+d5
+  $jux (iter 7)
+  $s "uni(11, 14)" 
+  #n "{2 3 1}%5"
+  #gain "1.1" #shape "0.5"
+  #delay "0.6"
+  #delayt (choose([0.005, 0.02, 0.01, 0.025])) 
+  #delayfb "0.5"
+  #orbit 1
+
+unsolo 5
