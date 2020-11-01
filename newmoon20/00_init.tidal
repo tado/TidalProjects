@@ -1,9 +1,4 @@
 
--- Hello! VR Algorave!!
--- I'm Atushi Tadokoro streaming form Toyo
-
-
-
 --00
 hush
 
@@ -16,10 +11,6 @@ d1
   $slow 4
   $s "matsu"
   #gain "0.7"
+  #n "[2.0, -1.5, 1.0]"
   
-	-- #n "[2.0, -1.5, 1.0]"
-  
-
-unsolo 1
-
 hush

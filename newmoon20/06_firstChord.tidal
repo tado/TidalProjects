@@ -7,7 +7,7 @@ do
     #lpf (range 500 18000 $slow 16 $sine)
     #resonance "0.1"
     #voice 3
-    #gain "1.0"
+    #gain "0.0"
     
     
     |+|note "{0 -12 12 -7 7}%7"
@@ -15,7 +15,7 @@ do
 d2
   $ sometimesBy 0.2 ((2/7) ~>)
   $ s "superbass*14"
-  # sustain "0.05"
+  # sustain "0.01"
   # n (scale "yu" "{0 .. 7}%11")
   |*| n "[1.0, 1.008]"
   # lpf (range 100 2000 $rand)

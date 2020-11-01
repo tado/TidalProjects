@@ -73,3 +73,5 @@ d5
   #gain (range 0.0 2.5 $slow 24 $saw)
   -- #vowel "{a i u e o}%12"
   -- #room "0.2" #size "0.2"
+
+hush

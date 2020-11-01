@@ -4,18 +4,11 @@ do
 	  $jux ((3/7)~>)
     $stack
     [
-			s "supersaw(5,14,5)" #note chord |+|note "7" #gain "0.8",
       s "supersaw(5,14,0)" #note chord |+|note "0" #gain "1.0"
     ]
     #sustain "0.1"
-    |*| gain "0.7"
-    #room "0.3" #size "0.9"
-    |-| note "[0, 12]"
-    #cutoff (range 800 18000 $slow 16 $sine)
-    #resonance "0.3"
-		#pan (choose [-0.5, 0.0, 0.5])
-    #shape "0.5"
-    
+    |*| gain "0.0"
+        
     
     |-| note "[0, 12]"
     #cutoff (range 800 18000 $slow 16 $sine)
@@ -27,7 +20,7 @@ d3
   $ s "superbass(14, 14)"
   # sustain "0.1"
   # n ((scale "yu" "{0 .. 12}%5") - 10)
-  # gain "0.8"
+  # gain "0.0"
   # lpf (range 100 4000 $rand)
   # resonance "0.3"
   

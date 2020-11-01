@@ -9,6 +9,8 @@ d5
   $s "uni(11, 14)" 
   #n "{2 3 1}%5"
   #gain "1.1" #shape "0.5"
+  
+  
   #delay "0.6"
   #delayt (choose([0.005, 0.02, 0.01, 0.025])) 
   #delayfb "0.5"
