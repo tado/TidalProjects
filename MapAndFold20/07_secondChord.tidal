@@ -1,0 +1,15 @@
+-- 07
+d5
+  $jux (rev)
+  $s "supersaw(14, 14)"
+  #sustain "0.1"
+  # n (scale "minPent" "{0 .. 7}%11") |-| n "12"
+  |*| n "[1.0, 1.008]"
+  -- |+| n "[0, 12]"
+  #voice (range 0.1 0.2 $slow 24 $sine)
+  #cutoff (range 100 18000 $slow 14 $sine)
+  #resonance "0.2"
+  #gain "0.0"
+  -- #semitone "{7 0 12 5 19 24}%13"
+
+solo 5
