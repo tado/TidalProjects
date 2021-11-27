@@ -1,0 +1,18 @@
+-- 07
+d5
+  $jux (rev)
+  $s "supersaw(14, 14)"
+  #sustain "0.01"
+  # note (scale "indian" "{0 .. 12}%19") |-| n "24"
+  |*| note "[1.0, 1.01]"
+  -- |+| note "[0, -12]"
+  #voice (range 0.1 0.2 $slow 24 $sine)
+  #cutoff (range 800 8000 $slow 14 $sine)
+  #resonance "0.2"
+  #gain "1.1"
+  
+  #semitone "{7 0 12 5 19 24}%13"
+  
+unsolo 5
+
+hush

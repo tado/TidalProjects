@@ -1,0 +1,28 @@
+-- 01
+d1
+  $jux ((10/14) ~>)
+  $s "sfh(3, 14)"
+  #gain "0.7"
+  #n (irand 200)
+  #pan (range 0.4 0.6 $rand)
+  #up "[7, 0, 12]"
+  #speed "[1.01, 1.0]"
+  #lpf "100"
+
+d2
+  $slow 2
+  $sound "empty"
+  #speed "[1.0, 1.01]"
+  #gain "0.8"
+  #lpf "100"
+
+d3
+  $jux ((5/7) ~>)
+  $sound "autech2(4, 7, [0])"
+  #gain "0.8"
+  
+  #speed "[1.01, 1.0]"
+  #n "{0 1 2 3}%5"
+  #lpf (range 400 18000 $slow 4 $sine) #resonance "0.3"
+  |*|speed "[-1.0, 1.5]"
+
