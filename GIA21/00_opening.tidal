@@ -1,0 +1,222 @@
+hush
+
+setcps(75/120)
+
+d1
+  $ s "uni:1(1, 7)"
+  # gain "0.6"
+  # td_s 0
+
+-- 01
+d1
+  $jux ((10/14) ~>)
+  $s "sfh(3, 14)"
+  #gain "0.7"
+  #n (irand 200)
+  #pan (range 0.4 0.6 $rand)
+  #up "[7, 0, 12]"
+  #speed "[1.01, 1.0]"
+  #lpf "10000"
+
+d2
+  $slow 2
+  $sound "empty"
+  #speed "[1.0, 1.01]"
+  #gain "0.8"
+  #lpf "10000"
+
+d3
+  $jux ((5/7) ~>)
+  $sound "autech2(4, 7, [0])"
+  #gain "0.8"
+  #speed "[1.01, 1.0]"
+  #n "{0 1 2 3}%5"
+  #lpf (range 400 18000 $slow 4 $sine) #resonance "0.3"
+  |*|speed "[-1.0, 1.5]"
+
+--02
+d4
+  $sometimesBy 0.6 (jux ((2/7) ~>))
+  $sound "uni(11, 14)"
+  #n "2"
+  #gain "1.0"
+  #delay "0.7" #delaytime "{0.005 0.02 0.01 0.025}%9"
+  #delayfeedback "0.5"
+
+d2
+  -- $sometimesBy 0.2 (jux ((3/7)~>))
+  $stack
+  [
+    s "uni(3, 14)" #gain "1.3" #shape "0.0",
+    s "uni(5, 14, 5)" #n "{1 2 3}%6" 
+    #gain "1.0" #up "{0 -7 7 12}%7"
+  ]
+  |*| gain "1.0"
+  -- #hpf 1000
+  -- |*| gain "<1 1 1 1 1 1 1 0>"
+
+--03
+d1
+  $sound "tet(11, 14, [0, 2])"
+  #gain "1.2"
+  #n "{0 1 2 3}%9"
+  #lpf (range 800 10000 $rand)  #resonance "0.3"
+  #up "{[0,-5] [7,14]}%5"
+
+d3
+  $slow 4
+  $s "matsu"
+  #n "[1.0, 1.5]"
+  #gain "1.0"
+
+d3
+  $jux ((3/7) <~)  
+  $sound "jimsyn(3, 7)"
+  #n "<20 1>"
+  |*| up "-0.2"
+  |*| gain "1.2"
+  #lpf (range 2000 8000 $slow 12 $sine)
+  #resonance "0.2"
+
+do 
+  let chord1 = "c'maj7 a'min7" 
+  d4
+    $stack
+    [
+      sound "supersaw(4,14,10)" # note chord1 |+|note "19", 
+      sound "supersaw(4,14,5)" # note chord1 |+|note "7",
+      sound "supersaw(4,14,0)" # note chord1 |+|note "0"
+    ]
+    #sustain "0.08"
+    #gain "0.9"
+    #lpf (range 800 8000 $slow 16 $sine)
+    #resonance "0.3"
+
+--04
+
+d3
+  $jux ((3/7) ~>)
+  $s "deepsyn(5, 14)"
+  #gain "0.8"
+  #n "<6 7 8 9>*4"
+  #up "[19, 24]"
+  #speed "[1.01, 1.0]"
+  #lpf (range 300 8000 $slow 14 $sine) #resonance "0.3"
+
+d2
+  -- $sometimesBy 0.5 ((3/14) <~)
+  $stack
+  [
+    s "tabla2(5, 14)" #n "{0 .. 30}%9" #gain "1.3",
+    s "kon(8, 14, [0, 5])" #n "{0 .. 20}%9" #gain "1.0",
+    s "uni(9, 14, 2)" #n 1 #gain "1.3",
+    s "uni(3, 7)" #gain "1.6"
+  ]
+  |*|gain "1.0"
+  -- #hpf 4000
+
+--05
+d4
+  $sometimesBy 0.2 ((3/14) <~)
+  $stack
+  [
+    s "distd(3, 7)", 
+    s "{bd cp bd hc}%7" #n (irand 12),
+    s "uni(2, 7)" #n "{0 0 0 1 0 3 1 2}%9"
+  ]
+  |*|gain "1.3"
+
+d1
+  $stack
+  [
+    s "super808(5, 14, 3)" #n "{-12 -7 -5 0 5 7}%7",
+    s "ifdrums(3, 14, 0)"  #n "{1 2 3}%4",
+    slow 2 $s "ifdrums(2, 14)" #gain "1.5"
+  ]
+  #shape "0.5"
+  #gain "1.0"
+
+-- 06
+do
+  let chord2 = "c4'sus4"
+  d3
+    $jux ((3/14) ~>)
+    $s "superhammond(6, 14, [0, 5])" #note chord2 |+|note "[0, 24]"
+    #sustain "0.1"
+    #gain "1.0"
+    #lpf (range 500 18000 $slow 16 $sine)
+    #resonance "0.4"
+    #voice 5
+    |+|note "{0 -12 12 -7 7}%7"
+
+d4
+  $ sometimesBy 0.2 ((2/7) ~>)
+  $ s "superbass*14"
+  # sustain "0.1"
+  # note (scale "minPent" "{0 .. 12}%11")
+  |*| note "[1.0, 1.008]"
+  # lpf (range 100 8000 $rand)
+  # resonance "0.3"
+  # gain "1.0"
+
+-- minPent majPent ritusen egyptian kumai hirajoshi iwato chinese indian pelog prometheus scriabin gong shang jiao zhi yu whole augmented augmented2 hexMajor7 hexDorian hexPhrygian hexSus hexMajor6 hexAeolian major ionian dorian phrygian lydian mixolydian aeolian minor locrian harmonicMinor harmonicMajor melodicMinor melodicMinorDesc melodicMajor bartok hindu todi purvi marva bhairav ahirbhairav superLocrian romanianMinor hungarianMinor neapolitanMinor enigmatic spanish leadingWhole lydianMinor neapolitanMajor locrianMajor diminished diminished2 chromatic      
+
+d4
+  $chop 20
+  $jux (rev)
+  $s "eh(5, 14, {4, 8})"
+  #n "{0 .. 5}%9"
+  #gain "0.9"
+
+-- 07
+d5
+  $jux (rev)
+  $s "supersaw(14, 14)"
+  #sustain "0.1"
+  # note (scale "indian" "{0 .. 12}%9") |+| note "-12"
+  |*| note "[1.0, 1.005]"
+  |+| note "[0, -12]"
+  #voice (range 0.1 0.5 $slow 24 $sine)
+  #cutoff (range 800 8000 $slow 14 $sine)
+  #resonance "0.2"
+  #gain "1.1"
+  #semitone "{7 0 12 5 19 24}%11"
+  #room "0.5" #size "0.3"
+
+unsolo 5
+
+--09
+do
+  let chord2 = "c'sus4"
+  d7
+    $jux ((3/7) <~)
+    $stack
+    [
+      s "supersaw(5,14,0)" #note chord2 |+|note "7" #pan (rand),
+      s "supersaw(5,14,0)" #note chord2 |+|note "12" #pan (rand),
+      s "supersaw(5,14,0)" #note chord2 |+|note "0" #pan (rand)
+    ] <
+    #cutoff (range 2000 18000 $slow 16 $sine)
+    #resonance "0.2"
+    #sustain "0.1"
+    #gain "1.2"
+    -- |+|n "<0 7 -7 -5 5 -12>"
+
+d7 silence    
+
+do
+  let chord3 = "c'maj7"
+  d6
+    $jux ((3/7) ~>)
+    $s "supersaw(7, 14, {3, 4})"
+    # note chord3
+    |+|note "17"
+    #sustain "0.2"
+    #lpf (range 800 15000 $slow 5 $sine)
+    #resonance "0.2"
+    #gain "1.2"
+    #room "0.3" #size "0.9"
+
+d1 silence
+
+hush

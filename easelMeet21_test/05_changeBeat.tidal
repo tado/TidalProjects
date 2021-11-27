@@ -19,3 +19,54 @@ d1
   #shape "0.5"
   #gain "1.0"
 
+-- 06
+do
+  let chord2 = "c4'sus4"
+  d3
+    $jux ((3/14) ~>)
+    $s "superhammond(6, 14, [0, 5])" #note chord2 |+|note "[0, 24]"
+    #sustain "0.1"
+    #gain "1.0"
+    #lpf (range 500 18000 $slow 16 $sine)
+    #resonance "0.4"
+    #voice 5
+    |+|note "{0 -12 12 -7 7}%7"
+
+d4
+  $ sometimesBy 0.2 ((2/7) ~>)
+  $ s "superbass*14"
+  # sustain "0.1"
+  # note (scale "indian" "{0 .. 14}%15")
+  |*| note "[1.0, 1.008]"
+  # lpf (range 100 8000 $rand)
+  # resonance "0.3"
+  # gain "1.0"
+
+-- minPent majPent ritusen egyptian kumai hirajoshi iwato chinese indian pelog prometheus scriabin gong shang jiao zhi yu whole augmented augmented2 hexMajor7 hexDorian hexPhrygian hexSus hexMajor6 hexAeolian major ionian dorian phrygian lydian mixolydian aeolian minor locrian harmonicMinor harmonicMajor melodicMinor melodicMinorDesc melodicMajor bartok hindu todi purvi marva bhairav ahirbhairav superLocrian romanianMinor hungarianMinor neapolitanMinor enigmatic spanish leadingWhole lydianMinor neapolitanMajor locrianMajor diminished diminished2 chromatic      
+
+d4
+  $chop 20
+  $jux (rev)
+  $s "eh(5, 14, {4, 8})"
+  #n "{4}%9"
+  #gain "0.9"
+
+
+-- 07
+d5
+  $jux (rev)
+  $s "supersaw(14, 14)"
+  #sustain "0.1"
+  # note (scale "indian" "{0 .. 12}%9") |-| note "12"
+  |*| note "[1.0, 1.01]"
+  |+| note "[0, -12]"
+  #voice (range 0.1 0.2 $slow 24 $sine)
+  #cutoff (range 800 8000 $slow 14 $sine)
+  #resonance "0.3"
+  #gain "1.1"
+  #semitone "{7 0 12 5 19 24}%19"
+  
+unsolo 5
+
+hush
+
