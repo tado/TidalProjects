@@ -2,6 +2,11 @@ hush
 
 setcps(1/2)
 
+d1
+  $jux (rev)
+  $s "spiano(1, 8)"
+  #n (choose [0 .. 3])
+
 d2
   $jux (iter 8)
   $sometimes (rev)

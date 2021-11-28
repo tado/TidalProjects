@@ -12,11 +12,12 @@ d1
   $jux ((10/14) ~>)
   $s "sfh(3, 14)"
   #gain "0.7"
-  #n (irand 200)
+  #n (choose [0 .. 20])
   #pan (range 0.4 0.6 $rand)
-  #up "[7, 0, 12]"
+  #up "[0, 7]"
   #speed "[1.01, 1.0]"
   #lpf "100"
+  
 
 d2
   $slow 2
@@ -27,39 +28,42 @@ d2
 
 d3
   $jux ((5/7) ~>)
-  $sound "autech2(4, 7, [0])"
-  #speed "[1.01, 1.0]"
+  $sound "autech2(4, 7, [0, 5])"
+  #speed "[1.001, 1.0]"
+  #lpf (range 400 18000 $slow 4 $sine) #resonance "0.1"
   #gain "0.0"
 
-  #n "{0 1 2 3}%5"
-  #lpf (range 400 18000 $slow 4 $sine) #resonance "0.3"
-  |*|speed "[-1.0, 1.5]"
+  #n (choose [0 .. 2])
 
---02
+-- 02
 d4
-  -- $sometimesBy 0.6 (jux ((2/7) ~>))
-  -- $jux (rev)
-  $sound "uni(9, 14)"
-  #n "2"
-  #gain "1.0"
+  $jux (rev)
+  $sound "uni:1(9, 14)"
+  #gain "0.8"
+
   #delay "0.0" #delaytime (choose [0.008, 0.02, 0.01, 0.025])
-  #delayfeedback "0.4"
+  #delayfeedback "0.6"
 
-d2
-  $s "uni(5, 14)" #gain "1.2"
+do
+  d2 silence
+  d3 silence
+  d1
+    $stack
+    [
+      s "hc(9, 14, 3)" #gain "1.0",
+      s "distd(5, 14)" #gain "1.2"
+    ]
 
-  
 --03
-d1
-  $sound "tet(11, 14, [0, 2])"
+d2
+  $sound "tet(9, 14)"
   #gain "0.0"
+  #lpf (range 800 10000 $slow 7 $sine)  #resonance "0.3"
   #n 0
   
+  #n (choose [0 .. 4])
+  #up "[0, 7][7, 14]"
   
-  #n "{0 1 2 3}%3"
-  #lpf (range 800 10000 $slow 7 $sine)  #resonance "0.3"
-  #up "{[0,-5] [7,14]}%5"
-
 d3
   $slow 4
   $s "matsu"
@@ -85,7 +89,7 @@ do
     #sustain "0.1"
     #gain "0.0"
     #lpf (range 800 8000 $slow 16 $sine)
-    #resonance "0.3"
+    #resonance "0.2"
 
 --04
 
@@ -102,9 +106,9 @@ d2
   -- $sometimesBy 0.5 ((3/14) <~)
   $stack
   [
-    -- s "tabla2(5, 14)" #n "{0 .. 30}%9" #gain "1.3",
+    -- s "tabla2(5, 14)" #n (choose [0 .. 10]) #gain "1.3",
     -- s "kon(8, 14, [0, 5])" #n (choose [0]) #gain "1.0",
-    s "uni(9, 14, 2)" #n 1 #gain "1.3",
+    -- s "uni(9, 14, 2)" #n 1 #gain "1.3",
     s "uni(3, 7)" #gain "1.4"
   ]
   |*|gain "1.0"
@@ -126,12 +130,12 @@ do
 d4
   $ sometimesBy 0.2 ((2/7) ~>)
   $ s "superbass*14"
-  # sustain "0.1"
-  # note (scale "minPent" "{0 .. 12}%11")
+  # sustain "0.15"
+  # note (scale "yu" "{0 .. 12}%11")
   |*| note "[1.0, 1.008]"
   # lpf (range 100 8000 $rand)
   # resonance "0.3"
-  # gain "1.0"
+  # gain "0.0"
 
 -- minPent majPent ritusen egyptian kumai hirajoshi iwato chinese indian pelog prometheus scriabin gong shang jiao zhi yu whole augmented augmented2 hexMajor7 hexDorian hexPhrygian hexSus hexMajor6 hexAeolian major ionian dorian phrygian lydian mixolydian aeolian minor locrian harmonicMinor harmonicMajor melodicMinor melodicMinorDesc melodicMajor bartok hindu todi purvi marva bhairav ahirbhairav superLocrian romanianMinor hungarianMinor neapolitanMinor enigmatic spanish leadingWhole lydianMinor neapolitanMajor locrianMajor diminished diminished2 chromatic      
 
@@ -139,7 +143,7 @@ d4
   $chop 20
   $jux (rev)
   $s "eh(5, 14, {4, 8})"
-  #n "{0 .. 5}%9"
+  #n "{0}%9"
   #gain "0.9"
 
 -- 07
@@ -147,17 +151,16 @@ d5
   $jux (rev)
   $s "supersaw(14, 14)"
   #sustain "0.11"
-  # note (scale "indian" "{0 .. 12}%9") |+| note "[-12]"
-  |*| note "[1.0, 1.005]"
-  - |+| note "[0, -12]"
+  # note (scale "indian" "{0 .. 7}%11") |+| note "[-12]"
+  |*| note "[1.0, 1.001]"
   #voice (range 0.1 0.5 $slow 24 $sine)
   #cutoff (range 800 8000 $slow 14 $sine)
-  #resonance "0.2"
+  #resonance "0.3"
   #gain "0.0"
 
 
-  #semitone "{7 0 12 5 19 24}%11"
-  #room "0.5" #size "0.3"
+  #semitone "{7 0 12 5 19 24}%9"
+  #room "0.5" #size "0.8"
 
 solo 5
 
@@ -166,7 +169,7 @@ d5 silence
 --09
 do
   let chord2 = "c'sus4"
-  d7
+  d6
     $jux ((3/7) <~)
     $stack
     [
@@ -182,19 +185,7 @@ do
 
 d7 silence    
 
-do
-  let chord3 = "c'maj7"
-  d6
-    $jux ((3/7) ~>)
-    $s "supersaw(7, 14, {3, 4})"
-    # note chord3
-    |+|note "17"
-    #sustain "0.2"
-    #lpf (range 800 15000 $slow 5 $sine)
-    #resonance "0.2"
-    #gain "1.2"
-    #room "0.3" #size "0.9"
 
-d1 silence
+d6 silence
 
 hush
