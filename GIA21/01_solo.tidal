@@ -1,5 +1,6 @@
 -- 01 noise
 do
+  hush
   unsolo 5
   setcps(75/120)
   let
@@ -32,12 +33,11 @@ do
     #delaytime (choose [0.01, 0.03, 0.02, 0.008])
     #delayfeedback "0.95"
     |*|gain "1.7"
-    #room "0.8"
-    #size "0.9"
+    #room "1.0"
+    #size "1.0"
   d3
     $s "distd(5, 7)"
-    #n 0
-    #gain "1.5"
+    #gain "1.8"
     
   
 do  
