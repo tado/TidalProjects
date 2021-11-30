@@ -118,13 +118,13 @@ d6
   $slow 2
   $jux ((3/7) ~>)
   $sound "autech2(5, 14, [0, 5, 10])"
-  #gain "1.5"
+  #gain "1.7"
   #speed "[1.005, 1.0]"
   #n "{0 1 2 3}%5"
   #lpf (range 400 18000 $slow 4 $sine) #resonance "0.1"
   |*|speed "[-1.0, 3]"
   #shape "0.8"
-  -- #room "0.5" #size "0.8"
+  #room "0.5" #size "0.8"
 
 d3
   $jux (rev)
