@@ -3,7 +3,7 @@ do
   unsolo 5
   setcps(75/120)
   let
-    pat1 = "{0 ~ ~ 0 ~ ~ 0 ~ ~}%14"
+    pat1 = "{0 ~ ~ 0 ~ 0 ~ ~ ~}%14"
   d1
     $sometimesBy 0.1 (rev)
     $sometimesBy 0.4 ((1/7) <~)
@@ -31,16 +31,18 @@ do
     #delay "0.9"
     #delaytime (choose [0.01, 0.03, 0.02, 0.008])
     #delayfeedback "0.95"
-    |*|gain "1.5"
-    #room "0.5"
+    |*|gain "1.7"
+    #room "0.7"
     #size "0.7"
   d3
     $s "distd(3, 7)"
     #n 2
     #gain "1.7"
     #shape "0.9"
+  
+do  
   let
-    pat2 = "{0 ~ 0 ~ ~ ~ ~}%14"
+    pat2 = "{0 ~ 0 ~ 0 0 ~ ~ ~}%14"
   d4
     $every 4 (jux ((1/7) ~>))
     $up pat2
@@ -53,11 +55,11 @@ do
     #resonance "0.4"
     #detune "10"
     #accelerate (choose [0, 0, 1, 4]) #slide "1"
-    #gain "1.1"
+    #gain "1.0"
 
 do
   let
-    pat3 = "{0 ~ 0 ~ ~ ~ 0}%14"
+    pat3 = "{0 ~ 0 ~ 0 ~ 0}%14"
   d5
     $sometimesBy 0.4 (jux ((1/7) ~>))
     $up pat3
@@ -78,18 +80,14 @@ d3
     s "gabba(6,14,0)" #n (irand 64),
     s "ifdrums(10,14)" #n (irand 64)
   ]
-  -- #hpf 1000
-  |*|gain "1.5"
+  |*|gain "1.7"
   #shape "0.7"
 
 d4
   $jux ((5/14) ~>)
   $s "uni(5, 14, [0, 6, 9, 12])"
   #n "{0 1 2 3 4}%5"
-  -- #delay "0.5"
-  -- #delaytime "{0.005 0.02 0.01}%4"
-  -- #delayfeedback "0.9"
-  #gain "1.5"
+  #gain "1.7"
   #shape "0.5"
 
 d4
@@ -116,17 +114,30 @@ d3
   #n (irand 64)
   #pan (rand)
 
---11
-d4
+-- harmony ------------------
+d5
+  $jux (rev)
+  $s "supersaw(3, 14)"
+  #note "c4'sus4"
+  |+| note "[0, 7][7, 14][14, 21]"
+  |+| note "[0, 7, 12]"
+  #lpf (range 100 10000 $rand) #resonance "0.4"
+  #sustain "0.1"
+  #gain "1.5"
+  #shape "0.8"
+  #room "0.1" #size "0.8"
+  
+d6
   $slow 2
   $jux ((3/7) ~>)
   $sound "autech2(5, 14, [0, 5, 10])"
-  #gain "1.0"
+  #gain "1.5"
   #speed "[1.005, 1.0]"
   #n "{0 1 2 3}%5"
   #lpf (range 400 18000 $slow 4 $sine) #resonance "0.1"
   |*|speed "[-1.0, 3]"
-  #shape "0.7"
+  #shape "0.8"
+  -- #room "0.5" #size "0.8"
 
 d3
   $jux (rev)
