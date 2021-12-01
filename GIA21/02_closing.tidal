@@ -1,0 +1,62 @@
+hush
+
+setcps (63/120)
+
+do
+  let chord = "c5'sus4"
+  d1  
+    $jux (rev)
+    $s "superwho(5, 16)"
+    # note chord
+    |+| note "[0, <12 17>/4]"
+    # sustain (1.0/16.0)
+    # room "0.2" #size "0.3"
+    # delay "0.5" #delaytime "0.125" #delayfeedback "0.3"
+    # lock 1
+    # orbit 1
+    # gain "1.0"
+
+d2
+  -- $jux (iter 16)
+  $s "[uni hc]*4"
+  # delay "0.7" #delaytime "0.125" #delayfeedback "0.2"
+  # lock 1
+  # gain "1.3"
+
+d3
+  $s "<bev>/8"
+  # gain "1.4"
+  # room "0.3" #size "0.5"
+
+d3
+  $s "distd*4"
+  # delay "0.5" #delaytime "0.125" #delayfeedback "0.5"
+  # lock 1
+  # shape "0.7"
+
+d3
+  $s "808:2(9, 16)"
+  # delay "0.5" #delaytime "0.125" #delayfeedback "0.5"
+  # lock 1
+
+d4
+  $s "ifdrums(11, 16)"
+  #n (choose [0 .. 5])
+  # delay "0.5" #delaytime "1.125" #delayfeedback "0.3"
+  # lock 1
+  # shape "0.4"
+
+d5
+  $slow 4
+  $s "superzow"
+  # note "-24"
+  |+| note "0 0 0 [-5 -7]"
+  |+|note "{0, 12, 19}"
+  #lpf "800" #resonance "0.2"
+  #room "0.7" #size "0.9"
+
+unsolo 5
+
+unsolo 1
+
+  
