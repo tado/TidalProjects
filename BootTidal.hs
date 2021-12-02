@@ -75,7 +75,7 @@ let getState = streamGet tidal
     setB = streamSetB tidal
 :}
 
-:set prompt "\ntidal> "
-:set prompt-cont ""
+:set prompt "tidal> "
+-- :set prompt-cont ""
 
 let td_s = pI "td_s"

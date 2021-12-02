@@ -1,14 +1,14 @@
 hush
 
-setcps (63/120)
+setcps (60/120)
 
 do
-  let chord = "c5'sus4"
+  let chord = "c5'sus4 c5'maj7"
   d1  
     $jux (rev)
     $s "superwho(5, 16)"
     # note chord
-    |+| note "[0, <12 17>/4]"
+    |+| note "[0, <12 24>/4]"
     # sustain (1.0/16.0)
     # room "0.2" #size "0.3"
     # delay "0.5" #delaytime "0.125" #delayfeedback "0.3"
@@ -18,21 +18,10 @@ do
 
 d2
   -- $jux (iter 16)
-  $s "[uni hc]*4"
+  $s "[uni]*4"
   # delay "0.7" #delaytime "0.125" #delayfeedback "0.2"
   # lock 1
-  # gain "1.3"
-
-d3
-  $s "<bev>/8"
-  # gain "1.4"
-  # room "0.3" #size "0.5"
-
-d3
-  $s "distd*4"
-  # delay "0.5" #delaytime "0.125" #delayfeedback "0.5"
-  # lock 1
-  # shape "0.7"
+  # gain "1.2"
 
 d3
   $s "808:2(9, 16)"
@@ -42,20 +31,38 @@ d3
 d4
   $s "ifdrums(11, 16)"
   #n (choose [0 .. 5])
-  # delay "0.5" #delaytime "1.125" #delayfeedback "0.3"
+  # delay "0.7" #delaytime "0.125" #delayfeedback "0.1"
   # lock 1
-  # shape "0.4"
+  # shape "0.5"
 
 d5
   $slow 4
-  $s "superzow"
-  # note "-24"
+  $s "superhammond"
+  # note "-12"
   |+| note "0 0 0 [-5 -7]"
-  |+|note "{0, 12, 19}"
-  #lpf "800" #resonance "0.2"
+  |+| note "{0, 7, 12, 16}"
+  |*| note "[1.0, 1.001]"
+  -- #lpf (range 800 8000 $slow 64 $sine) #resonance "0.2"
   #room "0.7" #size "0.9"
+  #voice 1
+  #gain "0.8"
 
-unsolo 5
+d6
+  $jux (rev)
+  $s "superhammond(11, 16)"
+  #sustain (1/5)
+  # note (scale "majPent" "{0 .. 12}%9")
+  |*| note "[1.0, 1.001]"
+  |+| note "[0, 7]"
+  #lpf (range 200 2000 $slow 64 $sine)
+  #resonance "0.2"
+  #voice 6  
+  #gain "0.9"
+
+
+unsolo 6
+
+hush
 
 unsolo 1
 
