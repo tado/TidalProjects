@@ -39,7 +39,6 @@ do
     $s "distd(5, 7)"
     #gain "1.8"
     
-  
 do  
   let
     pat2 = "{0 ~ 0 ~ 0 0 ~ ~ ~}%14"
@@ -106,7 +105,7 @@ d5
   $s "supersaw(3, 14)"
   #note "c4'sus4"
   |+| note "[0, 7][7, 14][14, 21]"
-  |+| note "[0, 7, 12]"
+  -- |+| note "[0, 12]"
   -- |+| note "0"
   #lpf (range 1000 8000 $rand) #resonance "0.2"
   #sustain "0.1"
@@ -118,7 +117,7 @@ d6
   $slow 2
   $jux ((3/7) ~>)
   $sound "autech2(5, 14, [0, 5, 10])"
-  #gain "1.7"
+  #gain "0.0"
   #speed "[1.005, 1.0]"
   #n "{0 1 2 3}%5"
   #lpf (range 400 18000 $slow 4 $sine) #resonance "0.1"
@@ -140,7 +139,7 @@ d3
     #up "{0 -7 7 12}%7"
   ]
   |*| gain "<1 1 1 1 1 1 1 0>"
-  |*| gain "1.0"
+  |*| gain "0.0"
   #shape "0.8"
   -- #hpf 1000
 
@@ -169,7 +168,7 @@ d3
   $s "matsu"
   #n "[2.0, 1.5]"
   #gain "1.2"
-  #td_s "1"
+  #td_s "0"
 
 hush
 
