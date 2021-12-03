@@ -107,7 +107,7 @@ d5
   #note "c4'sus4"
   |+| note "[0, 7][7, 14][14, 21]"
   |+| note "[0, 7, 12]"
-  |+| note "0"
+  -- |+| note "0"
   #lpf (range 1000 8000 $rand) #resonance "0.2"
   #sustain "0.1"
   #gain "1.3"
