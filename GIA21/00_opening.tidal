@@ -1,6 +1,6 @@
 hush
 
-setcps(72/120)
+setcps(70/120)
 
 d1
   $ s "uni:1(1, 7)"
@@ -31,6 +31,8 @@ d3
   $sound "autech2(4, 7, [0, 5])"
   #gain "0.0"
   
+  
+  
   #speed "[1.0, 1.5][1.001, 1.0][3.0, 2.0]"
   #lpf (range 400 9000 $rand) #resonance "0.2"
   #n (choose [0 .. 2])
@@ -39,7 +41,7 @@ d3
 d4
   $jux (rev)
   $sound "uni:1(5, 14)"
-  #gain "0.0"
+  #gain "1.0"
   
 do
   d1
@@ -47,7 +49,7 @@ do
     $stack
     [
       -- s "cp(5, 14, 5)" #gain "1.2",
-      -- s "uni(5, 14)" #gain "1.5",
+      -- s "uni(5, 14)" #gain "1.3",
       s "hc(9, 14, 5)" #gain "1.0"
     ]
 
@@ -56,6 +58,7 @@ d2
   $jux (rev)
   $sound "tet(5, 14)"
   #gain "0.0"
+  
   
   
   #lpf (range 200 4000 $rand)  #resonance "0.3"
@@ -79,13 +82,13 @@ d2
   -- #resonance "0.2"
 
 do 
-  let chord1 = "c4'sus4 c4'sus2" 
+  let chord1 = "c4'sus4" 
   d4
     $stack
     [
-      sound "supersaw(4,14,0)" # note chord1 |+|note "0"
+      sound "supersaw(5,14,0)" # note chord1 |+|note "0"
     ]
-    #sustain "0.08 0.15"
+    #sustain "0.08"
     #gain "1.0"
     #lpf (range 800 8000 $slow 14 $sine)
     #resonance "0.3"
@@ -102,7 +105,7 @@ d3
   #lpf (range 300 8000 $slow 14 $sine) #resonance "0.3"
 
 d2
-  $sometimesBy 0.5 ((3/14) <~)
+  -- $sometimesBy 0.5 ((3/14) <~)
   $stack
   [
     -- s "tabla2(5, 14)" #n (choose [0 .. 10]) #gain "1.3",
@@ -122,15 +125,15 @@ do
     #sustain "0.1"
     #lpf (range 500 18000 $slow 16 $sine)
     #resonance "0.1"
-    #voice 5
+    #voice 3
     -- |+|note "{0 -12 12 -7 7}%7"
     #gain "0.0"
 
 d3
   $ sometimesBy 0.2 ((2/7) ~>)
   $ s "superbass*14"
-  # sustain "0.2"
-  # note (scale "kumai" "{0 .. 12}%11")
+  # sustain "0.1"
+  # note (scale "minPent" "{0 .. 12}%11")
   |*| note "[1.0, 1.008]"
   # lpf (range 100 8000 $rand)
   # resonance "0.1"
@@ -158,7 +161,7 @@ d5
   #resonance "0.2"
   -- #semitone "{7 0 12 5 19 24}%11"
   #gain "0.0"
-  -- #room "0.2" #size "0.7"
+  -- #room "0.0" #size "0.7"
   
 solo 5
 
