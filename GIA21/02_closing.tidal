@@ -3,7 +3,7 @@ hush
 setcps (60/120)
 
 do
-  let chord = "c5'sus4 c5'maj7"
+  let chord = "c5'sus4 c6'maj7"
   d1
     $sometimes (rev)  
     $jux (0.125 ~>)
@@ -17,6 +17,7 @@ do
     # lock 1
     -- # orbit 1
     # gain "0.8"
+    #td_s (choose [0 .. 9])
 
 d2
   -- $jux (iter 16)
@@ -36,7 +37,7 @@ d4
   #n (choose [0 .. 5])
   -- # delay "0.7" #delaytime "0.125" #delayfeedback "0.1"
   -- # lock 1
-  # shape "0.2"
+  # shape "0.4"
 
 d5
   $slow 4
@@ -62,8 +63,23 @@ d6
   #voice 3
   #gain "0.7"
 
+d1
+  $jux (rev)
+  $s "hasu(9, 16, 3)"
+  #n (choose[0 .. 12])
+  #up "[12, 7, 24]"
+  # delay "0.9" #delaytime (11/16) #delayfeedback "0.25"
+  # lock 1
+  #gain "1.1"
 
-unsolo 6
+d5
+  $s "eh(7, 16)"
+  #n (choose[0 .. 4])
+  #up "[0, 7]"
+  #room "0.5"
+  #gain "1.1"  
+
+unsolo 5
 
 hush
 
