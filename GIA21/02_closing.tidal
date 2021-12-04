@@ -3,21 +3,21 @@ hush
 setcps (60/120)
 
 do
-  let chord = "c5'sus4 c6'maj7"
+  let chord = "c5'sus4"
   d1
-    $sometimes (rev)  
-    $jux (0.125 ~>)
-    $jux (0.5 ~>)
+    -- $sometimes (rev)  
+    -- $jux (0.125 ~>)
+    -- $jux (0.5 ~>)
     $s "superwho(5, 16)"
     # note chord
     |+| note "[0, <12 24>/4]"
     # sustain (1.0/12.0)
-    # room "0.2" #size "0.3"
-    # delay "0.9" #delaytime (11/16) #delayfeedback "0.75"
-    # lock 1
+    -- # room "0.2" #size "0.3"
+    -- # delay "0.9" #delaytime (11/16) #delayfeedback "0.75"
+    -- # lock 1
     -- # orbit 1
     # gain "0.8"
-    #td_s (choose [0 .. 9])
+    
 
 d2
   -- $jux (iter 16)
@@ -25,6 +25,7 @@ d2
   -- # delay "0.7" #delaytime "0.125" #delayfeedback "0.2"
   -- # lock 1
   # gain "1.3"
+  #td_s (choose [0 .. 9])
 
 d3
   $s "808:2(9, 16)"
