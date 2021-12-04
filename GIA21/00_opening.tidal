@@ -74,7 +74,7 @@ d3
 d2
   -- $jux ((3/7) <~)  
   -- $jux (rev)
-  $sound "jimsyn(9, 14)"
+  $sound "jimsyn(5, 14)"
   #n "<20 1>"
   |*| up "-0.2"
   |*| gain "0.0"
