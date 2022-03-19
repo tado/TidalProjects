@@ -1,6 +1,7 @@
 -- 01 noise
 do
-  hush
+  hu
+  sh
   unsolo 5
   setcps(75/120)
   let
