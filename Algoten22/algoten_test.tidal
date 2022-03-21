@@ -5,39 +5,25 @@ setcps(75/120)
 d1
   $slow 4
   $s "matsu"
+  #note 0
   #td_s 0
 
 d2
   $slow 2
   $jux (rev)
   $s "spiano"
-  
-
-
   #n (choose[0..3])
   #note (choose [-12, 0, 7])
   |+|note "[-12, 0, 7]"
 
 -- 01 noise
 do
-  hush
-  setcps(75/120)
   let
-    pat1 = "{0 ~ ~ 0 ~ 0 ~ ~ ~}%14"
+    pat1 = "{0 ~ ~ ~}%14"
   d1
-    $sometimesBy 0.1 (rev)
-    $sometimesBy 0.4 ((1/7) <~)
-    $stack
-    [
-      s "uni(5, 14)" #n "{0 1 2}%7", 
-      s "distd(2, 14)" |*|gain "1.5" #voice "4" #sustain "0.2",
-      s "uni:1(2, 14, 5)"
-    ]
-    #shape "0.9"
-    |*|gain "1.7"
-    #td_s (irand 8)
-  d2
-    $every 3 (jux ((3/7) ~>))
+    $sometimesBy 0.2 (fast 2)
+    $sometimesBy 0.3 (rev)
+    $jux ((5/7) ~>)
     $stack
     [
       up pat1
@@ -46,17 +32,23 @@ do
       |+| note "{0, 5, 7, 12}"
     ]
     #sustain (choose [0.05, 0.12, 0.15])
-    #pitch1 (choose [0.33, 3.33, 19.33])
+    #pitch1 (range 0.01 20.0 $rand)
     #voice (choose [30, 1000, 4000, 12000])
-    #delay "0.9"
-    #delaytime (choose [0.01, 0.03, 0.02, 0.008])
-    #delayfeedback "0.95"
-    |*|gain "1.7"
-    #room "1.0"
-    #size "1.0"
-  d3
-    $s "distd(5, 7)"
-    #gain "1.8"  
+    #delay "1.0" #delaytime (choose [0.01, 0.03, 0.02, 0.008]) #delayfeedback "0.9"
+    |*|gain "1.8"
+    #room "0.9"
+    #size "0.9"
+
+d2
+  $sometimesBy 0.1 (rev)
+  $stack
+  [
+    s "uni(3, 14)" #n (choose[0..2]), 
+    s "distd(5, 14)" #gain "1.5" #voice "4" #sustain "0.1"
+  ]
+  #shape "0.9"
+  |*|gain "1.9"
+  #td_s (irand 8)
 
 do  
   let
@@ -80,7 +72,7 @@ d5
   $jux ((5/14) ~>)
   $s "uni(5, 14, [0, 6, 9, 12])"
   #n "{0 1 2 3 4}%5"
-  #gain "1.5"
+  #gain "1.3"
   #shape "0.9"
 
 -- 02 beat --------------------------------------------------
@@ -121,23 +113,23 @@ d3
 
 -- harmony ------------------
 d5
-  $jux (rev)
-  $s "supersaw(3, 14)"
+  -- $jux (rev)
+  $s "supersaw(5, 14)"
   #note "c4'sus4"
   |+| note "[0, 7][7, 14][14, 21]"
-  -- |+| note "[0, 12]"
-  -- |+| note "0"
-  #lpf (range 1000 8000 $rand) #resonance "0.2"
-  #sustain "0.1"
-  #gain "1.3"
+  |+| note "[0, 7, 12]"
+  |+| note "0"
+  #lpf (range 1000 8000 $rand) #resonance "0.1"
+  #sustain "0.08"
+  #gain "1.5"
   #shape "0.7"
-  #room "0.1" #size "0.4"
+  #room "0.9" #size "0.8"
   
 d6
   $slow 2
   $jux ((3/7) ~>)
   $sound "autech2(5, 14, [0, 5, 10])"
-  #gain "0.0"
+  #gain "1.5"
   #speed "[1.005, 1.0]"
   #n "{0 1 2 3}%5"
   #lpf (range 400 18000 $slow 4 $sine) #resonance "0.1"
@@ -174,8 +166,6 @@ d1
   #up "[7, 0, 12]"
   #speed "[1.01, 1.0]"
 
-d1 silence  
-
 d2
   $slow 8
   $sound "empty"
@@ -190,7 +180,5 @@ d3
   #gain "1.2"
   #td_s "0"
 
-unsolo 3
-
-hush  
+hush
 
