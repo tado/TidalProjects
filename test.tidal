@@ -31,20 +31,76 @@ d1
   #gain "1.0"
   
 
+setcps(75/120)
+
+hush
+
+d1
+  $s "midi*4"
+  #note 0
+  #midichan 0
+
+d2
+  $s "midi(5, 16, 2)"
+  #note 0
+  #midichan 1
+
+d3
+  $s "midi(5, 8)"
+  #note (choose [-12, -5, 0, 7, 12])
+  #midichan 2  
 
 
+d1
+  $sometimes (slow 2)
+  $sometimes (rev)
+  $stack
+  [
+    s "midi(3, 8)" #midichan 0,
+    s "midi(4, 16, 5)" #midichan 1,
+    s "midi(3, 16)" #midichan 2,
+    s "midi(5, 16, 3)" #midichan 3,
+    s "midi(3, 16, 5)" #midichan 4,
+    s "midi(3, 16, 3)" #midichan 5
+  ]
+  #ccn 17 #ccv 127
+  #ccn 7 #ccv 1
+  #note (choose[-12..12])  
+  #ccn 10 #ccv 64
+  
+d2
+  $sometimes (jux (rev))
+  $s "uni(11, 16)"
+  #n (irand 10)
+  #note 0
+  #nudge "-0.05"   
+  #gain "1.1"
+  #shape "0.9"
+  #room "1.0" #size "0.9" 
 
+d3
+  $s "gabba(9, 16)"
+  #n (irand 3)
+  #gain "1.5"
+  
 
+d2
+  $s "midi(11, 16)"
+  #note "-5 0 7"
+  #midichan (irand 6)
+  
+  
 
+unsolo 3  
 
+d4 
+  $s "ifdrums(11, 16)"
+  #n (irand 12)
+  #gain "1.0"
 
-
-
-
-
-
-
-
+  
+  
+  
 
 
 
