@@ -9,6 +9,12 @@ do
   hush
 
 d1
+  $ sometimesBy 0.1 (slow 2)
+  $ sometimesBy 0.2 (jux (rev))
+  $ s "{cole(5, 16), every(9,16,5)}"
+  # n "{0..20}%13"
+
+d1
   $ sometimesBy 0.3 (jux (iter 16))
   $ sometimesBy 0.2 (slow 2)
   $ s "{every(16, 16), distd(13, 16, 5)}"
@@ -19,7 +25,7 @@ d1
 
 d2
   $ sometimesBy 0.2 (rev)
-  $ s "uni(5, 8)"
+  $ s "uni(8, 8)"
   # gain "1.2"
 
 
