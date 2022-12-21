@@ -1,5 +1,6 @@
 hush
 
+
 setcps(70/120)
 
 d1
@@ -27,6 +28,14 @@ do
 hush
 
 d1
+-- $ sometimesBy 0.1 (slow 2)
+  $ sometimesBy 0.1 (jux (iter 16))
+  $ sometimesBy 0.2 (jux (rev))
+  $ s "{cole(5, 16), every(11,16,5)}"
+  # n "{0..20}%13"
+
+d1
+  $ sometimesBy 0.3 (jux (iter 16))
   $ sometimesBy 0.2 (slow 2)
   $ sometimesBy 0.2 (rev)
   $ sometimesBy 0.1 (jux (iter 16))
@@ -61,7 +70,11 @@ d2
 d2
   -- $ sometimesBy 0.2 (rev)
   $ s "uni(3, 8)"
+  $ sometimesBy 0.2 (rev)
+  $ s "uni(4, 8)"
   # gain "1.2"
+
+unsolo 2  
 
 
 

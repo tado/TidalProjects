@@ -14,24 +14,24 @@ do
     $ s "none"
     # td_s (choose[1])
   d2
-    -- $ jux ((10/14) ~>)
+    $ jux ((10/14) ~>)
     $ s "sfh(2, 14)"
-    # gain "0.65"
+    # gain "0.6"
     # n (choose [0 .. 20])
     # pan (range 0.4 0.6 $ rand)
-    # up "[0, 7]"
+    # up "[0, 12]"
     # speed "[1.01, 1.0]"
     # sustain "4.0"
-    # lpf "2000"
+    # lpf "8000"
 
 do
   d3
     $ slow 4
     $ sound "empty"
     # speed "[1.0, 1.01]"
-    # gain "0.8"    
+    # gain "1.0"    
     # sustain "8.0"
-    # lpf "4000" 
+    # lpf "8000" 
 
 do
   d1
@@ -39,17 +39,20 @@ do
     # td_s (choose[1..4])
   d4
     $ jux ((5/7) ~>)
-    $ sound "autech2(4, 7)"
-    # gain "0.8"
+    $ sound "autech2(4, 7, 0)"
+    # gain "0.75"
     # lpf (range 400 4000 $ slow 14 $ sine) #resonance "0.2"
-    # n 0
+    # n "0"
     # note "[<-12 0>/4, <0 5 7>/4]"
-    |+| note "[0, 7][7, 14]"
-    
-    -- # note "[-12, <5 7>/4]"
-    -- |+ note "[0, 7][7, 14]"
-    -- # n (choose[0..3])
-    -- # n "{0..3}%9"
+    |+| note "[0, 7]"
+
+
+    -- |+| note "[0, 7][7, 14]"
+    -- |+| note "[0, 7]"
+    -- # lpf (range 400 4000 $ slow 14 $ sine) #resonance "0.2"
+    -- # n "<0 1 2 3>/4"
+    -- # note "[<-12 0>/4, <0 5 7>/4]"
+    -- |+| note "[0, 7][7, 14]"
 
 -- 02 
 do
@@ -57,14 +60,13 @@ do
     $ s "none(5, 14)"
     # td_s (choose[5..9])    
   d2
-    -- $ sometimesBy 0.1 (jux (rev))
+    $ sometimesBy 0.1 (jux (rev))
     $ stack
     [
       s "cp(5, 14, 5)" #gain "1.2",
       s "uni(5, 14)" #gain "1.4",
-      s "hc(9, 14, 5)" #gain "1.0"
+      s "hc(9, 14, 5)" #gain "0.9"
     ]
-
 
 --03
 do
@@ -72,17 +74,17 @@ do
     $ s "none(9, 14)"
     # td_s (choose[5..11])
   d3
-    -- $ sometimesBy 0.5 (jux (iter 14))
+    $ sometimesBy 0.5 (jux (iter 14))
     $ jux (rev)
-    $ sound "tet(9, 14)"
-    # gain "1.2"
-    # lpf (range 400 8000 $ slow 7 $ sine) #resonance "0.2"
-    #n "<0 1 2 3>/4"
+    $ sound "tet(6, 14)"
+    # gain "1.1"
+    # lpf (range 400 8000 $ slow 7 $ sine) #resonance "0.3"
+    # n (choose[0..5])
     # note "[0, <-5 -12>/8]"
     
     
-    # note "[0, <-5 -12>/4]"
-    # n "<0 1 2 3>/4"
+    -- # n "<0 1 0 2 0 3>/4"
+    -- # note "[0, <-5 -12>/8]"
     
 do
   d1
@@ -91,9 +93,9 @@ do
   d4
     $ slow 8
     $ s "matsu"
-    -- # n "[1.0, 1.5]"
+    # n "[1.0, 1.5]"
     # sustain "32"
-    # gain "1.5"
+    # gain "1.2"
 
 do
   d1
@@ -101,14 +103,14 @@ do
     # td_s (choose[12..19])
   d3
     -- $ jux ((3/7) <~)  
-    -- $ jux (rev)
+    $ jux (rev)
     $ sound "jimsyn(6, 14)"
     # n "<20 1>"
     -- # n 7
     |*| up "-0.2"
-    |*| gain "1.0"
+    |*| gain "1.2"
     # lpf (range 2000 12000 $ slow 12 $ sine)
-    # resonance "0.2"
+    # resonance "0.3"
 
 do 
   let chord1 = "c4'sus4 a4'min7"
@@ -118,12 +120,12 @@ do
   d5
     $ stack
     [
-      sound "supersaw(5,14,10)" # note chord1 |+| note "12",
+      sound "supersaw(5,14,9)" # note chord1 |+| note "12",
       sound "supersaw(5,14,5)" # note chord1 |+| note "7",
       sound "supersaw(5,14,0)" # note chord1 |+| note "0"
     ]
     # sustain "0.3 0.1"
-    # gain "0.8"
+    # gain "0.9"
     # lpf (range 400 8000 $ slow 7 $ sine)
     # resonance "0.2"
 
@@ -134,10 +136,10 @@ do
     # td_s (choose[10..11])  
   d3
     $ jux ((3/7) ~>)
-    $ s "deepsyn(9, 14)"
+    $ s "deepsyn(9, 14, [0, 5])"
     # gain "1.0"
     # n "<6 7 8 9>*4"
-    # up "[19, 24]"
+    # up "[19, 24][24, 31]"
     # speed "[1.005, 1.0]"
     # lpf (range 300 8000 $ slow 14 $ sine) # resonance "0.2"
 
@@ -147,40 +149,48 @@ do
     # td_s (choose[5..19]) 
   d4
     $ sometimesBy 0.2 (rev)
-    $ sometimesBy 0.5 ((3/14) <~)
+    -- $ sometimesBy 0.5 ((3/14) <~)
     $ stack
     [
-      s "tabla2(5, 14)" # n (choose [0 .. 10]) # gain "1.1",
-      s "kon(9, 14, [0, 5])" # n (choose [0..5]) # gain "0.9",
+      s "tabla2(5, 14)" # n (choose [0 .. 10]) # gain "1.3",
+      s "kon(6, 14, [0, 5])" # n (choose [0..10]) # gain "1.2",
       s "uni(9, 14, 2)" # n 1 # gain "1.1",
-      s "uni(3, 7)" # gain "1.1"
+      s "uni(3, 7)" # gain "1.2"
     ]
     |*| gain "1.0"
     -- # hpf 2000
 
 -- 06
 do
-  let chord2 = "c4'sus4"
+  let chord2 = "c4'maj"
   d4
     $ jux ((3/14) ~>)
-    $ s "superhammond(6, 14, [0, 5])" # note chord2 |+| note "[0, 24]"
-    # sustain "0.1"
+    $ s "superhammond(6, 14, [0, 5])"
+    # note chord2 |+| note "[0, 24]"
+    # sustain "0.15"
     # lpf (range 500 8000 $ slow 16 $ sine)
-    # resonance "0.3"
-    # voice "<0 1 2 3 4>/4"
+    # resonance "0.2"
+    # gain "0.5"
+    # voice (choose[0, 1, 2, 3, 4, 5])
     |+| note "{0 -12 12 -7 7}%7"
-    # gain "0.7"
+
+    -- # voice (choose[0, 1, 2, 3, 4, 5])
+    -- # note "[0, 7]"
+    -- # voice "<0 1 2 3 4>"
+    -- # note "[0, 7]"
+    -- |+| note "{0 -12 12 -7 7}%7"
+    
 
 do
   d5
     $ sometimesBy 0.2 ((2/7) ~>)
     $ s "superbass*14"
     # sustain "0.2"
-    # note (scale "yu" "{0 .. 12}%11")
-    |*| note "[1.0, 1.008]"
+    # note (scale "yu" "{0 .. 12}%19")
+    |*| note "[1.0, 1.01]"
     # lpf (range 100 8000 $ rand)
     # resonance "0.2"
-    # gain "0.8"
+    # gain "1.1"
 
 -- minPent majPent ritusen egyptian kumai hirajoshi iwato chinese indian pelog prometheus scriabin gong shang jiao zhi yu whole augmented augmented2 hexMajor7 hexDorian hexPhrygian hexSus hexMajor6 hexAeolian major ionian dorian phrygian lydian mixolydian aeolian minor locrian harmonicMinor harmonicMajor melodicMinor melodicMinorDesc melodicMajor bartok hindu todi purvi marva bhairav ahirbhairav superLocrian romanianMinor hungarianMinor neapolitanMinor enigmatic spanish leadingWhole lydianMinor neapolitanMajor locrianMajor diminished diminished2 chromatic      
 
@@ -191,7 +201,7 @@ do
     $ s "eh(5, 14, [4, 8])"
     -- # n "{0..3}%9"
     # n 0
-    # gain "0.95"
+    # gain "1.0"
 
 -- 07
 do
@@ -199,20 +209,23 @@ do
     $ jux (rev)
     $ s "supersaw(14, 14)"
     # sustain "0.1"
-    # note (scale "yu" "{0 .. 12}%3") |+| note "[-24, -12]"
-    |*| note "[1.0, 1.002]"
-    |+| note "[0, 7]"
+    # note (scale "yu" "{0 .. 12}%13") |+| note "[-24, -12]"
+    #lpf (range 400 12000 $ slow 14 $ sine)  #resonance "0.3"
+    #gain "1.1"
     #voice (range 0.01 0.9 $ slow 24 $ sine)
-    #cutoff (range 400 12000 $ slow 14 $ sine)
-    #resonance "0.3"
-    #semitone "{7 0 12 5 19 24}%13"
-    #gain "0.8"
-    #room "0.7" #size "0.5"
+    #semitone "{7 0 12 5 19 24}%19"
+    #room "0.8" #size "0.5"
+    
+    -- |*| note "[1.0, 1.002]"
+    -- |+| note "[0, 7]"
+    -- #voice (range 0.01 0.9 $ slow 24 $ sine)
+    -- #semitone "{7 0 12 5 19 24}%19"
+    -- #room "0.8" #size "0.5"
 
 
 --09
 do
-  let chord2 = "c'sus4 a5'min"
+  let chord2 = "c'sus4"
   d7
     $ jux ((3/7) <~)
     $ stack
@@ -224,7 +237,7 @@ do
     #cutoff (range 2000 18000 $ slow 16 $ sine)
     #resonance "0.3"
     #sustain "0.1"
-    #gain "0.6"
+    #gain "0.5"
     |+| note "<0 7 -7 -5 5 -12>"
     |+| note 12
 
@@ -338,24 +351,27 @@ d4
 d5
   $ jux (rev)
   $ s "supersaw(5, 14)"
-  #note "c4'maj7 a5'min"
-  |+| note "[0, 7][7, 14][14, 21]"
-  |+| note "[0, 12]"
-  |+| note "0"
+  #note "c5'sus4 a4'min7"
+  |+| note "<0 4 5 7 9>/4"
   #lpf (range 400 8000 $ rand) #resonance "0.1"
   #sustain "0.1"
+  #gain "1.6"
   #room "0.2" #size "0.8"
-  #gain "1.3"
+  |+| note "[0, 12]"
+  -- |+| note "[0, 7][7, 14][14, 21]"
+  
+  
   
 d2
   $slow 2
   $jux ((3/7) ~>)
   $sound "autech2(5, 14, [0, 5, 10])"  
+  #note "[0, 7]"
   #speed "[1.005, 1.0]"
   #n "{0 1 2 3}%5"
   #lpf (range 400 18000 $slow 4 $sine) #resonance "0.1"
   |*|speed "[-1.0, 3]"
-  #gain "1.3"
+  #gain "1.5"
     
 
 d3 silence
@@ -371,16 +387,17 @@ do
     #pan (range 0.4 0.6 $rand)
     #up "[7, 0, 12]"
     #speed "[1.01, 1.0]"
-    #gain "1.3"
+    # gain "0.0"
+    # lpf 600
 
 d4
   $slow 8
   $sound "empty"
   #speed "[1.0, 1.01]"
-  #gain "1.5"
+  #gain "0.5"
   -- #lpf "12000"
 
-d4 silence
+d2 silence
 
 do
   d1
@@ -393,21 +410,42 @@ do
     #gain "1.2"
     #td_s "10"
 
-d2 silence
+d7 silence
+
+
+-- Thank you very much!!
+-- See you sometime!!
+
+hush
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 hush
 
 d1
-  $ s "none*14"
-  # td_s (choose[0]) 
-
--- Thank you!
--- See you sometime!
-
-
-d1
   $s "none"
   #td_s 0
+
+
 
 
 
