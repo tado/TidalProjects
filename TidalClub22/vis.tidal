@@ -276,7 +276,9 @@ do
   d4
     $s "distd(5, 7)"
     #gain "1.8"
-    
+
+hush    
+
 do  
   let
     pat2 = "{0 ~ 0 ~ 0 0 ~ ~ ~}%14"
