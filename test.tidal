@@ -1,7 +1,78 @@
 hush
 
 
-setcps(70/120)
+setcps(132/120)
+
+d1
+  $ sometimesBy 0.2 (slow 2)
+  $ sometimesBy 0.2 (rev)
+  $ s "rian(<5 7 5 7 1>, 8)"
+  # n "{0..3}%3"
+  |+| up "<[0, -5][0, 7][0, 12][5, 0]>"
+  |+| up "<0 0 0 1 2 1>"
+  # lpf (range 100 8000 $ rand)  
+  # resonance "0.3"
+  # pan (rand)
+  # delay "0.8"
+  # delaytime "{0.01 0.03 0.002 0.005}%3"
+  # delayfeedback "0.9"
+  # td_s (choose[0..1])
+  # room "0.8"
+  # size "0.8"
+
+  |+| up "<[0, -5][0, 7][0, 12][5, 0]>"
+  # lpf (range 100 18000 $ rand)
+  # resonance "0.2"
+  # pan (rand)
+  # room "0.8"
+  # size "0.5"
+  # delay "0.5"
+  # delaytime "{0.01 0.03 0.002 0.005}%3"
+  # delayfeedback "0.9"
+  # td_s (choose[0..1])
+
+  -- |+| up "<0 -5 0 -9>"  
+  # sustain "0.2"
+
+  # gain "0.9"
+  
+  # room "0.8"
+  # size "0.5"
+  
+  # delay "0.0"
+  # delaytime "{0.01 0.03 0.002 0.005}%3"
+  # delayfeedback "0.9"
+  -- # shape "0.3"
+
+d2 
+  $ sometimesBy 0.2 (rev)
+  $ s "uni(3, 8)"
+  -- # n "{0..1}%5"
+  # gain "1.1"
+  # shape "0.3"
+
+d3 
+  $ s "fell(5, 8)"
+  # n (irand 3)
+  # gain "1.2"
+
+d2
+  $ sometimesBy 0.2 (jux (rev))
+  $ s "bfm(9, 16)"
+  # note (scale "yu" "{0..24}%19")
+  -- |+ note (choose[-24, -12, 0])
+  -- |+| note "-12"
+  |+| note "[0, 7]"
+  
+  # pitch1 (irand(1))  
+  # sustain "0.3 0.1"
+  # lpf (range 10 800 $ rand)
+  # resonance "0.3"
+  # room "0.9"
+  # size "0.9"
+  --   # delay "0.8"
+  -- # shape "0.9"
+  
 
 d1
   $ sometimesBy 0.3 (jux (iter 16))
@@ -339,7 +410,7 @@ d3
   -- $ sometimesBy 0.2 (rev)
   $ sometimesBy 0.2 (jux (iter 16))
   $ s "superbass(16, 16, <0 5>)"
-  # note (scale "iwato" "{0..15}%11")  
+  # note (scale "iwato" "{0..15}%11")
   # lpf (range 100 12000 $slow 8 $rand)
   # resonance "0.2"
   |+| note "[0, 7]"
