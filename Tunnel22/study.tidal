@@ -1,50 +1,56 @@
-setcps(130/240)
+setcps(135/240)
 
 hush
 
-d1
-  $ s "none*8"
-  # td_s (choose[3..5])
+d9
+  $ s "none(11, 32)"
+  # td_s (choose[0..11])
 
 d1
   -- $ sometimesBy 0.1 (slow 2)
   $ sometimesBy 0.2 (rev)
-  $ s "rian(13, 16)"
+  $ s "rian(16, 16)"
   # n "{0..3}%5"
   # up "<[0, -5][-12, -5][0, 7][7, 12][5, 0]>"
   # pan (rand)
   # room "0.5" # size "0.9"
-  # lpf (range 100 8000 $ slow 16 $ rand) # resonance "0.3"
-  # delay "0.7" # delaytime "{0.04 0.03 0.01 0.005 0.05}%11" # delayfeedback "0.9"
+  # lpf (range 100 4000 $ rand) # resonance "0.2"
+  # delay "0.7" # delaytime "{0.04 0.03 0.01 0.005 0.05}%3" # delayfeedback "0.9"
+  # gain "0.9"
   -- # td_s (choose[0..4])
+
+d1 silence >> d2 silence >> d3 silence >> d4 silence
   
 d2 
-  $ sometimesBy 0.1 (rev)
-  $ s "uni(9, 16)"
-  # n "{0..2}%9"
-  # gain "1.5"
-  # td_s (choose[0..4])
+  -- $ sometimesBy 0.1 (rev)
+  $ s "distd(4, 16)"
+  -- # n "{0..2}%9"
+  # gain "1.3"
+  -- # td_s (choose[0..4])
   -- # shape "0.3"
-  
+
 d3
-  $ s "distd(3, 16)"
-  -- # n "{0..2}%5"
-  # gain "1.4"
+  $ s "uni(9,16)"
+  -- # n "{2..3}%3"
+  # n (choose[2..4])
+  # gain "1.2"  
+
+d1
+  -- $ jux (iter 16)
+  $ s "deepsyn(9, 16)"  
+  # n "{6 7 8 9}%[9,11]"
+  # up "[0, 12][12, 24]"
+  |+| up "0 12"
+  -- |+| up "{0 5 7 12}%3"
+  # speed "[1.01, 1.0]"
+  # lpf (range 100 18000 $ rand) # resonance "0.2"
 
 d4
-  $ jux (iter 16)
-  $ s "deepsyn(9, 16)"  
-  # n "{6 7 8 9}%9"
-  # up "[19, 24]"
-  # speed "[1.01, 1.0]"
-  # lpf (range 100 8000 $ rand) # resonance "0.2"
-
-d5
-  $ jux (0.25 ~>)
+  $ jux (0.125 ~>)
   $ sound "jimsyn(6, 16)"
-  # n "<20 1>*2"
+  # n "<20 1>"
   |*| up "-0.2"
-  |*| gain "1.0"
+  |*| gain "1.2"
   # lpf (range 2000 10000 $ slow 8 $ tri) # resonance "0.3"
 
 d5
@@ -55,41 +61,41 @@ d5
 
 d5 silence >> d4 silence >> d3 silence >> d2 silence
   
-d6
+d5
   $ slow 2
   -- $ sometimesBy 0.2 (fast 2)
-  $ s "sfh(3, 8, [0, 3])"
+  $ s "sfh(2, 8, [0, 3])"
   # n (irand 33)
   # room "0.8" # size "0.9"
   # gain "0.8"
-  -- # td_s (choose[2])
-
+  -- # td_s (choose[0..2])
 
 d1
   $ slow 4
   $ s "empty"
-  # room "0.8" # size "0.8"
-  # gain "1.1"
+  -- # room "0.8" # size "0.8"
+  # gain "1.2"
   
 
-d4
+d5
   -- $ jux (rev)
-  $ sometimesBy 0.2 (slow 2)
+  -- $ sometimesBy 0.2 (slow 2)
   $ s "supermoog(16, 16)"
   # pan (rand)
   # sustain "0.12"
-  # note (scale "minPent" "{0..[5, 12]}%5")
-  -- # note (choose[0..12])
-  -- |+| note "[0, 12]"
+  # note (scale "yu" "{0..[7, 19]}%3")
+  |+| note "[0, 12]"
   |+| note 2
   |+| note "-12"
-  # lpf (range 200 3000 $ slow 8 $ rand) # resonance "0.2"
-  -- # room "0.5" # size "0.9"
-  # gain "1.2"
-  # shape "0.5"
-  # td_s (choose[3..4])
+  # lpf (range 100 8000 $ slow 8 $ rand) # resonance "0.2"
+  # room "0.3" # size "0.9"
+  # gain "1.0"
+  -- # shape "0.5"
+  -- # td_s (choose[0..7])
 
+unsolo 5
 
-d3 silence
+d4 silence
 
 hush
+
