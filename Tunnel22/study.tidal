@@ -22,10 +22,10 @@ d1
 d1 silence >> d2 silence >> d3 silence >> d4 silence
   
 d2 
-  $ sometimesBy 0.1 (rev)
-  $ s "distd(<4 4 4 6>, 16)"
+  -- $ sometimesBy 0.1 (rev)
+  $ s "uni(<4 6 4 6>, 16)"
   -- # n "{0..2}%9"
-  # gain "1.5"
+  # gain "1.3"
   -- # td_s (choose[0..4])
   -- # shape "0.3"
 
@@ -43,20 +43,20 @@ d4
   |+| up "0 12"
   -- |+| up "{0 5 7 12}%3"
   # speed "[1.01, 1.0]"
-  # lpf (range 100 18000 $ rand) # resonance "0.2"
+  -- # lpf (range 100 18000 $ rand) # resonance "0.2"
 
 d5
   $ jux (0.125 ~>)
-  $ sound "jimsyn(6, 16)"
+  $ sound "jimsyn(9, 16, 5)"
   # n "<20 1>"
   |*| up "-0.2"
-  |*| gain "1.2"
+  |*| gain "1.1"
   # lpf (range 2000 10000 $ slow 8 $ tri) # resonance "0.3"
 
 d4
   $ s "<matsu>/16"
-  # up "[0, -7]"
-  # gain "1.5"
+  -- # up "[0, -7]"
+  # gain "1.7"
   # room "0.7"
 
 d5 silence >> d4 silence >> d3 silence >> d2 silence
@@ -108,19 +108,21 @@ d2
   $ jux (iter 8)
   $ s "uni(3, 16)"
   # n 1
-  # gain "1.3"
+  # gain "1.1"
   
 d3
-  $ s "felld(9, 16)"
-  # n "{0..3}%5"
+  $ s "fell2(9, 16)"
+  # n "{0..5}%3"
   # gain "1.3"
 
 d6
   $ jux (rev)
-  $ sometimesBy 0.2 (rev)
-  $ s "kon(5, 16)"
+  -- $ sometimesBy 0.2 (rev)
+  $ s "kon(9, 16)"
   # pan (rand)
-  # n "{0..13}%3"
-  # gain "1.5"
+  # n "{0..20}%11"
+  # gain "1.0"
 
-unsolo 6  
+solo 6
+
+hush
