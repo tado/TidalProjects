@@ -79,3 +79,4 @@ let getState = streamGet tidal
 :set prompt-cont ""
 
 let td_s = pI "td_s"
+let distort = pF "distort"
