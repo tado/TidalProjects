@@ -226,11 +226,13 @@ do
     # room "1.0" #size "0.9"
   
 d3
-  $ every 4 (jux (iter 16))
-  -- $ sometimesBy 0.1 (rev)
+  -- $ sometimesBy 0.1 (chop 128)
+  -- $ sometimesBy 0.1 (gap 128)
+  -- $ sometimesBy 0.2 (jux (0.125 <~))
+  -- $ every 4 (jux (iter 16))
   $ stack
   [ 
-    s "gabba(2, 16)" # gain "1.1",
+    s "gabba(3, 16)" # gain "1.0",
     s "ifdrums(2, 16, 4)" # n 2 # gain "1.2",
     s "uni(11, 16)" # n (choose[1..3])
   ]
