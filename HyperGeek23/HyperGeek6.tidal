@@ -1,0 +1,313 @@
+do
+  hush
+  setcps(132/240)
+
+d1 $ s "uni:1*4"  
+
+do
+  d9
+    $ s "none" # td_s 1
+  d1
+    $ sometimesBy 0.1 (slow 2)
+    $ s "sfh"
+    # pan (rand)
+    # n (choose[0..100])
+
+do
+  d9
+   $ s "none" # td_s 0
+  once
+    $ s "matsu"
+    # gain "1.2"
+    -- # up "[0, -5, -12]"
+
+d1 silence
+
+do
+  d9
+    $ s "none" # td_s 0
+  once
+    $ s "superfbk"
+    # up 2
+    |+| up "0"
+    # room "0.9" # size "0.9"
+    # sustain "60.0"
+    # gain "0.8"
+
+do
+  d9
+    $ s "none*8"
+    # td_s (choose[0..2])
+  d1
+    -- $ sometimesBy 0.1 (slow 4)
+    $ sometimesBy 0.2 (rev)
+    $ s "rian(9, 16, [0])"
+    # gain "0.9"
+    # pan (rand)
+    # room "0.3" # size "0.5"
+    # lpf (range 100 10000 $ rand) # resonance "0.3"
+    # room "0.3" # size "0.5"
+    # up "<[0, 7][-12, -5] [-5, 0][7, 12]>/6"
+    # delay "0.75" #delaytime (choose [0.01, 0.03, 0.02, 0.008, 0.002]) #delayfeedback "0.7"
+    # n "<0 1 2 3>/4"
+    # gain "0.9"
+    
+do
+  d9
+    $ s "none*4"
+    # td_s (choose[0..4])
+  d2
+    -- $ sometimesBy 0.1 (slow 8)
+    $ s "uni(4, 16)"
+    # gain "1.3"
+    
+d3
+  $ s "uni(9, 16)"
+  # pan (rand)
+  # n (choose[1..3])
+  # gain "1.2"
+
+do
+  let chord = "c5'sus4"
+  d9
+    $ s "none*8"
+    # td_s (choose[0..8])
+  d4
+    $ stack
+    [
+      s "superwho(7, 16, 5)" # note "12",
+      s "superwho(7, 16, 0)" # note "7",
+      s "superwho(7, 16, 7)" # note "0"
+    ]
+    |+| note chord
+    |+| note 14
+    # pan (rand)
+    # sustain "0.12"
+    # lpf (range 100 4000 $ slow 4 $ rand) # resonance "0.3"
+    # room "0.3" # size "0.7"
+    # gain "0.75"
+
+do
+  d9
+    $ s "none(5, 8)"
+    # td_s (choose[9..12])
+  d1
+    $ jux (iter 16)
+    $ s "deepsyn(5, 16)"  
+    # n "{6 7 8 9}%5"
+    # up "14"
+    # speed "[1.01, 1.0]"
+    # gain "0.9"
+    # lpf (range 100 18000 $ rand) # resonance "0.3"
+    # gain "0.9" 
+    
+do
+  d9
+    $ s "none(9, 16)"
+    # td_s (choose[13..14])
+  d4    
+    $ jux (iter 8)
+    $ sound "tet(9, 16)"
+    # gain "1.0"
+    # up 2
+    # n "<0 1 2 3>/8"
+    # lpf (range 800 18000 $ slow 8 $ rand) #resonance "0.3"
+    |+| up "[0, 12]"
+    |+| up "[0, 7][7, 12]"
+
+do
+  d9
+    $ s "none(9, 16)"
+    # td_s (choose[5..14])
+  d5
+    $ sometimesBy 0.3 (rev)
+    $ s "kon(9, 16)"
+    # n "{0..2}%5"
+    # gain "1.1"
+
+d1
+  -- $ jux (0.125 <~)
+  $ s "jimsyn(11, 16)"
+  # n "<20 1>*2"
+  |*| up "2"
+  |+| up "[0, 12]"
+  # gain "0.9"
+
+once
+  $ s "jimsyn"
+  # n 7
+  # up "[0, -12]"
+  # lpf (range 800 18000 $ slow 8 $ rand) #resonance "0.1"
+  # gain "1.3"
+
+do
+  let chord = "c5'sus4"
+  d1
+    $ stack
+    [
+      s "superhammond(5, 16)" # note "7",
+      s "superhammond(5, 16, 7)" # note "0"
+    ]
+    |+| note chord
+    |+| note 2
+    |+| note "[0, 12]"
+    # voice "<0 1 2 3 4>"
+    # pan (rand)
+    # sustain "0.1"
+    # lpf (range 100 8000 $ slow 4 $ rand) # resonance "0.3"
+    # gain "0.75"
+
+do
+  d9
+    $ s "none(9, 16)"
+    # td_s (choose[2])
+  d4
+    -- $ jux (rev)
+    $ s "supermoog(16, 16)"
+    # pan (rand)
+    # sustain "0.12"
+    # note (scale "minPent" "{0..[15, 17]}%11")
+    |+| note 2
+    # lpf (range 200 2000 $ slow 8 $ rand) # resonance "0.1"
+    # room "0.2" # size "0.7"
+    # gain "1.0"
+    
+
+do 
+  let chord = "c5'sus4" 
+  d9
+    $ s "none(9, 16)"
+    # td_s (choose[12..16])
+  d5
+    $ jux (iter 16)
+    $ stack
+    [
+      s "superwho(9, 16, 0)" # note chord |+| note "0"
+    ]
+    |+| note 14
+    # sustain "0.12"
+    # gain "0.9"
+    # room "0.2" # size "0.5"
+    # lpf (range 400 18000 $ slow 14 $ sine)  # resonance "0.1"
+
+once
+  $ s "matsu"
+  # up "[0, -5, 7]"
+  # gain "1.3"
+
+solo 5
+
+---------------
+
+do
+  hush
+  setcps(135/240)
+  unsolo 5
+  let
+    pat1 = "{0 ~ 0 ~ 0 0 ~ ~ ~}%16"
+  d9
+    $ sometimesBy 0.2 (slow 4)
+    -- $ sometimesBy 0.3 (slow 2)
+    -- $ sometimesBy 0.3 (fast 2)
+    $ s "none(16, 16)"
+    # td_s (choose[0..18])
+  d1
+    $sometimesBy 0.1 (rev)
+    $sometimesBy 0.4 ((1/8) <~)
+    $stack
+    [
+      s "uni(10, 16)" # n "{0 1 2}%8", 
+      s "distd(4, 16)" # gain "1.1",
+      s "uni:1(9, 16, 5)"
+    ]
+    -- # room "0.8" # size "0.9"
+    # shape "0.7"
+    # gain "1.1"
+    # delay "0.4" # delaytime "{0.03 0.01 0.015 0.005}%3" # delayfeedback "0.9"
+    # td_s (irand 18)
+  d2
+    $every 3 (jux ((3/8) ~>))
+    $stack
+    [
+      up pat1
+      # s "bfm"
+      # note (choose [12, 0, -12, -24, -36, -46])
+      |+| note "{0, 5, 7, 12}"
+    ]
+    # sustain (choose [0.05, 0.12, 0.15])
+    # pitch1 (choose [0.33, 3.33, 19.33, 7.77])
+    # voice (choose [30, 1000, 4000, 12000, 40000])
+    |*| gain "1.2"
+    # shape "0.5"    
+    # room "1.0" #size "0.8"
+  
+d3
+  $ stack
+  [ 
+    s "uni(16, 16)" # n (choose[1..3]) # gain "1.0",
+    s "ifdrums(9, 16)" # n 1 # gain "1.0",
+    s "ifdrums(2, 16, 4)" # n 2 # gain "1.0",
+    s "gabba(2, 16)" # gain "1.2"
+  ]
+  |+| gain "1.0"
+  # shape "0.5"
+
+do
+  let chord = "c5'sus2 c5'sus4"
+  let base = 0
+  d5
+    $ stack
+    [
+      s "superzow(11, 16)" # note "24"
+    ]
+    |+| note chord
+    |+| note base
+    # pan (rand)
+    # sustain "0.08"
+    # lpf (range 400 18000 $ slow 16 $ sine) # resonance "0.1"
+    # gain "1.2"
+  d4    
+    $ jux (0.25 ~>)
+    $ s "supersaw(16, 16)"
+    # sustain "0.08"
+    # note (scale "yu" "{0..12}%1") |+| note "[-24, -12]"
+    |+| note "[0, 7]"
+    |+| note base
+    # voice (range 0.1 0.5 $ slow 24 $ sine)
+    # lpf (range 800 12000 $ slow 14 $ sine) # resonance "0.4"    
+    # semitone "{7 0 12 5 19 24}%3"
+    # room "0.5" # size "0.7"
+    # gain "1.3"
+
+setcps(135/240)
+
+unsolo 5
+
+once
+  $ s "matsu"
+  # up "[0, -5, -12]"
+  # gain "1.6"  
+
+hush
+
+do
+  d9
+    $ s "none" # td_s 0
+  d1
+    $ sometimesBy 0.1 (slow 2)
+    $ s "sfh*2"
+    # pan (rand)
+    # n (choose[0..100])
+    # gain "1.0"
+
+once
+  $ s "superfbk"
+  # note "0"
+  # room "0.9" # size "0.9"
+  # sustain "60.0"
+  # gain "1.0"
+  # td_s "0"
+  
+
+
+hush
