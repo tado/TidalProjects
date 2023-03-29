@@ -1,6 +1,6 @@
 hush
 
-setcps(130/240)
+setcps(135/240)
 
 d1
   $ s "supersin(16, 16)"
@@ -12,30 +12,46 @@ d1
 
 d2
   $ s "supersin(16, 16)"
-  # note "<c9 g9 a9 c10>*12"
+  # note "<c9 g9 a9 c10>*16"
   # sustain "0.012"
   # gain "0.8"
-  # pan (range 1 0 $ slow 4 $ sine)
+  # pan (range 1 0 $ slow 3 $ sine)
   # room "0.2" # size "0.9"  
 
 d3
   $ s "supersin(5, 16)"
   # note "a2"
   # sustain "0.12"
-  # gain "1.3"
+  # gain "1.4"
   # pan 0.5
   -- # room "0.1" # size "0.9"  
 
 d4
   $ s "supersaw(7, 16, 5)"
   # note "a1"
-  # sustain "0.2"
+  # sustain "0.12"
   # gain "1.0"
   # lpf 220
-  # resonance "0.2"
+  # resonance "0.3"
   # room "0.1" # size "0.9"  
 
-unsolo 4
-  
+d5
+  $ sometimesBy 0.2 (slow 2)
+  $ jux (iter 16)
+  $ s "every(9, 16, 5)"
+  # n (irand 12)
+  # pan saw  
 
-d1 silence >> d2 silence
+d6
+  $ sometimesBy 0.2 (slow 2)
+  $ jux (iter 16)
+  $ s "uni(7, 16)"
+  # n (irand 12)
+  # pan saw
+
+d7
+  $ s "distd(5, 16)"
+  # gain "1.1"
+
+
+
