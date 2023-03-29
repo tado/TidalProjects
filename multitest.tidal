@@ -5,21 +5,21 @@ setcps(135/240)
 d1
   -- $ sometimesBy 0.1 (rev)
   $ s "supersin(16, 16)"
-  # note "<c9 f9 g9 c10>*16"
+  -- # note "<c9 f9 g9 c10>*16"
+  # note "a9"
   # sustain "0.012"
-  -- # pan (range 0 1 $ slow 8 $ sine)
+  # pan (range 0 1 $ slow 2 $ sine)
   # gain "0.8"
-  # pan rand
-  # room "0.3" # size "0.5"
+  # room "0.2" # size "0.9"
 
 d2
   $ s "supersin(16, 16)"
-  # note "<c9 f9 g9 c10>*11"
+  # note "<c9 g9 a9 c10>*16"
   # sustain "0.012"
   # gain "0.8"
-  -- # pan (range 0 1 $ slow 4.5 $ sine)
-  # pan rand
-  # room "0.3" # size "0.5"  
+  # pan (range 0 1 $ slow 2.5 $ sine)
+  -- # pan rand
+  # room "0.2" # size "0.9"  
 
 d3
   $ s "supersin(7, 16)"
@@ -30,14 +30,15 @@ d3
   -- # room "0.5" # size "0.5"  
 
 d4
-  $ s "supersaw(5, 16, 3)"
+  $ s "supersaw(5, 16, 9)"
   # note "a1"
-  # sustain "0.1"
+  # sustain "0.2"
   # gain "1.0"
   # lpf 220
   # resonance "0.2"
+  # room "0.1" # size "0.9"  
 
-unsolo 1
+unsolo 4
   
 
   
