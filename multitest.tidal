@@ -8,7 +8,7 @@ d1
   # sustain "0.012"
   # pan (range 0 1 $ slow 4 $ sine)
   # gain "0.8"
-  # room "0.2" # size "0.9"
+  -- # room "0.2" # size "0.9"
 
 d2
   $ s "supersin(16, 16)"
@@ -16,7 +16,7 @@ d2
   # sustain "0.012"
   # gain "0.8"
   # pan (range 1 0 $ slow 3 $ sine)
-  # room "0.2" # size "0.9"  
+  -- # room "0.2" # size "0.9"  
 
 d3
   $ s "supersin(5, 16)"
@@ -50,8 +50,12 @@ d6
   # pan saw
 
 d7
-  $ s "distd(5, 16)"
-  # gain "1.1"
+  $ s "<distd cp> * 8"
+  # gain "1.2"
+
+hush  
+
+
 
 
 
