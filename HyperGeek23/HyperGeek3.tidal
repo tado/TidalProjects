@@ -26,11 +26,11 @@ do
   once
     $ s "superfbk"
     # up 2
-    |+| up "0"
+    |+| up "5"
     # distort 0.7
-    # room "0.3" # size "0.9"
+    -- # room "0.3" # size "0.9"
     # sustain "60.0"
-    # gain "0.8"
+    -- # gain "0.8"
 
 do
   d9

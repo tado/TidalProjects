@@ -1,0 +1,43 @@
+setcps(135/240)
+
+hush
+
+once
+    $ s "none"
+    # ls_s 1
+    # ls_r 0
+    # ls_u 0.5
+    # ls_h 180
+    # ls_x 0
+    # ls_y 0
+
+d1
+  $ s "none(4, 16)"
+  # ls_h (choose[0..360])
+
+d2
+  $ s "none(9, 16)"
+  # ls_s (choose[0..9])
+  -- # ls_s 0
+
+d3
+  $ s "none(9, 16, 5)"
+  # ls_r (choose[0, 30, 60, 90, 120, 180])
+
+d4
+  $ s "none(5, 16, 2)"
+  # ls_u (choose[0.2,0.5])
+
+d5
+  $ s "none*16"
+  # ls_x (choose[-1, 0, 1, -0.5, 0.5])
+
+d6
+  $ s "none*12"
+  # ls_y 0
+  
+  
+  
+
+
+hush

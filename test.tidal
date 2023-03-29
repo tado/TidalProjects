@@ -1,12 +1,37 @@
 hush
 
+setcps(120/240)
 
-setcps(132/120)
+d4
+  $ sometimesBy 0.3 (jux (iter 16))
+  -- $ sometimesBy 0.1 (rev)
+  $ s "supersaw*16"
+  # pan (rand)
+  # sustain "0.1"
+  # note (scale "ionian" "{-12..[0, 5]}%[5, 7]")
+  # lpf (range 200 10000 $ slow 8 $ sine) # resonance "0.2"
+
+    # gain "1.1"
+
+d2
+  $ sometimesBy 0.1 (slow 2)
+  -- $ jux (iter 16)
+  -- $ jux (iter 8)
+  $ s "uni(11, 16)"
+  # n (choose[0..4])
+  
+
+
+
+
+
+
+
 
 d1
-  $ sometimesBy 0.2 (slow 2)
+  -- $ sometimesBy 0.2 (slow 2)
   $ sometimesBy 0.2 (rev)
-  $ s "rian(<5 7 5 7 1>, 8)"
+  $ s "rian(<11 9 16 7>, 16)"
   # n "{0..3}%3"
   |+| up "<[0, -5][0, 7][0, 12][5, 0]>"
   |+| up "<0 0 0 1 2 1>"
@@ -16,7 +41,7 @@ d1
   # delay "0.8"
   # delaytime "{0.01 0.03 0.002 0.005}%3"
   # delayfeedback "0.9"
-  # td_s (choose[0..1])
+  -- # td_s (choose[0..1])
   # room "0.8"
   # size "0.8"
 
