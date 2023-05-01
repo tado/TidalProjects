@@ -2,25 +2,58 @@ hush
 
 setcps(135/240)
 
+once
+  $ s "matsu"
+  # gain "1.2"
+  # room "0.9" # size "0.8"
+  -- # up "-12"
 
+unsolo 1
 
 d1
-  -- $ jux (iter 16)
-  $ s "rancap(9, 16)"
-  # n (choose[0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 3, 3])
-  # pan (rand)
-  # room "0.9" # size "0.7"
-  # note (choose[-12, -7, -5, 0, 7, 12])
-  # gain "1.2"
-  # lpf (range 80 18000 $ rand) # resonance "0.2"
-  # delay "0.7" # delayfeedback "0.7"
-  # delaytime "{0.01 0.005 0.03 0.008 0.02}%11" 
-  # shape "0.3"
-
+  -- $ jux (1.5 ~>)
+  $ sometimesBy 0.2 (slow 2)
+  $ sometimesBy 0.4 (rev)
+  $ stack[
+    s "rancap(3, 8)" # gain "1.3",
+    s "rancap(16, 16)" # n (choose[1..3])
+    # lpf (range 20 24000 $ rand) # resonance "0.2"
+    # delay "0.5" # delayfeedback "0.7"
+    # delaytime (range 0.005 0.08 $ rand)
+    # note (choose[-5, 0, 0])    
+    # pan (rand)
+  ]
   
 d2
-  $ s "gabba(3, 8)" 
-  # gain "1.2"
+  $ sometimesBy 0.4 (rev)
+  $ stack[
+    s "gabba(3, 8)",
+    s "uni(5, 8)" # n (choose[1..3])
+  ]
+  -- # room "0.8" # size "0.9"
+  
+
+d3
+  $ slow 2
+  $ s "autech2(11, 16, 5)"
+  # n (choose[0..5])
+  # lpf (range 400 10000 $ rand) # resonance "0.2"
+  # pan (rand)
+  # gain "1.1"
+
+d4
+  $ sometimesBy 0.3 (jux (iter 16))
+  -- $ sometimesBy 0.1 (rev)
+  $ s "supersaw*16"
+  # pan (rand)
+  # sustain "0.1"
+  # note (scale "yu" "{-12..[0, 12]}%[5, 9]")
+  |-| note 5
+  # lpf (range 200 10000 $ slow 8 $ sine) # resonance "0.2"
+  # gain "0.9"
+
+
+d2 silence
   
   
 
