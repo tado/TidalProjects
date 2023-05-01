@@ -1,6 +1,168 @@
-hushx
+hush
 
-setcps(120/240)
+setcps(135/240)
+
+
+
+d1
+  -- $ jux (iter 16)
+  $ s "rancap(9, 16)"
+  # n (choose[0, 0, 0, 0, 0, 1, 1, 1, 1, 2, 3, 3])
+  # pan (rand)
+  # room "0.9" # size "0.7"
+  # note (choose[-12, -7, -5, 0, 7, 12])
+  # gain "1.2"
+  # lpf (range 80 18000 $ rand) # resonance "0.2"
+  # delay "0.7" # delayfeedback "0.7"
+  # delaytime "{0.01 0.005 0.03 0.008 0.02}%11" 
+  # shape "0.3"
+
+  
+d2
+  $ s "gabba(3, 8)" 
+  # gain "1.2"
+  
+  
+
+
+d2  
+  $ jux (0.125 ~>)
+  $ s "supersaw(16, 16)"
+  # note (scale "indian" "{-12..[0, 9]}%[7, 13]") 
+  # voice 0
+  # sustain "0.1"
+  # lpf (range 800 10000 $ slow 8 $ sine) # resonance "0.3"
+  # gain "0.7"
+
+d3
+  $ sometimesBy 0.1 (slow 2)
+  $ jux (iter 16)
+  $ s "uni(11, 16)"
+  # n 1
+
+d4
+  $ sometimes (jux (iter 16))
+  $ s "distd*4" # gain "0.8"
+  # pan (slow 16 $ sine)
+
+hush
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+d1
+  $ s "supersaw*16"
+  # n (scale "ionian" "{-12..[0, 5]}%[5, 7]")
+  # lpf (range 200 10000 $ slow 8 $ sine) # resonance "0.2"
+
+d2
+  $ sometimesBy 0.1 (slow 2)
+  $ jux (iter 16)
+  $ s "uni(11, 16)"
+
+
+d1 $ s "bd(3,8)" # gain "1.2"
+  # pan (slow 8 $ sine)
+
+d2 $ s "hh*32" # gain "0.8"
+  # pan (slow 16 $ sine)
+
+d3 $ s "sn(3,8)" # gain "0.8"
+  # pan (slow 4 $ sine)
+
+d4 $ s "bass(5,16)"
+  # n (run 16)
+  # gain "0.9"
+  # pan (slow 8 $ sine)
+
+d5 $ s "arpy*8"
+  # n (irand 8)
+  # gain "0.7"
+  # pan (slow 4 $ sine)
+  # delay "0.5"
+  # delaytime "0.125"
+  # delayfeedback "0.8"
+
+d6 $ s "cp*4" # gain "0.6"
+  # pan (slow 4 $ sine)
+
+d7 $ stack [
+  s "perc(5,16)" # n "0",
+  s "perc(5,16)" # n "1" # gain "0.5"
+  ]
+  # pan (slow 8 $ sine)
+
+
+
+d5 $ s "arpy*4"
+  # n (irand 4)
+  # gain "0.7"
+  # pan (slow 4 $ sine)
+  # delay "0.25"
+  # delaytime "0.125"
+  # delayfeedback "0.8"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+d1
+  $ fast 2
+  $ sometimesBy 0.1 (fast 2)
+  $ sometimesBy 0.2 (rev)
+  $ sometimesBy 0.1 (jux (rev))
+  $ stack
+  [
+    s "<supersaw supersaw*3 ~>*2" 
+      # note "[{0 -5 12}%5, {5 5 7}%5]"
+      |+| note "<0 0 5>*6"
+      |+| note "[0, 7, 12]"
+      |+| note "[0, -12]"
+      # sustain "<0.03 0.03 0.2>*12"
+      # lpf (range 50 8000 $ slow 8 $ sine)
+      # resonance "0.3"
+      # room "0.4"
+      # size "0.8"
+      , 
+    s "<~ uni:1>*6" # gain "1.3",
+    s "cp*6" # gain "1.2",
+    s "uni*2" # gain "1.5"
+  ]
+  # pan (rand)
+
 
 d4
   $ sometimesBy 0.3 (jux (iter 16))
@@ -8,7 +170,8 @@ d4
   $ s "supersaw*16"
   # pan (rand)
   # sustain "0.1"
-  # note (scale "ionian" "{-12..[0, 5]}%[5, 7]")
+  # note (scale "yu" "{-12..[0, 5]}%[5, 7]")
+  |+| note 0
   # lpf (range 200 10000 $ slow 8 $ sine) # resonance "0.2"
 
     # gain "1.1"
