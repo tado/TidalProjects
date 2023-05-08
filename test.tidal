@@ -1,42 +1,66 @@
 hush
 
-setcps(130/240)
+setcps(135/240)
+
+solo 1
 
 d1
-  $ jux (0.625 ~>)
   -- $ slow 2
-  $ s "jbass(16, 16)"
-  # note (scale "minPent" "{[0, 5]..[24, 19]}%[3, 9]")
-  -- |+| note "[0, 12]"
-  # speed "[1.0, 1.01]"
-  # sustain "0.12"
-  # room "0.2"  
-  # lpf (range 80 8000 $ slow 8 $ sine) # resonance "0.3"
-  -- # delay "0.4" # delayfeedback "0.8"
-  -- # delaytime (range 0.003 0.05 $ rand)
-  # n "{0..1}%9"
-  # gain "0.6"
+  -- $ jux (iter 16)
+  $ s "ae(<3 7 2 5>, 8)"
+  # n (choose[0..4])
+  # up (choose[-5, -7, 0, 5, 7])
+  -- # pan (rand)
+  -- # sustain "0.5"
+  -- # speed "[1.0, 1.001]"
+  # room "0.9" # size "0.9"
+  # lpf (range 800 18000 $ slow 8 $ sine) # resonance "0.1"
+  # delay "1.5" # delayfeedback "0.9"
+  # delaytime (range 0.001 0.05 $ rand)
 
 d2
-  $ s "[uni hc]*4"
-  # gain "1.0"
+  $ s "empty/4"
+  # gain "1.5"
+
+d2 silence
+
+d2
+  -- $ jux (0.625 ~>)
+  -- $ slow 2
+  $ s "jbass(16, 16)"
+  # note (scale "yu" "{0..[5, 19]}%[7, 5]")
+  |+| note "12"
+  # speed "[1.0, 1.002]"
+  # sustain "0.15"
+  # room "0.5"
+  -- # lpf (range 100 8000 $ slow 8 $ sine) # resonance "0.2"
+  -- # delay "0.4" # delayfeedback "0.8"
+  -- # delaytime (range 0.003 0.05 $ rand)
+  # pan (rand)
+  # n "{0..1}%7"
+  # gain "0.7"
+
+d2
+  $ s "[uni <hc hc hc hc*2>]*4"
+  # gain "1.1"
 
 d3
   $ s "ifdrums(9, 16)"  
   # n "{0..4}%5"
 
 d5
-  $ sometimesBy 0.3 (jux (iter 16))
+  -- $ jux (1.125 ~>)
+  -- $ sometimesBy 0.3 (jux (iter 16))
   -- $ sometimesBy 0.1 (rev)
   $ s "supermoog(16, 16)"
   # pan (rand)
   # sustain "0.1"
-  # note (scale "minPent" "{-7..7}%[11, 9]")
+  # note (scale "yu" "{0..9}%5")
   |+| note 4
-  # speed "[1.0, 1.005]"
-  # lpf (range 1200 12000 $ slow 4 $ sine) # resonance "0.2"
+  # speed "[1.0, 1.01]"
+  # lpf (range 400 8000 $ slow 4 $ sine) # resonance "0.2"
   -- # room "0.7" # size "0.9"
-  # gain "0.7"  
+  # gain "0.8"  
   
   
 
