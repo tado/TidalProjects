@@ -4,17 +4,17 @@ setcps(130/240)
 
 d1
   $ jux (iter 16)
-  -- $ sometimesBy 0.2 (rev)
+  -- $ sometimesBy 0.1 (rev)
   -- $ every 3 (fast 2)
   $ sometimesBy 0.1 (chop 2)
-  $ s "superperc(<9 5 11>, 16, <0 1 2 3 4 5 6 7>)"  
-  # note "<c5'maj7 a5'min9 c5'sus2>*8"
+  $ s "superperc(9, 16, <0 1 2 3 4 5 6 7>)"  
+  # note "<c5'maj a5'min9 c5'sus2 a5'min7>*8"
   |+| note "[0, 12]"
   # decay "10.0 1.0"
   |+| note "<0 -7 12 -12>"
   # voice "1000 200 2000"
   # pan (rand)
-  # lpf (range 400 4000 $ slow 8 $ sine) # resonance "0.2"
+  -- # lpf (range 2000 4000 $ slow 8 $ sine) # resonance "0.2"
   
 
 d2
