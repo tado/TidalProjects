@@ -2,6 +2,31 @@ hush
 
 setcps(130/240)
 
+d11
+  $ s "none*16"
+  # td_s (choose[0..23])
+
+d1
+  $ s "ifdrums(9, 16)"
+  # n "{0..4}%5"
+
+d2
+  $ every 4 (rev)  
+  $ s "uni(5, 16, 3)"
+  # n "{0..4}%3"
+
+d3
+  $ s "supermoog(14, 16)"
+  # voice 2
+  # sustain "<0.05 0.15>*[4, 3]"
+  # note (scale "majPent" "{0..12}%[9, 11]")
+  |+| note 0
+  # lpf (range 10 8000 $ slow 8 $ rand)
+  # resonance "0.2"
+  # gain "0.7"
+
+hush  
+
 do
   d1
     $ jux (0.625 <~)
