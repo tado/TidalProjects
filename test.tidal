@@ -1,4 +1,4 @@
-hush
+hush    
 
 setcps(135/240)
 
@@ -6,7 +6,7 @@ d12
   $ s "none*8"
   # td_s (choose[0..32])
 
-d1
+
   $ s "supersin*8"
   # voice 0
   # sustain "0.25"
@@ -16,7 +16,7 @@ d1
 
 d2
   $ s "uni(3, 8)"
-  # gain "1.4"
+  # gain "1.2"
   -- # n "{0..4}%3"
 
 d3
@@ -33,28 +33,30 @@ d3
   -- # resonance "0.3"
 
 d1
-  $ every 2 (jux (iter 16))
-  $ s "supermoog(9, 16, [0, 5])"
-  -- # sustain "0.1"
-  # sustain "<0.05 0.2>*3"
-  # note (scale "ritusen" "{0..[9, 7]}%[5, 3]")
+  -- $ every 2 (jux (iter 16))
+  $ s "supermoog(16, 16, 0)"
+  # sustain "0.1"
+  -- # sustain "<0.05 0.15>*3"
+  # note (scale "ritusen" "{0..[9, 19]}%3")
   # speed "[1.0, 1.001]"
-  # lpf (range 10 8000 $ rand)
+  # lpf (range 10 18000 $ rand)
   # resonance "0.2"
   # delay "0.9" # delayfeedback "0.5"
-  # delaytime (range 0.005 0.02 $ rand)  
+  # delaytime (range 0.005 0.02 $ rand)
+  # room "0.8" # size "0.8"
   # gain "0.7"
 
-d5
+d4
   $ s "autech2(3, 8, [0, 5])"
   -- # n "<0 1 2 3>/4"
   -- # sustain ""
-  -- # note "<[0, 7][7, 12][-12, -7]>"
-  |+| note "[-12, 0, 7, 12]"
-  # speed "[1.001, 1.0, 1.5]"
-  # lpf (range 100 18000 $ slow 8 $ rand)
-  # resonance "0.2"
-  # gain "0.7"
+  # note "<[0, 7][7, 12][-12, -7]>"
+  -- |+| note "[12, 0]"
+  |+| note "0"
+  # speed "[1.001, 1.5, 1.0]"
+  # lpf (range 100 4000 $ slow 8 $ rand)
+  # resonance "0.3"
+  # gain "0.9"
 
 d4
   $ stack
@@ -144,6 +146,8 @@ d3
   
 d1 silence
 
+setcps(120/240)
+
 do
   d1
     $ s "ae(<3 1 5 2>, 8)"
@@ -156,8 +160,7 @@ do
     # lpf (range 80 1000 $ slow 8 $ sine) # resonance "0.2"
     # delay "1.0" # delayfeedback "0.95"
     # delaytime (range 0.001 0.05 $ rand)  
-  
-d2
+  d2
     $ s "empty/8"
     # n 0
     # gain "1.0"
@@ -171,7 +174,7 @@ d3
   # lpf (range 80 8000 $ slow 8 $ sine) # resonance "0.3"
   # room "0.9" # size "0.9"
 
-d1 silence
+d4 silence
 
 
 
