@@ -188,6 +188,7 @@ do
   d9
     $ s "none(9, 16)"
     # td_s (choose[12..16])
+  
   d5
     $ jux (iter 16)
     $ stack
@@ -206,6 +207,11 @@ once
   # gain "1.2"
 
 solo 5
+
+
+d9
+  $ s "none*2"
+  # td_s (choose[0..32])
 
 ---------------
 
