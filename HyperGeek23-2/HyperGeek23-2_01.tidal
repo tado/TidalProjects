@@ -4,7 +4,7 @@ hush
 
 d12
   $ s "none*8"
-  # td_s (choose[0..32])
+  # td_s (choose[0..1])
 
 d1  
   $ s "uni:1*4"

@@ -1,6 +1,8 @@
-hush    
+hush
 
 setcps(137/240)
+
+setcps(130/240)
 
 d12
   $ s "none*8"
@@ -12,6 +14,20 @@ d1
   # up "[0, 7, -12]"
   -- # room "0.7" # size "0.8"
   # gain "1.0"
+
+d1
+  -- $ jux (iter 16)
+  $ fast 16 $ randslice 120
+  $ s "adhan"
+  -- # up "<0 7 -5>/4"
+  # n (choose[0..3])
+  # room "0.3" # size "0.95"
+  
+
+d2
+  $ s "kon(11, 16, [0, <0..15>])"
+  # n (choose[0..16])
+  # gain "0.9"
 
 once
   $ s "matsu"

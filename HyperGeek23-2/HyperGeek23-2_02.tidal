@@ -4,7 +4,7 @@ hush
 
 d12
   $ s "none*8"
-  # td_s (choose[0..32])
+  # td_s (choose[0..8])
 
 d1  
   $ s "uni:1*4"
@@ -25,7 +25,7 @@ d1
   $ sometimesBy 0.1 (slow 2)
   $ s "sfh"
   # pan (rand)
-  # n (choose[0..100])
+  # n (choose[0..32])
 
 d2
   $ s "ae(<3 1 5 2>, 8)"
@@ -76,24 +76,24 @@ d4
   |+| note "[0, 7]"
   -- # sustain "<0.05 0.3 0.1>*8"
   # sustain "0.05"
-  # lpf (range 10 18000 $ slow 8 $ rand)
-  # resonance "0.3"
+  # lpf (range 10 8000 $ slow 8 $ rand)
+  # resonance "0.2"
   # room "0.7" # size "0.9"
-  # gain "0.4"
+  # gain "0.5"
 
 d5
   $ jux (iter 16)
-  $ s "superzow(11, 16)"
-  # sustain "0.05"
-  -- # sustain "<0.05 0.15>*3"
-  # note (scale "ritusen" "{0..[9, 7]}%[5, 11]")
-  -- |+| note "12"
+  $ s "supermoog(11, 16)"
+  # sustain "0.12"
+  -- # sustain "<0.05 0.1>*3"
+  # note (scale "ritusen" "{0..[12, 7]}%<0..24>/[2, 3]")
+  |+| note 12
   -- # speed "[1.0, 1.001]"
-  # lpf (range 10 8000 $ rand) # resonance "0.2"
-  -- # delay "0.9" # delayfeedback "0.5"
-  -- # delaytime (range 0.005 0.02 $ rand)  
-  -- # room "0.7" # size "0.9"
-  # gain "0.6"
+  # lpf (range 10 8000 $ rand)
+  # resonance "0.2"
+  # delay "0.9" # delayfeedback "0.5"
+  # delaytime (range 0.005 0.02 $ rand)  
+  # gain "0.55"  
 
 d3
   $ stack
@@ -101,9 +101,9 @@ d3
     s "ifdrums(5, 16, <0..8>/16)" # n (choose[0..3]),
     s "[~ cp](3, 8, <0..8>/12)" # gain "1.0",
     s "[~ uni:2](3, 8, <0..8>/16)",
-    s "uni(3, 8)" # gain "1.2"
+    s "uni(3, 8, <0..8>/24)" # gain "1.2"
   ]
-  |*| gain "1.1"
+  |*| gain "1.2"
 
 once
   $ s "matsu"  
@@ -119,7 +119,7 @@ d4
   ]  
   # sustain "<0.1 1.0>*2"
   # pan (rand)
-  # gain "1.3"
+  # gain "1.2"
   -- # lpf (range 10 10000 $ slow 8 $ rand)
   -- # resonance "0.3"
 
@@ -132,7 +132,7 @@ d5
   -- # speed "[1.001, 1.0]"
   # lpf (range 10 8000 $ slow 8 $ rand)
   # resonance "0.3"
-  # gain "0.8"
+  # gain "0.9"
 
 d6
   $ stack
@@ -146,8 +146,8 @@ d6
   # pan (rand)
   # sustain "0.07"
   # lpf (range 100 18000 $ slow 4 $ rand) # resonance "0.1"
-  # room "0.3" # size "0.95"
-  # gain "0.75"
+  -- # room "0.3" # size "0.5"
+  # gain "0.8"
 
 d4
   $ jux (iter 16)
@@ -165,7 +165,7 @@ d4
 d4
   -- $ jux (0.125 <~)
   $ s "jimsyn(11, 16)"
-  # n "<1 20>*2"
+  # n "<20 1> ~"
   |+| up "[0, 12]"
   # gain "1.0"
 
