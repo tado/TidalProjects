@@ -2,7 +2,7 @@ hush
 
 setcps(137/240)
 
-setcps(130/240)
+setcps(110/240)
 
 d12
   $ s "none*8"
@@ -12,22 +12,40 @@ d1
   $ s "lowd/4"
   -- # speed "[1.0, 1.001]"
   # up "[0, 7, -12]"
+  |+| up "<0 4 5 7>"
   -- # room "0.7" # size "0.8"
   # gain "1.0"
 
 d1
+  $ s "adhan/4"
+  # n 3
+
+d2
   -- $ jux (iter 16)
   $ fast 16 $ randslice 120
   $ s "adhan"
   -- # up "<0 7 -5>/4"
   # n (choose[0..3])
   # room "0.3" # size "0.95"
-  
 
-d2
+d3
   $ s "kon(11, 16, [0, <0..15>])"
   # n (choose[0..16])
-  # gain "0.9"
+
+d4
+  $ sometimesBy 0.2 (rev)
+  $ jux (iter 16)
+  $ stack
+  [
+    s "gamken(7, 16)" # n "{0..21}%9",
+    s "gamsar(5, 16, 5)" # n "{0..40}%11"
+  ]  
+  # sustain "<0.1 1.0>*2"
+  # pan (rand)
+  # gain "1.2"
+  -- # lpf (range 10 10000 $ slow 8 $ rand)
+  -- # resonance "0.3"
+
 
 once
   $ s "matsu"
