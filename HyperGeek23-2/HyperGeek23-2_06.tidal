@@ -247,7 +247,7 @@ d1
   # pan (rand)
   # n (choose[0..32])
   # room "0.9" # size "0.95"
-  # gain "1.0"
+  # gain "0.8"
 
 d2
   $ s "lowd/4"
@@ -256,11 +256,11 @@ d2
 d3
   $ s "superwho*16"
   # note "<c7'maj7 c7'maj9 c7'maj11>/16"
-  # legato "0.3"
+  # legato "0.5"
   # pan "<0.3 0.7>*16"
   # room "0.6" # size "0.8"
   -- # lpf (range 100 2000 $ slow 16 $ sine) # resonance "0.1"
-  # gain "0.8"
+  # gain "0.7"
 
 d4
   $ slow 4
@@ -268,17 +268,27 @@ d4
   # voice 5
   # note "c3'maj11"
   |*| note "[1.0, 1.005]"
-  # attack "8"
-  # sustain "16"
-  # release "8"
+  # attack "6"
+  # sustain "12"
+  # release "6"
   # room "0.9" # size "0.99"
   # gain "0.8"
 
 once
   $ s "matsu"
-  # gain "1.1"
+  # gain "1.0"
   # up "[0, -12]"
   # room "0.8" # size "0.8"  
+
+d5
+  $ s "superwho(16, 16)"
+  -- # voice 3
+  # pan (rand)
+  # legato "1.2"
+  # note (scale "ritusen" "{0..19}")
+  |+| note "[-12, 0, 7]"  
+  # room "0.5" # size "0.9"
+  # gain "0.8"  
 
 hush
 
