@@ -4,7 +4,7 @@ hush
 
 d12
   $ s "none*8"
-  # td_s (choose[0..32])
+  # td_s (choose[0..3])
 
 d1  
   $ s "uni:1*4"
@@ -84,11 +84,11 @@ d6
 do
   d12
     $ s "none*8"
-    # td_s (choose[19..22])
+    # td_s (choose[0..12])
   d1
     $ stack
     [
-      s "ifdrums(5, 16, <0..15>/12)" # n (choose[1..3]),
+      -- s "ifdrums(5, 16, <0..15>/12)" # n (choose[1..3]),
       s "[~ cp](3, 8, <0..8>/12)",
       s "[~ uni:2](3, 8, <0..8>/16)",
       s "uni(3, 8, <0..7>/12)" # gain "1.3"
