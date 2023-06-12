@@ -1,6 +1,56 @@
+setcps(135/240)
+
+d1
+  $ stack
+  [
+    s "ifdrums(5, 16, <0..15>/10)" # n "<1..2>*4",
+    s "hc(7, 16, <0..15>/8)" # gain "0.9",
+    s "[~ uni](3, 8, <0..7>/12)" # n "<1 2>",
+    s "uni(3, 8, <0..7>/16)" # gain "1.2"
+  ]
+  |*| gain "1.0"
+
+d2
+  $ s "supermoog(3, 8, <0..7>/16)"
+  # legato "1.2"
+  # lpf (range 800 1000 $ slow 8 $ rand)  # resonance "0.2"
+  # note (scale "minPent" "{0..4}")
+  |+| note "-12"
+  # gain "1.2"
+  
+d3
+  $ jux (iter 8)
+  $ every 4 (jux (rev))
+  $ stack
+  [
+    s "superwho(3, 16, 14)" # note "12",
+    s "superwho(3, 16, 7)" # note "7",
+    s "superwho(3, 16)"
+  ]
+  |+| note "c5'min9"
+  |+| note "[0, 12]"
+  -- # sustain "<0.05 0.3 0.1>*8"
+  # legato "0.5 1.5"
+  # lpf (range 10 4000 $ slow 8 $ sine)  # resonance "0.2"
+  -- # room "0.7"  # size "0.9"
+  # gain "0.6"
+
+d1 silence >> d3 silence  
+
 hush
 
-setcps(137/240)
+
+
+
+
+
+
+
+
+
+
+
+
 
 setcps(110/240)
 
@@ -29,7 +79,7 @@ d2
   # room "0.3" # size "0.95"
 
 d3
-  $ s "kon(11, 16, [0, <0..15>])"
+  $ s "kon(5, 16])"
   # n (choose[0..16])
 
 d4
@@ -92,12 +142,10 @@ d4
   |+| note "c5'sus2 c5'sus4"
   |+| note "[0, 7]"
   -- # sustain "<0.05 0.3 0.1>*8"
-  # sustain "0.07"
-  # lpf (range 10 12000 $ slow 8 $ rand)
-  # resonance "0.2"
-  # room "0.7"
-  # size "0.9"
-  # gain "0.5"
+  # legato "0.7"
+  # lpf (range 10 12000 $ slow 8 $ sine)  # resonance "0.2"
+  -- # room "0.7"  # size "0.9"
+  # gain "0.6"
   
 once
   $ s "matsu"
