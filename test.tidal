@@ -1,41 +1,44 @@
 setcps(135/240)
 
-d1
-  $ stack
-  [
-    s "ifdrums(5, 16, <0..15>/10)" # n "<1..2>*4",
-    s "hc(7, 16, <0..15>/8)" # gain "0.9",
-    s "[~ uni](3, 8, <0..7>/12)" # n "<1 2>",
-    s "uni(3, 8, <0..7>/16)" # gain "1.2"
-  ]
-  |*| gain "1.0"
-
-d2
-  $ s "supermoog(3, 8, <0..7>/16)"
-  # legato "1.2"
-  # lpf (range 800 1000 $ slow 8 $ rand)  # resonance "0.2"
-  # note (scale "minPent" "{0..4}")
-  |+| note "-12"
-  # gain "1.2"
   
-d3
-  $ jux (iter 8)
-  $ every 4 (jux (rev))
-  $ stack
-  [
-    s "superwho(3, 16, 14)" # note "12",
-    s "superwho(3, 16, 7)" # note "7",
-    s "superwho(3, 16)"
-  ]
-  |+| note "c5'min9"
-  |+| note "[0, 12]"
-  -- # sustain "<0.05 0.3 0.1>*8"
-  # legato "0.5 1.5"
-  # lpf (range 10 4000 $ slow 8 $ sine)  # resonance "0.2"
-  -- # room "0.7"  # size "0.9"
-  # gain "0.6"
 
-d1 silence >> d3 silence  
+do
+  let base = 0
+  d1
+    $ stack
+    [
+      s "ifdrums(5, 16, <0..15>/10)" # n "<1..2>*4",
+      s "hc(7, 16, <0..15>/8)" # gain "0.9",
+      s "[~ uni](3, 8, <0..7>/12)" # n "<1 2>",
+      s "uni(3, 8, <0..7>/16)" # gain "1.2"
+    ]
+    |*| gain "1.1"
+  d2
+    $ s "supermoog(3, 8, <0..7>/16)"
+    # legato "2.0"
+    # lpf (range 400 1000 $ slow 8 $ sine)  # resonance "0.3"
+    # note (scale "yu" "{0..4}")
+    |+| note "-12"
+    |+| note base
+    # gain "1.0"
+  d3
+    -- $ jux (iter 8)
+    $ every 4 (jux (rev))
+    $ stack
+    [
+      s "superzow(5, 16, 10)" # note "12",
+      s "superzow(5, 16, 5)" # note "7",
+      s "superzow(5, 16)"
+    ]
+    |+| note "c5'min9 c5'min11"
+    |+| note "[0, 7]"
+    |+| note base
+    # legato "0.5"
+    # lpf (range 400 3000 $ slow "[12, 30]" $ sine)  # resonance "0.1"
+    # room "0.8"  # size "0.5"
+    # gain "0.4"
+
+unsolo 2
 
 hush
 
