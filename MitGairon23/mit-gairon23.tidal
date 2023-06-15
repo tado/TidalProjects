@@ -2,15 +2,81 @@ setcps(130/240)
 
 hush
 
-d1  
-  $ s "uni:1*4"
+-- コメントで説明するので文字を読んでください
+-- うるさかったら言ってください
+
+-- まず基本です
+
+d1
+  $ stack
+  [
+    s "hc(11, 16)" # gain "0.9",
+    s "bd cp*4 [~ bd] hc*2"
+  ]  
+
+-- 2つのパートを足しています  
+
+-- さらに別のパートを追加します
+
+d2
+  $ s "supersaw*8"
+  # note "c5'sus2 c5'sus4"
+  # legato "<0.3 1.2>*8"
+  # lpf (range 400 6000 $ slow 8 $ sine)
+  # resonance "0.3"
+  # gain "0.7"
+
+-- フィルターをかけています
+
+-- 次にメロディー的なパートを入れてみます
+
+d3
+  $ s "supermoog(16, 16)"
+  # note (scale "ritusen" "{0..12}%3")
+  |+| note "[0, 12]"
+  # legato "0.9"
+  # lpf (range 400 6000 $ slow 8 $ sine)
+  # resonance "0.3"
+  # gain "0.9"
+
+-- minPent というのがスケール (旋法) です
+
+-- シンセサイザーの音です  
+-- c5'maj というのコードネーム(和音)です
+-- コード進行をプログラムできます
+
+
+-- プログラムのようにかけ算で増やせます
+-- ちょっと休符を入れるとリズムにグルーブが生まれます
+-- 「シンコペーション」と言います
+
+
+-- bdがバスドラムの音をあらわしています  
+-- たくさん書くとテンポがあがります
+
+
+
+
+
+
+
+
+
+
+
+-- ここまでが基本編です
+-- ここからは、もっと音楽的な感じでライブをしていきます
+
+
+hush
+
 
 d1
   $ s "lowd/4"
   -- # speed "[1.0, 1.01]"
   # up "[0, -5]"
   -- # room "1.0" # size "0.8"
-  # gain "0.0"
+  # gain "0.8"
 
 once
   $ s "matsu"
@@ -21,24 +87,26 @@ d2
   # voice 0
   # legato 1.0
   # note (scale "ritusen" "{0..7}%3")
-  |-| note "36"
-  # gain "0.0"
+  |-| note "24"
+  # gain "0.8"
+
+-- ここの教室のスピーカーだと低音が全然聞こえません…
 
 d3
   $ s "sfh"
   # pan (rand)
   # n (choose[0..32])
   # room "0.5" # size "0.8"
-  # gain "0.0"
+  # gain "0.8"
+
+-- ちょっとノイズっぽい音になるので騒いです
 
 d4
-  $ s "ae(3, 8)"
+  $ s "ae(5, 8)"
   # pan (rand)
   # room "0.8" # size "0.8"
   # n (choose[0..4])
-  # gain "0.0"
-
-  
+  # gain "0.8"
   # lpf (range 10 1000 $ slow 8 $ sine) # resonance "0.2"
   # delay "0.9" # delayfeedback "0.9" # delaytime (range 0.001 0.05 $ rand)
     
@@ -54,30 +122,40 @@ d5
   # gain "<0.7 0.6 1.0>*3"
   |*| gain "<1.0 0.5>*8"
 
+-- ここから徐々にリズムが入るので聞きやすくなってきます!
+
 d6
   $ s "uni:2*16"
   # gain "<0.5 0.4 1.0>*9"
 
+-- ここはユークリッドシーケンスといって
+-- アルゴリズミックにリズムを生成しています
+
 d1
   $ stack
+  $ sometimesBy 0.1 (rev)
   [
-    -- s "ifdrums(5, 16, <0..15>/10)" # n "<1..2>*4",
-    -- s "hc(7, 16, <0..15>/8)" # gain "0.9",
-    -- s "[~ uni](3, 8, <0..7>/12)" # n "<1 2>",
-    -- s "uni(3, 8, <0..7>/16)" # gain "1.4"
-    s "uni(3, 8)" # gain "1.4"
+    s "ifdrums(5, 16, <0..15>/10)" # n "<1..2>*4",
+    s "hc(7, 16, <0..15>/8)" # gain "0.9",
+    s "[~ uni](3, 8, <0..7>/12)" # n "<1 2>",
+    s "uni(3, 8, <0..7>/16)" # gain "1.4"
+    -- s "uni(3, 8)" # gain "1.4"
   ]
   |*| gain "1.2"
+
+-- 徐々に和音的なパート入れていきます  
 
 d3
   -- $ jux (iter 16)
   -- $ every 4 (jux (rev))
   $ stack
   [
+    s "supersaw(7, 16, 10)" # note "12",
+    s "supersaw(7, 16, 5)" # note "7",
     s "supersaw(7, 16)"
   ]
   |+| note "c5'sus4 c5'sus2"
-  -- |+| note "[0, 7]"
+  |+| note "[0, 7]"
   # legato "0.6"
   # lpf (range 10 2000 $ slow 8 $ rand) # resonance "0.2"
   # room "0.8" # size "0.5"
@@ -86,12 +164,12 @@ d3
 d4
   $ jux (iter 16)
   $ s "supermoog(11, 16)"
-  # legato "0.8"
-  # note (scale "ritusen" "{0..9}")
+  # legato "1.0"
+  # note (scale "ritusen" "{0..9}%3")
   -- # note (scale "ritusen" "{0..[7, 9]}%<0..24>/3")
-  -- |+| note "[7, 0]"
+  |+| note "[7, 0]"
   -- # speed "[1.0, 1.001]"
-  # lpf (range 10 1000 $ rand) # resonance "0.3"
+  # lpf (range 100 3000 $ rand) # resonance "0.3"
   # gain "0.8"
 
 once
@@ -138,10 +216,15 @@ d5
 d5
   $ jux (iter 8)
   $ sound "tet(9, 16)"
-  # gain "1.0"
+  # gain "1.1"
+  -- |+| up "[0, 12]"
+  -- |+| up "[0, 7][7, 12]"
+  # lpf (range 800 18000 $ slow 8 $ rand) #resonance "0.3"
   
   # n "<0 1 2 3>/8"
   # lpf (range 800 18000 $ slow 8 $ rand) #resonance "0.3"
+  
+  
   |+| up "[0, 12]"
   |+| up "[0, 7][7, 12]"
   
@@ -160,9 +243,12 @@ once
   # lpf (range 800 18000 $ slow 8 $ rand) #resonance "0.1"
   # gain "1.4"
 
+-- 声のサンプルでいろいろ試してみます
+
 d7
-  $ s "kon(3, 16, [0, <0..15>])"
-  # n (choose[0]) 
+  $ s "kon(9, 16, [0, <0..15>])"
+  # n (choose[0..20]) 
+  # gain "1.2"
 
 d5
   $ sometimesBy 0.2 (rev)
@@ -191,6 +277,9 @@ d7
 
 solo 7
 
+-- ちょっとごちゃごちゃになってきたので
+-- 一度仕切り直しで
+
 ----------------------------------
 do
   hush
@@ -211,7 +300,9 @@ d1
   # pan (rand)
   # n (choose[0..32])
   # room "0.9" # size "0.9"
-  # gain "0.7"
+  # gain "0.5"
+
+-- ここから先は、ドローン(持続音)で綺麗に終わっていこうと思います…  
 
 d2
     $ s "lowd/4"
@@ -222,20 +313,20 @@ d2
 
 d3
   $ slow 4
-  $ s "superhammond"  
+  $ s "superhammond"
   # voice 5
-  # note "c4'maj7"
+  # note "c4'maj11 c5'maj11"
   |*| note "[1.0, 1.005]"
   # attack "8" # legato "2" # release "8"
   # room "0.8" # size "0.9"
-  # gain "0.0"
+  # gain "0.7"
 
 d4
   $ s "superwho*16"
   # note "<c7'maj7 c7'maj9 c7'maj11 c7'maj13>/16"
   # legato "0.5"
   # pan "<0.3 0.7>*16"
-  # gain "0.0"
+  # gain "0.7"
 
 once
   $ s "matsu"
@@ -247,22 +338,22 @@ d5
   $ s "superbass(16, 16)"
   # pan (rand)
   # legato "1.0"
-  # note (scale "ritusen" "{0..19}")    
-  |+| note "[-5, 0, 7]"
+  # note (scale "ritusen" "{0..19}%<1..15>/128")    
+  |+| note "[-12, 0, 7]"
   # lpf (range 1000 4000 $ slow 8 $ sine) # resonance "0.2"
-  # gain "0.0"
+  # gain "0.75"
 
   -- # note (scale "ritusen" "{0..19}%<0..16>/256")    
 
 d6
   -- $ jux (0.5 ~>)
-  -- $ fast 8 $ randslice 30
-  -- $ fast 16 $ randslice 80
-  $ s "adhan/4"
-  # n (choose[0..3])
+  -- $ fast 8 $ randslice 60
+  $ fast 16 $ randslice 80
+  $ s "adhan"
+  -- # n (choose[0..3])
   -- # up "<0 0 7 0>"
-  # room "0.4" # size "0.95"
-  # gain "0.8"
+  # room "0.4" # size "0.8"
+  # gain "0.9"
 
 d7
   $ s "empty/16"
@@ -282,6 +373,15 @@ do
     $ s "none"
     # td_s "0"
   
+hush
+
+
+-- こんな感じで実際のパフォーマンスの時には30分から1時間くらい演奏していきます。が、今日はもう課題の回答時間があるのでそろそろ終わりにします。
+
+
+-- 終わりですー (拍手)
+
+
 
 
 
