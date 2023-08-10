@@ -1,6 +1,39 @@
-setcps(135/240)
+-- ライブコーディング実演中!!
 
-  
+hush
+
+d1
+  $ stack
+  [
+    s "ifdrums(5, 16, <0..15>/10)"
+      # n (choose[1..2]) # pan (rand),
+    s "cp(3, 16, <0..15>/8)",
+    s "[~ uni](3, 8, <0..7>/21)" # n "<1 2>",
+    s "uni(3, 8, <0..7>/16)" # gain "1.2"
+  ]
+  |*| gain "1.0"
+
+d2
+  $ s "supermoog(3, 8, <1..8>/16)"
+  # legato "2.0"
+  # lpf (range 200 1500 $ slow 8 $ sine)  # resonance "0.2"
+  # note (scale "yu" "{0..4}")
+  |+| note "-12"
+  # gain "1.1"
+
+d4
+  $s "superhammond*2"
+  # legato "1.0"
+  # note "c4"
+
+
+setcps(130/240)
+
+hush
+
+solo 3
+
+hush
 
 do
   let base = 0
