@@ -1,33 +1,56 @@
 -- ライブコーディング実演中!!
+setcps(132/240)
 
 hush
 
 d1
   $ stack
   [
-    s "ifdrums(5, 16, <0..15>/10)"
-      # n (choose[1..2]) # pan (rand),
-    s "cp(3, 16, <0..15>/8)",
-    s "[~ uni](3, 8, <0..7>/21)" # n "<1 2>",
-    s "uni(3, 8, <0..7>/16)" # gain "1.2"
+    s "hc(7, 16, <0..15>/32)" # gain "0.9",
+    s "ifdrums(5, 16, <0..15>/10)" # n (choose[1, 2]) # pan (rand),
+    s "[~ uni](3, 8, <0..7>/12)" # n "<1 2>",
+    s "uni(3, 8, <0..7>/64)" # gain "1.2"
   ]
   |*| gain "1.0"
 
 d2
-  $ s "supermoog(3, 8, <1..8>/16)"
-  # legato "2.0"
-  # lpf (range 200 1500 $ slow 8 $ sine)  # resonance "0.2"
-  # note (scale "yu" "{0..4}")
+  $ s "supermoog(3, 8, <0..7>/64)"
+  # legato "1.2"
+  # lpf (range 200 1200 $ slow 8 $ sine)
+  # resonance "0.2"
+  # note (scale "minPent" "{0..4}")
   |+| note "-12"
   # gain "1.1"
 
-d4
-  $s "superhammond*2"
-  # legato "1.0"
-  # note "c4"
+d3
+  $ jux (rev)
+  $ s "supermoog(11, 16)"
+  # legato "0.6"
+  # note (scale "minPent" "{0..12}%3")
+  # lpf (range 400 2000 $ slow 8 $ sine)
+  # resonance "0.3"
+  |+| note "0"
+  # gain "0.8"
+  # room "0.5" # size "0.8"
+
+unsolo 2
+
+setcps(40/240)
+
+hush
+
+setcps(30/240)
+
+hush
 
 
-setcps(130/240)
+unsolo 2  
+
+hush
+
+solo 2
+
+hush
 
 hush
 
