@@ -1,0 +1,107 @@
+d1
+$jux (iter 4)
+$sound "bd bd*2 cp bd"
+
+-- 01
+d3
+$s "ikeda1(3, 8, 0)"
+#gain "1.0"
+#delay "0.8" #delaytime "0.01 0.02 0.03 0.005" #delayfeedback "0.8"
+#cutoff (scale 800 8000 $rand) #resonance "0.3"
+
+-- $jux (iter 8)
+-- 
+
+
+d2
+$s "ikeda2(5,8,6)"
+#gain "1.0"
+ 
+d3
+$s "ikeda3(3,8,0)"
+#gain "1.0"
+
+-- 02
+d4
+$sometimesBy 0.6 (jux (iter 4))
+$slow 2
+$stack[
+  sound "supersaw(3,16,{0,8})" # n "{c5, e5, f5, g5, a5}" |+|n "7",
+  sound "supersaw(3,16,{0,8})" # n "{c5, e5, f5, g5, a5}" |+|n "0"
+]
+|+|n "<-7 7 0 5 -5>/4"
+#cutoff (scale 800 20000 $slow 4 $sine1) #resonance "0.3"
+#sustain "0.1"
+#gain "0.8"
+
+-- sound "supersaw(3,16,{2,4})" # n "{c5, e5, f5, g5, a5}" |+|n "12",
+-- sound "supersaw(3,16,{3,5})" # n "{c5, e5, f5, g5, a5}" |+|n "7",
+-- $sometimesBy 0.6 (jux (iter 4))
+-- |+|n "<-7 7 0 5 -5>/4"
+-- #cutoff (scale 800 20000 $slow 4 $sine1) #resonance "0.3"
+
+-- 03
+d5
+$every 2 (#gain "0")
+$sound "ifdrums*2 ~"
+#n "[0 2] 0"
+#gain "1.5"
+
+d6
+-- $sometimesBy 0.4 jux (iter 4)
+$stack [
+  s "ifdrums(2, 8, 5)" #n (irand 3),
+  s "bass(2, 8, 2)",
+  s "dr55(2, 8, 3)" #n (irand 16),
+  s "glitch(2, 8, 1)" #n (irand 16),
+  s "bd:0*2" #shape "0.2"
+]
+#gain "1.5"
+
+-- 04
+d6
+$jux (iter 8)
+$sound "[bd [~ ifdrums] [~ bd] cp]"
+#cutoff (scale 1500 18000 $slow 4 $rand)
+#resonance "0.2"
+# n (irand 64) # pan (rand)
+# gain "1.3"
+
+d7
+-- $sometimesBy 0.6 (jux (iter 4))
+$stack[
+  -- s "supersquare(5,8,{2,4})" #n "[c e f g]*2" |+|n "0",
+  s "supersquare(5,8,{0,6})" #n "[c e f g]*2" |+|n "-5",
+  s "supersquare(5,8,{3,5})" #n "[c e f g]*2" |+|n "-12"
+]
+#sustain "0.12"
+#gain "0.9"
+
+-- #voice (scale 0.2 1 $rand)
+-- #cutoff (scale 200 8000 $slow 12 $rand) #resonance "0.2"
+-- |+|n "<0 -7 -5 -12>/8"
+-- #slide "0.2"
+-- #resonance (scale 0.1 0.4 $slow 8 $sine1)
+-- #vowel "a e i u e o a o"
+
+d6
+$sometimes (rev)
+-- $jux (iter 2)
+-- $jux (iter 4)
+$sound "{ifdrums(3, 8, 3), bd(3, 8, 2), glitch(3, 8)}"
+#pan (rand)
+#gain "1.3"
+#n (irand 64)
+#pan (rand)
+
+d6
+$jux (iter 8)
+$sound "{ifdrums(3, 8, 3), bd(3, 8, 2), glitch(7, 8, 2)}"
+#gain "1.3"
+#n (irand 64)
+#vowel "a e i u e o a o"
+#cutoff (scale 500 18000 $slow 4 $rand) #resonance "0.2"
+#pan (rand)
+
+hush
+

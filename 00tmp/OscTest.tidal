@@ -1,0 +1,160 @@
+bps (180/120)
+
+hush 
+
+d1 $s "bd"
+
+d1 $ sound "[cp*5, bd*3]" -- 0
+
+d1 $ sound "cp cp cp cp cp cp cp cp" -- 0
+
+d1 $ sound "cp ~ cp cp cp ~ cp ~"    -- 0
+
+d1 $ sound "cp ~ ~ cp cp cp ~ cp"    -- 1
+
+d1 $ sound "cp ~ ~ cp ~ cp cp ~"     -- 2
+
+d1 $ sound "cp ~ cp cp ~ cp ~ cp"    -- 3
+
+d1 $ sound "~ cp cp ~ cp cp ~ cp"    -- 4
+
+d1 $ sound "~ cp ~ cp cp cp ~ cp"    -- 5
+
+d1 $ sound "[~ cp ~ cp cp cp ~ cp]*2" -- 11
+
+d1 $sound "{cp(5, 16, 5)}"           -- 10
+
+d1 $sound "{bd(6, 16, 0), cp(5, 16, 5)}" -- 3, 11
+
+d1
+$slow 2
+$every 2 (jux (iter 16))
+$sound "[bd [~ ifdrums] [~ bass] cp]*2" #n (irand 128)
+
+d1
+$slow 2
+$sometimes (jux (iter 16))
+$jux (iter 8)
+$jux (iter 4)
+$sound "bd [~ cp]*2 [~ ifdrums ~ bass] [~ cp ~ ~]"
+# n (irand 32)
+
+d1
+$ slow 2
+$ sometimes (jux (iter 16))
+$ sometimes (jux (iter 8))
+$ sometimes (jux (iter 4))
+-- $ sometimes (rev)
+$ sound "{bd(4, 16, 0), ifdrums(5, 16, 3), glitch(6, 16, 5), bass(5, 16, 2), cp(3, 16, 1)}"
+# n (irand 64)
+
+d1
+-- $jux (iter 4)
+$jux (iter 8)
+$jux (iter 16)
+$sometimes (rev)
+-- $every 8 (gap (12))
+-- $every 8 (chop (12))
+$stack [
+    sound "bd glitch*2 [~ bd] [~ hh]",
+    sound "~ cp hc hh*2",
+    sound (samples "glitch*2" (irand 12)),
+    sound (samples "hc/2" (irand 12))
+]
+-- #delay "1.0" #delayfeedback "0.25" #delaytime "0.015 0.02 0.04"
+-- #delay "0.5" #delayfeedback "0.25" #delaytime "4.5"
+
+d1
+$slow 2
+$jux (iter 8)
+$sometimes (jux (iter 16))
+$sometimes (jux (iter 4))
+$every 3 (rev)
+-- $every 8 (chop (8))
+$stack [
+  sound (samples "sd*2 fell*2 [cp glitch]*2 [hc casio]*2" (irand 12)),
+  sound (samples "bd" (irand 40)) #gain "1.9",
+  sound (samples "[~ fell2]*4" (irand 40)) #gain "1.2" #up "5 [7 0] -5 7 ~"
+]
+
+d1
+$sometimes (jux (iter 2))
+$sometimes (jux (iter 4))
+$sometimes (jux (iter 8))
+$jux (iter 16)
+-- $sometimes (brak)
+$stack[
+  sound (samples "bd" (irand 20)) #gain "1.9",
+  sound (samples "[~ fell]*2" (irand 40)) #gain "1.0" #up "5 12 7 0",
+  sound (samples "arpy" (irand 40)) #gain "1.5" #up "5 7 0",  
+  sound (samples "glitch" (irand 40)) #gain "1.2" #up "5 7 12"
+]
+
+let pat1 = "{0*2 ~ [0 ~] ~ 0 [~ 0] 0}%4"
+    pat2 = "{[~ 0] 0 ~ 0 [~ 0] ~ 0}%4"
+    pat3 = "{0 0*4 [~ 0] [~ 0] 0*2  0 ~ 0*4 ~ 0 -12 0 ~ [~ 0] [~ 0] ~ 0*2 -12}%4"
+    pat4 = "{0 0*2 [~ 0] [~ 0] 0 0 -12 0*4 ~ 0 ~ 0 -12 0*2 ~ [~ 0] [~ 0] ~ 0*2 -12}%4"
+    pat5 = "{[~ 0] 0 0 ~ 0 -12 0*2 ~ [~ 0] [~ 0] ~ 0 -12 0*4 ~ [~ 0] [~ 0] ~ 0*2 -12}%8"
+    pat6 = "{~ 0 ~ 0 -12 0*4 0 0*2 [~ 0] -12 0*4 ~ 0 ~ 0 -12 0*2 ~ [~ 0] [~ 0] ~ 0*2 -12}%8"
+
+d1
+$ jux (iter 4)
+$ stack[
+sound (samples "fell*16?" (irand 6)) |+| speed "2.0 1.0 1.5" |+| vowel "a i u e o",
+  up pat6 |=| sound "fell:2",
+  up pat4 |=| sound "fell:3",
+  up pat5 |=| sound "fell1",
+  up pat3 |=| sound "fell1",
+  up pat2 |=| sound "bd:1",
+  up pat1 |=| sound "felld:1"     
+]
+
+d1
+$ jux (iter 8)
+$ sometimes (jux (iter 16))
+$ stack[
+  up pat2 |=| sound "bass:3 bass:1 bass:0 bass:2",
+  sound (samples "fell*16?" (irand 6)) |+| speed "2.0 1.0 1.5",
+  up pat5 |=| sound (samples "fell?" (irand 2)) |+| speed "2.0 1.0 1.5",
+  up pat4 |=| sound "fell1" |+| speed "2.0 1.0 1.5 0.5",
+  up pat2 |=| sound "909",
+  up pat1 |=| sound "fell1"
+]
+-- # vowel "a i u e o"
+-- |+| delay "0.75" |+| delaytime "0.01 0.02 0.03" |+| delayfeedback "0.2"
+
+d1
+$ jux (iter 2)
+$ sometimes (jux (iter 16))
+$ sometimes (rev)
+-- $ every 6 (|+| coarse "24 16 32") 
+$ stack[
+  sound (samples "fell*16?" (irand 6)),
+  up pat2 |=| sound "bass:3 bass:1 bass:0 bass:2",       
+  up pat5 |=| sound "fell2:2" |=| speed "1.0",
+  up pat6 |=| sound "fell2:3" |=| speed "2.0",
+  up pat2 |=| sound "fell2:3",
+  up pat3 |=| sound "909",    
+  up pat1 |=| sound "bd:1",
+  up pat2 |=| sound "fell2" |=| speed "2.0 1.5"
+]
+-- |+| vowel "a i u e o"
+-- |+| delay "0.75" |+| delaytime "0.01 0.02 0.03" |+| delayfeedback "0.25"
+
+d1
+$ jux (iter 16)
+$ every 4 (|+| coarse "24 16 32")
+$ stack[
+ up pat2 |=| sound "909",
+ sound "panda:0*16?" |+| speed "1.0 3.0 2.0 1.5",
+ up pat4 |=| sound "panda:1 panda:2 panda" |+| speed "2.0 0.5",
+ up pat5 |=| sound "atom:2",
+ up pat3 |=| sound "panda:1 panda:2 panda" |+| speed "0.5 1.5 2.0"   
+]
+-- |+| vowel "a i u e o"
+|+| delay "0.75" |+| delaytime "0.02 0.03" |+| delayfeedback "0.25"
+
+d1 silence
+
+hush
+

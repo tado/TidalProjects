@@ -1,0 +1,56 @@
+cps(120/120)
+
+hush
+
+d8 $ sound "sync"
+
+d1 $slow 2
+$jux (iter 18)
+-- $sometimes (rev)
+$sound "{ifdrums(9, 18), bd(5, 18, 1), glitch(8, 18, 2)}"
+#n (irand 12)
+
+d1 $slow 2
+$jux (iter 18)
+$sound "{ifdrums(9, 18), bd(5, 18, 2), glitch(8, 18, 4)}"
+#n (irand 12)
+#pan (rand)
+-- #cutoff (scale 100 10000 $slow 4 $sine1)
+-- #resonance "0.1"
+
+d1
+$slow 2
+-- $sometimes(jux (rev))
+-- $sometimes(jux (iter 18))
+-- $sometimes(chop 18)
+-- $every 4 (rev)
+$stack[
+  --sound (samples "arpy(5,18,8)" (irand 17)) #up "-24",
+  --sound (samples "arpy(8,18,8)" (irand 18)) #up "-12",
+  --sound (samples "arpy(9,18,8)" (irand 15)) #up "24",
+  --sound (samples "arpy(8,18,3)" (irand 14)) #up "0",
+  --sound (samples "arpy(10,18,5)" (irand 13)) #up "5",
+  --sound (samples "arpy(13,18)" (irand 12)) #up "12",
+  --sound "fell2:2(8,18,5)" #up "0 12 0 -12 0 0" #pan (rand),
+  --sound "fell2:3(12,18,2)" #up "0 12 0 -12 0 0" #pan (rand),
+  --sound (samples "felld(5,18,12)" (irand 128)) #pan (rand),
+  sound (samples "bass(7,18,2)" (irand 128)) #up "0 0 12 0 -12",
+  sound (samples "dr55(6,18,10)" (irand 128)) #pan (rand),
+  sound (samples "tr-808(7,18,8)" (irand 128)) #pan (rand),
+  sound (samples "casio(7,18,5)" (irand 128)) #pan (rand),
+  sound (samples "ifdrums(12,18,8)" (irand 128)) #pan (rand),
+  sound (samples "glitch(4,18,5)" (irand 128)) #pan (rand),
+  sound (samples "808bd(4,18,8)" (irand 128)),
+  sound (samples "bd(6,18,3)" (irand 128)) #gain "1.2"
+]
+-- #vowel "o i a e i o e"
+# n (irand 64)
+-- |=|up "{7 0 -7 0 5 -12 0 12 0 7 0 -7 0 12}%9"
+-- #cutoff (scale 800 18000 $slow 1 $rand)
+-- #resonance "0.2"
+#delay "0.3" #delaytime "0.03 0.01 0.02" #delayfeedback "0.5"
+-- #room "0.1"
+
+d2 silence
+
+hush

@@ -1,0 +1,4 @@
+d1
+$jux (iter 4)
+$s "bd cp*2 bd hh*4"
+#delay "0.8" #delaytime "0.25 0.125"
