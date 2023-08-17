@@ -2,11 +2,36 @@ setcps(132/240)
 
 hush
 
+d1 
+  $ s "cp*4"
+  # td_s "3"
+
+
+
+d1 
+  $ s "midi(5, 16, <0..15>/8)" 
+  # note (scale "dorian" "{-24..12}%13")
+  # legato "<12.0 4.0>*16"
+  # gain "1.5"
+  # pan (rand)
+  # midichan 0  
+
+
+d2
+  $ s "midi(7, 16, <0..15>/3)" 
+  # note (scale "dorian" "{-24..12}%13")
+  # legato "<12.0 4.0>*16"
+  # gain "1.2"
+  # pan (rand)
+  # midichan 1
+
+d1 $ s "cp"
+
 d1
   $ stack
   [
     s "ifdrums(5, 16, <0..15>/10)" # n (choose[1, 2]) # pan (rand),
-    s "[~ uni](3, 8, <0..7>/12)" # n "<1 2>",
+    s "[~ cp](3, 8, <0..7>/12)" # n "<1 2>",
     s "uni(5, 8, <0..7>/64)" # gain "1.2"
   ]
   |*| gain "1.0"
@@ -22,7 +47,7 @@ d2
 
 d3
   $ jux (rev)
-  $ s "supermoog(11, 16)"
+  $ s "supersaw(3, 16)"
   # legato "0.6"
   # note (scale "minPent" "{0..12}%3")
   # lpf (range 400 2000 $ slow 8 $ sine)
