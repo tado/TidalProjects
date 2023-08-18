@@ -3,10 +3,8 @@ setcps(132/240)
 hush
 
 d1 
-  $ s "cp*4"
-  # td_s "3"
-
-
+  $ s "cp*16"
+  # td_s (choose([0..3]))
 
 d1 
   $ s "midi(5, 16, <0..15>/8)" 
