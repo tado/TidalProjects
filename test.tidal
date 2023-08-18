@@ -3,8 +3,14 @@ setcps(132/240)
 hush
 
 d1 
-  $ s "cp*16"
-  # td_s (choose([0..3]))
+  $ jux (iter 16)
+  $ s "bd cp bd [hc ho]"
+  # gain "0.8"
+
+d1
+  $ s "midi"
+  # note "0"
+  # midichan "0"
 
 d1 
   $ s "midi(5, 16, <0..15>/8)" 
@@ -45,7 +51,7 @@ d2
 
 d3
   $ jux (rev)
-  $ s "supersaw(3, 16)"
+  $ s "supersaw(11, 16)"
   # legato "0.6"
   # note (scale "minPent" "{0..12}%3")
   # lpf (range 400 2000 $ slow 8 $ sine)
