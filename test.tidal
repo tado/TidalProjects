@@ -4,7 +4,7 @@ hush
 
 d1 
   $ jux (iter 16)
-  $ s "bd cp bd [hc ho]"
+  $ s "bd cp bd hc"
   # gain "0.8"
 
 d1

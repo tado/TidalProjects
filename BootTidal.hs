@@ -80,12 +80,3 @@ let getState = streamGet tidal
 
 -- Change TouchDesigner scene
 let td_s = pI "td_s"
-
--- Laser Control
--- let ls_s = pI "ls_s" --laser shape
--- let ls_t = pI "ls_t" --laser transpose (0...8)
--- let ls_r = pI "ls_r" --laser rotation (0...360)
--- let ls_h = pI "ls_h" --laser color hue (0...360)
--- let ls_u = pF "ls_u" --laser uniform scale (0.0...1.0)
--- let ls_x = pF "ls_x" --laser x position (-1.0...1.0)
--- let ls_y = pF "ls_y" --laser y position (-1.0...1.0)
