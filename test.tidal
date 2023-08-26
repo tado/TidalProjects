@@ -1,33 +1,74 @@
-setcps(132/240)
+setcps(130/240)
 
 hush
 
-d1 
-  $ jux (iter 16)
-  $ s "bd cp bd hc"
-  # gain "0.8"
-
-d1
-  $ s "midi"
-  # note "0"
-  # midichan "0"
-
-d1 
-  $ s "midi(5, 16, <0..15>/8)" 
-  # note (scale "dorian" "{-24..12}%13")
-  # legato "<12.0 4.0>*16"
-  # gain "1.5"
-  # pan (rand)
-  # midichan 0  
-
+do
+  let base = 0
+  d1
+    $ stack
+    [ 
+      s "midi(7, 16, <0..15>/4)" 
+        # note "c6'min9"
+        |+| note "[<0 0 7>, <0 12>]"
+        # midichan 0
+        # gain "1.0"
+        # legato "1.0",
+      s "midi(3, 16)" 
+        # note "c4'min"
+        # midichan 0
+        # legato "1.5"
+        # gain "1.7"
+    ]
+    |+| note base
+    |*| gain "1.0"
+    # td_s (choose([0..32]))
 
 d2
-  $ s "midi(7, 16, <0..15>/3)" 
-  # note (scale "dorian" "{-24..12}%13")
-  # legato "<12.0 4.0>*16"
+  $ s "midi(5, 16, <0..15>/32)"
+  # note (scale "minPent" "{-7..0}%2")
+  # legato "12.0"
+  |+| note "-12"
+  # midichan 1
+  # gain "1.3"
+
+d3
+  $ stack
+  [
+    s "ifdrums(9, 16, <0..15>/10)" # n (choose[1..2]) # gain "1.1",
+    s "[~ cp](3, 8, <0..7>/12)" # n "<1 2>" # gain "1.1",
+    s "hc(13, 16)" # gain "1.0",
+    s "uni(5, 16, <0..15>/32)" # gain "1.1"
+  ]
+  # nudge "0.12"
+  -- # shape "0.6"
+  |*| gain "1.3"
+
+d4
+  $ slow 4
+  $ s "midi"
+  # midichan "2"
+  # note "c4'min9"
+  |+| note "[24, 0]"
+  # legato "4.0"
+  # gain "1.2"
+
+d4 silence
+
+hush 
+
+hush
+
+solo 4
+
+d2
+  $ s "midi(9, 16, <0..15>/3)" 
+  # note (scale "yu" "{-12..7}%11")
+  -- # legato "<12.0 4.0>*16"
   # gain "1.2"
   # pan (rand)
   # midichan 1
+
+d2 silence >> d3 silence >> d4 silence
 
 d1 $ s "cp"
 
