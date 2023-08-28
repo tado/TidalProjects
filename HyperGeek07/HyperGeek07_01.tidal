@@ -153,10 +153,10 @@ d5
   $ stack
   [
     s "midi" # note "c2",
-    s "midi" # note "c4'min11"
+    s "midi" # note "c5'min11"
   ]
   -- |+| note "<0 7 0 12>/4"
-  |+| note "[0, 12]"
+  -- |+| note "[0, 12]"
   # legato "12.0"
   -- # ccn "30"  # ccv (range 10 125 $ slow 15 $ rand)
   |*| gain "1.5"
@@ -164,7 +164,7 @@ d5
 
 unsolo 5
 
-d3 silence
+d4 silence
 
   $ s "lowd/4"
   -- # speed "[1.0, 1.01]"
