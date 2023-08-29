@@ -3,7 +3,7 @@ setcps(130/240)
 hush
 
 do
-  d12
+  d20
     $ s "none"
     # td_s "0"
   once
@@ -12,18 +12,28 @@ do
     # gain "1.2"
 
 do
-  d12
+  d20
     $ s "none"
     # td_s "1"
-  d1  
-    $ s "midi/2"
+  d1
+    $ s "midi"
     # midichan "0"
-    # note (choose([0, 7, 11]))
+    -- # note 0
+    # note (choose([0, 7, 9, 11]))
     |-| note "12"
-    |+| note "[0, 7]"
-    # legato "3.0"
-    # gain "1.5"
-    # ccn "30" # ccv (range 40 80 $ rand)
+    |+| note "[0, <7 12>]"
+    # legato "2.0"
+    # gain "0.8"
+  d21
+    $ fast 8
+    $ stack
+    [
+      ccn 30 # ccv(range 0 40 $ slow 92 $ sine) # midichan 0,
+      ccn 31 # ccv(range 0 10 $ slow 80 $ sine) # midichan 0
+    ]  
+    # s "midi" 
+
+hush
 
 do
   d12
@@ -32,7 +42,7 @@ do
   d2
     $ sometimesBy 0.1 (slow 2)
     $ s "sfh"
-    # lpf 2000
+    # lpf 8000
     # pan (rand)
     # n (choose[0..100])
 
@@ -52,63 +62,79 @@ do
     # delaytime (range 0.001 0.05 $ rand)
     # gain "0.8"
 
+hush
+
 do
   d12
     $ s "none(5, 8)"
     # td_s (choose([0..27]))
   d1
     $ s "midi(9, 16, <0..15>/32)"
-    # note "c5'sus2 c5'min7"
-    -- |+| note "<0 7 0 12>/4"
-    -- |+| note "[0, 7]"
-    # ccn "30"  # ccv (range 20 100 $ slow 15 $ rand)
+    # note "c4'min c5'min9"
+    |+| note "<0 7 0 12>/4"
+    |+| note "[0, 7]"
     # legato "0.9"
-    # gain "1.5"
+    # gain "1.0"
     # midichan "1"
+  d21
+    $ fast 16
+    $ stack
+    [
+      ccn 30 # ccv(range 0 127 $ rand) # midichan 1,
+      ccn 31 # ccv(range 0 127 $ slow 10 $ rand) # midichan 1,
+      ccn 32 # ccv (range 30 50 $ slow 120 $ rand) # midichan 1
+    ]  
+    # s "midi"
 
-d2
-  $ s "midi(16, 16)"
-  # midichan "1"
-  # legato "1.2"
-  # note (scale "yu" "{0..15}%9")
-  |+| note "-12"
+do
+  d2
+    $ s "midi(5, 16, <0..15>/32)"
+    # midichan "2"
+    # legato "4.0"
+    # note (scale "yu" "{-5..12}%3")
+    |+| note "-24"
+    # gain "1.8"
+  d22
+    $ fast 8
+    $ stack
+    [
+      ccn 30 # ccv (range 100 127 $ rand) # midichan 2,
+      ccn 31 # ccv (range 100 127 $ slow 10 $ rand) # midichan 2,
+      ccn 32 # ccv 10 # midichan 2,
+      ccn 33 # ccv 0 # midichan 2
+    ]  
+    # s "midi"    
+
+unsolo 2           
 
 d3
-  $ s "midi(5, 16, <0..15>/32)"
-  # midichan "2"
-  # legato "8.0"
-  # note (scale "yu" "{0..7}%3")
-  # ccn "30"  # ccv (range 80 100 $ slow 9 $ sine)
-  |+| note "-24"
-  |+| note "[0, 12]"
-  # gain "1.5"
-
-d4
   $ stack
   [
     s "ifdrums(9, 16, <0..15>/10)" # n (choose[1..2]) # gain "1.4",
     s "[~ cp](3, 8, <0..7>/12)" # n "<1 2>" # gain "1.0",
-    s "uni(5, 16, <0..15>/32)" # gain "1.4",
+    s "uni(5, 16, <0..15>/32)" # gain "1.5",
     s "hc(11, 16)" # gain "1.0"
   ]
   -- # shape "0.6"
   # nudge "0.13"
   |*| gain "1.5"
 
-d5
+d4
   $ s "midi"
   # note "<c5'min13 c5'min7>/2"
   # midichan "3"
   # legato "1.0"
-  |*| gain "1.0"  
+  |*| gain "1.0"
 
 d6
-  $ s "kon(9, 16)"
-  # n "{0..32}%[11, 3]"
-  # nudge "0.12"
+  $ s "kon(7, 16)"
+  # n "{0..20}%[11, 3]"
+  # nudge "0.13"
   # gain "1.0"
 
-d1 silence >> d2 silence >> d3 silence >> d6 silence
+d1 silence >> d2 silence >> d3 silence >> d4 silence >> d6 silence
+
+setcps(130/240)
 
 ---
 hush
@@ -120,15 +146,17 @@ do
     $ s "none*4"
     # td_s (choose([0..32]))
   d1
-    $ s "midi(11, 16, <1..15>/32)"
+    $ jux (rev)
+    $ s "midi(9, 16)"
     # midichan "4"
-    -- # ccn 30 # ccv 40
+    -- # ccn 30 # ccv 80
     # ccn 30  # ccv (range 20 80 $ slow 9 $ rand)
-    # legato "1.0"
+    # legato "2.0"
     -- # legato (range 0.5 2.0 $ slow 4 $ rand)
-    # note (scale "minPent" "{-2..4}%3")
+    # note (scale "yu" "{0..12}%5")
     |-| note "24"
-    |+| note "<0 12>*8"
+    # gain "1.1"
+    -- |+| note "<0 12>*8"
 
 d2
   $ sometimesBy 0.1 (rev)
@@ -147,7 +175,7 @@ d2
 
 d3
   $ sometimesBy 0.1 (rev)
-  -- $ sometimesBy 0.4 ((1/8) <~)
+  $ sometimesBy 0.4 ((1/8) <~)
   $ stack
   [
     s "ifdrums(13, 16)" # n (choose[1..2]),
@@ -159,10 +187,10 @@ d3
   # delay "1.0"
   -- # delaytime (choose([0.01, 0.02, 0.03, 0.005]))
   # delaytime (range 0.005 0.03 $ rand)
-  # delayfeedback (range 0.2 0.7 $ rand)
+  # delayfeedback "0.5"
   |+| gain "1.5"
   # nudge "0.13"
-  # shape "0.8"
+  # shape "0.5"
 
 d4
   $ s "midi(9, 16, <0..15>/32)"
