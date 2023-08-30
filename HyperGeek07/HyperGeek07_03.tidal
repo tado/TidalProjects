@@ -1,4 +1,4 @@
-setcps(125/240)
+setcps(123/240)
 
 hush
 
@@ -17,7 +17,6 @@ do
     # up "0"
     -- # note "[0, -12]"
 
-
 do
   d12
     $ s "none"
@@ -25,9 +24,10 @@ do
   d2
     $ sometimesBy 0.1 (slow 2)
     $ s "sfh"
-    # lpf 800
+    # lpf 1200
     # pan (rand)
     # n (choose[0..100])
+    # gain "0.8"
 
 do
   d20
@@ -78,15 +78,15 @@ do
     # td_s (choose([0..27]))    
   d1
     -- $ jux (rev)
-    $ s "midi(9, 16)"
-    # note "<c4'min13 c4'min11>/2"
+    $ s "midi(7, 16)"
+    # note "<c4'min7 c4'min13>/2"
     |+| note base
     |+| note "[0, 12]"
     -- |+| note "<0 0 -5 0>/4"
     # legato "1.0"
     # gain "1.0"
     # midichan "1"
-    # ccn 7 # ccv 40
+    # ccn 7 # ccv 80
   d21
     $ fast 8
     $ stack
@@ -103,23 +103,23 @@ do
       ccn 34 -- envLevel
         # ccv 100,
       ccn 35 -- rev
-        # ccv 30,
+        # ccv 10,
       ccn 36 -- atack
         # ccv 0, 
       ccn 37 -- release
-        # ccv 10
+        # ccv 20
     ]
     # midichan 1
     # s "midi"
   d2
     $ s "midi(5, 16, <0..15>/32)"
-    # legato "4.0"
-    # note (scale "yu" "{0..5}%3")
+    # legato "2.0"
+    # note (scale "yu" "{0..9}%3")
     |+| note "-24"
     |+| note base
     # midichan "2"
     # gain "1.0"
-    # ccn 7 # ccv 110
+    # ccn 7 # ccv 100
 
 d3
   $ stack
@@ -129,7 +129,7 @@ d3
     s "[~ cp](5, 8, <0..7>/12)" # n "<1 2>" # gain "1.0",
     s "hc(11, 16)" # gain "1.0"
   ]
-  -- # shape "0.6"
+  # shape "0.5"
   # nudge "0.13"
   |*| gain "1.5"
 
@@ -173,7 +173,7 @@ do
   d1
     $ s "midi(7, 16)"
     # midichan "4"
-    # ccn 30 # ccv 10
+    # ccn 30 # ccv 40
     # legato "2.0"
     -- # legato (range 0.5 2.0 $ slow 4 $ rand)
     # note (scale "yu" "{0..5}%9")
@@ -197,7 +197,7 @@ d2
   # nudge "0.13"
   # td_s (irand 18)
 
-d3
+d4
   $ sometimesBy 0.2 (rev)
   $ sometimesBy 0.4 ((1/8) <~)
   $ stack
@@ -211,16 +211,24 @@ d3
   # delay "1.0"
   # delaytime (choose([0.01, 0.02, 0.03, 0.005]))
   -- # delaytime (range 0.005 0.03 $ rand)
-  # delayfeedback "0.7"
+  # delayfeedback "0.8"
   |+| gain "1.8"
   # nudge "0.13"
   # shape "0.9"
   -- # room "0.8"
 
-d4
+d3
   -- $ sometimesBy 0.2 (rev)
-  $ s "<distd uni:1 [~ distd] uni:1>*4"  
-  # shape "0.9"
+  $ stack
+  [
+    s "ifdrums(9, 16, 5)" # n (choose[1..3]),
+    s "uni(9, 16)" # n (choose[1..2]),
+    s "uni(4, 8)"
+  ]
+  -- # delay "1.0"
+  # delaytime (choose([0.01, 0.02, 0.03, 0.005, 0.02]))
+  -- # delaytime (range 0.005 0.03 $ rand)
+  # delayfeedback "0.7"
   # nudge "0.13"
   # gain "1.8"
 
@@ -232,12 +240,12 @@ d5
   |+| note "<0 7 0 12>/4"
   |+| note "[0, 12]"
   # ccn "30"  # ccv (range 10 127 $ slow 15 $ rand)
-  # ccn 7  # ccv 120
+  # ccn 7  # ccv 80
   # legato "0.9"
   # gain "1.8"
   # midichan "1"
 
-unsolo 1  
+unsolo 1
 
 do
   hush
@@ -262,7 +270,6 @@ d1
   # ccn 7 # ccv 100
   |*| gain "1.2"
 
-hush  
   
   
 
