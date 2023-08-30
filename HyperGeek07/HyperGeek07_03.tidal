@@ -257,13 +257,14 @@ d5
 unsolo 5
 
 do
-  hush
+  -- hush
   d12
     $ s "none"
     # td_s (choose([0..3]))
   once
     $ s "matsu"
     # up "-2"
+    # gain "1.5"
   
 d1
   $ slow 4
@@ -279,8 +280,51 @@ d1
   # ccn 7 # ccv 100
   |*| gain "1.2"
 
-  
-  
+d2
+  $ slow 16
+  $ s "midi"
+  # note "c3"  
+  -- |+| note [0, 12]
+  # midichan "6"
+  # legato "6.0"
+  # gain "1.5"
+
+do
+  d3
+    $ s "midi(11, 16)"
+    # note (scale "yu" "{0..9}%3")
+    -- |+| note "<0 7 0 -5>/4"
+    |+| note "-12"
+    |+| note "[0, 7, 12]"
+    # ccn "30"  # ccv (range 10 127 $ slow 15 $ rand)
+    # ccn 7  # ccv 40
+    # legato "1.2"
+    # gain "1.0"
+    # midichan "1"
+  d21
+    $ fast 16
+    $ stack
+    [      
+      ccn 30 -- pos1
+        # ccv 80,
+      ccn 31 -- pos2
+        # ccv 10,
+      ccn 32 -- freq
+        -- # ccv 120,
+        # ccv (range 64 127 $ slow (16 * 4) $ sine),        
+      ccn 33 -- res
+        # ccv 40,
+      ccn 34 -- envLevel
+        # ccv 20,
+      ccn 35 -- rev
+        # ccv 40,
+      ccn 36 -- atack
+        # ccv 5, 
+      ccn 37 -- release
+        # ccv 100
+    ]
+    # midichan 1
+    # s "midi"  
 
 
 hush
