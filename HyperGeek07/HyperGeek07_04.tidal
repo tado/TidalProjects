@@ -3,7 +3,7 @@ setcps(123/240)
 hush
 
 do
-  d20
+  d12
     $ s "none"
     # td_s "0"
   once
@@ -29,7 +29,7 @@ do
 do
   d12 
     $ s "none*2"
-    # td_s "2 3"
+    # td_s (choose([0..3]))
   d2
     -- $ slow 4
     $ s "midi(3, 8)"
@@ -43,7 +43,7 @@ do
 do
   d12
     $ s "none*2"
-    # td_s "3 4 5 6"
+    # td_s (choose([0..4]))    
   d3
     $ s "ae(<3 1 5 2>, 8)"
     # nudge "0.13"
@@ -63,7 +63,7 @@ d4
   # midichan 1
   # note "c5'min11"
   # legato "0.5"
-  # ccn 7 # ccv 30
+  # ccn 7 # ccv 80
 
 d1 silence >> d2 silence >> d3 silence  
 
@@ -72,11 +72,11 @@ do
   let base = 0
   d12
     $ s "none(5, 8)"
-    # td_s (choose([0..4]))    
+    # td_s (choose([5..8]))    
   d1
     $ s "midi(7, 16)"
-    -- # note "c4'min11"
-    # note "<c4'min11 <c4'min13 c4'min7 c4'min9>/4>/2"
+    # note "c4'min11"
+    -- # note "<c4'min11 <c4'min13 c4'min7 c4'min9>/4>/2"
     |+| note base
     -- |+| note "<12 0>/2"
     -- |+| note "[0, 12]"
@@ -118,12 +118,12 @@ do
     |+| note base
     # midichan "2"
     # gain "1.0"
-    # ccn 7 # ccv 127
+    # ccn 7 # ccv 110
 
 do
   d12
     $ s "none(5, 8)"
-    # td_s (choose([8..12]))    
+    # td_s (choose([8..12]))
   d3
     $ stack
     [
@@ -136,16 +136,20 @@ do
     # nudge "0.13"
     |*| gain "1.2"
 
-d4
-  -- $ jux (rev)
-  $ s "superbass(16, 16)"
-  # note (scale "yu" "{0..15}%1")
-  |+| note "-24"
-  # legato "0.8"
-  # lpf(range 400 1000 $ slow 8 $ sine)
-  # resonance "0.2"
-  # nudge "0.13"
-  # gain "1.3"
+do
+  d12
+    $ s "none(7, 16)"
+    # td_s (choose([10..16]))
+  d4
+    -- $ jux (rev)
+    $ s "superbass(16, 16)"
+    # note (scale "yu" "{0..15}%1")
+    |+| note "-24"
+    # legato "0.8"
+    # lpf(range 400 1000 $ slow 8 $ sine)
+    # resonance "0.2"
+    # nudge "0.13"
+    # gain "1.3"
 
 d4
   $ s "superzow(7, 16, [0, 5])"
@@ -157,11 +161,15 @@ d4
   # pan(rand)
   # gain "0.9"
 
-d4
-  $ s "kon(9, 16)"
-  # n "{0..0}%5"
-  # nudge "0.13"
-  # gain "1.2"
+do
+  d12
+    $ s "none(7, 16)"
+    # td_s (choose([18..21]))
+  d4
+    $ s "kon(9, 16)"
+    # n "{0..0}%5"
+    # nudge "0.13"
+    # gain "1.2"
 
 do
   d12
