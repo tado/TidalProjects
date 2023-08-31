@@ -58,12 +58,12 @@ do
     # delaytime (range 0.001 0.05 $ rand)
 
 d4
-  $ slow 1
-  $ s "midi(3, 8)"
+  $ slow 2
+  $ s "midi(1, 8)"
   # midichan 1
   # note "c5'min11"
   # legato "0.5"
-  # ccn 7 # ccv 60
+  # ccn 7 # ccv 30
 
 d1 silence >> d2 silence >> d3 silence  
 
@@ -79,7 +79,7 @@ do
     # note "<c4'min11 <c4'min13 c4'min7 c4'min9>/4>/2"
     |+| note base
     -- |+| note "<12 0>/2"
-    |+| note "[0, 12]"
+    -- |+| note "[0, 12]"
     -- |+| note "<0 0 -5 0>/4"
     # legato "1.0"
     # gain "1.0"
@@ -101,11 +101,11 @@ do
       ccn 34 -- envLevel
         # ccv 30,
       ccn 35 -- rev
-        # ccv 10,
+        # ccv 0,
       ccn 36 -- atack
         # ccv 0, 
       ccn 37 -- release
-        # ccv 20
+        # ccv 30
     ]
     # midichan 1
     # s "midi"
@@ -118,7 +118,7 @@ do
     |+| note base
     # midichan "2"
     # gain "1.0"
-    # ccn 7 # ccv 110
+    # ccn 7 # ccv 127
 
 do
   d12
@@ -129,7 +129,6 @@ do
     [
       s "ifdrums(9, 16, <0..15>/10)" # n (choose[1..2]) # gain "1.3",
       s "uni(5, 16, <0..15>/32)" # gain "1.3",
-      -- s "uni(5, 16)" # gain "1.3",
       s "[~ cp](5, 8, <0..7>/12)" # n "<1 2>" # gain "1.1",
       s "hc(11, 16)" # gain "1.0"
     ]
@@ -140,7 +139,7 @@ do
 d4
   -- $ jux (rev)
   $ s "superbass(16, 16)"
-  # note (scale "yu" "{0..15}%3")
+  # note (scale "yu" "{0..15}%1")
   |+| note "-24"
   # legato "0.8"
   # lpf(range 400 1000 $ slow 8 $ sine)
@@ -151,12 +150,12 @@ d4
 d4
   $ s "superzow(7, 16, [0, 5])"
   # note "c5'min9"
-  # legato "1.2"
+  # legato "0.75"
   # nudge "0.13"
   # lpf (range 200 4000 $ slow 8 $ sine)
   # resonance "0.2"
   # pan(rand)
-  # gain "1.0"
+  # gain "0.9"
 
 d4
   $ s "kon(9, 16)"
