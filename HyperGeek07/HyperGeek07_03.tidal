@@ -352,7 +352,8 @@ d5
 
 
 
-hush
+hush\
+
 
 
 d1 $ s "midi*8" # ccn 32 # ccv 0 # midichan 6
