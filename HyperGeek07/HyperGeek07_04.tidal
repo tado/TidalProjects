@@ -1,3 +1,5 @@
+
+
 setcps(123/240)
 
 hush
@@ -43,7 +45,7 @@ do
 do
   d12
     $ s "none*2"
-    # td_s (choose([0..4]))    
+    # td_s (choose([0..4]))
   d3
     $ s "ae(<3 1 5 2>, 8)"
     # nudge "0.13"
@@ -65,21 +67,21 @@ d4
   # legato "0.5"
   # ccn 7 # ccv 80
 
-d1 silence >> d2 silence >> d3 silence  
+d1 silence >> d2 silence >> d3 silence
 
 do
   -- hush
   let base = 0
   d12
     $ s "none(5, 8)"
-    # td_s (choose([5..8]))    
+    # td_s (choose([5..9]))    
   d1
     $ s "midi(7, 16)"
-    # note "c4'min11"
-    -- # note "<c4'min11 <c4'min13 c4'min7 c4'min9>/4>/2"
+    -- # note "c4'min11"
+    # note "<c4'min11 <c4'min13 c4'min7 c4'min9>/4>/2"
     |+| note base
     -- |+| note "<12 0>/2"
-    -- |+| note "[0, 12]"
+    |+| note "[0, 12]"
     -- |+| note "<0 0 -5 0>/4"
     # legato "1.0"
     # gain "1.0"
@@ -118,7 +120,7 @@ do
     |+| note base
     # midichan "2"
     # gain "1.0"
-    # ccn 7 # ccv 110
+    # ccn 7 # ccv 128
 
 do
   d12
@@ -139,7 +141,7 @@ do
 do
   d12
     $ s "none(7, 16)"
-    # td_s (choose([10..16]))
+    # td_s (choose([0..16]))
   d4
     -- $ jux (rev)
     $ s "superbass(16, 16)"
@@ -173,8 +175,8 @@ do
 
 do
   d12
-    $ s "none*4"
-    # td_s (choose([0..32]))
+    $ s "none(9, 16)"
+    # td_s (choose([22..23]))
   d1
     $ s "midi(9, 16)"
     # midichan "4"
@@ -186,20 +188,24 @@ do
     -- # gain "1.0"
     -- |+| note "<0 12>*8"
 
-d2
-  $ sometimesBy 0.1 (rev)
-  $ sometimesBy 0.4 ((1/8) <~)
-  $ stack
-  [
-    s "uni(10, 16)" # n "{0 1 2}%8", 
-    s "distd(2, 16)" # gain "1.1",
-    s "uni:1(9, 16, 5)"
-  ]
-  -- # room "0.8" # size "0.9"
-  # shape "0.8"
-  # gain "1.0"
-  # nudge "0.13"
-  # td_s (irand 18)
+do
+  d12
+    $ s "none(9, 16)"
+    # td_s (choose([24..32]))
+  d2
+    $ sometimesBy 0.1 (rev)
+    $ sometimesBy 0.4 ((1/8) <~)
+    $ stack
+    [
+      s "uni(10, 16)" # n "{0 1 2}%8", 
+      s "distd(2, 16)" # gain "1.1",
+      s "uni:1(9, 16, 5)"
+    ]
+    -- # room "0.8" # size "0.9"
+    # shape "0.8"
+    # gain "1.0"
+    # nudge "0.13"
+    # td_s (irand 18)
 
 d4
   -- $ sometimesBy 0.2 (rev)
@@ -249,15 +255,17 @@ d5
 
 d5
   $ jux (rev)
-  $ s "midi(5, 16, <0..15>/32)"
+  $ s "superzow(9, 16)"
   # note "c5'min13"
   -- |+| note "<0 7 0 -5>/4"
-  |+| note "[0, 12]"
-  # ccn "30"  # ccv (range 10 127 $ slow 15 $ rand)
-  # ccn 7  # ccv 60
-  # legato "0.9"
-  # gain "1.8"
-  # midichan "1"
+  # lpf (range 1000 8000 $ slow 2 $ sine)
+  # resonance "0.2"
+  # ccn "30"  # ccv 120
+  # ccn 7  # ccv 100
+  # legato "0.7"
+  # gain "1.5"
+  
+  
 
 unsolo 5
 
@@ -266,17 +274,16 @@ do
   hush
   d12
     $ s "none"
-    # td_s (choose([0..3]))
+    # td_s 17
   once
     $ s "matsu"
     # up "-2"
     # gain "1.0"
 
-do  
+do
   d12
-    $ slow 4
-    $ s "none*8"
-    # td_s (choose([0..3]))
+    $ s "none"
+    # td_s 25
   d1
     $ slow 4
     $ stack
@@ -294,29 +301,10 @@ do
 do
   d12
     $ s "none*16"
-    # td_s (choose([0..32]))
+    # td_s (choose([0..26]))
   d2
-    $ slow 4
-    $ s "midi"
-    # note "c3"  
-    # midichan 6
-    # legato "2.0"
-    # gain "1.5"  
-  d22
-    $ fast 32
-    $ stack
-    [      
-      ccn 30 # ccv (range 60 120 $ slow (16 * 32) $ sine),
-      ccn 31 # ccv (range 40 60 $ slow (16 * 5) $ sine),
-      ccn 32 # ccv 127
-    ]
-    # midichan 6
-    # s "midi"   
-
-do
-  d3
     $ jux (rev)
-    $ s "midi(9, 16)"
+    $ s "midi(5, 8)"
     # note (scale "yu" "{0..5}%5")
     -- |+| note "<0 7 0 -5>/4"
     -- |+| note "-12"
@@ -351,6 +339,27 @@ do
     # midichan 1
     # s "midi"
 
+
+do
+  d3
+    $ slow 4
+    $ s "midi"
+    # note "c3"  
+    # midichan 6
+    # legato "2.0"
+    # gain "1.5"  
+  d22
+    $ fast 32
+    $ stack
+    [      
+      ccn 30 # ccv (range 60 127 $ slow (16 * 32) $ sine),
+      ccn 31 # ccv (range 40 80 $ slow (16 * 5) $ sine),
+      ccn 32 # ccv 127
+    ]
+    # midichan 6
+    # s "midi"   
+
+
 d4
   $ slow 16
   $ s "matsu"
@@ -365,7 +374,7 @@ d5
   -- # n (choose[0..3])
   -- # up "<0 0 7 0>"
   # room "0.6" # size "0.95"
-  # gain "1.0"
+  # gain "0.8"
 
 
 
