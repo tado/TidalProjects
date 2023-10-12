@@ -4,11 +4,6 @@ setcps(123/240)
 
 -- Intro -------------
 
-d1
-  $ s "casio*4"
-
-hush  
-
 do
   d12
     $ s "none"
@@ -22,7 +17,7 @@ do
     # td_s "1"
   d1
     $ s "sfh"
-    -- # lpf 12000
+    # lpf 100
     # pan (rand)
     # n (choose[0..32])
     # gain "0.8"
@@ -33,22 +28,25 @@ do
     $ s "none*2"
     # td_s (choose([0..3]))
   d2
-    $ s "midi*4"
-    # note (choose([-24..12]))
+    $ s "midi"
+    # note "-12"
     # midichan "0"
     # legato "4.0"
     # gain "1.0"
-    # ccn 7 # ccv 90
+    # ccn 7 # ccv 80
 
 do
   d12
     $ s "none*2"
     # td_s (choose([0..4]))
   d3
-    $ s "ae(<3 1 2 4>, 8)"
+    $ s "ae(3, 8)"
     # nudge "0.13"
     # n (choose[0..4])
-    # gain "0.7"
+    # gain "0.8"
+    
+    
+    
     # pan (rand)
     # speed "[1.0, 1.001]"
     # lpf (range 80 1000 $ slow 8 $ sine) # resonance "0.2"
@@ -63,9 +61,9 @@ d4
   $ slow 2
   $ s "midi"
   # midichan 1
-  # note "c5'min13"
+  # note "c5'min"
   # legato "0.5"
-  # ccn 7 # ccv 80
+  # ccn 7 # ccv 0
 
 
 d1 silence >> d2 silence >> d3 silence
@@ -112,15 +110,15 @@ do
     # midichan 1
     # s "midi"
   d2
-    $ s "midi(5, 16, <0..15>/32)"
+    $ s "midi(5, 16)"
     # legato "2.5"
     # note (scale "minPent" "{0..9}%3")
     |+| note "-24"
     |+| note base
     # midichan "2"
-    # gain (range 1.1 1.2 $ slow 4 $ sine)
-    # ccn 31 # ccv 50
-    # ccn 7 # ccv 100
+    # gain (range 1.0 1.1 $ slow 4 $ sine)
+    # ccn 31 # ccv 40
+    # ccn 7 # ccv 0
 
 --- Beat -----------------------
 
@@ -131,23 +129,22 @@ do
   d3
     $ stack
     [
-      s "ifdrums(9, 16, <0..15>/10)" # n (choose[1..2]) # gain "1.3",
-      s "uni(5, 16, <0..15>/32)" # gain "1.7",
-      s "[~ cp](5, 8, <0..7>/12)" # n "<1 2>" # gain "1.1",
+      -- s "ifdrums(9, 16, <0..15>/10)" # n (choose[1..2]) # gain "1.3",
+      -- s "uni(5, 16)" # gain "1.5",
+      -- s "[~ cp](5, 8, <0..7>/12)" # n "<1 2>" # gain "1.1",
       s "hc(11, 16)" # gain "1.0"
     ]
     -- # shape "0.5"
     # nudge "0.13"
-    |*| gain "1.5"
+    |*| gain "1.2"
 
 do
   d12
     $ s "none(7, 16)"
     # td_s (choose([0..16]))
   d4
-    $ jux(rev)
     $ s "superbass(16, 16)"
-    # note (scale "yu" "{0..15}%3")
+    # note (scale "yu" "{0..15}%1")
     |+| note "-24"
     # legato "0.8"
     # lpf(range 400 2000 $ slow 8 $ sine)
@@ -171,7 +168,7 @@ do
     # td_s (choose([18..21]))
   d4
     $ s "kon(7, 16)"
-    # n "{0..10}%3"
+    # n "{0..0}%3"
     # nudge "0.13"
     # gain "1.3"
 
@@ -187,8 +184,8 @@ do
     # legato "1.0"
     # note (scale "yu" "{0..5}%3")
     |-| note "24"
-    # ccn 30 # ccv 80
-    # gain (range 1.0 1.2 $ slow 8 $ sine)
+    # ccn 30 # ccv 20
+    # gain (range 1.0 1.0 $ slow 8 $ sine)
 
 --- Hard Beat ----------------------
 
@@ -212,7 +209,7 @@ do
     # td_s (irand 18)
 
 d4
-  $ sometimesBy 0.2 (rev)
+  -- $ sometimesBy 0.2 (rev)
   -- $ sometimesBy 0.4 ((1/8) <~)
   $ stack
   [
@@ -224,7 +221,7 @@ d4
   # delaytime (choose([0.01, 0.02, 0.03, 0.005]))
   -- # delaytime (range 0.002 0.03 $ rand)
   # delayfeedback "0.8"
-  |+| gain "1.9"
+  |+| gain "1.8"
   # nudge "0.13"
   # shape "0.9"
   -- # room "0.8"
@@ -246,11 +243,11 @@ d3
   # gain "1.9"
 
 d5
-  $ jux (iter 16)
+  -- $ jux (rev)
   $ s "superzow(16, 16)"
-  # note (scale "yu" "{0..15}%3")
+  # note (scale "yu" "{0..15}%1")
   |+| note "-24"
-  |+| note "[0, 12]"
+  |+| note "[0, 7]"
   # legato "0.9"
   # lpf (range 200 12000 $ slow 8 $ sine)
   # resonance "0.3"
@@ -273,7 +270,6 @@ unsolo 5
 
 do
   hush
-  setcps(123/240)
   d12
     $ s "none"
     # td_s 27
@@ -295,24 +291,23 @@ do
     ]
     # midichan "5"
     -- |+| note "<0 7 0 12>/4"
-    |+| note "[0, 12]"
+    -- |+| note "[0, 12]"
     # legato "12.0"
     # ccn 7 # ccv 120
     |*| gain "1.2"
 
 do
   d12
-    $ s "none*32"
+    $ s "none*8"
     # td_s (choose([0..27]))
   d2
-    $ jux(rev)
-    $ s "midi(7, 16)"
+    $ s "midi(3, 8)"
     # note (scale "yu" "{0..5}%5")
     -- |+| note "<0 7 0 -5>/4"
     -- |+| note "-12"
     |+| note "[0, 12]"    
     # ccn "30"  # ccv (range 10 127 $ slow 15 $ rand)
-    # ccn 7  # ccv 80
+    # ccn 7  # ccv 1
     # legato "1.0"
     # gain "1.0"
     # midichan "1"
@@ -350,13 +345,13 @@ do
     # midichan 6
     # legato "2.0"
     # gain "1.5"
-    # ccn 7 # ccv 127
+    # ccn 7 # ccv 80
   d22
     $ fast 32
     $ stack
     [      
-      ccn 30 # ccv (range 80 127 $ slow (16 * 32) $ sine),
-      ccn 31 # ccv (range 20 80 $ slow (16 * 5) $ sine),
+      ccn 30 # ccv (range 0 10 $ slow (16 * 32) $ sine),
+      ccn 31 # ccv (range 0 10 $ slow (16 * 5) $ sine),
       ccn 32 # ccv 127
     ]
     # midichan 6
