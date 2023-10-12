@@ -192,7 +192,7 @@ do
 do
   d12
     $ s "none(9, 16)"
-    # td_s (choose([24..32]))
+    # td_s (choose([0..32]))
   d2
     $ sometimesBy 0.1 (rev)
     $ sometimesBy 0.4 ((1/8) <~)
