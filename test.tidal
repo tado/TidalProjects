@@ -4,11 +4,34 @@ hush
 
 unsolo 1
 
-setcps(125/240)
+setcps(135/240)
 
-hush  
+hush
 
-d1
+d1  
+  $ stack
+  [
+    s "uni(4, 8)" # gain "1.2",
+    s "qri(5, 8)" # gain "1.2",
+    -- jux (rev) $ s "ifdrums(11, 16)" # n (choose[1..2]),
+    jux (iter 16) $ s "qri(13, 16)" # n (choose[1,2])
+  ]
+  |*| gain "1.3"
+
+d2
+  $ jux (iter 16)
+  $ s "superbass(9, 16, {0..7}/16)"
+  # legato "0.5 1.5"
+  # note (scale "ritusen" "{0..7}%3")
+  |+| note "[7, 0]"
+  # lpf (range 200 8000 $ slow 8 $ sine) # resonance "0.1"
+  # room "0.7" # size "0.9"
+  # gain "0.9"
+
+d2
+  "matsu/3"
+
+d2
   $ s "svr"
   # n (choose[0..1]) 
   # note "[7, 0, 12]"
