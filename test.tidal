@@ -56,8 +56,17 @@ hush
 unsolo 2
 
 
+d1
+  $ s "sup(11, 16)"
+  # n "{0..6}%9"
+  # gain "1.3"
 
+d2
+  $ s "hc(9, 16)"
 
+d3
+  $ s "uni(4, 8)"
+  # gain "1.3"
 
 d4
   $ s "earth"
