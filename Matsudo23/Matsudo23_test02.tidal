@@ -23,7 +23,7 @@ do
     # pan (rand)
     # n (choose[0..32])
     # gain "0.8"
-    # nudge "0.13"
+    # nudge "0.13"---
 
 do
   d12 
