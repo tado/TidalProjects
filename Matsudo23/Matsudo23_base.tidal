@@ -77,6 +77,7 @@ d1 silence >> d2 silence >> d3 silence >> d4 silence
 do
   setcps(130/240)
   let base = 0
+  d5 silence
   d12
     $ s "none(5, 8)"
     # td_s (choose([5..9]))    
@@ -197,14 +198,6 @@ d2
   $ s "hc(11, 16, <0..15>/8)"  
   # nudge "0.13"
 
-d3
-  $ s "tet(9, 16)" 
-  -- # up "[0, 7, 12]"
-  # lpf (range 400 8000 $ slow 8 $ sine) 
-  # resonance "0.2"
-  # room "0.6" # size "0.9"
-  -- # n "<0 1 2 3>/8"
-  # gain "1.2" 
 
 --- Distort Bass ----------    
 
@@ -212,7 +205,7 @@ do
   d12
     $ s "none(9, 16)"
     # td_s (choose([0..23]))
-  d4
+  d3
     $ s "midi(9, 16)"
     # midichan "4"
     # legato "1.0"
@@ -225,18 +218,16 @@ do
   d12
     $ s "none(5, 16)"
     # td_s (choose[16..24])
-  d3
+  d4
     $ jux (iter 16)
     $ s "superbass(16, 16)"
-    # note (scale "dorian" (choose[-24..24]))    
+    # note (scale "yu" (choose[0..12]))    
     |+| note "-12"
     # lpf (range 1000 8000 $ slow 16 $ rand)
     # pan (rand)
     # resonance "0.3"
     # legato "0.8"
     # nudge "0.13"
-    # room "0.8"
-    # size "0.5"
 
 --- Hard Beat ----------------------
 
@@ -259,7 +250,7 @@ do
     # nudge "0.13"
     # td_s (irand 18)
 
-d3
+d4
   -- $ sometimesBy 0.2 (rev)
   -- $ sometimesBy 0.4 ((1/8) <~)
   $ stack
@@ -277,7 +268,7 @@ d3
   # shape "0.9"
   -- # room "0.8"
 
-d4
+d5
   -- $ sometimesBy 0.2 (rev)
   $ stack
   [
@@ -293,7 +284,7 @@ d4
   # nudge "0.13"
   # gain "1.9"
 
-d5
+d3
   -- $ jux (rev)
   $ s "superzow(16, 16)"
   # note (scale "yu" "{0..15}%1")
@@ -306,7 +297,6 @@ d5
   # gain "1.1"
 
 d5
-  $ jux (rev)
   $ s "superzow(9, 16)"
   # note "c5'min13"
   # nudge "0.13"
@@ -321,6 +311,7 @@ unsolo 5
 
 do
   hush
+  setcps(130/240)
   d12
     $ s "none"
     # td_s 27
@@ -337,7 +328,7 @@ do
     $ slow 4
     $ stack
     [
-      s "midi" # note "c5'min13",
+      s "midi" # note "c5'min9 c5'min13",
       s "midi" # note "c3" # gain "1.7"
     ]
     # midichan "5"
