@@ -58,6 +58,8 @@ unsolo 2
 
 unsolo 1
 
+d12
+
 d1
   $ s "sup(9, 16, <0..15>/[8, 12])"
   -- # n (choose[0..6])
