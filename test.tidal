@@ -1,7 +1,56 @@
+ライブコーディング (Live Coding)
+
+d1
+  $ sometimes (slow 2)
+  $ jux (rev)
+  $ s "bd cp*2 [~ bd] hc*4"
+
+d2
+  $ jux (iter 16)
+  $ s "supersaw(11, 16)"
+  # note (scale "yu" "{0..7}%5")
+  |+| note "-12"
+  |+| note "[0, 7, 12]"
+  # legato "0.7"
+  # gain "0.8"
+  # lpf (range 200 2000 $ slow 4 $ sine)
+  # resonance "0.2"
+
+setcps(40/240)
+
+hush
+
+
+
+
 
 hush  
 
-setcps(125/240)
+d1
+  $ jux (rev)
+  $ sometimes (rev)
+  $ stack[
+    s "ifdrums(5, 8)" # n (choose[1..2]),
+    s "bd cp [~ bd] hc*2",
+    s "uni(3, 8)"
+  ]
+
+d2  
+  $ s "supersaw(9, 16)"
+  # note "c4'maj7 c4'maj9"
+  # legato "0.7 1.2"
+  # lpf (range 200 2000 $ slow 4 $ sine)
+  # resonance "0.2"
+  # gain "0.8"
+
+hush
+
+
+
+
+
+
+
 
 do
   d12
