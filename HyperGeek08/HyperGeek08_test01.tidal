@@ -1,6 +1,8 @@
+
+
 d12
-    $ s "none(5, 16)"
-    # td_s (choose([0..30]))
+    $ s "none(11, 16)"
+    # td_s (choose([0..34]))
 
 hush
 
@@ -9,7 +11,7 @@ do
   setcps(130/240)
   d1 
     $ s "cp(3, 8, <0..7>/8)"
-    # nudge "0.1"
+    # nudge "0.11"
   d2
     $ s "midi(3, 8, <0..7>/8)"
     # midichan 2
@@ -26,12 +28,20 @@ do
     # td_s "0"
   once
     $ s "matsu"
- 
+
+d1
+  $ s "superdown/8"
+  # note "c5"
+  # voice "800"
+  # speed "[1.5, 1.0]"
+  # legato "4.0"
+  # gain "0.7"
+  
 do
   d12
     $ s "none"
-    # td_s "1"
-  d1
+    # td_s "<1 0>/4"
+  d2
     $ s "sfh"
     # lpf 8000
     # pan (rand)
@@ -48,7 +58,7 @@ d2
 
 do
   d12 
-    $ s "none*2"
+    $ s "none/4"
     # td_s (choose([0..3]))
   d3
     $ s "midi"
@@ -60,7 +70,7 @@ do
 
 do
   d12
-    $ s "none*2"
+    $ s "none"
     # td_s (choose([0..4]))
   d4
     $ s "ae(3, 8)"
@@ -81,7 +91,7 @@ d5
   $ slow 2
   $ s "midi"
   # midichan 1
-  # note "c5'min"
+  # note "c5'min11"
   # legato "0.5"
   # ccn 7 # ccv 100
 
@@ -205,18 +215,19 @@ do
     -- # n (choose[0..6])
     # n "{0..6}%3"
     # shape "0.6"
-    # nudge "0.1"
+    # nudge "0.11"
     # gain "1.5"
 
 d2
   $ s "hc(11, 16, <0..15>/8)"  
-  # nudge "0.1"
+  # nudge "0.11"
 
 d3
   $ s "tet(9, 16)" 
   -- # up "[0, 7, 12]"
-  # lpf (range 400 8000 $ slow 8 $ sine) 
+  # lpf (range 400 8000 $ slow 4 $ sine) 
   # resonance "0.2"
+  # nudge "0.11"
   # room "0.6" # size "0.9" 
   -- # n "<0 1 2 3>/8"
   # gain "1.2" 
@@ -227,13 +238,13 @@ do
   d12
     $ s "none(9, 16)"
     # td_s (choose([0..23]))
-  d3
+  d4
     $ s "midi(9, 16)"
     # midichan "4"
     # legato "1.0"
     # note (scale "yu" "{0..5}%3")
     |-| note "24"
-    # ccn 30 # ccv 20
+    # ccn 30 # ccv 10
     # gain (range 1.0 1.0 $ slow 8 $ sine)
 
 do
@@ -249,7 +260,9 @@ do
     # pan (rand)
     # resonance "0.3"
     # legato "0.8"
-    # nudge "0.1"
+    # nudge "0.11"
+
+unsolo 5    
 
 --- Hard Beat ----------------------
 
@@ -258,7 +271,7 @@ hush
 do
   d12
      $ s "none(9, 16)"
-     # td_s (choose([27..30]))
+     # td_s (choose([0..32]))
   d2
     $ sometimesBy 0.1 (rev)
     $ sometimesBy 0.4 ((1/8) <~)
@@ -288,7 +301,7 @@ d4
   -- # delaytime (range 0.002 0.03 $ rand)
   # delayfeedback "0.8"
   |+| gain "1.8"
-  # nudge "0.1"
+  # nudge "0.13"
   # shape "0.9"
   -- # room "0.8"
 
