@@ -1,3 +1,9 @@
+d12
+    $ s "none(5, 16)"
+    # td_s (choose([0..30]))
+
+hush
+
 -- sync test
 do
   setcps(130/240)
@@ -247,10 +253,12 @@ do
 
 --- Hard Beat ----------------------
 
+hush
+
 do
   d12
-    $ s "none(9, 16)"
-    # td_s (choose([24..32]))
+     $ s "none(9, 16)"
+     # td_s (choose([27..30]))
   d2
     $ sometimesBy 0.1 (rev)
     $ sometimesBy 0.4 ((1/8) <~)
@@ -264,7 +272,7 @@ do
     # shape "0.8"
     # gain "1.0"
     # nudge "0.1"
-    # td_s (irand 18)
+    -- # td_s (irand 18)
 
 d4
   -- $ sometimesBy 0.2 (rev)
