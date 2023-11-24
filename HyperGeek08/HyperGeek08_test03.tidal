@@ -8,6 +8,7 @@ do
     $ s "midi(3, 8, <0..7>/8)"
     # midichan 2
     # note "c4"
+    # ccn 7 # ccv 80
 
 hush
 
@@ -254,7 +255,7 @@ do
 do
   d12
     $ s "none(9, 16)"
-    # td_s (choose([27..34]))
+    # td_s (choose([0..34]))
   d2
     $ sometimesBy 0.1 (rev)
     $ sometimesBy 0.4 ((1/8) <~)
@@ -302,17 +303,17 @@ d5
   -- # delayfeedback "0.7"
   -- # shape "0.5"
   # nudge "0.22"
-  # gain "1.9"
+  # gain "2.0"
 
 d3
   -- $ jux (rev)
   $ s "superzow(16, 16)"
-  # note (scale "yu" "{0..15}%1")
+  # note (scale "yu" "{0..15}%7")
   |+| note "-24"
   |+| note "[0, 7]"
   # legato "0.9"
-  # lpf (range 200 12000 $ slow 8 $ sine)
-  # resonance "0.3"
+  # lpf (range 800 4000 $ slow 8 $ sine)
+  # resonance "0.2"
   # nudge "0.22"
   # gain "1.1"
 
@@ -352,9 +353,9 @@ do
     ]
     # midichan "5"
     -- |+| note "<0 7 0 12>/4"
-    -- |+| note "[0, 12]"
+    |+| note "[0, 12]"
     # legato "12.0"
-    # ccn 7 # ccv 100
+    # ccn 7 # ccv 120
     |*| gain "1.2"
 
 do
@@ -368,7 +369,7 @@ do
     -- |+| note "-12"
     |+| note "[0, 12]"    
     # ccn "30"  # ccv (range 10 127 $ slow 15 $ rand)
-    # ccn 7  # ccv 0
+    # ccn 7  # ccv 80
     # legato "1.0"
     # gain "1.0"
     # midichan "1"
@@ -411,13 +412,12 @@ do
     $ fast 32
     $ stack
     [      
-      ccn 30 # ccv (range 10 20 $ slow (16 * 32) $ sine),
-      ccn 31 # ccv (range 10 20 $ slow (16 * 5) $ sine),
+      ccn 30 # ccv (range 40 80 $ slow (16 * 32) $ sine),
+      ccn 31 # ccv (range 80 120 $ slow (16 * 5) $ sine),
       ccn 32 # ccv 127
     ]
     # midichan 6
     # s "midi"   
-
 
 d4
   $ slow 16
@@ -427,11 +427,11 @@ d4
 
 d2
   $ s "superdown/8"
-  # note "c5"
-  # voice "200"
+  # note "c6"
+  # voice "100"
   # speed "[1.5, 1.0]"
   # legato "4.0"
-  # gain "1.0"
+  # gain "0.9"
   # room "0.9"
   # size "0.9"
 
