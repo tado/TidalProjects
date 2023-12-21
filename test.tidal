@@ -1,4 +1,93 @@
 d1
+  $ jux(rev)  
+  $ s "mySynth(11, 16)"
+  # note (scale "minPent" "{0..19}%3")
+  |+| note "-24"
+  # lpf (range 200 1000 $ slow 2 $ sine)
+  # resonance "0.3"
+  # delay "0.5"
+  # delaytime "1.125"
+  # gain "1.2"
+
+d1
+  $ s "superfbk/8"
+  # note "c5"
+  |+| note "[0, 12]"
+  # legato "1.5"
+  # lpf (range 1000 8000 $ slow 8 $ sine)
+  # room "0.9"
+  # gain "1.9"
+  # shape "0.8"
+
+
+d2
+  $ s "superfbk/6"
+  # note "g5"
+  # legato "1.5"
+  # lpf (range 800 9000 $ slow 8 $ sine)
+  # room "0.9"
+  # gain "1.9"
+  # shape "0.8"
+
+do
+  -- resetCycles
+  
+  d12
+    $ s "midi*2"
+    # midichan "0"
+    # ccn 51 # ccv 0
+
+do
+  hush
+  once
+    $ s "midi"
+    # midichan "8"
+    # ccn 41 # ccv 1  
+  
+
+do
+  setcps(100/240)
+  -- resetCycles
+  -- once
+  --   $ s "midi"
+  --   # midichan "8"
+  --   # ccn 40 # ccv 1  
+  d1
+    -- $ jux (rev)
+    $ jux (iter 16)
+    $ s "midi(9, 16)"
+    # note (scale "minPent" "{0..5}%5")
+    -- |+| note "[-12, -5, 0]"
+    -- |+| note "<-12 0>*8"
+    |+| note "-12"
+    # legato "2.0"
+    -- # pan (range 0.1 0.9 $ rand)
+    # gain (range 0.8 1.5 $ rand)    
+    # midichan "0"
+  d21
+    $ fast 32
+    $ stack
+    [      
+      ccn 51 # ccv (range 40.0 80.0 $ rand),
+      ccn 50 # ccv 30
+    ]
+    # midichan 0
+    # s "midi"
+
+  d2
+    -- $ jux (rev)
+    $ s "midi(5, 16, 5)"
+    # note (scale "ritusen" "{0..7}%3")
+    -- |+| note "<0 1 0 4>/8"
+    |+| note "-24"
+    # pan (range 0.2 0.8 $ rand)
+    # legato "0.3"
+    # gain (range 1.2 1.7 $ rand)
+    # midichan "0"
+
+hush
+
+d1
   $ jux (iter 16)
   $ s "arpy(9, 16)" # n "{0..11}%[7, 3]"
   # pan (rand)
@@ -30,7 +119,7 @@ d2
   # lpf (range 200 2000 $ slow 4 $ sine)
   # resonance "0.2"
 
-setcps(40/240)
+setcps(90/240)
 
 hush
 
