@@ -10,9 +10,10 @@ do
     # ccn 7 # ccv 80
     # note "c4"
 
-hush
+
 
 -- Intro -------------
+hush
 
 do
   setcps(120/240)    
@@ -64,8 +65,7 @@ do
     -- # nudge "0.22"
     # n (choose[0..4])
     # gain "0.8"
-    
-     
+
     # pan (rand)
     # speed "[1.0, 1.001]"
     # lpf (range 80 1000 $ slow 8 $ sine) # resonance "0.2"
@@ -82,7 +82,7 @@ d5
   # midichan 1
   # note "c5'min13"
   # legato "0.5"
-  # ccn 7 # ccv 100
+  # ccn 7 # ccv 10
 
 
 d1 silence >> d2 silence >> d3 silence >> d4 silence
