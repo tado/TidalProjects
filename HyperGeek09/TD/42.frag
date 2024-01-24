@@ -7,8 +7,8 @@ float random(in vec2 st) {
 }
 
 void main(void) {
-    float level = 1.5;
-    vec2 rand = vec2(time * 0.1, time * 0.2);
-    vec3 col = vec3(random(rand) * level, random(rand * 1.4) * level, random(rand * 2.0) * level);
+    float level = 1.0;
+    vec2 rand = vec2(time * 2.0, time * 3.2);
+    vec3 col = vec3(random(rand) * level, random(rand * 1.3) * level, random(rand * 1.4) * level);
     fragColor = TDOutputSwizzle(vec4(col, 1.0));
 }
