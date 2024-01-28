@@ -1,4 +1,11 @@
 d1
+  $ s "cp*4"
+  # gain "1.0"
+
+hush
+
+
+d1
   $ jux(rev)  
   $ s "mySynth(11, 16)"
   # note (scale "minPent" "{0..19}%3")
