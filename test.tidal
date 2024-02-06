@@ -1,3 +1,70 @@
+-- Feedback Experiments!!!
+
+setcps(120/240)
+
+hush
+
+d1
+  $ s "supersawfbk/4"
+  # note "c3"
+  # distort "0.0"
+  # rq "1.0"
+  # legato 2.0
+  # wet "0.0"
+  # room "0.8"
+  # gain "1.9"
+  # shape "0.9"
+
+d1
+  $ s "superdown/8"
+  # note "c5"
+  # voice "800"
+  # speed "[1.5, 1.0]"
+  # legato 4.0
+  # gain 1.0  
+
+d2
+  $ s "superfmfbk/4"
+  # voice "200"
+  # note "c4"  
+  |+| note "[0, 12]"
+  # flow 100
+  # fhigh 20000
+  # rq "0.4"
+  # wet "0.0"
+  # distort "0.0"  
+  # legato 4.0
+  # room "0.3"
+  # size "0.9"
+  # gain 0.9
+
+d3
+  $ s "superfbk/4"
+  # note "c3'min9"
+  # rq "0.9"
+  # distort "0.5"  
+  # legato 4.0
+  # gain 0.0
+
+
+hush
+
+
+d1
+  $ s "supersawfbk"
+  # note "c3'min"
+  # rq "0.3"
+  # distort "200.0"  
+  # legato 4.0
+  # gain 1.0
+
+  
+
+
+  
+
+hush
+
 d1
   $ s "cp*4"
   # gain "1.0"

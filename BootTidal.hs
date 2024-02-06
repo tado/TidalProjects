@@ -93,3 +93,10 @@ let getState = streamGet tidal
 
 -- Change TouchDesigner scene
 let td_s = pI "td_s"
+
+-- for superfbk
+let flow = pI "flow"
+let fhigh = pI "fhigh"
+let distort = pF "distort"
+let rq = pF "rq"
+let wet = pF "wet"
