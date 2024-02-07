@@ -6,14 +6,15 @@ hush
 
 d1
   $ s "supersawfbk/4"
-  # note "c3"
+  # note "c2"
   # distort "0.0"
   # rq "1.0"
   # legato 2.0
   # wet "0.0"
-  # room "0.8"
+  # room "0.9"
+  # size "0.9"
   # gain "1.9"
-  # shape "0.9"
+  # shape "0.95"
 
 d1
   $ s "superdown/8"
