@@ -54,14 +54,14 @@ do
     $ s "none*4"
     # td_s (choose([34..40]))
   d5
-    $ echo 10 0.2 0.8
+    $ echo 10 0.2 0.85
     $ s "superwho"
     # midichan 1
     # note "c4'min13"
     |+| note "[0, 12]"
     # pan "<0.1 0.9>"
     # legato "0.05"
-    # lpf (range 1200 8000 $ slow 2 $ sine)
+    # lpf (range 1200 8000 $ slow 8 $ sine)
     # resonance "0.2"
     # room "0.8" # size "0.9"
     
