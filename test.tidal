@@ -3,18 +3,28 @@
 setcps(120/240)
 
 hush
+d1
+  $ s "supersawfbk/4"
+  # note "c2"
+  # distort "0.0"
+  # rq "1.0"
+  # legato "3.0"
+  # wet "0.0"
+  # room "0.9"
+  # size "0.9"
+  # gain "1.0"
 
 d1
   $ s "supersawfbk/4"
   # note "c2"
   # distort "0.0"
   # rq "1.0"
-  # legato 2.0
+  # legato "3.0"
   # wet "0.0"
   # room "0.9"
   # size "0.9"
-  # gain "1.9"
-  # shape "0.95"
+  # gain "1.0"
+  -- # shape "0.99"
 
 d1
   $ s "superdown/8"
