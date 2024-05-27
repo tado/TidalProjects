@@ -152,7 +152,7 @@ do
     # midichan "2"
     # gain (range 1.0 1.1 $ slow 4 $ sine)
     # ccn 31 # ccv 80
-    # ccn 7 # ccv 0
+    # ccn 7 # ccv 80
     
 
 --- Beat -----------------------
@@ -164,9 +164,9 @@ do
   d3
     $ stack
     [
-      -- s "ifdrums(9, 16, <0..15>/10)" # n (choose[1..2]) # gain "1.3",
-      -- s "uni(5, 16)" # gain "1.5",
-      -- s "[~ cp](5, 8, <0..7>/12)" # n "<1 2>" # gain "1.1",
+      s "ifdrums(9, 16, <0..15>/10)" # n (choose[1..2]) # gain "1.3",
+      s "uni(5, 16)" # gain "1.5",
+      s "[~ cp](5, 8, <0..7>/12)" # n "<1 2>" # gain "1.1",
       s "hc(11, 16)" # gain "1.0"
     ]
     |*| gain "1.2"
@@ -182,7 +182,7 @@ do
     # legato "0.7"
     # lpf(range 400 2000 $ slow 8 $ sine)
     # resonance "0.2"
-    # gain "0.0"
+    # gain "0.9"
 
 d4
   $ s "superzow(7, 16, [0, 5])"
@@ -191,7 +191,7 @@ d4
   # lpf (range 200 4000 $ slow 8 $ sine)
   # resonance "0.2"
   # pan(rand)
-  # gain "0.0"
+  # gain "0.9"
 
 do
   d12
@@ -199,8 +199,8 @@ do
     # td_s (choose([43..51]))
   d5
     -- $ jux (rev)
-    $ s "kon(5, 16)"
-    # n "{0..0}%3"  
+    $ s "kon(9, 16)"
+    # n (irand 20)
     # gain "1.0"
 
 --- New Beat ----
@@ -229,7 +229,8 @@ do
     $ s "tet(9, 16)" 
     # lpf (range 400 8000 $ slow 8 $ sine) 
     # resonance "0.2"
-    # gain "1.0"     
+    # gain "1.2"     
+    # n "<0 1 2 3>/4"
     
     
     # up "[0, 7, 12]"
@@ -249,22 +250,21 @@ do
   d3
     $ s "midi(9, 16)"
     # midichan "4"
-    # legato "1.5"
+    # legato "1.0"
     # note (scale "minPent" "{0..9}%13")
     |-| note "22"
-    # ccn 30 # ccv 60
-    # gain 0.5
-    
+    # ccn 30 # ccv 90
+    # gain 0.7
 
 d5
   $ jux (iter 16)
   $ s "superbass(16, 16)"
-  # note (scale "minPent" (choose[0..9]))    
+  # note (scale "minPent" (choose[0..19]))    
   |+| note "-10"
   # lpf (range 400 5000 $ slow 16 $ rand)
   # pan (rand)
   # resonance "0.3"
-  # legato "1.0"
+  # legato "0.7"
   # gain "1.0"
     
 unsolo 3
@@ -289,7 +289,7 @@ do
     # gain "1.8"        
 
 d3
-  -- $ sometimesBy 0.2 (rev)
+  $ sometimesBy 0.2 (rev)
   -- $ sometimesBy 0.4 ((1/8) <~)
   $ stack
   [
@@ -297,9 +297,9 @@ d3
     s "uni(7, 16)" # n (choose[1..3]) # gain "1.0",
     s "gabba(3, 16)" # gain "1.7"
   ]
-  -- # delay "1.0"
-  -- # delaytime (range 0.002 0.03 $ rand)
-  -- # delayfeedback "0.8"
+  # delay "1.0"
+  # delaytime (range 0.002 0.03 $ rand)
+  # delayfeedback "0.8"
   |+| gain "1.8"
   # shape "0.8"
   -- # room "0.9"
@@ -327,7 +327,7 @@ d4
   # legato "0.9"
   # lpf (range 200 12000 $ slow 8 $ sine)
   # resonance "0.3"
-  # gain "0.0"
+  # gain "0.9"
 
 d5
   $ s "superzow(9, 16)"
@@ -337,7 +337,7 @@ d5
   # legato "0.9"
   # gain "1.5"
 
-setcps(240/240)  
+setcps(20/240)  
 
 unsolo 5
 
