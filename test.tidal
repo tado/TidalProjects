@@ -1,4 +1,17 @@
--- Feedback Experiments!!!
+do
+  d12
+    $ s "none(3, 8, <0..7>/8)"
+    # td_s (choose[1..100])
+
+
+
+
+
+
+
+
+
+
 
 setcps(120/240)
 
