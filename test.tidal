@@ -1,3 +1,45 @@
+d1
+  $ jux (iter 16)
+  $ s "uni cp [~ uni] hc*2"
+  # delay "0.3"
+  # delaytime "0.125"
+  # delayfeedback "0.7"
+  # lock 1
+
+d2
+  $ s "ifdrums(7, 16)"
+  # n (irand 3)
+  # gain "1.2"
+
+d3
+  $ jux (iter 16)
+  $ s "supermoog(10, 16)"
+  # note (scale "minPent" "{0..12}%5")
+  |-| note "12"
+  # decay "1.5"
+  # lpf (range 200 2000 $ slow 8 $ sine)
+  # resonance "0.3"
+
+
+
+  
+  
+  
+  
+
+hush
+
+
+
+
+
+
+
+
+
+
+
+
 do
   d12
     $ s "none(3, 8, <0..7>/8)"
