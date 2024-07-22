@@ -1,10 +1,29 @@
-setcps(152/120)
+setcps(110/120)
 
 d1
-  $ jux (rev)
   $ randslice 8
   $ s "breaks152*4"
-  # legato "0.8"
+  # legato "0.9"
+  # delay "0.5"
+  # delaytime "0.625"
+  # delayfeedback "0.7"
+  # lock 1
+  
+
+d2
+  $ s "supersaw(3, 4)"
+  # note "c4'sus2"
+    # lpf (range 200 2000 $ slow 8 $ rand)
+  # legato "1.2"
+  # room "1.0"
+
+d3
+  $ s "superbass(8, 8)"
+  # note (scale "minPent" "{0..12}%5")
+  |-| note "12"
+  # resonance "0.3"
+  # legato "1.5"
+  
 
 hush  
 
