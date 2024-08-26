@@ -4,21 +4,20 @@ hush
 
 do
   let edo = 22
-  let crd = [0, 9, 12, 19, 22, 24]
-  let span = [0, 12, 24, 36, 48]
-  let shift = 0
+  -- let crd = [0, 4, 5, 7, 11, 12]
+  let crd = [0, 7, 12]
   d1
-    $ sometimesBy 0.1 (gap 4)
-    -- $ jux (rev)  
-    $ jux (iter 8)    
+    -- $ sometimesBy 0.1 (gap 4)
+    $ jux (iter 8)
     $ jux (iter 16)
-    $ note
-    (
-      "c0*8" |+ shift |+ (choose span) |+ (choose crd) |* (12/edo)
-    )
+    $ note "a1*8"
+    |+ note (choose crd)
+    |+ note (choose [0, 12, 24, 36, 48])
+    |* note (12/edo)
     |+ note "[0.0, 0.1]"
-    # s "supervibe"   
+    # s "supervibe" # lpf (range 200 2000 $ rand)
     # legato (range 0.5 8.0 $ rand)
+    # gain (range 0.7 1.2 $ rand)
     # pan rand
     # room "0.3" # size "0.9"
   
