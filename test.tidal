@@ -1,28 +1,102 @@
-setcps(110/120)
+do
+  let edo = 19
+  d1
+    $ sometimesBy 0.1 (gap 4)
+    $ jux (rev)  
+    $ jux (iter 16)
+    $ jux (iter 8)
+    $ sometimes (slow 8)
+    $ note
+    (
+      "<c0 c1 c2 c3 c4 c5>*8"
+      |+ (choose [0, 7, 12, 19, 22, 24] |* (12/edo))
+    )
+    |+| up "[0.0, 0.1]" 
+    # s "supervibe"   
+    # legato (range 1.0 8.0 $ rand)
+    # pan rand
+    # room "0.4" # size "0.8"
+
+
+
+
+
+
+
+
+
+
+
+
+do
+  let newscales = [
+        ("justionian", map just2semi [1,   9/8,   5/4,   4/3,   3/2,   5/3, 15/8]),
+        ("justdorian", map just2semi [1,   9/8,   6/5,   4/3,   3/2,   5/3, 16/9]),
+        ("justphrygian", map just2semi [1, 16/15,   6/5,   4/3,   3/2,   8/5, 16/9]),
+        ("justlydian",     map just2semi [1,   9/8,   5/4, 45/32,   3/2,   5/3, 15/8]),
+        ("justmixolydian", map just2semi [1,   9/8,   5/4,   4/3,   3/2,   5/3, 16/9]),
+        ("justaeolian",    map just2semi [1,   9/8,   6/5,   4/3,   3/2,   8/5, 16/9]),
+        ("justlocrian",    map just2semi [1, 16/15,   6/5,   4/3,   45/32, 8/5, 16/9])
+      ]
+  let scale = getScale (scaleTable ++ newscales)
+  let my_pattern_of_semitone_intervals = scale "justphrygian" "0 1 2 3 4 5 6 7"
+  let my_pattern_of_semitone_intervals = toScale (map just2semi [1, 16/15, 6/5, 4/3, 3/2, 8/5, 16/9]) "0 1 2 3 4 5 6 7"
+  p 1 $ sound "supervibe" <| note my_pattern_of_semitone_intervals # legato 1
+
+d1 $ slow 2 $ s "gabor*8" # degree "0 1 2 3 4 5 6 7" # scalename "ritusen" # tuning "young"
+
+d1 
+  $ sound "supervibe" <| note my_pattern_of_semitone_intervals # legato 1
+
+
+
+
+hush
+
+
+
+setcps(152/240)
 
 d1
+  $ sometimesBy 0.2 (gap 32)
+  $ jux (0.125 ~>)
   $ randslice 8
-  $ s "breaks152*4"
-  # legato "0.9"
-  # delay "0.5"
+  $ s "breaks152(5, 8)"
+  -- # lpf (range 2000 15000 $ slow 8 $ rine)
+  -- # resonance "0.3"
+  # delay "0.8"
   # delaytime "0.625"
-  # delayfeedback "0.7"
+  # delayfeedback "0.2"
   # lock 1
+  # legato "1.0"
+  # shape "0.3"
+  # gain "1.1"
+
+d2
+  -- $ sometimesBy 0.2 (fast 2)
+  $ stack
+  [
+    s "uni(3, 8)" # gain "1.2",
+    s "hc(5, 8)"
+  ]
+  |*| gain "1.0"
+
   
 
 d2
   $ s "supersaw(3, 4)"
   # note "c4'sus2"
-    # lpf (range 200 2000 $ slow 8 $ rand)
+  # lpf (range 200 2000 $ slow 8 $ rand)
   # legato "1.2"
   # room "1.0"
 
 d3
-  $ s "superbass(8, 8)"
-  # note (scale "minPent" "{0..12}%5")
+  $ s "superbass(7, 8)"
+  # note (scale "yu" "{0..5}%5")
   |-| note "12"
+  # lpf (range 200 2000 $ slow 8 $ sine)
   # resonance "0.3"
-  # legato "1.5"
+  # legato "1.0"
   
 
 hush  
