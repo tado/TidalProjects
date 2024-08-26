@@ -3,21 +3,20 @@ setcps(80/240)
 hush
 
 do
-  let edo = 22
+  let edo = 19
   -- let crd = [0, 4, 5, 7, 11, 12]
-  let crd = [0, 7, 12]
+  let crd = [0, 5, 7, 12, 19]
   d1
     -- $ sometimesBy 0.1 (gap 4)
-    $ jux (iter 8)
-    $ jux (iter 16)
-    $ note "a1*8"
+    -- $ jux (iter 8)
+    -- $ jux (iter 16)
+    $ note "a1*16"
     |+ note (choose crd)
     |+ note (choose [0, 12, 24, 36, 48])
     |* note (12/edo)
     |+ note "[0.0, 0.1]"
     # s "supervibe" # lpf (range 200 2000 $ rand)
-    # legato (range 0.5 8.0 $ rand)
-    # gain (range 0.7 1.2 $ rand)
+    # legato (range 1.0 4.0 $ rand)
     # pan rand
     # room "0.3" # size "0.9"
   
