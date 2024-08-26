@@ -1,21 +1,39 @@
+setcps(80/240)
+
+hush
+
 do
-  let edo = 19
+  let edo = 22
+  let crd = [0, 9, 12, 19, 22, 24]
+  let span = [0, 12, 24, 36, 48]
+  let shift = 0
   d1
     $ sometimesBy 0.1 (gap 4)
-    $ jux (rev)  
+    -- $ jux (rev)  
+    $ jux (iter 8)    
     $ jux (iter 16)
-    $ jux (iter 8)
-    $ sometimes (slow 8)
     $ note
     (
-      "<c0 c1 c2 c3 c4 c5>*8"
-      |+ (choose [0, 7, 12, 19, 22, 24] |* (12/edo))
+      "c0*8" |+ shift |+ (choose span) |+ (choose crd) |* (12/edo)
     )
-    |+| up "[0.0, 0.1]" 
+    |+ note "[0.0, 0.1]"
     # s "supervibe"   
-    # legato (range 1.0 8.0 $ rand)
+    # legato (range 0.5 8.0 $ rand)
     # pan rand
-    # room "0.4" # size "0.8"
+    # room "0.3" # size "0.9"
+  
+  d2
+    -- $ sometimesBy 0.1 (gap 4)
+    -- $ jux (rev)  
+    -- $ jux (iter 16)
+    -- $ jux (iter 8)
+    $ note ("c4" |+ "[0, 5, 9, 19]" |* (12/edo))
+    |+| up "[0.0, 0.05]" 
+    # s "superpwm"
+    -- # legato (range 0.2 1.0 $ rand)
+    # lpf (range 200 8000 $ rand)
+    # legato 1.0
+    # room "0.5" # size "0.8"
 
 
 
