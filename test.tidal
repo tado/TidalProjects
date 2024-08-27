@@ -1,3 +1,19 @@
+do
+  hush
+  setcps(135/240)
+  d1
+    -- $ sometimesBy 0.1 (rev)
+    $ stack[
+      s "uni(3, 8)",
+      jux (iter 16)
+        $s "kore(11, 16)" # n (choose[1..2])
+    ]
+    # gain "1.5"
+    -- # shape "0.5"
+    -- # delay "0.3" # delaytime (range 0.005 0.02 $ rand) # delayfeedback "0.75"
+    # lock 1
+  
+
 unsolo 1
 
 do
