@@ -1,8 +1,7 @@
-setcps((120/240)*(8/14))
-
-unsolo 1
+hush
 
 do
+  setcps((120/240)*(8/14))
   let edo = 22
   let crd = [0, 5, 7, 12, 15, 19]
   let shift = [-1..5]
