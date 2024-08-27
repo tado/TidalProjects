@@ -1,15 +1,17 @@
 setcps((135/240)*(8/14))
 
+unsolo 1
+
 do
   let edo = 22
-  let crd = [0, 5, 7, 12, 15, 19, 22]
+  let crd = [0, 5, 7, 12, 15, 19]
   let shift = [-1..4]
   d1
     -- $ sometimesBy 0.3 (fast 2)
     $ jux (iter 28)
     -- $ jux (iter 14)
     $ jux (rev)
-    $ note "a0(11, 14)"
+    $ note "f0(11, 14)"
     -- |+ note "{0..24}%1"
     -- |+ note (choose crd)
     |+ note (shuffle 7 (listToPat crd))
