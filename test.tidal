@@ -1,3 +1,69 @@
+setcps(120/240)
+
+hush
+
+d1
+  -- $ jux (rev)  
+  -- $ jux (iter 16)
+  $ s "supervibe(5, 8)"
+  # note (scale "dorian" "{0..12}")
+  -- |+| note "c'maj"
+  -- |+| note "[0, 7, 9]"
+  # legato "3.0"
+  # room "0.5" # size "0.9"
+  |+| note "[0, 0.05]"
+
+
+d1
+  $ jux (iter 16)
+  $ sometimesBy 0.2 (fast 2)
+  $ s "supervibe(3, 8)" # n 5
+  -- # note "<a'maj c'maj a'min g'min>*16"
+  # note (scale "hirajoshi" "[0..16]*1")
+  |+| note "[0, <5 4 2 3>*2]"
+  |-| note 24
+  # legato "3.0"
+  # room "0.5" # size "0.9"
+
+do
+  let edo = 12
+  let crd = [0, 5, 7, 12, 15, 19]
+  let pat = (listToPat [0..(edo-1)])
+  let scl = "dorian"
+  let shift = [-2..-1]
+  d1
+    $ sometimesBy 0.2 (rev)
+    $ sometimesBy 0.1 (fast 2)
+    -- $ jux (rev)
+    -- $ jux (iter 4)
+    $ jux (iter 8)
+    -- $ jux (iter 16)
+    $ s "gambon(9, 16)" # n 5
+    |- note 24
+    |+ note (shuffle 2 (listToPat shift) |* 12)
+    |+ note (scale scl (shuffle 16 pat))
+    |* note (12/edo)
+    # legato 2.0
+    # room "0.7" # size "0.9"
+
+hush
+
+
+
+
+d1
+  $ jux (iter 16)
+  $ jux (iter 8)
+  $ s "supervibe(5, 8)"
+  # note (scale "ionian" "{0..16}%1")
+  |+| note "[0, 7]"  
+  # legato 2.0
+
+
+
+
+
+
 do
   hush
   setcps(135/240)
@@ -17,9 +83,9 @@ do
 unsolo 1
 
 do
-  let edo = 22
+  let edo = 19
   let crd = [0, 5, 7, 11, 15, 19, 22]
-  let shift = [0, 12, 24]
+  let shift = [0, 12, 24, 36]
   d1
     -- $ sometimesBy 0.1 (fast 2)
     -- $ jux (rev)
@@ -38,6 +104,7 @@ do
     -- # legato 1.0
     # pan rand    
     # room "0.2" # size "0.9"
+  
   d2
     $ s "uni(2, 7)"
     # gain "1.7"    
@@ -568,6 +635,7 @@ d2
   # room "0.3" # size "0.9"
   # gain "0.75"
 
+hush
 
 d2
   $ s "svr"
