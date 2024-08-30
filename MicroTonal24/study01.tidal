@@ -33,7 +33,7 @@ do
     -- # legato 1.0
     -- # pan (range 0.4 0.6 $ rand)
     # room "0.3" # size "0.9"
-    # delay "0.75" # delaytime (5/14) # delayfeedback "0.1" # lock 1  
+    # delay "0.75" # delaytime (5/14) # delayfeedback "0.7" # lock 1  
   
   d2  
     $ sometimesBy 0.2 (rev)
@@ -132,7 +132,7 @@ do
     |+ note "[0, <0 5 0 7 0 4>/4]"
     # s "hasu" # n 1 # gain 1.2   
     # legato (range 0.5 1.5 $ rand)
-    # lpf (range 200 4000 $ rand ) # resonance "0.2"
+    # lpf (range 200 4000 $ rand ) # resonance "0.3"
     # delay "0.25" # delaytime (5/14) # delayfeedback "0.1" # lock 1
     # pan "<0.2 0.5 0.8>"
     # room "0.1" # size "0.7"
