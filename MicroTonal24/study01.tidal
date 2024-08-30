@@ -32,7 +32,8 @@ do
     # legato (range 1.0 4.0 $ rand)
     -- # legato 1.0
     -- # pan (range 0.4 0.6 $ rand)
-    # room "0.3" # size "0.9"  
+    # room "0.3" # size "0.9"
+    # delay "0.75" # delaytime (5/14) # delayfeedback "0.1" # lock 1  
   
   d2  
     $ sometimesBy 0.2 (rev)
@@ -116,7 +117,7 @@ hush
 
 
 do
-  setcps((40/240)*(8/14))
+  setcps((80/240)*(8/14))
   let edo = 12
   let crd = [0, 5, 7, 12, 15, 19]
   let shift = [1..3]
@@ -132,6 +133,6 @@ do
     # s "hasu" # n 1 # gain 1.2   
     # legato (range 0.5 1.5 $ rand)
     # lpf (range 200 4000 $ rand ) # resonance "0.2"
-    # delay "0.5" # delaytime (5/14) # delayfeedback "0.1" # lock 1
+    # delay "0.25" # delaytime (5/14) # delayfeedback "0.1" # lock 1
     # pan "<0.2 0.5 0.8>"
     # room "0.1" # size "0.7"
