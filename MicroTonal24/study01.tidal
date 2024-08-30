@@ -1,49 +1,52 @@
 hush
 
 do
-  setcps((10/240)*(8/14))
+  setcps((120/240)*(8/14))
   let edo = 22
   let crd = [0, 5, 7, 12, 15, 19]
   let pat = (listToPat [0..(edo-1)])
-  let scl = "iwato"
-  let shift = [0..3]
-  d1
+  let scl = "dorian"
+  let shift = [0, 1]
+  d1    
     $ sometimesBy 0.2 (rev)
     $ sometimesBy 0.2 (iter 28)
     -- $ jux (iter 28)    
     -- $ jux (iter 14)
     -- $ jux (rev)
-    $ sometimesBy 0.2 (fast 2)
-    $ note "c0(11, 14)"
-    |+ note (scale scl (shuffle edo pat))
-    -- |+ note (choose crd)
+    -- $ sometimesBy 0.3 (fast 2)
+    $ note "c3(6, 14)"
+    |+ note (choose crd)
+    -- |+ note (scale scl (shuffle edo pat))
     -- |+ note (shuffle 7 (listToPat crd))
     -- |+ note (shuffle 8 (listToPat [0..edo]))
     -- |+ note (shuffle edo pat)
     |* note (12/edo)      
     |+ note (shuffle 2 (listToPat shift) |* 12)
-    |+ note "[0.0, 0.1]"
+    -- |+ note "[0.0, 0.15]"
     |+ note "[0, <0 5 0 7 0 4>/2]"
-    # s "gambon:1" # gain 1.5
-    -- # n (shuffle 5 (listToPat [0..51]))
+    # s "gam:1" # gain 1.5
+    -- # n (irand 257)
+    # n (range 0 257 $ slow 8 $ tri)
     -- # s "supervibe"
-    # legato (range 0.5 8.0 $ rand)
+    # legato (range 1.0 4.0 $ rand)
     -- # legato 1.0
-    # pan (range 0.4 0.6 $ rand)
-    # room "0.4" # size "0.9"
+    -- # pan (range 0.4 0.6 $ rand)
+    # room "0.3" # size "0.9"  
   
-  d2
+  d2  
+    $ sometimesBy 0.2 (rev)
     $ s "uni(2, 7)"
-    # gain "1.4"
+    # gain "1.2"
     # shape "0.5"  
   d3
+    $ sometimesBy 0.3 (rev)
     $ sometimesBy 0.3 (fast 2)
     -- $ jux (iter 14)
     $ s "uni(11, 14)"
     # delay "0.9" # delaytime (range 0.004 0.04 $ rand) # delayfeedback "0.75"
-    # n (choose [0..3])
-    
+    # n (choose [0..3])    
   d4
+    $ sometimesBy 0.2 (fast 2)
     $ s "cp*14"
     # gain "1.0"
 

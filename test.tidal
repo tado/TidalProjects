@@ -1,17 +1,29 @@
-setcps(120/240)
+setcps(60/240)
 
 hush
 
-d1
-  -- $ jux (rev)  
-  -- $ jux (iter 16)
-  $ s "supervibe(5, 8)"
-  # note (scale "dorian" "{0..12}")
-  -- |+| note "c'maj"
-  -- |+| note "[0, 7, 9]"
-  # legato "3.0"
-  # room "0.5" # size "0.9"
-  |+| note "[0, 0.05]"
+do
+  let edo = 12
+  d1
+    $ sometimesBy 0.2 (fast 2) 
+    $ sometimesBy 0.3 (rev) 
+    $ jux (rev)
+    $ jux (iter 4)
+    -- $ s "supervibe(5, 8)"
+    $ s "hasu(5, 16)" # n 1
+    # note (scale "yu" "{0..19}")
+    |+| note "<c5 c3 c4>"
+    |* note (12/edo)
+    -- |+| note "c'maj"
+    -- |+| note "[0, 7]"
+    -- |+| note "<0 1 2 3 4 5 6 7 8 9 10 11>/4"
+    -- |-| note "12 24 36 12"
+    # legato "3.0"
+    # gain "1.0"
+    # room "0.3" # size "0.9"
+    -- # lpf (range 2000 8000 $ slow 8 $ sine) # resonance "0.2"
+    |+| note "[0, 0.1]"
+    # pan rand
 
 
 d1
@@ -21,7 +33,7 @@ d1
   -- # note "<a'maj c'maj a'min g'min>*16"
   # note (scale "hirajoshi" "[0..16]*1")
   |+| note "[0, <5 4 2 3>*2]"
-  |-| note 24
+  |-| note 0
   # legato "3.0"
   # room "0.5" # size "0.9"
 
