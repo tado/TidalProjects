@@ -25,8 +25,8 @@ do
     -- |+ note "[0.0, 0.15]"
     |+ note "[0, <0 5 0 7 0 4>/2]"
     # s "gam:1" # gain 1.5
-    -- # n (irand 257)
-    # n (range 0 257 $ slow 8 $ tri)
+    # n (irand 257)
+    -- # n (range 0 257 $ slow 8 $ tri)
     -- # s "supervibe"
     # legato (range 1.0 4.0 $ rand)
     -- # legato 1.0
