@@ -1,18 +1,41 @@
+hush
+
+setcps(100/240)
+
+d1
+  $ s "supervibe*8"
+  # note "[0..7]"
+  |+| note "a'min7"
+  
+  
+ 
+
+
+
+d2
+  $ jux(rev)
+  $ jux(iter 16)
+  $ s "uni(5, 8)"
+  # n (irand 4)
+  # pan (rand)
+  # gain (range 0.8 1.5 $ rand)  
+  
+
 do
-  setcps((100/240)*(8/14))
+  setcps((120/240)*(8/14))
   let edo = 12
   let crd = [0, 5, 7, 12, 15, 19]
   let pat = (listToPat [0..(edo-1)])
-  let scl = "dorian"
+  let scl = "yu"
   let shift = [1..4]
   d1    
     $ sometimesBy 0.2 (rev)
-    -- $ sometimesBy 0.2 (iter 28)
+    $ sometimesBy 0.2 (iter 28)
     -- $ jux (iter 28)    
     -- $ jux (iter 14)
     -- $ jux (rev)
     $ sometimesBy 0.3 (fast 2)
-    $ note "c3(9, 14)"
+    $ note "c3(11, 14)"
     |+ note (choose crd)
     -- |+ note (scale scl (shuffle edo pat))
     -- |+ note (shuffle 7 (listToPat crd))
@@ -33,12 +56,15 @@ do
     -- # legato 1.0
     -- # pan (range 0.4 0.6 $ rand)
     # lpf (range 200 4000 $ rand ) # resonance "0.3"
-    # room "0.1" # size "0.9"  
+    # room "0.2" # size "0.7"
+    -- # delay "0.75" # delaytime (5/14) # delayfeedback "0.7" # lock 1  
 
 
 d1
-  $ s "superpiano*2" 
-  # note ("c5'")
+  $ s "superpiano*4" 
+  # note "<c4 c4'maj>"
+  
+  
 
 
 
@@ -46,9 +72,13 @@ d1
 hush
 
 d1
-  $ s "superpiano*12" 
-  # note (scale "majPent" "[0..12]")
-  |+| note "[0, 3]"
+  -- $ jux (rev)
+  -- $ jux (iter 16)
+  $ s "apry*4" 
+  # note (scale "dorian" "[0..12]")
+  |+| note "c'maj7"
+  |+| note "<0 1 2 3 4 5 6 7 8 9 10 11>/4"
+  
   
 
   

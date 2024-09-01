@@ -33,7 +33,7 @@ do
     -- # legato 1.0
     -- # pan (range 0.4 0.6 $ rand)
     # room "0.3" # size "0.9"
-    # delay "0.75" # delaytime (5/14) # delayfeedback "0.7" # lock 1  
+    -- # delay "0.75" # delaytime (5/14) # delayfeedback "0.7" # lock 1  
   
   d2  
     $ sometimesBy 0.2 (rev)
