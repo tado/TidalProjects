@@ -1,22 +1,23 @@
 hush
 
 do
-  setcps((40/240)*(8/14))
+  setcps((20/240)*(8/14))
   let edo = 22
   let crd = [0, 5, 7, 12, 15, 19]
-  let pat = (listToPat [0..(edo-1)])
-  let scl = "dorian"
+  let pat = (listToPat [0..7])
+  let scl = "major"
   let shift = [0, 1]
-  d1    
+  d1
+    $ fast "<1 0.5 1.1 0.3 2.5 0.25 0.33 3.0 0.2>"
     $ sometimesBy 0.2 (rev)
     -- $ sometimesBy 0.2 (iter 28)
-    -- $ jux (iter 28)    
+    $ jux (iter 28)    
     -- $ jux (iter 14)
     -- $ jux (rev)
     $ sometimesBy 0.3 (fast 2)
     $ note "c3(9, 14)"
-    |+ note (choose crd)
-    -- |+ note (scale scl (shuffle edo pat))
+    -- |+ note (choose crd)
+    |+ note (scale scl (shuffle edo pat))
     -- |+ note (shuffle 7 (listToPat crd))
     -- |+ note (shuffle 8 (listToPat [0..edo]))
     -- |+ note (shuffle edo pat)
