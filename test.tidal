@@ -1,8 +1,29 @@
 hush
 
-setcps(100/240)
+setcps(60/240)
 
-d1
+do
+  d1
+    $ fast "<1 1 0.5 1 1 2 1 1 2 1 1 0.25>/2"
+    $ jux (iter 16)
+    $ jux ((9/16) ~>)
+    $ jux ((7/16) ~>)
+    $ s "supersin(3, 8)"
+    # legato ((rand * 0.5) + 0.5)
+    # note (scale "yu" ((irand 7)))
+    |+| note "<-12 0 12>*8"
+    |+| note 0
+    # room "0.5" # size "0.9"
+    
+    
+
+  
+  
+
+d2
+  $ s "matsu/8"  
+
+d2
   $ s "supervibe*8"
   # note "[0..7]"
   |+| note "a'min7"
