@@ -1,19 +1,52 @@
 hush
 
-setcps(60/240)
 
 do
+  resetCycles
+  setcps(100/240)
+  let sc = "hexMajor6"
+  let shift = -12
   d1
-    $ fast "<1 1 0.5 1 1 2 1 1 2 1 1 0.25>/2"
-    $ jux (iter 16)
-    $ jux ((9/16) ~>)
-    $ jux ((7/16) ~>)
-    $ s "supersin(3, 8)"
-    # legato ((rand * 0.5) + 0.5)
-    # note (scale "yu" ((irand 7)))
-    |+| note "<-12 0 12>*8"
-    |+| note 0
-    # room "0.5" # size "0.9"
+    $ sometimesBy 0.2 (jux (rev))
+    $ fast "<1 2 1 2 0.125>"    
+    $ s "midi(3, 8)" # midichan "0"
+    # note (scale sc (shuffle 8 "[0..12]"))    
+    |+| note "12"
+    |+| note "[0, <0 7>, <0 5 0 7 0 12>*4]"   
+    |+| note shift
+    # legato (range 0.5 1.0 $ rand)
+    # gain (range 1.2 1.7 $ rand)
+  d2
+    $ sometimesBy 0.2 (jux (rev))
+    $ fast "<1 2 1 0.125>/2"
+    $ s "midi(3, 8, 3)" # midichan "0"
+    # note (scale sc (shuffle 8 "[0..12]"))    
+    |+| note "0"
+    |+| note "[0, <0 7>, <0 5 0 7 0 12>*4]"
+    |+| note shift
+    # legato (range 0.5 1.0 $ rand)
+    # gain (range 1.2 1.7 $ rand)
+  d3
+    $ sometimesBy 0.2 (jux (rev))
+    $ fast "<1 0.125 2 1>/2"
+    $ s "midi(3, 8, 2)" # midichan "1"
+    # note (scale sc (shuffle 8 "[0..12]"))    
+    |+| note "12"
+    |+| note "[0, <0 7>, <0 5 0 7 0 12>*4]"
+    |+| note shift
+    # legato (range 0.5 1.0 $ rand)
+    # gain (range 1.2 1.7 $ rand)
+  d4
+    $ sometimesBy 0.2 (jux (rev))
+    $ fast "<2 1 0.125 2 1>/2"
+    $ s "midi(3, 8, 6)" # midichan "1"
+    # note (scale sc (shuffle 8 "[0..12]"))    
+    |+| note "0"
+    |+| note "[0, <0 7>, <0 5 0 7 0 12>*4]"
+    |+| note shift
+    # legato (range 0.5 1.0 $ rand)     
+    # gain (range 1.2 1.7 $ rand)
+
     
     
 

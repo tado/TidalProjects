@@ -1,0 +1,103 @@
+hush
+
+do   
+  -- resetCycles
+  setcps(60/240)
+  let edo = 12
+  let sc = "yu"
+  let shift = "<0 0 5 7 5 7 1>/4"
+  let oct = 0
+  let sp = "<1 0.5 1 2 1 0.5 2 0.25>/4"
+  d1
+    $ slow 1
+    -- $ jux (rev)
+    -- $ jux (0.625<~)
+    -- $ fast sp
+    $ s "supermoog" # midichan "0"
+    # note "<a2 a1>/4"
+    -- |+| note (scale sc (shuffle 8 "{0..9}"))
+    -- |+| note "[0, <0 5 7>/4]"
+    |+| note (shift + 0)
+    |+| note oct
+    |* note (12/edo)
+    # lpf (range 1000 4000 $ rand) # resonance "0.3"
+    # room "0.9" # size "0.9"
+    # legato "2.0"
+    # gain "1.4"
+    
+    
+ 
+  d2
+    $ s "superdown/8"
+    # note "c6"
+    # sustain "60"
+    
+  d3
+    $ s "supersawfbk"
+    # note "c0"
+    # distort "1.0"
+    # rq "0.9"
+    # legato "2.0"
+    # wet "1.0"
+    # room "0.9" # size "0.9"
+    # gain "1.0"    
+
+
+do   
+    resetCycles
+    setcps(60/240)
+    let edo = 12
+    let sc = "majPent"
+    let shift = "<0 0 5 7 5 7 1>/2"
+    let oct = -19
+    let sp = "<1 0.5 1 2 1 0.5 2 0.25>"
+    d4
+        $ (0.25~>)
+        $ fast sp
+        $ sometimesBy 0.4 (gap 2)
+        $ s "midi(5, 8)" # midichan "1"
+        # note (scale sc (irand 8))
+        |+| note "[0, <0 7>]"
+        |+| note (shift + 12)
+        |+| note oct
+        |* note (12/edo)
+        # gain (range 1.2 1.7 $ rand)
+        # sustain "0.1"
+    d3
+        $ fast sp
+        $ sometimesBy 0.2 (gap 2)
+        $ s "midi(9, 16)" # midichan "1"
+        # note (scale sc (irand 8))
+        |+| note "[0, <0 7 5>]"
+        |+| note shift
+        |+| note oct
+        |* note (12/edo)
+        # gain (range 1.2 1.7 $ rand)  
+    d2
+        $ (0.125~>)
+        $ fast sp
+        $ sometimesBy 0.3 (gap 2)
+        $ s "midi(5, 8, 5)" # midichan "0"       
+        # note (scale sc (irand 8))
+        |+| note "[0, <0 7 5 0>]"
+        |+| note (shift + 12)
+        |+| note oct
+        |* note (12/edo)
+        # gain (range 1.2 1.7 $ rand)            
+    d1
+        $ (0.625~>)
+        $ fast sp
+        $ sometimesBy 0.3 (gap 2)
+        $ s "midi(9, 16, 5)" # midichan "0"
+        # note "c4"
+        # note (scale sc (irand 8))
+        |+| note "[0, <0 7 5 0 7>]"
+        |+| note shift
+        |+| note oct
+        |* note (12/edo)
+        # gain (range 1.2 1.7 $ rand)
+        
+
+        
+    
+    

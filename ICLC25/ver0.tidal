@@ -1,0 +1,41 @@
+setcps(60/240)
+
+hush
+
+d1
+  $ s "matsu/8"
+  # gain 1.5
+  
+
+d2
+  $ s "supersaw"
+  # note "c2"
+  |*| speed "[1.0, 1.005]"
+  # legato 0.9
+  # lpf 1000 # resonance "0.2"  
+  # enhance 0.3
+  -- # octersub 0.8
+  -- # triode 0.9  
+  # tremolodepth 1.5 # tremolorate 4
+  # room 0.8 # size 0.95
+  # distort 0.9
+ 
+d3
+  $ s "superdown/8"
+  # note "c6"
+  # sustain "60"
+    
+d4
+  $ s "supersawfbk"
+  # note "c2"
+  |*| note "[1.0, 1.005]"
+  # rq 0.9
+  # legato 2.0
+  # wet 0.9
+  # tremolodepth 1.0 # tremolorate 4
+  # room 0.8 # size 0.9
+  # distort 0.3
+  # gain 1.0
+
+
+hush    
