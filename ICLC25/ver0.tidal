@@ -2,28 +2,34 @@ setcps(60/240)
 
 hush
 
-d1
-  $ s "matsu/8"
-  # gain 1.5
+do
+  resetCycles
+  d1
+    $ s "matsu/8"
+    # gain 1.5
   
-
 d2
-  $ s "supersaw"
+  $ slow 2
+  $ stack [
+    -- s "supersaw"
+    s "empty" # gain "1.1"
+  ]
   # note "c2"
   |*| speed "[1.0, 1.005]"
-  # legato 0.9
-  # lpf 1000 # resonance "0.2"  
+  -- # legato 0.9
+  -- # lpf 1000 # resonance "0.2"  
   # enhance 0.3
   -- # octersub 0.8
   -- # triode 0.9  
-  # tremolodepth 1.5 # tremolorate 4
-  # room 0.8 # size 0.95
-  # distort 0.9
- 
+  -- # tremolodepth 1.5 # tremolorate 8
+  # room 0.2 # size 0.95
+  # distort 0.5
+  |*| gain "1.2"
+
 d3
   $ s "superdown/8"
   # note "c6"
-  # sustain "60"
+  # sustain "120"
     
 d4
   $ s "supersawfbk"
@@ -31,11 +37,29 @@ d4
   |*| note "[1.0, 1.005]"
   # rq 0.9
   # legato 2.0
-  # wet 0.9
-  # tremolodepth 1.0 # tremolorate 4
-  # room 0.8 # size 0.9
-  # distort 0.3
-  # gain 1.0
+  # wet 0.2
+  -- # tremolodepth 1.0 # tremolorate 8
+  # room 0.4 # size 0.9
+  -- # distort 0.9
+  -- # gain 0.9
 
+d5
+  $ jux (rev)
+  $ jux (iter 16)
+  $ sometimesBy 0.2 (rev)
+  $ s "uni(13, 16, [0, 5])"
+  # pan rand
+  # n (range 1 4 $ rand)
+  # delay 0.4 # delaytime (range 0.002 0.02 $ rand) # delayfeedback 0.7
+  # enhance 0.3
+  # shape 0.9
+  -- # distort 0.9
+  -- # room 0.9 # size 0.5
 
-hush    
+d6
+  $ sometimesBy 0.3 (rev)
+  $ s "uni(5, 8)"
+  # shape 0.9
+  # gain 1.8
+
+hush
