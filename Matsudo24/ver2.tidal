@@ -68,34 +68,3 @@ do
     # room "0.8" # size "0.7"
     # gain (range 0.8 1.2 $ rand)
     # delay "0.5" # delaytime (5/14) # delayfeedback "0.1" # lock 1  
-  
-  d2    
-    $ sometimesBy 0.2 (rev)
-    $ sometimesBy 0.2 (iter 28)
-    $ jux (iter 28)    
-    -- $ jux (iter 14)
-    -- $ jux (rev)
-    $ sometimesBy 0.3 (fast 2)
-    $ note "c3(4, 7, 5)"
-    |+ note (choose crd)
-    -- |+ note (scale scl (shuffle edo pat))
-    -- |+ note (shuffle 7 (listToPat crd))
-    -- |+ note (shuffle 8 (listToPat [0..edo]))
-    -- |+ note (shuffle edo pat)
-    |* note (12/edo)      
-    |+ note (shuffle 2 (listToPat shift) |* 12)
-    -- |+ note "[0.0, 0.15]"
-    |+ note "[0, <0 5 0 7 0 4>/4]"
-    -- # s "hasu" # n 1 # gain 1.2
-    -- # s "supermoog"   
-    # s "gam" # gain 1.5
-    -- # n (shuffle 257 "<0..257>")
-    # n (irand 257)
-    -- # n (range 0 257 $ slow 8 $ tri)
-    -- # s "supervibe"
-    # legato (range 0.5 1.5 $ rand)
-    -- # legato 1.0
-    -- # pan (range 0.4 0.6 $ rand)
-    # lpf (range 200 4000 $ rand ) # resonance "0.3"
-    # room "0.8" # size "0.7"
-    -- # delay "0.75" # delaytime (5/14) # delayfeedback "0.7" # lock 1  
