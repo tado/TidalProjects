@@ -7,7 +7,7 @@ d1
 hush 
 
 do
-  resetCycles
+  -- resetCycles
   setcps((40/240)*(8/14))
   let edo = 22
   let pat = (listToPat [0..(edo-1)])
@@ -15,7 +15,7 @@ do
   let fs1 = "<1 1.5 2 1 1.5 2 1 1.5 3 1 1.5 0.5>*4"
   let fs2 = "<1 1 1 2 0.25>/4"
   let fs = fs1 * fs2
-  let ro = 0.2
+  let ro = 0.4
   d1
     $ jux (iter 14)
     $ fast fs
