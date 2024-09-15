@@ -4,6 +4,7 @@ hush
 do
   resetCycles
   setcps(100/240)
+  let edo = 12
   let sc = "hexMajor6"
   let shift = -12
   d1
