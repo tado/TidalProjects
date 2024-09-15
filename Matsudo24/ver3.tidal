@@ -13,8 +13,9 @@ do
   let pat = (listToPat [0..(edo-1)])
   let scl = "majPent"
   let fs1 = "<1 1.5 2 1 1.5 2 1 1.5 3 1 1.5 0.5>*4"
-  let fs2 = "<1 1 1 3>/2"
+  let fs2 = "<1 1 1 2 0.25>/4"
   let fs = fs1 * fs2
+  let ro = 0.2
   d1
     $ jux (iter 14)
     $ fast fs
@@ -25,7 +26,7 @@ do
     # s "gam"
     # n (scramble 257 (listToPat [0..257]))
     # legato (range 0.5 8.0 $ rand)
-    -- # delay "0.5" # delaytime (5/14) # delayfeedback "0.2" # lock 1
+    # room ro # size "0.9"
   d2
     $ jux (iter 14)
     $ fast fs
@@ -36,7 +37,7 @@ do
     # s "gam"
     # n (scramble 257 (listToPat [0..257]))
     # legato (range 0.5 8.0 $ rand)
-    -- # delay "0.5" # delaytime (5/14) # delayfeedback "0.2" # lock 1
+    # room ro # size "0.9"
   d3
     $ jux (iter 14)
     $ fast fs
@@ -47,7 +48,7 @@ do
     # s "gam"
     # n (scramble 257 (listToPat [0..257]))    
     # legato (range 0.5 8.0 $ rand)
-    -- # delay "0.5" # delaytime (5/14) # delayfeedback "0.2" # lock 1
+    # room ro # size "0.9"
   d4
     $ jux (iter 14)
     $ fast fs    
@@ -58,4 +59,4 @@ do
     # s "gam"
     # n (scramble 257 (listToPat [0..257]))        
     # legato (range 0.5 8.0 $ rand)
-    -- # delay "0.5" # delaytime (5/14) # delayfeedback "0.2" # lock 1
+    # room ro # size "0.9"
