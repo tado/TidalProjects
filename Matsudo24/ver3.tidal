@@ -8,56 +8,54 @@ hush
 
 do
   resetCycles
-  setcps((80/240)*(8/14))
+  setcps((40/240)*(8/14))
   let edo = 22
   let pat = (listToPat [0..(edo-1)])
-  let scl = "dorian"
-  let fs = "<1 1 2 1 1 2 1 1 3 0.125 0.125>"  
+  let scl = "majPent"
+  let fs1 = "<1 1.5 2 1 1.5 2 1 1.5 3 1 1.5 0.5>*4"
+  let fs2 = "<1 1 1 3>/2"
+  let fs = fs1 * fs2
   d1
     $ jux (iter 14)
     $ fast fs
-    $ note "c3(6, 14)"
+    $ note "c3(8, 14, {0..13}%3)"
     |+| note (0)
     |+ note (scale scl (shuffle edo pat))
     |* note (12/edo) 
     # s "gam"
-    # n (range 0 267 $ slow 30 $ tri)
-    # legato (range 0.5 4.0 $ rand)
-    # delay "0.8" # delaytime (5/14) # delayfeedback "0.2" # lock 1
-  d2 
+    # n (scramble 257 (listToPat [0..257]))
+    # legato (range 0.5 8.0 $ rand)
+    -- # delay "0.5" # delaytime (5/14) # delayfeedback "0.2" # lock 1
+  d2
     $ jux (iter 14)
     $ fast fs
-    $ note "c3(4, 7)"
+    $ note "c3(4, 7, {0..6}%3)"
     |+| note (-12)
     |+ note (scale scl (shuffle edo pat))
     |* note (12/edo) 
     # s "gam"
-    # n (range 0 267 $ slow 20 $ tri)
-    # legato (range 0.5 4.0 $ rand)
-    # delay "0.8" # delaytime (5/14) # delayfeedback "0.2" # lock 1
+    # n (scramble 257 (listToPat [0..257]))
+    # legato (range 0.5 8.0 $ rand)
+    -- # delay "0.5" # delaytime (5/14) # delayfeedback "0.2" # lock 1
   d3
-    $ jux (iter 14)    
+    $ jux (iter 14)
     $ fast fs
-    $ note "c3(3, 7)"
+    $ note "c3(4, 7, {0..6}%5)"
     |+| note (-24)
     |+ note (scale scl (shuffle edo pat))
     |* note (12/edo) 
     # s "gam"
-    # n (range 0 267 $ slow 10 $ tri)
-    # legato (range 0.5 4.0 $ rand)
-    # delay "0.8" # delaytime (5/14) # delayfeedback "0.2" # lock 1
+    # n (scramble 257 (listToPat [0..257]))    
+    # legato (range 0.5 8.0 $ rand)
+    -- # delay "0.5" # delaytime (5/14) # delayfeedback "0.2" # lock 1
   d4
     $ jux (iter 14)
-    $ fast fs
-    $ note "c3(8, 14)"
+    $ fast fs    
+    $ note "c3(8, 14, {0..13}%11)"
     |+| note (12)
     |+ note (scale scl (shuffle edo pat))
     |* note (12/edo) 
     # s "gam"
-    # n (range 0 267 $ slow 40 $ tri)
-    # legato (range 0.5 4.0 $ rand)
-    # delay "0.8" # delaytime (5/14) # delayfeedback "0.2" # lock 1
-  
-  
-
-  
+    # n (scramble 257 (listToPat [0..257]))        
+    # legato (range 0.5 8.0 $ rand)
+    -- # delay "0.5" # delaytime (5/14) # delayfeedback "0.2" # lock 1
