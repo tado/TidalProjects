@@ -1,5 +1,11 @@
 hush
 
+setcps(130/240)
+
+d1 
+  $ s "gam*8"
+  # n (shuffle 100 "<0..100>/2")
+  # room 0.3 # sz 0.8
 
 do
   resetCycles
