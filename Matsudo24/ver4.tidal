@@ -1,8 +1,8 @@
-hush
+hush 
 
 do
   -- hush
-  -- resetCycles
+  resetCycles
   setcps(60/240)
   let edo = 22
   let scl = "<yu ritusen minPent indian>"
