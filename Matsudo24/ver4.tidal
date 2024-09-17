@@ -1,7 +1,7 @@
-hush 
+hush
 
 do
-  -- hush
+  hush
   resetCycles
   setcps(60/240)
   let edo = 22
@@ -9,13 +9,35 @@ do
   let fs1 = "<1 1.5>/64"
   let fs2 = "<1 1 1 0.75 1 1 1 1.5>/2"
   let fs = fs1 * fs2
-  let rv = 0.3
-  let ro = 0.4
+  let ro = 0.3
+  let num = (scramble 240 (listToPat [0..240]))
+  let sn = "gam"
+  d4
+    $ fast fs
+    $ note "c1(<2 3>, 8)"
+    |+ note (scale scl "{0..22}%[5, 7]")
+    |* note (12/edo) 
+    # s sn
+    # n num
+    # legato (range 0.5 4.0 $ rand)
+    # pan rand
+    # room ro # size "0.9"  
+    
+  
+do
+  hush
+  resetCycles
+  setcps(60/240)
+  let edo = 22
+  let scl = "<yu ritusen minPent indian>"
+  let fs1 = "<1 1.5>/64"
+  let fs2 = "<1 1 1 0.75 1 1 1 1.5>/2"
+  let fs = fs1 * fs2
+  let ro = 0.3
   let num = (scramble 240 (listToPat [0..240]))
   let sn = "gam"
   d1
     $ fast fs
-    $ sometimesBy rv (rev)
     $ note "c2(<5 4>, 8)"
     |+ note (scale scl "{0..22}%[5, 7]")
     |* note (12/edo) 
@@ -26,7 +48,6 @@ do
     # room ro # size "0.9"
   d2
     $ fast fs
-    $ sometimesBy rv (rev)
     $ note "c3(<5 6>, 12)"
     |+ note (scale scl "{0..22}%[7, 9]")
     |* note (12/edo) 
@@ -37,7 +58,6 @@ do
     # room ro # size "0.9"
   d3
     $ fast fs
-    $ sometimesBy rv (rev)    
     $ note "c4(<7 8>, 12)"
     |+ note (scale scl "{0..22}%[7, 9]")
     |* note (12/edo) 
@@ -48,7 +68,6 @@ do
     # room ro # size "0.9"
   d4
     $ fast fs
-    $ sometimesBy rv (rev)        
     $ note "c1(<2 3>, 8)"
     |+ note (scale scl "{0..22}%[5, 7]")
     |* note (12/edo) 

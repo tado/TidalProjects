@@ -23,7 +23,7 @@ d2
   -- # triode 0.9  
   -- # tremolodepth 1.5 # tremolorate 8
   # room 0.2 # size 0.95
-  # distort 0.5
+  -- # distort 0.5
   |*| gain "1.2"
 
 d3

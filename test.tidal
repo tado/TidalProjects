@@ -1,6 +1,35 @@
+do
+  resetCycles
+  d1    
+    $ stack[
+      jux (("[12, 9, 5]"/14)<~) $ 
+        s "superbass(5, 14, {0..13}/5)"
+        # note "c5'maj9"
+        # gain 0.7
+        # legato 1.0,
+      s "superwho(5, 14)" 
+        # note "<c4 c4 c4 c4 a3 e3 g3 b3>/2"
+        -- # note "c4"
+        # legato 1.1
+        # gain 1.4
+    ]
+    |-| note "<5 4 0>/32"
+    -- |+| note "[0.0, 0.1]"
+    # lpf (range 800 8000 $ slow 8 $ rand) # resonance "0.2"
+    # delay "0.9" # delaytime (3/14) #delayfeedback "0.1" # lock 1
+    # room 0.1 # size 0.3
+    |*| gain 1
+  d2
+    $ s "uni(5, 14, {0..13}/5)"
+    # gain 1.7
+  d3
+    $ s "uni(9, 14)" # n (irand 4)
+    # delay 0.9 #delaytime (range 0.003 0.02 $ rand) # delayfeedback 0.7
+    # gain 1
+
 hush
 
-setcps(130/240)
+
 
 d1 
   $ s "gam*8"
