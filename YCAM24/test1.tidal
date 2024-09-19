@@ -1,0 +1,31 @@
+setcps(135/240)
+
+do
+  -- resetCycles
+  d1    
+    $ stack[
+        sometimesBy 0.2 (jux (("[9, 12]"/14)<~)) $
+        s "midi(9, 14, {0..13}/5)"
+        # midichan "0"
+        # legato 1.0
+        # pan (rand)
+        # note "g4'maj9"
+        |+ note "[0, -12]"
+        # gain 1.0,  
+      s "midi(5, 14)" 
+        # midichan "1"
+        # note "g3"
+        # legato 1.0
+        # gain 1.0
+    ]
+    |+| note 0
+    |*| gain 1.1
+  d2
+    $ s "uni(5, 14, {0..13}/5)"
+    # gain 1.5
+  d3
+    $ s "uni(9, 14)" # n (irand 4)
+    # delay 0.5 #delaytime (range 0.002 0.03 $ rand) # delayfeedback 0.8
+    # gain 1.0
+
+hush

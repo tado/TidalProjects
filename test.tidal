@@ -1,16 +1,18 @@
 do
+  setcps(140/240)
   -- resetCycles
   d1    
     $ stack[
       jux (("[12, 9, 5, 3]"/14)<~) $ 
+        sometimesBy 0.2 (rev) $
         s "superbass(5, 14, {0..13}/5)"
-        # lpf (range 800 8000 $ slow 8 $ rand) # resonance "0.1"
+        # lpf (range 800 8000 $ slow 8 $ rand) # resonance "0.2"
         # note "c5'maj9"
-        # gain 0.7
+        # gain 0.8
         # legato 0.9,
       s "supermoog(5, 14)" 
-        # lpf (range 600 1000 $ slow 2 $ sine) # resonance "0.1"
-        # note "<c4 c4 c4 c4 a3 e3 g3 b3>/2"
+        # lpf (range 800 8000 $ slow 2 $ sine) # resonance "0.1"
+        # note "<c4 a3>/4"
         |-| note 12        
         # legato 1.0
         # gain 1.4
@@ -21,9 +23,9 @@ do
     |*| gain 1
   d2
     $ s "uni(5, 14, {0..13}/5)"
-    # gain 1.7
+    # gain 1.5
   d3
-    $ s "uni(11, 14)" # n (irand 4)
+    $ s "uni(9, 14)" # n (irand 4)
     # delay 1.0 #delaytime (range 0.002 0.03 $ rand) # delayfeedback 0.8
     # gain 1.1
 
