@@ -1,7 +1,5 @@
 setcps(135/240)
 
-unsolo 1
-
 do
   -- resetCycles
   d1    
@@ -11,16 +9,16 @@ do
         # midichan "0"
         # legato 1.0
         # pan (rand)
-        # note "g4'maj9"
+        # note "c4'maj9"
         |+ note "[0, -12]"
         # gain 1.0,  
       s "midi(5, 14)" 
         # midichan "1"
-        # note "g3"
+        # note "<c3 c3 c3 a3 e3 g3 b3>/2"
         # legato 1.0
         # gain 1.1
     ]
-    |+| note 0
+    |+| note 5
     |*| gain 1.0
   d2
     $ s "uni(5, 14, {0..13}/5)"
@@ -29,5 +27,6 @@ do
     $ s "uni(9, 14)" # n (irand 4)
     # delay 0.8 #delaytime (range 0.002 0.03 $ rand) # delayfeedback 0.8
     # gain 1.0
+
 
 hush
