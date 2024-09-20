@@ -1,0 +1,144 @@
+hush
+
+do
+  resetCycles
+  setcps(40/240)
+  let edo = 12
+  let scl = "hexMajor6"
+  let fs1 = "<1 1.5>/64"
+  let fs2 = "<1 1 1 0.75 1 1 1 1.5>/2"
+  let fs = fs2
+  let shift1 = "<0 5 7>/4"
+  let shift2 = "<0 1>/13"
+  let shift = shift1 + shift2
+  let sn = "midi"
+  let ge1 = (range 1.0 1.5 $ rand)
+  let ge2 = (range 1.0 1.5 $ rand)      
+  d1
+    $ fast fs
+    $ jux (rev)
+    $ note "c2(5, 8, {0..7}/6)"
+    |+ note (scale scl (scramble 4 "<0..19>"))
+    |+ note shift 
+    |* note (12/edo)    
+    # s sn
+    # midichan 0
+    # legato (range 0.5 1.0 $ rand)
+    # pan rand
+    # gain ge1
+  d2    
+    $ fast fs
+    $ jux (rev)
+    $ note "c3(3, 12, {0..11}/8)"
+    |+ note (scale scl (scramble 4 "<0..19>"))
+    |+ note shift 
+    |* note (12/edo) 
+    # s sn
+    # midichan 1
+    # legato (range 0.5 1.0 $ rand)
+    # pan rand
+    # gain ge2
+  d3
+    $ fast fs
+    $ jux (rev)
+    $ note "c3(5, 12, {0..11}/6)"
+    |+ note (scale scl (scramble 4 "<0..19>"))
+    |+ note shift 
+    |* note (12/edo) 
+    # s sn
+    # midichan 1
+    # legato (range 0.5 1.0 $ rand)
+    # pan rand
+    # gain ge2
+  d4
+    $ fast fs
+    $ jux (rev)
+    $ note "c3(3, 8, {0..7}/8)"
+    |+ note (scale scl (scramble 4 "<0..19>"))    
+    |+ note shift 
+    |* note (12/edo) 
+    # s sn
+    # midichan 0
+    # legato (range 0.5 1.0 $ rand)
+    # pan rand
+    # gain ge1
+
+
+
+
+
+do
+  -- hush
+  resetCycles
+  setcps(40/240)
+  let edo = 12
+  let scllist = "<minPent majPent ritusen egyptian kumai hirajoshi iwato chinese indian pelog prometheus scriabin gong shang jiao zhi yu whole wholetone augmented augmented2 hexMajor7 hexDorian hexPhrygian hexSus hexMajor6 hexAeolian major ionian dorian phrygian lydian mixolydian aeolian minor locrian harmonicMinor harmonicMajor melodicMinor melodicMinorDesc melodicMajor bartok hindu todi purvi marva bhairav ahirbhairav superLocrian romanianMinor hungarianMinor neapolitanMinor enigmatic spanish leadingWhole lydianMinor neapolitanMajor locrianMajor diminished octatonic diminished2 octatonic2 messiaen1 messiaen2 messiaen3 messiaen4 messiaen5 messiaen6 messiaen7 chromatic bayati hijaz sikah rast saba iraq>"
+  let scl = "hexMajor7"
+  let fs1 = "<1 1.5>/64"
+  let fs2 = "<1 1 1 0.75 1 1 1 1.5>/2"
+  let fs = fs2
+  let shift1 = "<0 5>/4"
+  let shift2 = "<0 1>/17"
+  let shift = shift1 + shift2
+  let ro = 0.3
+  let sn = "midi"
+  let no = (scramble 32 "<60..70>")
+  let ge = (range 1.0 1.7 $ rand)
+  d1
+    $ fast fs
+    $ jux (rev)
+    $ note "c2(<5 4>, 8, {0..7}/6)"
+    |+ note (scale scl (scramble 4 "<0..12>"))
+    |+ note shift 
+    |* note (12/edo)    
+    # s sn
+    # n no
+    # midichan 0
+    # legato (range 0.5 1.0 $ rand)
+    # pan rand
+    # room ro # size "0.9"
+    # gain ge
+  d2    
+    $ fast fs
+    $ jux (rev)
+    $ note "c4(<5 6>, 12, {0..11}/8)"
+    |+ note (scale scl (scramble 4 "<0..12>"))
+    |+ note shift 
+    |* note (12/edo) 
+    # s sn
+    # n no
+    # midichan 1
+    # legato (range 0.5 1.0 $ rand)
+    # pan rand
+    # room ro # size "0.9"
+    # gain ge
+  d3
+    $ fast fs
+    $ jux (rev)
+    $ note "c3(<7 8>, 12, {0..11}/8)"
+    |+ note (scale scl (scramble 4 "<0..12>"))
+    |+ note shift 
+    |* note (12/edo) 
+    # s sn
+    # n no
+    # midichan 1
+    # legato (range 0.5 1.0 $ rand)
+    # pan rand
+    # room ro # size "0.9"
+    # gain ge
+  d4
+    $ fast fs
+    $ jux (rev)
+    $ note "c3(<2 3>, 8, {0..7}/6)"
+    |+ note (scale scl (scramble 4 "<0..12>"))    
+    |+ note shift 
+    |* note (12/edo) 
+    # s sn
+    # n no
+    # midichan 0
+    # legato (range 0.5 1.0 $ rand)
+    # pan rand
+    # room ro # size "0.9"
+    # gain ge
+
+
