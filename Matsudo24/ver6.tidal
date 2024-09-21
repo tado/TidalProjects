@@ -4,15 +4,15 @@ resetCycles
 
 do
   setcps(40/240)
-  let edo = "12"
+  let edo = 19
   let scl = "hexMajor6"
   let fs = "<1 1 1 0.75 1 1 1 1.5>/2"
   let shift = ("<0 5 -5>/4") + "<0 1>/8"
   let sn = "gam"
   let nu = "<60 50>*4"
   let ge = (range 1.0 1.4 $ rand)
-  let rv = 0.3
-  let sp = 0.9  
+  let rv = 0.2
+  let sp = 0.5  
   d1
     $ fast fs
     $ jux (rev)
