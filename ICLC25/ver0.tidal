@@ -1,65 +1,125 @@
-setcps(60/240)
+setcps(120/240)
 
 hush
 
 do
+  hush
   resetCycles
   d1
     $ s "matsu/8"
-    # gain 1.5
-  
+    -- # room 0.5 # size 0.9
+    # legato 2.0
+
 d2
+  $ s "emp2/4"
+  # legato 2
+  # enhance 0.3
+  # tremolodepth 0.6 # tremolorate 8
+  # shape 0.5
+  # gain 1.2
+
+d3
+  -- $ sometimesBy 0.2 (jux (rev))
+  $ stack[
+    s "distd(3, 8)" # gain 1.2,
+    s "emp2(5, 8)" # n "<1 2>*2"
+  ]
+  # shape 0.5  
+  |*| gain 1.3
+
+d4
+  $ sometimesBy 0.2 (rev)
+  $ jux ("[3, 12]/16"<~)
+  $ s "uni(9, 16, [0, 5])"
+  # pan (choose [0.2, 0.8, 0.4, 0.6, 0.5])
+  # n (range 1 4 $ rand)
+  # delay 0.7 # delaytime (range 0.003 0.03 $ rand) # delayfeedback 0.8  
+
+d5
+  $ s "superdown/8"
+  # note "c6"
+  # legato 4.0
+  # gain 1.0
+
+d2
+  $ s "supersawfbk"
+  # note "a2"
+  # legato 4.0
+  # rq 0.9
+  # wet 0.0
+  # room 0.5 # size 0.7
+  # gain 1.1
+
+do
+  d12
+    $ s "none(11, 16)"
+    # td_s (choose([1..100]))
+  d4
+    -- $ sometimesBy 0.1 (rev)
+    -- $ sometimesBy 0.4 ((1/8) <~)
+    $ stack
+    [
+      -- s "distd(2, 16)" # gain "1.1",
+      s "uni(10, 16)" # n "{0 1 2}%8", 
+      s "uni:1(9, 16, 5)"
+    ]
+    -- # room "0.8" # size "0.9"
+    # shape 0.8
+    # gain 1.3        
+
+d5
+  -- $ sometimesBy 0.2 (rev)
+  -- $ sometimesBy 0.4 ((1/8) <~)
+  $ stack
+  [
+    s "ifdrums(7, 16, 10)" # n (choose[1..2]),
+    s "uni(7, 16)" # n (choose[1..3]) # gain "1.0",
+    s "gabba(3, 16)" # gain "1.7"
+  ]
+  # delay "1.0"
+  # delaytime (range 0.002 0.03 $ rand)
+  # delayfeedback "0.8"
+  |+| gain "1.8"
+  # shape "0.9"
+  # room "0.9"
+
+d3
+  $ sometimesBy 0.2 (rev)
+  $ stack
+  [
+    s "ifdrums(7, 16, 5)" # n (choose[1..3]),
+    s "uni(7, 16)" # n (choose[1..2]),
+    s "uni(3, 8)" # gain "1.5"
+  ]
+  # delay "1.0"
+  # delaytime (range 0.001 0.03 $ rand)
+  # delayfeedback "0.7"
+  # shape "0.8"  
+  # gain "1.8"
+
+d1
   $ slow 2
   $ stack [
-    -- s "supersaw"
-    s "empty" # gain "1.1"
+    s "supersaw",
+    s "empty" # gain
   ]
   # note "c2"
   |*| speed "[1.0, 1.005]"
-  -- # legato 0.9
-  -- # lpf 1000 # resonance "0.2"  
+  # legato 0.9
+  # lpf 1000 # resonance "0.2"  
   # enhance 0.3
   -- # octersub 0.8
   -- # triode 0.9  
   -- # tremolodepth 1.5 # tremolorate 8
   # room 0.2 # size 0.95
-  -- # distort 0.5
-  |*| gain "1.2"
+  # distort 0.8
+  |*| gain "1.0"
 
-d3
-  $ s "superdown/8"
-  # note "c6"
-  # sustain "120"
-    
-d4
-  $ s "supersawfbk"
-  # note "c2"
-  |*| note "[1.0, 1.005]"
-  # rq 0.9
-  # legato 2.0
-  # wet 0.2
-  -- # tremolodepth 1.0 # tremolorate 8
-  # room 0.4 # size 0.9
-  -- # distort 0.9
-  -- # gain 0.9
 
-d5
-  $ jux (rev)
-  $ jux (iter 16)
-  $ sometimesBy 0.2 (rev)
-  $ s "uni(13, 16, [0, 5])"
-  # pan rand
-  # n (range 1 4 $ rand)
-  # delay 0.4 # delaytime (range 0.002 0.02 $ rand) # delayfeedback 0.7
-  # enhance 0.3
-  # shape 0.9
+  -- # enhance 0.3
+  -- # shape 0.3
   -- # distort 0.9
   -- # room 0.9 # size 0.5
 
-d6
-  $ sometimesBy 0.3 (rev)
-  $ s "uni(5, 8)"
-  # shape 0.9
-  # gain 1.8
 
 hush
