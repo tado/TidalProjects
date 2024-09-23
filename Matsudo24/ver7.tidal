@@ -1,13 +1,13 @@
 hush
 
+
 do
   resetCycles
   setcps(40/240)
-  let edo = "<22 19 12>/16"
+  let edo = "<19 12 19>/8"
   let scl = "hexMajor7"
   let fs = "<1 1 1.5 1 1 2 1 1 0.75>/2"
-  -- let shift = ("<0 5 -5>/4") + "<0 1>/8" 
-  let shift = 5
+  let shift = ("<0 5 -5>/2") + "<0 1>/2"
   let sn = "gam"
   let nu = "<50 60>*4"
   let ge = (range 1.0 1.4 $ rand)
