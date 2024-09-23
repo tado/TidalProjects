@@ -1,17 +1,17 @@
 hush
 
 do
-  -- resetCycles
+  resetCycles
   setcps(40/240)
-  let edo = "<19 19 22 12>/8"
-  let scl = "majPent"
-  let fs = "<1 1 0.75 1 1 1.5 1 1 2>/2"
-  let shift = ("<0 5 -5>/4") + "<0 1>/8" + "[0.05, -0.05]"
+  let edo = "<19 22 12>/8"
+  let scl = "hexMajor7"
+  let fs = "<1 1 1.5 1 1 2 1 1 0.75>/2"
+  -- let shift = ("<0 5 -5>/4") + "<0 1>/8" 
+  let shift = 5
   let sn = "gam"
   let nu = "<50 60>*4"
-  let ge = (range 0.8 1.2 $ rand)
-  let rv = 0.3
-  let sp = 0.5
+  let ge = (range 1.0 1.4 $ rand)
+  let lt = (range 0.5 4.0 $ rand)
   d1
     $ fast fs
     $ jux (rev)
@@ -21,38 +21,32 @@ do
     |* note (12/edo)    
     # s sn
     # n nu
-    # midichan 0
-    # legato (range 0.5 8.0 $ rand)
+    # legato lt
     # pan rand
-    # room rv # size sp
     # gain ge
   d2    
     $ fast fs
     $ jux (rev)
-    $ note "c3(3, 12, {0..11}/8)"
-    |+ note (scale scl (scramble 4 "<0..19>"))
+    $ note "c2(3, 12, {0..11}/8)"
+    |+ note (scale scl (scramble 4 "<0..12>"))
     |+ note shift 
     |* note (12/edo) 
     # s sn
     # n nu
-    # midichan 1
-    # legato (range 0.5 8.0 $ rand)
+    # legato lt
     # pan rand
-    # room rv # size sp        
     # gain ge
   d3
     $ fast fs
     $ jux (rev)
     $ note "c3(5, 12, {0..11}/6)"
-    |+ note (scale scl (scramble 4 "<0..19>"))
+    |+ note (scale scl (scramble 4 "<0..12>"))
     |+ note shift
     |* note (12/edo) 
     # s sn
     # n nu
-    # midichan 1
-    # legato (range 0.5 8.0 $ rand)
+    # legato lt
     # pan rand
-    # room rv # size sp
     # gain ge
   d4
     $ fast fs
@@ -62,9 +56,7 @@ do
     |+ note shift
     |* note (12/edo) 
     # s sn
-    # n nu
-    # midichan 0
-    # legato (range 0.5 8.0 $ rand)
+    # n nu    
+    # legato lt
     # pan rand
-    # room rv # size sp
     # gain ge
