@@ -1,9 +1,9 @@
 hush
 
+setcps(40/240)
 
 do
-  resetCycles
-  setcps(40/240)
+  resetCycles 
   let edo = "<19 12 19>/8"
   let scl = "hexMajor7"
   let fs = "<1 1 1.5 1 1 2 1 1 0.75>/2"
@@ -12,6 +12,20 @@ do
   let nu = "<50 60>*4"
   let ge = (range 1.0 1.4 $ rand)
   let lt = (range 0.5 4.0 $ rand)
+  d4
+    $ fast fs
+    $ jux (rev)
+    $ note "c1(3, 8, {0..7}/8)"
+    |+ note (scale scl (scramble 4 "<0..19>"))
+    |+ note shift
+    |* note (12/edo) 
+    # s sn
+    # n nu    
+    # legato lt
+    # pan rand
+    # gain ge
+  
+  
   d1
     $ fast fs
     $ jux (rev)
