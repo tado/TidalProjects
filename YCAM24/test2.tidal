@@ -1,0 +1,35 @@
+d1
+  $ jux (("[1, 5, 7]"/8)~>)
+  $ s "tptd"
+  # n 1
+  # legato (1/8)
+  |+ note "[-0.02, 0.02]"
+  |+ note "<0 0 -7 -2>"
+  # lpf (choose [2000, 4000, 6000, 8000, 12000]) # resonance "0.8"
+  # pan rand
+  # delay 1.0 # delaytime ("[7, 9]"/16) # delayfeedback 0.8 # lock 1
+  # room 0.9 # size 0.9
+  # gain 0.9
+
+d2
+  $ sometimesBy 0.2 (jux (rev))
+  $ s "uni:1([7, 5], 16, {0..7}/6)"
+  # n (irand 4)
+  # shape 0.5
+
+d3
+  $ s "superbass(9, 16)"
+  # note "gs2"
+  # legato 1.5
+  |+ note (scale "yu" "{0..7}%3")
+  |+ note "<0 0 -7 -2>"
+  # lpf (range 800 8000 $ rand) # resonance "0.1"
+  # delay 0.5 # delaytime ("[5, 8]"/16) # delayfeedback 0.7 # lock 1
+  # gain 0.8
+
+d4
+  $ s "distd(3, 8)"
+  # shape 0.8  
+  # gain 1.2
+
+hush

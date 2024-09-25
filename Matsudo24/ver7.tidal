@@ -2,6 +2,7 @@ hush
 
 setcps(40/240)
 
+
 do
   resetCycles 
   let edo = "<19 12 19>/8"
