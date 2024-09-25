@@ -16,9 +16,8 @@ do
     # delay 1.0 # delaytime ("[11, 7]"/16) # delayfeedback 0.8 # lock 1
     # lpf (choose [4000, 6000, 8000]) # resonance "0.8"
     # room 0.9 # size 0.3
-  
   d2
-    $ s "supermoog(5, 16)"
+    $ s "supermoog(9, 16)"
     # note "g3 f3 c3"
     |+ note shift
     # legato 1
@@ -49,13 +48,13 @@ d5
 
 d6
   $ s "supersawfbk"
-  # note "c2"
+  # note "c4"
   |+ note "[-0.1, 0.1]"
   # legato 2.0
-  # rq 0.9
-  # wet 1.0
+  # rq 0.1
+  # wet 3.0
   # room 0.5 # size 0.9
-  # enhance 0.5
+  # enhance 0.3
   # gain 1.1
 
 
