@@ -2,6 +2,7 @@ setcps(135/240)
 
 do
   -- resetCycles
+  hush
   d1    
     $ stack[
         sometimesBy 0.2 (jux (("[9, 12]"/14)<~)) $

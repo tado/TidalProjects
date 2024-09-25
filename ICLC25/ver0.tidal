@@ -41,13 +41,14 @@ d5
   # legato 4.0
   # gain 1.0
 
-d2
+d6
   $ s "supersawfbk"
-  # note "a2"
-  # legato 4.0
-  # rq 0.9
-  # wet 0.0
+  # note "a1"
+  # legato 2.0
+  # rq 0.3
+  # wet 1.2
   # room 0.5 # size 0.7
+  -- # enhance 0.3
   # gain 1.1
 
 do
