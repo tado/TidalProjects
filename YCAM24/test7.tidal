@@ -27,10 +27,10 @@ d3
 d4
   $ jux (("[11, 5]"/14)<~)
   $ jux (("[3, 5]"/7)<~)
-  $ s "rs(1, 7)"  
+  $ s "yano(1, 7)"  
   |+ note "[-0.05, 0.05]"
-  -- |+ note "[-12, 0]"
-  # legato 1.0
+  |+ note "[-12, 0]"
+  # legato 3.0
   -- # delay 0.8 # delaytime ("[2, 5]"/14) # delayfeedback 0.8 # lock 1
   # lpf (choose [4000, 6000, 8000, 10000]) # resonance "0.8"
   # room 0.9 # size 0.5
@@ -46,11 +46,11 @@ d4
   # delay 0.5 #delaytime (range 0.002 0.03 $ rand) # delayfeedback 0.8
   # gain 1.1
 
-d5
+d1
   $ s "supermoog(5, 14)" 
   # lpf (range 800 8000 $ slow 2 $ sine) # resonance "0.1"
   # note "f2"
-  |+ note "<0 5 -5>/4"
+  -- |+ note "<0 5 -5>/4"
   -- # note "<c3 a2 g2>/4"
   # legato 1.2
   # gain 1.4
