@@ -1,6 +1,6 @@
 hush
 
-setcps(125/240)
+setcps(120/240)
 
 
 d1
@@ -83,7 +83,7 @@ d2
 do
   hush  
   d1
-    $ s "sup(11, 14, <0..13>/8)"
+    $ s "sup(11, 16, <0..13>/8)"
     -- # n (choose[0..6])
     # n "{0..6}%3"
     # shape "0.6"
@@ -112,13 +112,13 @@ d3
   # gain 1.5
 
 d4
-  $ s "kon(9, 14, [0, 7])"
-  # n "{0..11}%3"
+  $ s "kon(9, 16, [0, 7])"
+  # n "{0..9}%3"
   # gain 1.1
 
 d5
-  $ jux ((7/14)<~)
-  $ s "superhammond(9, 14, [0, 5, 9])"
+  $ jux ((7/16)<~)
+  $ s "superhammond(9, 16, [0, 5, 9])"
   # voice 4
   # note "c4 c5"
   |+ note (scale "ritusen" "{0..9}%[3, 5]")
