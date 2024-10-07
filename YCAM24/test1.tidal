@@ -1,5 +1,7 @@
 setcps(135/240)
 
+hush
+
 do
   -- resetCycles
   hush
