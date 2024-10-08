@@ -41,7 +41,7 @@ d1
   $ s "rs(1, 7)"  
   |+ note "[-0.05, 0.05]"
   |+ note "[-12, <0 -5>/4]"
-  # legato 3
+  # legato 2
   # delay 0.5 # delaytime (1/2) # delayfeedback 0.5 # lock 1
   # lpf (choose [4000, 6000, 8000, 10000]) # resonance "0.8"
   # room 0.5 # size 0.9
@@ -69,25 +69,24 @@ d4
   ]  
   # gain 1.5
 
- 
-d4
-  $ s "superbass(5, 14)"
-  # lpf (range 1000 2000 $ rand) # resonance "0.2"
+d5
+  $ s "superzow(5, 14)"
+  # lpf (range 1000 8000 $ rand) # resonance "0.1"
   # note "c3"
   -- |+ note "<7 7 7 0 0>/4"
   -- |+ note "<0 0 0 9 5 4>/4"
-  |+ note "<7 0>/16"
-  # legato 0.7
-  # gain 1.2
+  -- |+ note "<7 0>/4"
+  # legato 2.0
+  # gain 1.0
   -- # room 0.3 # size 0.5
 
-d5
+d3
   $ sometimesBy 0.4 (jux (rev))
   $ s "ifdrums(9, 14)"
   # n (irand 3)  
   # gain (range 1.0 1.5 $ rand)
 
-d5
+d2
   $ s "kon(9, 14)"
   # n "{0..0}%9"
   # gain 1.1
@@ -103,9 +102,9 @@ once
   # room 0.5 # size 0.8
 
 do
-  hush
+  -- hush
   -- resetCycles
-  setcps(135/240)
+  setcps(132/240)
   d1
     $ stack[
       jux (("[7, 3]"/14)<~) $ 
@@ -250,8 +249,6 @@ d4
   |+| gain "1.8"
   # shape "0.8"
 
-
-
 d2
   $ jux ((1/14)~>)
   -- $ jux ((7/14)<~)
@@ -274,7 +271,6 @@ d3
   # legato 0.2
   # gain 1.5
 
-
 d5
   $ jux ((7/14)<~)
   $ s "superhammond(9, 14, [0, 5, 9])"
@@ -286,7 +282,7 @@ d5
   -- # room 0.5 # size 0.8
   # gain 0.9
 
-setcps(100/240)
+setcps(110/240)
 
 do
   hush
@@ -306,7 +302,7 @@ d5
   |+ note "[0.05, -0.05]"
   # legato 1.0
   # room 0.5 # size 0.8
-  # gain 0.9
+  # gain 0.8
 
 d2
   $ jux ((1/14)~>)
@@ -319,20 +315,20 @@ d2
   |+ note "[0.05, -0.05]"
   # lpf (range 800 8000 $ rand) # resonance "0.3"
   # room 0.5 # size 0.3
-  # gain 1.0  
+  # gain 0.9  
 
 d3
   $ s "supersawfbk"
   # note "c2"
-  # rq 0.2
-  # legato 4.0
+  # rq 0.3
+  # legato 2.0
   # wet 1.0
   # room 0.2 # size 0.9
-  # distort 0.9
+  -- # distort 0.9
   -- # shape 0.8
   # gain 1.8
 
-d2
+d4
   $ s "superdown/8"
   # note "c5"
   # voice 1000
@@ -340,4 +336,7 @@ d2
   # legato 4.0
   # gain 1.0
 
+
 hush
+
+
