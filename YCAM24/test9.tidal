@@ -25,7 +25,7 @@ d2
 d3
   $ s "empty/6"
   # n "[0, 1, 2]"
-  # lpf 12000
+  # lpf 2000
   # gain 1.0
 
 d1 silence >> d2 silence >> d3 silence  
@@ -41,8 +41,8 @@ d1
   $ s "rs(1, 7)"  
   |+ note "[-0.05, 0.05]"
   |+ note "[-12, <0 -5>/4]"
-  # legato 2
-  # delay 0.5 # delaytime (1/2) # delayfeedback 0.5 # lock 1
+  # legato 1
+  # delay 0.9 # delaytime (1/2) # delayfeedback 0.5 # lock 1
   # lpf (choose [6000, 8000]) # resonance "0.8"
   # room 0.5 # size 0.9
 
@@ -51,7 +51,7 @@ d2
   $ s "fb(3, 14, 5)"
   -- # n "<0..3>*9"
   # gain "<1.3 0.9>*16"
-  -- # delay 1 # delaytime "<0.04 0.03 0.02 0.01>*8" # delayfeedback 0.7
+  # delay 1 # delaytime "<0.04 0.03 0.02 0.01>*8" # delayfeedback 0.7
 
 d3
   $ jux (("[5, 9]"/14)<~)  
@@ -79,7 +79,7 @@ d5
   ]
   # lfo (range 800 8000 $ rand) # resonance "0.2"
   # legato "0.7 1.2"
-  # gain 1.0
+  # gain 0.9
   
 d3
   $ sometimesBy 0.4 (jux (rev))
@@ -99,14 +99,15 @@ once
   $ s "matsu" 
   -- |+ note "[-0.1, 0.1]"
   # note "[0, -12]"
-  # gain 0.8
+  # gain 1.0
   # room 0.5 # size 0.8
 
 do
   -- hush
   -- resetCycles
-  setcps(132/240)
+  setcps(134/240)
   d1
+    -- $ sometimesBy 0.2 (jux (rev))
     $ stack[
       jux (("[7, 3]"/14)<~) $ 
         -- sometimesBy 0.2 (rev) $
@@ -129,7 +130,7 @@ do
     |*| gain 1.1    
   d2
     $ s "uni(5, 14, {0..13}/7)"
-    # legato 0.6
+    # legato 0.8
     # gain 1.5
   
   d3
@@ -146,10 +147,10 @@ d4
 d5
   $ s "superbass(14, 14)"
   # legato 0.9
-  # note "c3"
+  # note "c2"
   |- note "<5 4 0>/16"
-  |+ note (scale "hexMajor7" "{0..19}%9")
-  # lpf (range 800 8000 $ rand) # resonance "0.0"
+  |+ note (scale "hexMajor7" "{0..25}%9")
+  # lpf (range 800 8000 $ rand) # resonance "0.1"
   # room 0.3 # size 0.5
   # gain 1.1
 
@@ -161,7 +162,7 @@ d6
   |- note "<5 4 0>/16"  
   # lpf 2000 # resonance 0.0
   # room 0.5 # size 0.5
-  # gain 1.2
+  # gain 1.3
 
 d1
   $ stack
@@ -171,6 +172,7 @@ d1
   ]  
   # gain 1.5
 
+d3 silence
 
 unsolo 1
 
@@ -222,7 +224,7 @@ d5
     , s "ifdrums(9, 14)" # n (irand 3)
   ]
   # delay 1.0 # delaytime (range 0.002 0.03 $ rand) # delayfeedback 0.5
-  # shape 0.8
+  # shape 0.5
   # room 0.5 # size 0.5
   |* gain 1.8
 
@@ -231,8 +233,8 @@ d6
   -- $ sometimesBy 0.4 ((1/8) <~)
   $ stack
     [
-      s "uni(10, 14)" # n "{0 1 2}%8", 
-      s "uni:1(9, 14, 5)"
+      s "uni(11, 14)" # n "{1 2 3}%8", 
+      s "uni:1(5, 14, 5)"
   ]
   -- # room "0.8" # size "0.9"
   # shape "0.8"
@@ -326,9 +328,9 @@ d2
 d3
   $ s "supersawfbk"
   # note "c2"
-  # rq 0.7
+  # rq 0.5
   # legato 2.0
-  # wet 0.9
+  # wet 0.5
   # room 0.1 # size 0.9
   --- # tremolodepth 0.8 # tremolorate 4
   -- # distort 0.9
