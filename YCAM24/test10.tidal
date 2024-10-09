@@ -83,18 +83,19 @@ d5
   # legato "0.7 1.5"
   # gain 0.8
   
-d3
-  $ sometimesBy 0.4 (jux (rev))
-  $ s "ifdrums(11, 14)"
-  # n (irand 3)  
-  # gain (range 1.0 1.7 $ rand)
-
 d6
   -- $ sometimesBy 0.4 (jux (rev))
   $ s "hasu(11, 14)"
   # n (choose [0..13])
   # room 0.5 # size 0.9
   # gain 1.1
+
+d3
+  $ sometimesBy 0.4 (jux (rev))
+  $ s "ifdrums(11, 14)"
+  # n (irand 3)  
+  # gain (range 1.0 1.7 $ rand)
+
 
 d1 silence
   >> d2 silence
@@ -103,8 +104,6 @@ d1 silence
   >> d5 silence
 
 
-hush
-
 once
   $ s "matsu" 
   -- |+ note "[-0.1, 0.1]"
@@ -112,36 +111,36 @@ once
   # gain 1.0
   # room 0.5 # size 0.8
 
+hush  
+
 do
   -- hush
   -- resetCycles
   -- setcps(135/240)
   d1
-    -- $ sometimesBy 0.2 (jux (rev))
     $ stack[
-      jux (("[3, 10, 7]"/14)<~) $ 
-        -- sometimesBy 0.2 (rev) $
+      jux (("[3, 10]"/14)<~) $ 
         s "superbass(5, 14, {0..13}/7)"
         # legato 0.9
         # lpf (range 4000 10000 $ rand) # resonance "0.3"
         # note "c5'maj9"      
+        |+ note "[-0.05, 0.05]"
         # room 0.3 # size 0.9
         # gain 1.0,
       s "supermoog(5, 14)" 
-        # lpf (range 4000 10000 $ slow 8 $ sine) # resonance "0.1"
+        # lpf (range 4000 10000 $ slow 8 $ sine) # resonance "0.2"
         # note "c3"
         |+ note "<0 -3 0 -3 2 7>/4"
         # legato 1.2
         # gain 1.5
     ]
-    |+ note "[-0.04, 0.04]"
-    |- note 5
-    -- |-| note "<5 4 0>/16"    
+    -- |- note 5
+    |-| note "<5 4 0>/16"    
     |*| gain 1.1    
   d2
     $ s "uni(5, 14, {0..13}/7)"
     # legato 0.8
-    # gain 1.5
+    # gain 1.3
   
   d3
     $ s "uni(9, 14)" # n (irand 4)
@@ -155,15 +154,15 @@ d4
   # gain (range 1.0 1.8 $ rand)
 
 d5
-  $ s "superbass(12, 14)"
-  # legato 0.9
+  $ s "superbass(14, 14)"
+  # legato 
   # note "c3"
-  |- note 5
-  |+ note "[-12, 0, 7]"
+  -- |- note 5
+  |+ note "[-12, 0]"
   -- |+ note "<0 -3 0 -3 2 7>/4"
-  -- |- note "<5 4 0>/16"
-  |+ note (scale "hexMajor7" "{0..24}%3")
-  # lpf (range 800 8000 $ rand) # resonance "0.1"
+  |- note "<5 4 0>/16"
+  |+ note (scale "hexMajor7" "{0..24}%9")
+  # lpf (range 800 8000 $ rand) # resonance "0.2"
   # room 0.3 # size 0.5
   # gain 1.2
 
@@ -202,7 +201,7 @@ d2
 
 d3
   $ s "kon(9, 14)"
-  # n "{0..3}%9"
+  # n "{0..0}%9"
   # gain 1.1
 
 d4
@@ -210,7 +209,7 @@ d4
   [
     s "superwho(5, 14, 0)" # note "c5'sus2"
     , s "superwho(5, 14, 5)" # note "c5'sus2" |+ note 12
-    , s "superwho(5, 14, 9)" # note "c5'sus2" |+ note 7
+    -- , s "superwho(5, 14, 9)" # note "c5'sus2" |+ note 7
   ]
   |+ note "<7 0>/16"
   # legato 0.7
@@ -270,31 +269,20 @@ d3
 
 d2
   $ jux ((7/14)<~)
-  $ s "superhammond(9, 14, [0, 5, 9])"
+  $ s "superhammond(11, 14, [0, 5, 9])"
   # voice 4
-  # note "c4 c5"
+  # note "c6 c5"
   |+ note (scale "ritusen" "{0..9}%[3, 5]")
   |+ note "[0.05, -0.05]"
   # legato 1.0
   -- # room 0.5 # size 0.8
   # gain 0.9  
 
-d1
-  $ stack
-  [
-    s "uni(3, 7)"
-    , s "fb(4, 7, 5)"
-  ]
-  # legato 0.2
-  # gain 1.5
-
-
-
 setcps(4/240)
 
 do
   hush
-  setcps(90/240)
+  setcps(80/240)
   once
     $ s "matsu" 
     -- |+ note "[-0.1, 0.1]"
@@ -316,7 +304,7 @@ d5
 
 d2
   $ jux ((3/14)~>)
-  -- $ jux ((7/14)<~)
+  $ jux ((7/14)<~)
   $ s "superhammond(5, 14)"
   # voice 4
   # legato 1
@@ -330,12 +318,12 @@ d2
 d3
   $ s "supersawfbk"
   # note "c2"
-  # rq 0.3
+  # rq 0.9
   # legato 2.0
-  # wet 2.0
-  -- # room 0.5 # size 0.9
+  # wet 0.0
   -- # tremolodepth 0.9 # tremolorate 4
   -- # enhance 0.3
+  -- # room 0.5 # size 0.9  
   # shape 0.8
   # gain 2.0
 
@@ -345,15 +333,15 @@ d4
     s "distd(2, 7)"
     , s "fb(11, 14)"
   ]  
-  # shape 0.9
-  # gain 1.8
+  # shape 0.8
+  # gain 2.0
 
 d6
   $ jux (rev)
   $ every 4 (fast 2)
   $ s "uni(11, 14)" # n (irand 4)
   # delay 1.0 #delaytime (range 0.003 0.05 $ rand) # delayfeedback 0.9
-  # gain 1.9
+  # gain 1.8
 
 d7
   $ s "matsu/8" 
