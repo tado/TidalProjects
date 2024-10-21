@@ -291,7 +291,7 @@ do
   d12
     $ s "none(11, 16)"
     # td_s (choose([1..100]))
-  d2
+  d3
     -- $ sometimesBy 0.1 (rev)
     -- $ sometimesBy 0.4 ((1/8) <~)
     $ stack
@@ -304,7 +304,7 @@ do
     # shape "0.8"
     # gain "1.8"        
 
-d3
+d2
   -- $ sometimesBy 0.2 (rev)
   -- $ sometimesBy 0.4 ((1/8) <~)
   $ stack
@@ -458,6 +458,6 @@ do
   hush
   once
     $ s "none"
-    # td_s 0
+    # td_s 1
 
 
