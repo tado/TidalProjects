@@ -238,7 +238,7 @@ d2
   # gain 1.5
 
 
------------
+---- second beat --------
 
 do
   hush
@@ -446,18 +446,32 @@ d8
   # legato 4.0
   # gain 1.0
 
-d1 silence 
-  >> d2 silence 
-  >> d3 silence
-  >> d4 silence 
-  >> d5 silence
-  >> d6 silence
-  >> d7 silence
-  
+d7
+  -- $ jux (0.5 ~>)
+  -- $ fast 8 $ randslice 30
+  -- $ fast 16 $ randslice 80
+  $ s "adhan/4"
+  -- # n (choose[0..3])
+  -- # up "<0 0 7 0>"
+  # room "0.6" # size "0.95"
+  # gain "0.9"  
+
+do
+  d12
+    $ s "none"
+    # td_s 1
+  d1 silence 
+    >> d2 silence 
+    >> d3 silence
+    >> d4 silence 
+    >> d5 silence
+    >> d6 silence
+    >> d7 silence
+
 do
   hush
   once
     $ s "none"
-    # td_s 1
+    # td_s 0
 
 

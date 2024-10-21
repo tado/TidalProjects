@@ -399,7 +399,7 @@ d3
   # note "c2"
   # rq 0.9
   # legato 2.0
-  # wet 2
+  # wet 0.3
   -- # room 0.1 # size 0.9
   -- # tremolodepth 0.9 # tremolorate 4
   # enhance 0.3
@@ -407,7 +407,7 @@ d3
 
 do
   d12
-    $ s "none*32"
+    $ s "none(48, 64)"
     # td_s (choose([1..100]))
   d4
     $ stack
@@ -440,18 +440,33 @@ d8
   # legato 4.0
   # gain 1.0
 
-d1 silence 
-  >> d2 silence 
-  >> d3 silence
-  >> d4 silence 
-  >> d5 silence
-  >> d6 silence
-  >> d7 silence
-  
+d7
+  -- $ jux (0.5 ~>)
+  -- $ fast 8 $ randslice 30
+  -- $ fast 16 $ randslice 80
+  $ s "adhan/4"
+  # n 1
+  -- # n (choose[0..3])
+  -- # up "<0 0 7 0>"
+  # room 0.8 # size 0.95
+  # gain 1.2
+
+do
+  d12
+    $ s "none"
+    # td_s 1
+  d1 silence 
+    >> d2 silence 
+    >> d3 silence
+    >> d4 silence 
+    >> d5 silence
+    >> d6 silence
+    >> d7 silence
+
 do
   hush
   once
     $ s "none"
-    # td_s 1
+    # td_s 0
 
 
