@@ -220,7 +220,7 @@ d5
 
 
 d6
-  $ s "supermoog(16, 16)"
+  $ s "supermoog(15, 16)"
   # note "g1"
   -- |+ note "<0 -3 0 -3 2 7>/4"
   -- |- note "<5 4 0>/16"
@@ -258,7 +258,7 @@ do
   d2
     -- $ jux ((5/16)<~)
     $ s "tet(7, 16)"
-    # legato 2.0
+    # legato 1.0
     # lpf (range 800 3000 $ slow 8 $ sine) # resonance "0.2"
     |+ note "[-0.02, 0.02]"
     # room 0.3 # size 0.9
@@ -423,6 +423,13 @@ do
     ]  
     # shape 0.9
     # gain 1.8
+
+d6
+  $ s "supermoog(16, 16)"
+  # note "c2"
+  |+ note (scale "minPent" "{0..9}%3")
+    # lpf (range 800 8000 $ rand) # resonance "0.3"
+  # gain 2.0
 
 d6
   -- $ jux (rev)
