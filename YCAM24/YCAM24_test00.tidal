@@ -23,15 +23,15 @@ do
     $ s "none/2"
     # td_s (choose[1..3])
   d1
-    $ s "sfh"
-    # lpf 200
+    $ s "sfh*2"
+    # lpf 12000
     # pan (rand)
     # n (choose[0..32])
     # gain "0.8"
 
 d2
   $ s "empty/6"
-  # shape "0.0"
+  # shape "0.8"
   # gain "0.8"
 
 d3
@@ -50,9 +50,9 @@ do
     $ s "ae(5, 8)"
     # n (choose[0..4])   
     # pan (rand)
-    # gain "0.7"
+    # gain 0.9
     |+ note "[-0.05, 0.05]"
-    # delay "0.9" # delaytime (range 0.001 0.05 $ rand) # delayfeedback "0.95"
+    # delay "0.5" # delaytime (range 0.001 0.05 $ rand) # delayfeedback "0.95"
 
       
 --- First movement ----------
@@ -64,13 +64,13 @@ do
     $ s "none*4"
     # td_s (choose([34..40]))
   d1
-    -- $ jux (("[3, 10, 5]"/14)<~)
+    $ jux (("[3, 10, 5]"/14)<~)
     $ s "rs(1, 7)"  
     |+ note "[-0.05, 0.05]"
     |+ note "[-12, <0 -5>/4]"
     # legato 0.5
-    -- # delay 0.5 # delaytime ("[5, 3]"/14) # delayfeedback 0.5 # lock 1
-    --- # lpf (choose [6000, 8000]) # resonance 0.8
+    # delay 0.5 # delaytime ("[5, 3]"/14) # delayfeedback 0.5 # lock 1
+    # lpf (choose [6000, 8000]) # resonance 0.8
     # room 0.5 # size 0.9
 
 d2
@@ -93,7 +93,7 @@ d4
   $ stack
   [
     s "uni(3, 7)" # legato 0.4
-    , s "fb(5, 14)"
+    , s "fb(5, 14, 2)"
   ]  
   # gain 1.4
 
@@ -102,8 +102,8 @@ d5
   $ stack
   [
     s "superwho(9, 14)" # note "g5'sus2"
-    -- , s "superwho(9, 14, 5)" # note "g5'sus2" |+ note 7
-    -- , s "superwho(9, 14, 10)" # note "g5'sus2" |+ note 19
+    , s "superwho(9, 14, 5)" # note "g5'sus2" |+ note 7
+    , s "superwho(9, 14, 10)" # note "g5'sus2" |+ note 19
   ]
   # lfo (range 800 8000 $ rand) # resonance "0.2"
   # legato "0.7 1.2"
@@ -128,7 +128,7 @@ d7
   # note "g7'maj11"
   |+ note "[0, 12]"
   # legato 0.6
-  # lfo (range 800 8000 $ rand) # resonance "0.3"
+  # lfo (range 300 3000 $ rand) # resonance "0.3"
   -- # delay 0.8 # delaytime ("[7, 3]"/14) # delayfeedback 0.5 # lock 1
   # gain 0.8
 
@@ -167,12 +167,12 @@ do
         # lpf (range 4000 10000 $ rand) # resonance "0.3"
         # note "g5'maj9"
         |+ note "[0, 12]"      
-        # gain 0.0,
+        # gain 1.0,
       s "supermoog(7, 16)" 
         # lpf (range 1000 10000 $ slow 8 $ sine) # resonance "0.1"
         # note "g2"
-        |+ note "<0 -3 0 -3>/4"
-        -- |+ note "<0 -3 0 -3 2 7>/4"
+        --  |+ note "<0 -3 0 -3>/4"
+        |+ note "<0 -3 0 -3 2 7>/4"
         -- # legato 1.0
         # gain 2.0
     ]
@@ -189,11 +189,11 @@ do
     $ stack
     [
       s "uni(4, 8)"
-      -- , s "ifdrums:1(4, 8, 5)"
+      , s "ifdrums:1(4, 8, 5)"
     ]
     # legato 0.5
     # shape 0.3
-    # gain 1.8
+    # gain 1.9
   
 d3
   $ jux (rev)
@@ -213,7 +213,7 @@ d5
   |+ note "[-12, 0, 7]"
   -- |+ note "<0 -3 0 -3 2 7>/4"
   -- |- note "<5 4 0>/16"
-  |+ note (scale "hexMajor7" "{0..7}%3")
+  |+ note (scale "hexMajor7" "{0..19}%3")
   # lpf (range 800 8000 $ rand) # resonance "0.1"
   # room 0.3 # size 0.5
   # gain 1.0
@@ -224,8 +224,8 @@ d6
   # note "g1"
   -- |+ note "<0 -3 0 -3 2 7>/4"
   -- |- note "<5 4 0>/16"
-  |+ note (scale "hexMajor7" "{0..24}%1")
-  |+ note "[-0.15, 0.15]"
+  |+ note (scale "hexMajor7" "{0..24}%9")
+  |+ note "[-0.05, 0.05]"
   # lpf (range 800 12000 $ slow 8 $ sine) # resonance "0.2"
   # gain 1.3
 
@@ -235,8 +235,7 @@ d2
     s "uni(4, 8)" # legato 0.5
     , s "fb(5, 16)"
   ]  
-  # gain 1.5
-
+  # gain 1.7
 
 -----------
 
@@ -262,12 +261,12 @@ do
     # lpf (range 800 3000 $ slow 8 $ sine) # resonance "0.2"
     |+ note "[-0.02, 0.02]"
     # room 0.3 # size 0.9
-    -- # n "<0 0 0 1 2 3>/4"
+    # n "<0 0 0 1 2 3>/4"
     -- # note "<-5 0>/16"
 
 d3
   $ s "kon(9, 16)"
-  # n "{0..0}%9"
+  # n "{0..60}%9"
   # gain 1.0
 
 do
@@ -278,7 +277,7 @@ do
     $ stack
     [
       s "superwho(7, 16, 0)" # note "c5'sus2"
-      -- , s "superwho(7, 16, 5)" # note "c5'sus2" |+ note 12
+      , s "superwho(7, 16, 5)" # note "c5'sus2" |+ note 12
       -- , s "superwho(7, 16, 9)" # note "c5'sus2" |+ note 7
     ]
     |+ note "<7 0>/16"
@@ -317,7 +316,7 @@ d3
   -- # delaytime (range 0.002 0.03 $ rand)
   -- # delayfeedback "0.8"
   |+| gain "1.8"
-  # shape "0.8"
+  # shape "0.5"
   -- # room "0.9"
 
 d5
@@ -341,15 +340,15 @@ d4
   |+| note "-24"
   |+| note "[0, -12]"
   # lpf (range 200 12000 $ slow 8 $ sine) # resonance "0.2"
-  # gain "0.0"
+  # gain 0.0
 
 d5
   $ s "superzow(9, 16)"
   # note "c5'min13"
   # lpf (range 100 8000 $ slow 1 $ rand)
-  # resonance "0.2"
-  # legato "0.9"
-  # gain "0.0"
+  # resonance 0.2
+  # legato 0.9
+  # gain 0.0
 
 ----  drone & feedback -------------
 
