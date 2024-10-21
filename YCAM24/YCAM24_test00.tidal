@@ -420,10 +420,10 @@ do
     # gain 2.0
 
 d6
-  $ s "supermoog(15, 16)"
+  $ s "supermoog(16, 16)"
   # note "c2"
   |+ note (scale "minPent" "{0..9}%3")
-    # lpf (range 800 8000 $ rand) # resonance "0.3"
+    # lpf (range 800 8000 $ rand) # resonance "0.2"
   # gain 2.0
 
 d7
@@ -456,8 +456,8 @@ d7
   # n 1
   -- # n (choose[0..3])
   -- # up "<0 0 7 0>"
-  # room 0.8 # size 0.95
-  # gain 1.1
+  # room 0.9 # size 0.98
+  # gain 1.0
 
 do
   d12
