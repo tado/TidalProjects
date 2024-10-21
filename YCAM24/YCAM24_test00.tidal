@@ -52,10 +52,7 @@ do
     # speed "[1.0, 1.001]"
     # pan (rand)
     # gain "0.7"
-
-    # delay "0.9"
-    # delaytime (range 0.001 0.05 $ rand)
-    # delayfeedback "0.95"
+    -- # delay "0.9" # delaytime (range 0.001 0.05 $ rand) # delayfeedback "0.95"
 
       
 --- First movement ----------
@@ -157,23 +154,25 @@ do
   -- hush
   -- resetCycles
   setcps(125/240)
+  d12
+    $ s "none(7, 16)"
+    # td_s (choose([58..66]))    
   d2
     -- $ sometimesBy 0.2 (jux (rev))
     $ stack[
        jux (("[5]"/16)<~) $ 
         -- sometimesBy 0.2 (rev) $
         s "superwho(9, 16)"
-        # legato 0.9
+        -- # legato 0.9
         # lpf (range 4000 10000 $ rand) # resonance "0.3"
         # note "g5'maj9"
         |+ note "[0, 12]"      
-        # room 0.5 # size 0.9
         # gain 1.0,
       s "supermoog(7, 16)" 
         # lpf (range 1000 10000 $ slow 8 $ sine) # resonance "0.1"
         # note "g2"
-        -- |+ note "<0 -3 0 -3>/4"
-        |+ note "<0 -3 0 -3 2 7>/4"
+        |+ note "<0 -3 0 -3>/4"
+        -- |+ note "<0 -3 0 -3 2 7>/4"
         -- # legato 1.0
         # gain 2.0
     ]
@@ -182,6 +181,10 @@ do
     -- |-| note "<5 4 0>/16"    
     |*| gain 1.0
 
+do
+  d12
+    $ s "none(5, 16)"
+    # td_s (choose([73..79]))
   d1
     $ stack
     [
@@ -241,37 +244,48 @@ d2
 
 do
   hush
+  d12
+    $ s "none(5, 8)"
+    # td_s (choose([17,18]))
   d1
     $ s "sup(11, 16, <0..15>/8)"
     # n "{0..6}%3"
     # shape "0.6"
     # gain "1.5"
 
-d2
-  $ jux ((11/16)<~)
-  $ s "tet(5, 16)"
-  # legato 2.0
-  # n "<0 0 0 1 2 3>/4"
-  # lpf (range 800 3000 $ slow 8 $ sine) # resonance "0.2"
-  -- # note "<-5 0>/16"
-  |+ note "[-0.02, 0.02]"
-  # room 0.3 # size 0.9
+do
+  d12
+    $ s "none(5, 8)"
+    # td_s (choose([67..72]))
+  d2
+    $ jux ((11/16)<~)
+    $ s "tet(5, 16)"
+    # legato 2.0
+    # n "<0 0 0 1 2 3>/4"
+    # lpf (range 800 3000 $ slow 8 $ sine) # resonance "0.2"
+    -- # note "<-5 0>/16"
+    |+ note "[-0.02, 0.02]"
+    # room 0.3 # size 0.9
 
 d3
   $ s "kon(9, 16)"
   # n "{0..40}%9"
   # gain 1.0
 
-d4
-  $ stack
-  [
-    s "superwho(7, 16, 0)" # note "c5'sus2"
-    , s "superwho(7, 16, 5)" # note "c5'sus2" |+ note 12
-    , s "superwho(7, 16, 9)" # note "c5'sus2" |+ note 7
-  ]
-  |+ note "<7 0>/16"
-  # legato 0.7
-  # lpf (range 400 8000 $ rand) # resonance "0.2"
+do
+  d12
+    $ s "none(7, 16)"
+    # td_s (choose([1..100]))
+  d4
+    $ stack
+    [
+      s "superwho(7, 16, 0)" # note "c5'sus2"
+      , s "superwho(7, 16, 5)" # note "c5'sus2" |+ note 12
+      , s "superwho(7, 16, 9)" # note "c5'sus2" |+ note 7
+    ]
+    |+ note "<7 0>/16"
+    # legato 0.7
+    # lpf (range 400 8000 $ rand) # resonance "0.2"
 
 --- Hard Beat ----------------------
 
@@ -346,57 +360,72 @@ do
   hush
   setcps(85/240)
   once
+    $ s "none"
+    # td_s 1
+  once
     $ s "matsu" 
     -- |+ note "[-0.1, 0.1]"
     # note "[0, -12]"
     # gain 1.1
     # room 0.5 # size 0.8
 
-d5
-  $ jux (("[3, 5]"/16)<~)
-  $ s "superhammond(9, 16, [0, 5, 9])"
-  # voice 4
-  # note "c4 c5"
-  |+ note (scale "ritusen" "{0..9}%[3, 5]")
-  |+ note "[-0.05, 0.05]"
-  |+ note "[0, -12, -24]"
-  # legato 1.0
-  # room 0.7 # size 0.9
-  # gain 0.6
+do
+  d12
+    $ s "none(3, 8)"
+    # td_s (choose[29, 31, 32, 90, 91, 92, 93])
+  d5
+    $ jux (("[3, 5]"/16)<~)
+    $ s "superhammond(9, 16, [0, 5, 9])"
+    # voice 4
+    # note "c4 c5"
+    |+ note (scale "ritusen" "{0..9}%[3, 5]")
+    |+ note "[-0.05, 0.05]"
+    |+ note "[0, -12, -24]"
+    # legato 1.0
+    # room 0.7 # size 0.9
+    # gain 0.6
 
-d2
-  $ jux ((3/16)~>)
-  -- $ jux ((7/14)<~)
-  $ s "superhammond(7, 16)"
-  # voice 4
-  # legato 1
-  # note "c4'maj9"
-  |+ note "<0 7>"
-  |+ note "[0.05, -0.05]"
-  # lpf (range 800 8000 $ rand) # resonance "0.3"
-  # room 0.7 # size 0.3
-  # gain 0.8  
+do  
+  d12
+    $ s "none*16"
+    # td_s (choose([1..100]))
+  d2
+    $ jux ((3/16)~>)
+    -- $ jux ((7/14)<~)
+    $ s "superhammond(7, 16)"
+    # voice 4
+    # legato 1
+    # note "c4'maj9"
+    |+ note "<0 7>"
+    |+ note "[0.05, -0.05]"
+    # lpf (range 800 8000 $ rand) # resonance "0.3"
+    # room 0.7 # size 0.3
+    # gain 0.8  
 
 d3
   $ s "supersawfbk"
   # note "c2"
-  # rq 0.3
-  # legato 3.0
-  # wet 1
+  # rq 0.5
+  # legato 4.0
+  # wet 2
   -- # room 0.1 # size 0.9
   -- # tremolodepth 0.9 # tremolorate 4
   # enhance 0.9
   -- # shape 0.8
   # gain 2.0
 
-d4
-  $ stack
-  [
-    s "distd(3, 8)"
-    , s "fb(9, 16)"
-  ]  
-  # shape 0.9
-  # gain 1.8
+do
+  d12
+    $ s "none*32"
+    # td_s (choose([1..100]))
+  d4
+    $ stack
+    [
+      s "distd(3, 8)"
+      , s "fb(9, 16)"
+    ]  
+    # shape 0.9
+    # gain 1.8
 
 d6
   -- $ jux (rev)
@@ -428,7 +457,10 @@ d1 silence
   >> d6 silence
   >> d7 silence
   
-
-hush
+do
+  hush
+  once
+    $ s "none"
+    # td_s 0
 
 
