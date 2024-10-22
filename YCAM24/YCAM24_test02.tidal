@@ -1,5 +1,5 @@
 
-hush    
+hush 
 
 do
   hush
@@ -222,11 +222,9 @@ d5
 d6
   $ s "supermoog(15, 16)"
   # note "g1"
-  -- |+ note "<0 -3 0 -3 2 7>/4"
-  -- |- note "<5 4 0>/16"
-  |+ note (scale "hexMajor7" "{0..23}%5")
+  |+ note (scale "hexMajor7" "{0..23}%6")
   |+ note "[-0.15, 0.15]"
-  # lpf (range 800 12000 $ slow 8 $ sine) # resonance "0.2"
+  # lpf (range 800 12000 $ slow 8 $ sine) # resonance "0.3"
   # gain 1.4
 
 d2
