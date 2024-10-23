@@ -60,7 +60,7 @@ do
 
 do
   -- hush
-  -- setcps(100/240)
+  setcps(100/240)
   d12
     $ s "none*4"
     # td_s (choose([34..40]))
@@ -220,13 +220,13 @@ d5
 
 d6
   $ s "supermoog(15, 16)"
-  # note "g0"
+  # note "g2"
   -- |+ note "<0 -3 0 -3 2 7>/4"
   -- |- note "<5 4 0>/16"
-  |+ note (scale "hexMajor7" "{0..32}%5")
-  |+ note "[-0.15, 0.15]"
-  # lpf (range 800 12000 $ slow 8 $ sine) # resonance "0.1"
-  # gain 1.3
+  |+ note (scale "hexMajor7" "{0..24}%5")
+  |+ note "[-0.05, 0.05]"
+  # lpf (range 800 12000 $ slow 8 $ sine) # resonance "0.2"
+  # gain 1.5
 
 d2
   $ stack
