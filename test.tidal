@@ -2,7 +2,7 @@ hush
 
 setcps(135/240)
 
-unsolo 2
+unsolo 4
 
 d1
   $ s "[distd(4, 8), hc(4, 8, 1)]"  
@@ -10,29 +10,27 @@ d1
   # shape 0.9
   # gain 1.2
   
-
 d2
-  $ jux ((5/16)<~)
+  $ jux ((10/16)<~)
   $ s "super303(15, 16)"
-  # note "c5"
-  |+ note (scale "hexMajor7" "{0..9}%7")    
-  # lpf (range 200 8000 $ slow 8 $ sine) # resonance "0.3"
+  # note "c3"
+  |+ note (scale "ritusen" "{0..19}%7")
+  # lpf (range 1200 8000 $ slow 8 $ sine) # resonance "0.3"
   # legato 0.8
   -- # voice 100
   # room 0.9 # size 0.5
   # gain 0.9  
   -- # shape 0.8
-  -- # delay 0.8 # delaytime 0.625 # delayfeedback 0.8 # lock 1
+  -- # delay 0.8 # delaytime 0.625 # delayfeedback 0.3 # lock 1
   
-
 d3
   $ stack
     [
-      s "uni(3, 8)" # legato 0.5
-      , s "ifdrums(5, 16)" # n (irand 3)
+      s "uni:1(9, 16, 1)" # legato 0.5
+      -- , s "ifdrums(9, 16)" # n (irand 3)
     ]
-    # shape 0.3
-    # gain 1.2
+    # shape 0.9
+    # gain 1.0
 
 d4
   $ s "super303(15, 16)"
@@ -41,8 +39,8 @@ d4
   -- |+ note "[-12, 0, 7]"
   -- |+ note "<0 -3 0 -3 2 7>/4"
   -- |- note "<5 4 0>/16"
-  |+ note (scale "hexMajor7" "{0..9}%7")
-  # lpf (range 800 8000 $ rand) # resonance "0.1"
+  |+ note (scale "ritusen" "{0..9}%7")
+  # lpf (range 1200 8000 $ slow 6 $ sine) # resonance "0.3"
   # room 0.8 # size 0.5
   # gain 0.8
 
