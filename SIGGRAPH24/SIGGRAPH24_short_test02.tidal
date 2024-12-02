@@ -193,7 +193,7 @@ d3
 
 d4
   $ s "superbass(15, 16)"
-  # note "g3"
+  # note "g2"
   |+ note "[-12, 0, 7]"
   -- |+ note "<0 -3 0 -3 2 7>/4"
   -- |- note "<5 4 0>/16"
@@ -204,7 +204,7 @@ d4
 
 d5
   $ s "supermoog(15, 16)"
-  # note "g2"
+  # note "g1"
   -- |+ note "<0 -3 0 -3 2 7>/4"
   -- |- note "<5 4 0>/16"
   |+ note (scale "hexMajor7" "{0..24}%7")
@@ -324,10 +324,11 @@ do
     >> d5 silence
     >> d6 silence
     >> d7 silence
+
 do
   hush
   once
     $ s "none"
-    # td_s 1
+    # td_s 0
 
 

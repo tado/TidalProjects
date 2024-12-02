@@ -158,7 +158,7 @@ do
         # lpf (range 4000 10000 $ rand) # resonance "0.3"
         # note "g5'maj9"
         |+ note "[0, 12]"      
-        # gain 0.0,
+        # gain 1.0,
       s "supermoog(7, 16)" 
         # lpf (range 1000 10000 $ slow 8 $ sine) # resonance "0.1"
         # note "g2"
@@ -180,7 +180,7 @@ do
     $ stack
     [
       s "uni(4, 8)"
-      -- , s "ifdrums:1(4, 8, 5)"
+      , s "ifdrums:1(4, 8, 5)"
     ]
     # legato 0.5
     # shape 0.3
@@ -198,7 +198,7 @@ d4
   |+ note "[-12, 0, 7]"
   -- |+ note "<0 -3 0 -3 2 7>/4"
   -- |- note "<5 4 0>/16"
-  |+ note (scale "hexMajor7" "{0..7}%3")
+  |+ note (scale "hexMajor7" "{0..19}%7")
   # lpf (range 800 8000 $ rand) # resonance "0.1"
   # room 0.3 # size 0.5
   # gain 1.0
@@ -208,7 +208,7 @@ d5
   # note "g1"
   -- |+ note "<0 -3 0 -3 2 7>/4"
   -- |- note "<5 4 0>/16"
-  |+ note (scale "hexMajor7" "{0..24}%1")
+  |+ note (scale "hexMajor7" "{0..24}%7")
   |+ note "[-0.05, 0.05]"
   # lpf (range 800 12000 $ slow 8 $ sine) # resonance "0.2"
   # gain 1.3
@@ -240,7 +240,7 @@ do
     $ stack
     [
       -- s "distd(2, 16)" # gain "1.1",
-      -- s "uni(10, 16)" # n "{0 1 2}%8", 
+      s "uni(10, 16)" # n "{0 1 2}%8", 
       s "uni:1(9, 16, 5)"
     ]
     -- # room "0.8" # size "0.9"
@@ -256,7 +256,7 @@ d2
     s "uni(7, 16)" # n (choose[1..3]) # gain "1.0",
     s "gabba(3, 16)" # gain "1.7"
   ]
-  -- # delay "1.0" # delaytime (range 0.002 0.03 $ rand) # delayfeedback "0.8"
+  # delay "1.0" # delaytime (range 0.002 0.03 $ rand) # delayfeedback "0.8"
   |+| gain "1.8"
   # shape "0.8"
   -- # room "0.9"
@@ -269,7 +269,7 @@ d3
     s "uni(7, 16)" # n (choose[1..2]),
     s "uni(3, 8)" # gain "1.5"
   ]
-  -- # delay "1.0" # delaytime (range 0.001 0.03 $ rand) # delayfeedback "0.7"
+  # delay "1.0" # delaytime (range 0.001 0.03 $ rand) # delayfeedback "0.7"
   # shape "0.8"  
   # gain "1.8"
 
@@ -289,6 +289,8 @@ d5
   # resonance "0.2"
   # legato "0.9"
   # gain 1.0
+
+setcps(20/240)  
 
 --- last drone
 
@@ -329,6 +331,6 @@ do
   hush
   once
     $ s "none"
-    # td_s 1
+    # td_s 0
 
 
