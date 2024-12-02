@@ -1,5 +1,5 @@
 
-hush
+hush    
 
 do
   hush
@@ -23,10 +23,20 @@ do
     # td_s (choose[1..3])
   d1
     $ s "sfh"
-    # lpf 200
+    # lpf 2000
     # pan (rand)
     # n (choose[0..32])
     # gain "0.8"
+
+
+
+
+-- Hello! I'm Atsushi Tadokoro
+-- I will play live coding peromane 10min.
+-- please enjoy!
+
+
+
 
 d2
   $ s "empty/6"
@@ -44,19 +54,20 @@ d3
 --- First movement ----------
 
 do
-  hush
+  -- hush
   setcps(100/240)
   d12
     $ s "none*4"
     # td_s (choose([34..40]))
   d1
     -- $ jux (("[3, 10, 5]"/14)<~)
+    $ jux (("[3, 10]"/14)<~)
     $ s "rs(1, 7)"  
     |+ note "[-0.05, 0.05]"
     -- |+ note "[-12, <0 -5>/4]"
-    # legato 0.5
-    # delay 0.5 # delaytime ("[5, 3]"/14) # delayfeedback 0.5 # lock 1
-    --- # lpf (choose [6000, 8000]) # resonance 0.1
+    # legato 1.5
+    # delay 0.5 # delaytime ("[5, 3]"/14) # delayfeedback 0.9 # lock 1
+    # lpf (choose [6000, 8000]) # resonance 0.9
     # room 0.5 # size 0.9
 
 d2
@@ -88,8 +99,8 @@ d5
   $ stack
   [
     s "superwho(9, 14)" # note "g6'sus2"
-    -- , s "superwho(9, 14, 5)" # note "g6'sus2" |+ note 7
-    -- , s "superwho(9, 14, 10)" # note "g6'sus2" |+ note 12
+    , s "superwho(9, 14)" # note "g6'sus2" |+ note 7
+    , s "superwho(9, 14)" # note "g6'sus2" |+ note 19
   ]
   # lfo (range 800 8000 $ rand) # resonance "0.2"
   # legato "0.5 1.0"
@@ -104,6 +115,7 @@ d3
 d6
   -- $ sometimesBy 0.4 (jux (rev))
   $ s "hasu(11, 14)"
+  |+ note "0 12"
   # n (choose [0..13])
   # room 0.5 # size 0.9
   # gain 1.0
@@ -158,11 +170,11 @@ do
         # lpf (range 4000 10000 $ rand) # resonance "0.3"
         # note "g5'maj9"
         |+ note "[0, 12]"      
-        # gain 0.0,
+        # gain 1.0,
       s "supermoog(7, 16)" 
         # lpf (range 1000 10000 $ slow 8 $ sine) # resonance "0.1"
         # note "g2"
-        -- |+ note "<0 -3 0 -3>/4"
+        |+ note "<0 -3 0 -3>/4"
         -- |+ note "<0 -3 0 -3 2 7>/4"
         -- # legato 1.0
         # gain 2.0
@@ -180,7 +192,7 @@ do
     $ stack
     [
       s "uni(4, 8)"
-      -- , s "ifdrums:1(4, 8, 5)"
+      , s "ifdrums:1(4, 8, 5)"
     ]
     # legato 0.5
     # shape 0.3
@@ -198,7 +210,8 @@ d4
   |+ note "[-12, 0, 7]"
   -- |+ note "<0 -3 0 -3 2 7>/4"
   -- |- note "<5 4 0>/16"
-  |+ note (scale "hexMajor7" "{0..7}%3")
+  |+ note (scale "hexMajor7" "{0..19}%7")
+  |+ note "0 12"
   # lpf (range 800 8000 $ rand) # resonance "0.1"
   # room 0.3 # size 0.5
   # gain 1.0
@@ -208,8 +221,9 @@ d5
   # note "g1"
   -- |+ note "<0 -3 0 -3 2 7>/4"
   -- |- note "<5 4 0>/16"
-  |+ note (scale "hexMajor7" "{0..24}%1")
+  |+ note (scale "hexMajor7" "{0..24}%5")
   |+ note "[-0.05, 0.05]"
+  |+ note "0 12"
   # lpf (range 800 12000 $ slow 8 $ sine) # resonance "0.2"
   # gain 1.3
 
@@ -224,7 +238,7 @@ d2
 d3
   $ s "kon(9, 16)"
   # n "{0..0}%9"
-  # gain 1.0
+  # gain 1.2
 
 --- Hard Beat ----------------------
 
@@ -240,7 +254,7 @@ do
     $ stack
     [
       -- s "distd(2, 16)" # gain "1.1",
-      -- s "uni(10, 16)" # n "{0 1 2}%8", 
+      s "uni(9, 16)" # n "{0 1 2}%8", 
       s "uni:1(9, 16, 5)"
     ]
     -- # room "0.8" # size "0.9"
@@ -248,7 +262,7 @@ do
     # gain "1.8"        
 
 d2
-  -- $ sometimesBy 0.2 (rev)
+  $ sometimesBy 0.2 (rev)
   -- $ sometimesBy 0.4 ((1/8) <~)
   $ stack
   [
@@ -256,10 +270,10 @@ d2
     s "uni(7, 16)" # n (choose[1..3]) # gain "1.0",
     s "gabba(3, 16)" # gain "1.7"
   ]
-  -- # delay "1.0" # delaytime (range 0.002 0.03 $ rand) # delayfeedback "0.8"
+  # delay "1.0" # delaytime (range 0.002 0.03 $ rand) # delayfeedback "0.8"
   |+| gain "1.8"
   # shape "0.8"
-  -- # room "0.9"
+  # room "0.9"
 
 d3
   $ sometimesBy 0.2 (rev)
@@ -269,7 +283,7 @@ d3
     s "uni(7, 16)" # n (choose[1..2]),
     s "uni(3, 8)" # gain "1.5"
   ]
-  -- # delay "1.0" # delaytime (range 0.001 0.03 $ rand) # delayfeedback "0.7"
+  # delay "1.0" # delaytime (range 0.001 0.03 $ rand) # delayfeedback "0.7"
   # shape "0.8"  
   # gain "1.8"
 
@@ -277,7 +291,7 @@ d4
   -- $ jux (rev)
   $ s "superzow(16, 16)"
   # note (scale "yu" "{0..15}%1")
-  |+| note "-24"
+  |+| note "-24 -12"
   |+| note "[0, -12]"
   # lpf (range 200 12000 $ slow 8 $ sine) # resonance "0.2"
   # gain 1.5
@@ -289,6 +303,8 @@ d5
   # resonance "0.2"
   # legato "0.9"
   # gain 1.0
+
+setcps(20/240)  
 
 --- last drone
 
@@ -307,20 +323,9 @@ do
 
 
 
-do
-  hush
-  once
-    $ s "none"
-    # td_s 1
-
-
-
-
-
-
-
-
-
+-- Thank you very much!
+-- Let's Enjoy SIGGRAPH Asia 2024!!
+-- See you!
 
 
 
@@ -355,6 +360,6 @@ do
   hush
   once
     $ s "none"
-    # td_s 1
+    # td_s 0
 
 
