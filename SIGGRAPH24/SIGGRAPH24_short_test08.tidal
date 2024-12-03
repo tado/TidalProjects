@@ -1,13 +1,12 @@
 
-hush
-
 do
   hush
   d12
     $ s "none*4"
     # td_s 0
 
--- Intro -------------
+---------------
+
 
 do
   setcps(120/240)    
@@ -41,7 +40,7 @@ d3
   # legato "4.0"
   # gain "0.8"
      
---- First movement ----------
+-------------
 
 do
   hush
@@ -50,7 +49,7 @@ do
     $ s "none*4"
     # td_s (choose([34..40]))
   d1
-    -- $ jux (("[3, 10, 5]"/14)<~)
+    -- $ jux (("[3]"/14)<~)
     $ s "rs(1, 7)"  
     |+ note "[-0.05, 0.05]"
     -- |+ note "[-12, <0 -5>/4]"
@@ -88,8 +87,6 @@ d5
   $ stack
   [
     s "superwho(9, 14)" # note "g6'sus2"
-    -- , s "superwho(9, 14, 5)" # note "g6'sus2" |+ note 7
-    -- , s "superwho(9, 14, 10)" # note "g6'sus2" |+ note 12
   ]
   # lfo (range 800 8000 $ rand) # resonance "0.2"
   # legato "0.5 1.0"
