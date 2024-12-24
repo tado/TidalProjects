@@ -321,54 +321,6 @@ setcps(120/240)
 
 unsolo 4
 
--- TidalCycles
-do
-  let mode = "yu"
-  let root = "c"
-  d1
-    $ jux (("[10, 5]"/8)<~)
-    $ s "superhammond(7, 8, [0, 5])"
-    # voice 4
-    # note "c2"
-    |+ note (scale mode (irand 12))
-    |+ note root
-    # room 0.8 # size 0.9
-    # lock 1 
-  d2
-    $ jux (("[10, 5]"/16)<~)
-    $ s "superhammond*16"
-    # voice 3
-    # note "c5"
-    |+ note (scale mode (irand 19))
-    |+ note root
-    # room 0.4 # size 0.9
-    # lock 1 
-  
-
-
-d1
-  $ s "supersaw(11, 16)" 
-  # note "<f'maj7 g'maj a'min7 e'min>"
-  # lpf (range 2000 8000 $ slow 16 $ sine)  
-  # resonance 0.2
-  # room 0.4 # size 0.9
-
-d2
-  $ s "supersaw(9, 16)" 
-  # note "<f2 g2>/4"
-  |+ note "<0 12 -12>*8"
-  # lpf (range 1000 8000 $ slow 12 $ sine)
-  # resonance 0.2
-  # gain 1.5
-  
-d3
-  $ s "[bd(3, 8), hc(4, 8, 1)]"
-  # gain 1.5
-
-  
-  
-
-
 d1
   $ s "[distd(4, 8), hc(4, 8, 1)]"  
   # legato 0.5
