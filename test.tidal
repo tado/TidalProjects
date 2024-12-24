@@ -1,8 +1,373 @@
 hush
 
-setcps(135/240)
+once
+  $ s "midi"
+  # midichan "8"
+  # ccn 40 # ccv 127
+
+hush
+
+do
+  resetCycles
+  setcps(120/240)    
+  once
+    $ s "midi"
+    # midichan "8"
+    # ccn 41 # ccv 127  
+  d1
+    $ s "midi*8"
+    # note (scale "majPent" "{0..12}%5")
+    |+ note "[<0 7 12>*4, 0, 7]"
+    |- note 12
+    # midichan "0"
+    # legato 1.0
+
+do
+  resetCycles
+  setcps(120/240)    
+  once
+    $ s "midi"
+    # midichan "8"
+    # ccn 41 # ccv 127  
+  d1
+    $ s "midi*4"
+      # note (scale "majPent" "{0..12}%7")
+      |+ note "[<0 7 12>*4, 0, 7]"
+      |- note 12
+      # midichan "0"
+      # legato 2.0
+
+do
+  resetCycles
+  setcps(120/240)    
+  once
+    $ s "midi"
+    # midichan "8"
+    # ccn 41 # ccv 127  
+  d1
+    $ s "superbass(11, 16)"  
+    # note "<c2 g3>*8"
+    # legato "1.0"
+    # lpf 1000 # resonance 0.2
+
+-- TidalCycles
+do
+  resetCycles
+  setcps(120/240)    
+  once
+    $ s "midi"
+    # midichan "8"
+    # ccn 41 # ccv 127  
+  d1
+    $ s "uni(9, 16)"
+    # n (range 1 4 $ rand)
+  d2
+    $ s "uni(3, 8)"
+    # gain 1.2
+
+-- 王道進行 (J-Pop風?)
+d1 
+  $ s "superpiano*4" 
+  # note "<f'maj7 g'dom7 e'min7 a'min>"
+
+-- 王道進行 (よりきれいにボイシング)
+d1 
+  $ s "superpiano*2"
+  # note "<f5'maj7 g4'dom7'ii e5'min7 a4'min'ii>"
+
+-- 王道進行アンサンブル
+do
+  d1
+    $ s "supersaw(11, 16)"
+    # note "<f5'maj7 g4'dom7'ii e5'min7 a4'min'ii>"
+    # lpf (range 2000 8000 $ slow 16 $ sine)  
+    # resonance 0.2
+    # room 0.5 # size 0.8
+  d2
+    $ s "supersaw(9, 16)" 
+    # note "<f2 g2 e2 a2>"
+    |+ note "<0 12>*8"
+    # lpf (range 1000 8000 $ slow 12 $ sine)
+    # resonance 0.2
+    # gain 1.5
+  d3
+    $ s "[bd(3, 8), hc(4, 8, 1)]"
+    # gain 1.5
+
+-- 王道進行アンサンブル + 分数コード
+setcps(120/240)
+
+do
+  d1
+    $ s "supersaw(9, 16, [3, 7])"
+    # note "<f5'maj7 g4'dom7'ii e5'min7 a4'min'ii>"
+    # lpf (range 1000 8000 $ slow 16 $ sine)  
+    # resonance 0.2
+    # room 0.5 # size 0.8
+  d2
+    $ s "supersaw(9, 16)" 
+    # note "<f2 e2 d2 c2>/2"
+    |+ note "<0 12>*8"
+    # lpf (range 1000 8000 $ slow 12 $ sine)
+    # resonance 0.2
+    # gain 1.5
+  d3
+    $ s "[bd(3, 8), hc(4, 8, 1)]"
+    # gain 1.5
+
+hush
+
+-- いろいろなコードを試してみる
+d1
+  $ s "superpiano" 
+  # note "<c'maj f'maj g'maj c'maj>"
+
+-- よりきれいにボイシング
+d1
+  $ s "superpiano"
+  # note "<c5'maj f4'maj'ii g4'dom7'ii c5'maj'i>"
+
+d2 $ s "<superpiano superpiano superpiano*2 superpiano>"
+  # note "<c3 f3 [g3 g2] c3>"
+
+resetCycles
+
+-- カノン進行よりきれいにボイシング
+d1
+  $ s "superpiano*2" 
+  # note "<c4'maj'ii g4'maj a3'min'ii e4'min f4'maj c4'maj f4'maj g3'dom7'iii>"  
+
+-- カノン進行 (クリスマス!)
+do
+  d1
+    $ s "superpwm*2"
+    # note "<c4'maj'ii g4'maj a3'min'ii e4'min f4'maj c4'maj f4'maj g3'dom7'iii>"  
+    # legato 1.2
+    # delay 0.5 # delaytime (5/8) # lock 1
+    # lpf (range 2000 4000 $ slow 8 $ sine) # resonance 0.1
+    # room 0.7 # size 0.9
+  d2
+    $ s "supersaw*4"
+    # note "<c3 b2 a2 g2 f2 e2 d2 g2>"  
+    |+ note "<0 0 12 -12>*4"
+    # lpf 600 # resonance 0.2
+    # room 0.7 # size 0.9
+    # gain 1.2
+  d3
+    $ s "bd(2, 8)"
+    # room 0.7 # size 0.9
+    # gain 1.2
+  
+  
+  
+
+-- TidalCycles 応用3 - コード (和音) とスケール (旋法)
+
+-- 同時に音を鳴らす
+d1
+  $ s "superpiano*4" 
+  # note "[c, e, g]"
+
+----------------------------
+-- コード (Chord = 和音)
+----------------------------
+-- コードを演奏する
+d1
+  $ s "superpiano*4" 
+  # note "c'maj"
+
+-- いろいろなコードを試してみる
+d1
+  $ s "superpiano*4" 
+  # note "<c'maj f'maj g'maj c'maj>"
+
+-- カノン進行
+d1
+  $ s "superpiano*2" 
+  # note "<c'maj g'maj a'min e'min f'maj c'maj f'maj g'maj>"
+
+-- 王道進行
+d1
+  $ s "superpiano*2" 
+  # note "<f'maj7 g'maj a'min7 e'min>"
+
+-- 王道進行アンサンブル
+do
+  d1
+    $ s "supersaw(11, 16)" 
+    # note "<f'maj7 g'maj a'min7 e'min>"
+    # lpf (range 2000 8000 $ slow 16 $ sine)  
+    # resonance 0.2
+    # room 0.5 # size 0.8
+  d2
+    $ s "supersaw(9, 16)" 
+    # note "<f2 g2 a2 e2>"
+    |+ note "<0 12>*8"
+    # lpf (range 1000 8000 $ slow 12 $ sine)
+    # resonance 0.2
+    # gain 1.5
+  d3
+    $ s "[bd(3, 8), hc(4, 8, 1)]"
+    # gain 1.5  
+
+
+-- 王道進行アンサンブル + 分数コード
+do
+  d1
+    $ s "supersaw(11, 16)" 
+    # note "<f'maj7 g'maj a'min7 e'min>"
+    # lpf (range 1000 8000 $ slow 16 $ sine)  
+    # resonance 0.2
+    # room 0.5 # size 0.8
+  d2
+    $ s "supersaw(9, 16)" 
+    # note "<f2 g2 a2 [d2 [g2 e2]]>/2"
+    |+ note "<0 12>*8"
+    # lpf (range 1000 8000 $ slow 12 $ sine)
+    # resonance 0.2
+    # gain 1.5
+  d3
+    $ s "[bd(3, 8), hc(4, 8, 1)]"
+    # gain 1.5
+
+-- 王道進行アンサンブル + 分数コード
+d1
+  $ s "supersaw(11, 16)" 
+  # note "<f'maj7 g'maj a'min7 e'min>"
+  # lpf (range 2000 8000 $ slow 16 $ sine)  
+  # resonance 0.2
+  # room 0.5 # size 0.8
+
+d2
+  $ s "supersaw(9, 16)" 
+  # note "<f2 g2 a2 e2>"
+  |+ note "<0 12>*8"
+  # lpf (range 1000 8000 $ slow 12 $ sine)
+  # resonance 0.2
+  # gain 1.5
+  
+d3
+  $ s "[bd(3, 8), hc(4, 8, 1)]"
+  # gain 1.5
+
+----------------------------
+-- スケール (scale = 旋法)
+----------------------------
+-- イオニアンスケール
+d1
+  $ s "supersaw*8"
+  # note (scale "ionian" "[0..7]")
+
+-- スケールいろいろ
+minPent majPent ritusen egyptian kumai hirajoshi iwato chinese indian pelog prometheus scriabin gong shang jiao zhi yu whole augmented augmented2 hexMajor7 hexDorian hexPhrygian hexSus hexMajor6 hexAeolian major ionian dorian phrygian lydian mixolydian aeolian minor locrian harmonicMinor harmonicMajor melodicMinor melodicMinorDesc melodicMajor bartok hindu todi purvi marva bhairav ahirbhairav superLocrian romanianMinor hungarianMinor neapolitanMinor enigmatic spanish leadingWhole lydianMinor neapolitanMajor locrianMajor diminished diminished2 chromatic
+
+-- スケール内の音をランダムに演奏
+d1
+  $ s "superpiano*8"
+  # note (scale "hirajoshi" (irand 12))
+
+-- スケールを使用した即興演奏
+
+hush
+
+
+
+do
+  setcps(120/240)
+  let mode = "minPent"
+  let root = "c"
+  d1
+    -- $ jux (("[10, 5]"/8)<~)
+    $ s "superhammond(8, 8)"
+    # voice 0
+    # note "c3"
+    |+ note (scale mode (irand 12))
+    |+ note root
+    # legato "2"
+    # room 0.4 # size 0.95
+    # gain 1.8
+  d2
+    $ jux (("[7, 3, 0]"/8)~>)
+    $ s "superhammond(9, 16)"
+    # voice 3
+    # note "c5"
+    |+ note (scale mode (irand 12))
+    |+ note root
+    # legato "0.85"
+    # room 0.4 # size 0.95
+  d3
+    $ jux (("[4, 2]"/8)~>)
+    $ s "superhammond(9, 16, 3)"
+    # voice 4
+    # note "c6"
+    |+ note (scale mode (irand 12))
+    |+ note root
+    # legato "1"
+    # room 0.4 # size 0.95
+    
+
+    
+
+
+
+
+
+
+
+
+hush
+
+setcps(120/240)
 
 unsolo 4
+
+-- TidalCycles
+do
+  let mode = "yu"
+  let root = "c"
+  d1
+    $ jux (("[10, 5]"/8)<~)
+    $ s "superhammond(7, 8, [0, 5])"
+    # voice 4
+    # note "c2"
+    |+ note (scale mode (irand 12))
+    |+ note root
+    # room 0.8 # size 0.9
+    # lock 1 
+  d2
+    $ jux (("[10, 5]"/16)<~)
+    $ s "superhammond*16"
+    # voice 3
+    # note "c5"
+    |+ note (scale mode (irand 19))
+    |+ note root
+    # room 0.4 # size 0.9
+    # lock 1 
+  
+
+
+d1
+  $ s "supersaw(11, 16)" 
+  # note "<f'maj7 g'maj a'min7 e'min>"
+  # lpf (range 2000 8000 $ slow 16 $ sine)  
+  # resonance 0.2
+  # room 0.4 # size 0.9
+
+d2
+  $ s "supersaw(9, 16)" 
+  # note "<f2 g2>/4"
+  |+ note "<0 12 -12>*8"
+  # lpf (range 1000 8000 $ slow 12 $ sine)
+  # resonance 0.2
+  # gain 1.5
+  
+d3
+  $ s "[bd(3, 8), hc(4, 8, 1)]"
+  # gain 1.5
+
+  
+  
+
 
 d1
   $ s "[distd(4, 8), hc(4, 8, 1)]"  
