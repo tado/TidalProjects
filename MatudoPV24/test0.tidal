@@ -1,0 +1,139 @@
+hush
+
+do
+  -- once $ s "midi" # midichan "8" # ccn 41 # ccv 127  
+  resetCycles
+  setcps(80/240)
+  let base = "<g3 f3 c4 d3 gs3 fs3 cs4 ds3>/16"
+  -- let mode = "<majPent majPent majPent hexSus>/4"
+  let mode = "<hexMajor7 hexSus yu zhi>/4"
+  d1
+    -- $ sometimesBy 0.2 (brak)
+    -- $ jux (rev)
+    -- $ jux (iter 8)
+    $ s "midi(7, 8)"
+    -- # note (scale mode "{0..19}%<3 5 7 9 11 13>")
+    # note (scale mode "{0..19}%7")
+    |+ note "[0, 5, 12]"
+    |- note 12
+    |+ note base
+    # midichan "0"
+    # legato 0.2
+    # gain 1.2
+  d2
+    $ sometimesBy 0.2 (brak)
+    -- $ sometimesBy 0.1 (fast 2)
+    -- $ jux (rev)
+    $ s "midi(15, 16, [0, 5])"
+    # note (scale mode "{0..19}%7")
+    |+ note "[0, 12]"
+    |- note 12
+    |+ note base
+    # midichan "1"
+    # legato 0.5
+    # gain 1.0
+  d3
+    -- $ sometimesBy 0.2 (jux (rev))
+    $ s "midi(3, 8)"
+    # note base
+    |+ note "<0 12>*8"
+    |- note "[0, 12]"
+    # midichan "2"
+    -- # legato 1.7
+    # legato (range 1.0 2.0 $ rand)
+    -- # delay 0.75 # delaytime (3/8) # lock 1 # delayfeedback 0.5
+    # gain 1.3
+    -- # gain (range 1.2 1.7 $ rand)
+  d4    
+    $ every 2 (brak)
+    -- $ sometimesBy 0.3 (brak)
+    -- $ sometimesBy 0.2 (fast 2)
+    $ s "midi(13, 16)"
+    # note (scale mode "{0..19}%<7 3 5 7 11>")
+    -- |+ note "[0, <0 5 7 12>*16]"
+    -- |+ note "[0, <7 12>*4]"
+    |+ note "[0, 7]"
+    |+ note base
+    -- |+ note (choose[0, 12])
+    # midichan "3"
+    # legato (range 1.0 4.0 $ rand)    
+    # gain (range 1.0 1.8 $ rand)
+  d5
+    $ stack
+    [
+      s "midi(3, 8)" # gain 1.8 # note "c3"
+      , s "midi(4, 8, 1)" # gain 1.5 # note "<af3 af3 af3 bf3>*4"
+      , s "midi(13, 16, 3)" # gain 1.18 # note (choose [-10, -9, -8, -6, -4, -2])
+    ]
+    # midichan "4"
+  d6
+    -- $ sometimesBy 0.2 (jux (rev))
+    $ s "midi(3, 8)"
+    # note base
+    -- |+ note "<0 12>*8"
+    -- |- note 12
+    # midichan "5"
+    # legato 1.5
+    # delay 0.75 # delaytime (3/8) # lock 1 # delayfeedback 0.5
+    # gain 1.2
+    
+
+  
+  d5
+    $ stack
+    [
+      s "uni(3, 8)" # gain 1.3
+      , sometimesBy 0.1 (fast 2) $ s "uni:1(4, 8, 1)" 
+        # delay 0.8 # delaytime (11/16) # lock 1 # delayfeedback 0.75
+        # gain 0.9
+      , s "hc(4, 8, 1)"
+      # gain 0.9
+    ]
+    -- # room 0.2 # size 0.5
+
+  
+hush
+
+do
+  resetCycles
+  -- setcps(80/240)
+  -- let base = "<c3 g3 c3 g3 c3 f3>/2"
+  -- let mode = "<yu ritusen minPent>/6"
+  once $ s "midi" # midichan "8" # ccn 41 # ccv 127
+  d3
+    -- $ jux (iter 16)
+    $ stack[
+      -- s "ifdrums(7, 16)" # n (range 1 4 $ rand),
+      s "uni ~ [~ [~ uni]] ~" # gain 1.3,
+      s "uni:1(2, 4, 1)"
+    ]
+    |* gain 1.0
+    -- # room 0.5 # size 0.5
+    -- # delay 0.5 #delaytime (3/8) # lock 1 # delayfeedback 0.75
+    
+
+
+
+once
+  $ s "midi"
+  # midichan "8"
+  # ccn 40 # ccv 127
+
+hush
+
+do
+  resetCycles
+  setcps(120/240)    
+  once
+    $ s "midi"
+    # midichan "8"
+    # ccn 41 # ccv 127  
+
+hush  
+
+
+  d2
+    $ s "midi(<2 3>, 8)"
+    # note "c3"
+    # midichan "1"
+

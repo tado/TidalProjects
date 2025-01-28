@@ -54,50 +54,6 @@ setcps(135/240)
 
 unsolo 4
 
--- シンプルにシンセを鳴らしてみる
-d1
-  $s "supersaw*4"
-  #note 0
-
--- 音階で指定 シャープ
-d1
-  $s "supersaw*4"
-  #note "cs5"
-
--- 音階で指定 フラット
-d1
-  $s "supersaw*4"
-  #note "df5"
-
--- シンセの音色の種類を変えてみる
-d1
-  $ s "supersaw superpwm supersquare superzow"
-  # note 0    
-
--- 音階を弾く
-d1
-  $s "supersaw*4"
-  # note "c e f g"
-
--- ランダムな音階
-d1
-  $s "supersaw*8"
-  # note (irand 12)
-
--- 短かい持続
-d1
-  $ s "supersaw*8"
-  # legato "0.5"
-  # note (irand 12)
-
--- 短かい持続と長い持続
-d1
-  $ s "supersaw*8"
-  # legato "<0.5 1.2>*8"
-  # note (irand 12)
-
-
-
 d1
   $ s "[distd(4, 8), hc(4, 8, 1)]"  
   # legato 0.5
