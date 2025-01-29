@@ -10,17 +10,18 @@ d2
 d2
   $ stack[
     s "ifdrums(9, 16)" # n (irand 3),
-    s "uni(3, 8)"
+    s "uni(3, 8)" # gain 1.5,
+    s "fka:1(5, 16)"
   ]
-  # delay 0.9 # delaytime 0.625 # delayfeedback 0.7
-  # lock 1
+  # legato 0.5
+  # delay 0.9 # delaytime (9/16) # delayfeedback 0.7 # lock 1
 
 d1
   $ s "[superhammond*16, uni(3, 8), hc(5, 8)]"
   # voice 34
-  # note (scale "yu" "{0..19}%[7, 5]")
+  # note "c2"
+  |+ note (scale "yu" "{0..9}%[7, 5]")
   -- |+ note "[0, <12 7>*4]"
-  |- note "24"
   -- # sustain "[0.4 0.1 0.2 0.1]*2"
   # phasr 0.9
   # lpf (range 2000 8000 $ slow 9 $ sine) # resonance 0.2
@@ -33,11 +34,14 @@ d1 $ s "cp*4"
 
 d2 $ s "bd(3, 8)"
 
-d3 $ s "supermoog*16"
-  # note (scale "yu" "{0..12}%3")
-  |- note 24
-  # lpf (range 200 8000 $ slow 32 $ sine)
-  # resonance "0.3"
+d3 
+  $ s "supersaw*16"
+  # note "c2"
+  |+ note (scale "hexMajor6" "{0..24}%7")
+  # lpf (range 2000 12000 $ slow 32 $ sine) # resonance "0.3"
+  # legato 0.75
+  # delay 0.5 # delaytime (5/16) # delayfeedback 0.7 # lock 1
+  
 
 d3 silence
 
