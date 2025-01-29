@@ -5,10 +5,11 @@ do
   resetCycles
   setcps(80/240)
   -- let base = "<g3 f3 c4 d3 gs3 fs3 cs4 ds3>/16"
-  let base = ("<g3 f3>/16" - "<0 -1>/32")
+  -- let base = ("<g3 f3 e3 d3>/8" - "<0 -1 2 1>/16")
+  let base = ("<e3 d3 g3 f3>/12" + 5)
   -- let mode = "<majPent majPent majPent hexSus>/4"
   -- let mode = "<hexMajor7 hexSus yu zhi>/4"
-  let mode = "<hexMajor7 hexSus hexMajor6 hexSus>/4"
+  let mode = "<hexMajor7 hexSus hexAeolian>/4"
   d1
     -- $ sometimesBy 0.2 (brak)
     -- $ jux (rev)
@@ -52,8 +53,8 @@ do
     -- # gain (range 1.4 1.6 $ rand)
     # gain 1.7
   d4   
-    $ every 4 (brak)
-    -- $ sometimesBy 0.3 (brak)
+    -- $ every 4 (brak)
+    -- $ sometimesBy 0.1 (brak)
     -- $ sometimesBy 0.2 (fast 2)
     $ s "midi(16, 16)"
     -- # note (scale mode "{0..19}%<7 3 5 7 11>")
@@ -62,14 +63,15 @@ do
     -- |+ note (scale mode "{0..19}%<7 3 5 7 11>")
     -- |+ note "[0, <0 5 7 12>*16]"
     -- |+ note "[0, <7 12>*4]"
-    |+ note "[0, 7, 12]"
+    |+ note "[-12, 0, 7]"
     -- |+ note 12
     -- |+ note "[0, 12]"
     -- |+ note base
     -- |+ note (choose[0, 12])
     # midichan "3"
-    # legato (range 1.0 4.0 $ rand)    
-    # gain (range 1.4 1.6 $ rand)
+    # legato (range 2.0 6.0 $ rand)    
+    # gain (range 1.4 1.8 $ rand)
+    |* gain 1.0
   d5
     $ stack
     [
