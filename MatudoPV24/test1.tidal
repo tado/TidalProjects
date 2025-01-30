@@ -89,8 +89,8 @@ do
   once $ s "midi" # midichan "8" # ccn 41 # ccv 127  
   resetCycles
   setcps(64/240)
-  let base = ("<e3 c3>/4" + 5)
-  let mode = "<hexSus>/4"  
+  let base = ("<e3 c3>/8" + 5)
+  let mode = "hexSus"  
   d1   
     -- $ sometimesBy 0.3 (brak)
     $ s "midi(14, 16)"
