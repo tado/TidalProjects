@@ -6,10 +6,12 @@ do
   setcps(80/240)
   -- let base = "<g3 f3 c4 d3 gs3 fs3 cs4 ds3>/16"
   -- let base = ("<g3 f3 e3 d3>/8" - "<0 -1 2 1>/16")
-  let base = ("<e3 d3 g3 f3>/12" + 5)
+  -- let base = ("<e3 d3 g3 f3>/12" + 5)
   -- let mode = "<majPent majPent majPent hexSus>/4"
   -- let mode = "<hexMajor7 hexSus yu zhi>/4"
-  let mode = "<hexMajor7 hexSus hexAeolian>/4"
+  -- let mode = "<hexMajor7 hexSus hexAeolian>/4"
+  let base = ("<e3 d3 g3 f3>/8" + 5)
+  let mode = "<hexMajor7 hexSus>/4"
   d1
     -- $ sometimesBy 0.2 (brak)
     -- $ jux (rev)
