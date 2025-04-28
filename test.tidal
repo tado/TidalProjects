@@ -1,7 +1,35 @@
 hush
 
+setcps(130/240)
+
 d1
-  $ s "cp*4"
+  $ every 4 (slow 2)
+  $ jux ((7/16) ~>)
+  $ s "[bd sd [~ bd] hh*2, uni(3, 8)]"
+  # delay 0.8
+  # delaytime ("[5, 3]"/8)
+  # lock 1
+
+do
+  let shift = (-5)
+  d2
+    $ jux (iter 8)
+    $ s "superbass(7, 16)"
+    # note "e3"  
+    |+ note (scale "iwato" "{0..7}%3")
+    |+ note "[0, 7]"
+    |+ note shift
+    # legato 2.0
+    # lpf (range 400 2000 $ slow 4 $ sine) # resonance "0.1"
+    # gain "0.8"
+  d3
+    $ s "rs(3, 8)"
+    # n "{0..3}%5"
+    # lpf (range 400 8000 $ slow 4 $ sine) # resonance "0.7"
+    |+ note "[0, 12]"
+    |+ note shift
+    # room 0.8
+    # legato 4.0
 
 d2 
   $ s "808(9, 16)"
