@@ -88,7 +88,7 @@ let getState = streamGet tidal
     setB = streamSetB tidal
 :}
 
-:set prompt "tidal> "
+:set prompt "t> "
 :set prompt-cont ""
 
 -- Change TouchDesigner scene
