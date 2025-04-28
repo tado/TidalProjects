@@ -12,30 +12,30 @@ setcps(130/240)
 d1
   $ stack[
     s "ifdrums(5, 16)" # n (irand 3)
-    , s "uni(3, 8)"
-    -- , s "tet(5, 8)" # n "{0 1 2 3}%5" # gain 1.2
-    --, s "fka(4, 8, 2)" # n 1
+    , s "uni(3, 8)" # gain 1.3
+    , s "tet(7, 8)" # n "{0 1 2 3}%2" # gain 1.2
+    -- , s "fka(9, 16, 2)" # n (irand 2) # gain 1.5
     , s "hc(4, 8, 1)"
   ]  
-  -- # legato 0.7
-  -- # delay 0.9 # delaytime ("[2, 5]"/8) # delayfeedback 0.75 # lock 1 
+  # legato 0.4
+  # delay 0.9 # delaytime ("[9, 5]"/8) # delayfeedback 0.5 # lock 1 
 
-d3 
-  $ s "superwho*16"
-  # note "e3"
-  |+ note (scale "hexMajor7" "{0..9}%3")
-  -- |* note "[1.0, 1.02]"
+d2 
+  $ s "superwho(11, 16)"
+  # note "es3"
+  |+ note (scale "hexMajor7" "{0..7}%7")
+  |* note "[1.0, 1.01]"
   |+ note "<0 12>*16"
-  |+ note "[0, 7]"
-  # legato "<1.2 0.7>*16"
+  -- |+ note "[0, 7]"
+  # legato "<1.7 0.7>*16"
   # lpf (range 800 8000 $ slow 8 $ sine) # resonance 0.2
   # gain 1
-  -- # delay 0.5 # delaytime (11/16) # delayfeedback 0.2 # lock 1
+  # delay 0.5 # delaytime (11/16) # delayfeedback 0.2 # lock 1
 
 d2
   $ s "superhammond(9, 16)"
   # voice 2
-  # note "e4'maj'ii"
+  # note "es4'maj'ii"
   -- |+ note (scale "yu" "{0..9}%[7, 5]")
   -- |+ note "[0, <12 7>*4]"
   -- # sustain "[0.4 0.1 0.2 0.1]*2"
