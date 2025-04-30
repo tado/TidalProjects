@@ -1,35 +1,50 @@
 hush
 
-setcps(130/240)
+setcps(20/240)
 
 d1
-  $ every 4 (slow 2)
-  $ jux ((7/16) ~>)
-  $ s "[bd sd [~ bd] hh*2, uni(3, 8)]"
-  # delay 0.8
-  # delaytime ("[5, 3]"/8)
-  # lock 1
+  -- $ jux ((1/4) <~)
+  $ jux ((3/16) ~>)
+  -- $ sometimesBy 0.1 (rev)
+  $ s "[distd cp [~ distd] hh*2]"
+  # delay 1.0 # delaytime (5/8) # lock 1
+
+d2
+  $ s "[uni(3, 8)]"
+  # shape 0.5
+  # delay 1.0 # delaytime (3/8) # lock 1
 
 do
-  let shift = (-5)
-  d2
-    $ jux (iter 8)
-    $ s "superbass(7, 16)"
-    # note "e3"  
-    |+ note (scale "iwato" "{0..7}%3")
-    |+ note "[0, 7]"
-    |+ note shift
-    # legato 2.0
-    # lpf (range 400 2000 $ slow 4 $ sine) # resonance "0.1"
-    # gain "0.8"
+  let shift = 0
   d3
-    $ s "rs(3, 8)"
-    # n "{0..3}%5"
-    # lpf (range 400 8000 $ slow 4 $ sine) # resonance "0.7"
+    $ jux ((9/16) <~)
+    $ s "superzow(7, 16)"
+    # note "c2"  
+    |+ note (scale "minPent" "{0..21}%3")    
     |+ note "[0, 12]"
+    |* note "[1.0, 1.01]"
     |+ note shift
-    # room 0.8
+    # lpf (range 100 18000 $ rand) # resonance "0.4"
+    # delay 0.7 # delaytime (5/8) # lock 1
+    # gain 0.7
+  d4
+    $ sometimesBy 0.3 (jux (rev))
+    $ s "superwho(9, 16, 1)"
+    # note "c6'min9"
+    |* note "[1.0, 1.01]"
+    |+ note "[0, <7 12>/4]"
+    |+ note shift
+    # legato 0.7
+    # lpf (range 400 8000 $ slow 6 $ sine) # resonance "0.2"
+    # delay 0.7 # delaytime (7/8) # lock 1
+    # gain 0.7
+  d5
+    $ s "rs(3, 8)"
+    # lpf (range 4000 20000 $ slow 4 $ sine) # resonance "0.7"
+    |+ note "[0, <7 12>/4]"
+    |+ note (shift + 3)
     # legato 4.0
+    # room 0.7
 
 d2 
   $ s "808(9, 16)"
