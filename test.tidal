@@ -1,6 +1,44 @@
+setcps(130/240)
+
 hush
 
-setcps(20/240)
+d1
+  -- $ jux(iter 16)
+  $ s "[bd cp [~ bd] hh*2, uni(3, 8)]"
+  # delay 0.8 # delaytime (7/8) #lock 1.0
+  # gain 1.4
+
+do
+  let shift = 0
+  d2
+    $ s "supersaw*4"  
+    # note "c4'sus2 c4'sus4 c4'maj7 c4'maj9"
+    |+ note shift
+    # lpf (range 200 18000 $ rand)
+    # resonance 0.3
+    # legato 1.2
+    # room 0.9
+    # gain 0.8
+  d3
+    $ s "supermoog(16, 16)"
+    # note "c2"
+    |+ note (scale "majPent" "{0..12}%11")
+    |+ note "[-12, 0, 12, 19]"
+    |+ note shift
+    # lpf (range 200 8000 $ slow 8 $ sine) # resonance "0.3"
+    # legato 0.5
+    # room 0.9
+    # gain 0.9
+
+hush
+
+
+
+
+
+
+
+
 
 d1
   -- $ jux ((1/4) <~)
