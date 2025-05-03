@@ -6,8 +6,7 @@ import Sound.Tidal.Context
 import System.IO (hSetEncoding, stdout, utf8)
 hSetEncoding stdout utf8
 
--- total latency = oLatency + cFrameTimespan
-tidal <- startTidal (superdirtTarget {oLatency = 0.0, oAddress = "127.0.0.1", oPort = 57120}) (defaultConfig {cVerbose = True, cFrameTimespan = 1/20})
+tidal <- startTidal (superdirtTarget {oLatency = 0.05, oAddress = "127.0.0.1", oPort = 57120}) (defaultConfig {cVerbose = True, cFrameTimespan = 1/20})
 
 :{
 let only = (hush >>)
@@ -28,6 +27,7 @@ let only = (hush >>)
     nudgeAll = streamNudgeAll tidal
     all = streamAll tidal
     resetCycles = streamResetCycles tidal
+    setCycle = streamSetCycle tidal
     setcps = asap . cps
     getcps = streamGetcps tidal
     getnow = streamGetnow tidal
@@ -40,6 +40,7 @@ let only = (hush >>)
     jumpIn i t = transition tidal True (Sound.Tidal.Transition.jumpIn t) i
     jumpIn' i t = transition tidal True (Sound.Tidal.Transition.jumpIn' t) i
     jumpMod i t = transition tidal True (Sound.Tidal.Transition.jumpMod t) i
+    jumpMod' i t p = transition tidal True (Sound.Tidal.Transition.jumpMod' t p) i
     mortal i lifespan release = transition tidal True (Sound.Tidal.Transition.mortal lifespan release) i
     interpolate i = transition tidal True (Sound.Tidal.Transition.interpolate) i
     interpolateIn i t = transition tidal True (Sound.Tidal.Transition.interpolateIn t) i
@@ -60,23 +61,10 @@ let only = (hush >>)
     d10 = p 10 . (|< orbit 9)
     d11 = p 11 . (|< orbit 10)
     d12 = p 12 . (|< orbit 11)
-    d13 = p 13
-    d14 = p 14
-    d15 = p 15
-    d16 = p 16
-    d17 = p 17
-    d18 = p 18
-    d19 = p 19
-    d20 = p 20
-    d21 = p 21
-    d22 = p 22
-    d23 = p 23
-    d24 = p 24
-    d25 = p 25
-    d26 = p 26
-    d27 = p 27
-    d28 = p 28
-    d29 = p 29
+    -- d13 = p 13
+    -- d14 = p 14
+    -- d15 = p 15
+    -- d16 = p 16
 :}
 
 :{
@@ -88,8 +76,10 @@ let getState = streamGet tidal
     setB = streamSetB tidal
 :}
 
-:set prompt "t> "
+:set prompt "tidal> "
 :set prompt-cont ""
+
+default (Pattern String, Integer, Double)
 
 -- Change TouchDesigner scene
 let td_s = pI "td_s"
