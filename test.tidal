@@ -1,6 +1,42 @@
-setcps(130/240)
+setcps(135/240)
 
 hush
+
+d1
+  $ sometimes (jux (rev))
+  $ sometimes (fast 2)
+  $ s "[bd cp bd hh*2, hh(7, 8)]" 
+  # delay 0.7 # delaytime (5/8) # lock 1
+  # shape 0.6
+  # gain 1.2
+
+d4
+  $ s "[uni(3, 8), cp(4, 8, 1), hh(5, 16, 1)]"
+  # shape 0.6
+  # gain 1.5
+
+do
+  -- let shift = "<0 0 1 2 5>/8"
+  let shift = 0
+  d2
+    $ s "superbass(7, 16, [0, 4])"
+    # legato 1.5
+    # note "c2"
+    |+ note (scale "hexMajor6" "{0..12}%5")
+    |* note "[1.0, 1.01]"
+    |+ note shift
+    # lpf (range 400 18000 $ rand) # resonance 0.2
+    # gain 0.9
+  d3
+    $ sometimes (jux ((3/8) ~>))
+    $ s "superzow(3, 16, [1, 9])"
+    # legato 1.2
+    # note "c5'sus4"
+    |* note "[1.0, 1.001]"
+    |+ note shift
+    # lpf (range 200 16000 $ rand) # resonance 0.4
+    # gain 0.7
+  
 
 d1
   -- $ jux(iter 16)
