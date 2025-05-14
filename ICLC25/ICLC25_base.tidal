@@ -1,5 +1,5 @@
 
-hush    
+hush 
 
 do
   hush
@@ -7,11 +7,10 @@ do
     $ s "none*4"
     # td_s 0
 
-
--- Intro -------------
+---
 
 do
-  setcps(120/240)    
+  setcps(120/240)
   d12
     $ s "none"
     # td_s 1
@@ -48,11 +47,11 @@ d4
   # rq 0.9
   # legato 2.0
   # wet 0
-  -- # room 0.1 # size 0.9
+  # room 0.8 # size 0.9
   -- # tremolodepth 0.9 # tremolorate 4
   -- # enhance 0.9
   -- # shape 0.8
-  # gain 2.0  
+  # gain 1.0
 
 do
   d12
@@ -65,9 +64,8 @@ do
     # gain 0.7
     |+ note "[-0.05, 0.05]"
     # delay 0.9 # delaytime (range 0.001 0.05 $ rand) # delayfeedback 0.95
-
-      
---- First movement ----------
+     
+---
 
 do
   hush
@@ -99,7 +97,6 @@ d3
   -- # n "<0..3>*9"
   # gain 1.3
   -- # delay 0.1 # delaytime "<0.02 0.01 0.03>*8" # delayfeedback 0.7
-
 
 d4
   $ stack
@@ -164,7 +161,7 @@ do
 
 d1 silence
 
---- Second note ----------
+---
 
 do
   -- hush
@@ -253,8 +250,7 @@ d2
   ]  
   # gain 1.5
 
-
----- second beat --------
+---
 
 do
   hush
@@ -301,7 +297,7 @@ do
     # legato 0.7
     # lpf (range 400 8000 $ rand) # resonance "0.2"
 
---- Hard Beat ----------------------
+---
 
 do
   d12
@@ -363,7 +359,7 @@ d5
   # legato 0.9
   # gain 1.0
 
-----  drone & feedback -------------
+---
 
 do
   hush
