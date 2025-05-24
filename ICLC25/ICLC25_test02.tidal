@@ -30,7 +30,7 @@ do
 
 d2
   $ s "empty/6"
-  # shape 0.9
+  -- # shape 0.9
   # gain 1.0
 
 d3
@@ -44,7 +44,7 @@ d3
 d4
   $ s "supersawfbk"
   # note "c2"
-  # rq 0.4
+  # rq 0.2
   # legato 4.0
   # wet 2.0
   # room 0.3 # size 0.8
@@ -180,7 +180,7 @@ do
         # lpf (range 4000 10000 $ rand) # resonance "0.3"
         # note "g5'maj9"
         |+ note "[0, 12]"      
-        # gain 0.0,
+        # gain 1.0,
       s "supermoog(7, 16)" 
         # lpf (range 1000 10000 $ slow 8 $ sine) # resonance "0.1"
         # note "g2"
@@ -409,13 +409,13 @@ do
 d3
   $ s "supersawfbk"
   # note "c2"
-  # rq 0.3
+  # rq 0.8
   # legato 4.0
-  # wet 2.0
+  # wet 1.0
   # room 0.2 # size 0.8
   -- # tremolodepth 0.9 # tremolorate 4
   -- # enhance 0.9
-  # shape 0.9
+  -- # shape 0.9
   # gain 2.0
 
 do
@@ -486,4 +486,4 @@ do
   hush
   once
     $ s "none"
-    # td_s 1
+    # td_s 0
