@@ -22,15 +22,15 @@ do
     $ s "none/2"
     # td_s (choose[1..3])
   d1
-    $ s "sfh"
-    # lpf 200
+    $ s "sfh*2"
+    # lpf 4000
     # pan (rand)
     # n (choose[0..32])
     # gain 0.8
 
 d2
   $ s "empty/6"
-  # shape 0.0
+  # shape 0.6
   # gain 0.8
 
 d3
@@ -44,13 +44,13 @@ d3
 d4
   $ s "supersawfbk"
   # note "c2"
-  # rq 0.9
+  # rq 0.3
   # legato 2.0
-  # wet 0
-  # room 0.1 # size 0.8
+  # wet 2.5
+  # room 0.8 # size 0.9
   -- # tremolodepth 0.9 # tremolorate 4
   -- # enhance 0.9
-  -- # shape 0.8
+  # shape 0.2
   # gain 1.0
 
 do
@@ -61,26 +61,26 @@ do
     $ s "ae(5, 8)"
     # n (choose[0..4])   
     # pan (rand)
-    # gain 0.7
+    # gain 0.9
     |+ note "[-0.05, 0.05]"
     # delay 0.9 # delaytime (range 0.001 0.05 $ rand) # delayfeedback 0.95
      
 ---
 
 do
-  hush
-  setcps(100/240)
+  -- hush
+  -- setcps(100/240)
   d12
     $ s "none*4"
     # td_s (choose([34..40]))
   d1
-    -- $ jux (("[3, 10, 5]"/14)<~)
+    $ jux (("[3, 10, 5]"/14)<~)
     $ s "rs(1, 7)"  
     |+ note "[-0.05, 0.05]"
     -- |+ note "[-12, <0 -5>/4]"
-    # legato 0.5
+    # legato 0.8
     # delay 0.5 # delaytime ("[5, 3]"/14) # delayfeedback 0.5 # lock 1
-    --- # lpf (choose [6000, 8000]) # resonance 0.1
+    # lpf (choose [6000, 8000]) # resonance 0.8
     # room 0.5 # size 0.9
 
 d2
@@ -88,7 +88,7 @@ d2
   $ s "fb(3, 14, 5)"
   -- # n "<0..3>*9"
   # gain "<1.3 0.9>*16"
-  -- # delay 0.1 # delaytime "<0.02 0.01 0.005>*8" # delayfeedback 0.7
+  # delay 0.1 # delaytime "<0.02 0.01 0.005>*8" # delayfeedback 0.7
 
 d3
   $ jux (("[5, 9]"/14)<~)  
@@ -111,6 +111,8 @@ d5
   $ stack
   [
     s "superwho(9, 14)" # note "g6'sus2"
+    , s "superwho(9, 14, 5)" # note "g6'sus2" |+ note 7
+    , s "superwho(9, 14, 10)" # note "g6'sus2" |+ note 12
   ]
   # lfo (range 800 8000 $ rand) # resonance "0.2"
   # legato "0.5 1.0"
@@ -126,8 +128,9 @@ d6
   -- $ sometimesBy 0.4 (jux (rev))
   $ s "hasu(11, 14)"
   # n (choose [0..13])
+  # note "<0 7 12 24>*7"
   # room 0.5 # size 0.9
-  # gain 1.0
+  # gain 1.1
 
 d7
   $ jux ((5/14)<~)  
@@ -176,9 +179,9 @@ do
         s "superwho(9, 16)"
         -- # legato 0.9
         # lpf (range 4000 10000 $ rand) # resonance "0.3"
-        # note "g5'maj9"
+        # note "g5'maj7"
         |+ note "[0, 12]"      
-        # gain 0.0,
+        # gain 0.9,
       s "supermoog(7, 16)" 
         # lpf (range 1000 10000 $ slow 8 $ sine) # resonance "0.1"
         # note "g2"
@@ -200,10 +203,10 @@ do
     $ stack
     [
       s "uni(4, 8)"
-      -- , s "ifdrums:1(4, 8, 5)"
+      , s "ifdrums:1(4, 8, 5)"
     ]
     # legato 0.5
-    # shape 0.3
+    # shape 0.5
     # gain 1.8
   
 d3
@@ -224,7 +227,7 @@ d5
   |+ note "[-12, 0, 7]"
   -- |+ note "<0 -3 0 -3 2 7>/4"
   -- |- note "<5 4 0>/16"
-  |+ note (scale "hexMajor7" "{0..7}%3")
+  |+ note (scale "hexMajor7" "{0..24}%7")
   # lpf (range 800 8000 $ rand) # resonance "0.1"
   # room 0.3 # size 0.5
   # gain 1.0
@@ -235,7 +238,7 @@ d6
   # note "g1"
   -- |+ note "<0 -3 0 -3 2 7>/4"
   -- |- note "<5 4 0>/16"
-  |+ note (scale "hexMajor7" "{0..24}%1")
+  |+ note (scale "hexMajor7" "{0..24}%7")
   |+ note "[-0.15, 0.15]"
   # lpf (range 800 12000 $ slow 8 $ sine) # resonance "0.2"
   # gain 1.3
@@ -266,18 +269,20 @@ do
     $ s "none(5, 8)"
     # td_s (choose([67..72]))
   d2
-    -- $ jux ((5/16)<~)
+    $ jux ((5/16)<~)
     $ s "tet(7, 16)"
+    -- # n 1
     # legato 1.0
     # lpf (range 800 3000 $ slow 8 $ sine) # resonance "0.2"
     |+ note "[-0.02, 0.02]"
+    |+ note "[0, 12]"
     # room 0.3 # size 0.9
-    -- # n "<0 0 0 1 2 3>/4"
+    # n "<0 0 0 1 2 3>/4"
     -- # note "<-5 0>/16"
 
 d3
-  $ s "kon(9, 16)"
-  # n "{0..0}%9"
+  $ s "kon(9, 16, [0, 3, 4])"
+  # n "{0..5}%9"
   # gain 1.0
 
 do
@@ -288,9 +293,12 @@ do
     $ stack
     [
       s "superwho(7, 16, 0)" # note "c5'sus2"
+      , s "superwho(7, 16, 5)" # note "c5'sus2" |+ note 12
+      , s "superwho(7, 16, 9)" # note "c5'sus2" |+ note 7
     ]
     |+ note "<7 0>/16"
-    # legato 0.7
+    |+ note "12"
+    # legato 1.3
     # lpf (range 400 8000 $ rand) # resonance "0.2"
 
 ---
@@ -300,28 +308,28 @@ do
     $ s "none(11, 16)"
     # td_s (choose([1..100]))
   d3
-    -- $ sometimesBy 0.1 (rev)
-    -- $ sometimesBy 0.4 ((1/8) <~)
+    $ sometimesBy 0.1 (rev)
+    $ sometimesBy 0.4 ((1/8) <~)
     $ stack
     [
-      -- s "distd(2, 16)" # gain "1.1",
-      -- s "uni(10, 16)" # n "{0 1 2}%8", 
+      s "distd(2, 16)" # gain "1.1",
+      s "uni(10, 16)" # n "{0 1 2}%8", 
       s "uni:1(9, 16, 5)"
     ]
-    -- # room "0.8" # size "0.9"
+    # room "0.8" # size "0.9"
     # shape 0.8
     # gain 1.8        
 
 d2
-  -- $ sometimesBy 0.2 (rev)
-  -- $ sometimesBy 0.4 ((1/8) <~)
+  $ sometimesBy 0.2 (rev)
+  $ sometimesBy 0.4 ((1/8) <~)
   $ stack
   [
     s "ifdrums(7, 16, 10)" # n (choose[1..2]),
     s "uni(7, 16)" # n (choose[1..3]) # gain "1.0",
     s "gabba(3, 16)" # gain "1.7"
   ]
-  -- # delay 1.0 # delaytime (range 0.002 0.03 $ rand) # delayfeedback 0.8
+  # delay 1.0 # delaytime (range 0.002 0.03 $ rand) # delayfeedback 0.8
   |+| gain 1.8
   # shape 0.8
   -- # room 0.9
@@ -334,7 +342,7 @@ d5
     s "uni(7, 16)" # n (choose[1..2]),
     s "uni(3, 8)" # gain "1.5"
   ]
-  -- # delay 1.0 # delaytime (range 0.001 0.03 $ rand) # delayfeedback 0.7
+  # delay 1.0 # delaytime (range 0.001 0.03 $ rand) # delayfeedback 0.7
   # shape 0.8  
   # gain 1.8
 
@@ -352,8 +360,10 @@ d5
   # note "c5'min13"
   # lpf (range 100 8000 $ slow 1 $ rand)
   # resonance 0.2
-  # legato 0.9
+  # legato 0.7
   # gain 1.0
+
+setcps(10/240)  
 
 ---
 
@@ -384,7 +394,7 @@ do
     |+ note "[0, -12, -24]"
     # legato 1.0
     # room 0.7 # size 0.9
-    # gain 0.0
+    # gain 0.5
 
 do  
   d12
@@ -401,16 +411,16 @@ do
     |+ note "[0.05, -0.05]"
     # lpf (range 800 8000 $ rand) # resonance "0.3"
     # room 0.7 # size 0.3
-    # gain 0.0  
+    # gain 0.7  
 
 d3
   $ s "supersawfbk"
   # note "c2"
-  # rq 0.9
+  # rq 0.8
   # legato 2.0
-  # wet 0
-  -- # room 0.1 # size 0.9
-  -- # tremolodepth 0.9 # tremolorate 4
+  # wet 2.0
+  # room 0.1 # size 0.9
+  -- # tremolodepth 0.9 # tremolorate 8
   -- # enhance 0.9
   -- # shape 0.8
   # gain 2.0
@@ -483,4 +493,4 @@ do
   hush
   once
     $ s "none"
-    # td_s 1
+    # td_s 0
