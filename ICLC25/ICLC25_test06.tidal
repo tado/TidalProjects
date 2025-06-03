@@ -68,8 +68,8 @@ do
 ---
 
 do
-  -- hush
-  -- setcps(100/240)
+  hush
+  setcps(100/240)
   d12
     $ s "none*4"
     # td_s (choose([34..40]))
@@ -140,7 +140,7 @@ d7
   # legato 0.6
   # lfo (range 800 8000 $ rand) # resonance "0.3"
   # delay 0.8 # delaytime ("[7, 3]"/14) # delayfeedback 0.5 # lock 1
-  # gain 0.7
+  -[# gain 0.7
 
 d2 silence
   >> d3 silence
@@ -165,8 +165,8 @@ d1 silence
 ---
 
 do
-  -- hush
-  -- resetCycles
+  hush
+  resetCycles
   setcps(125/240)
   d12
     $ s "none(7, 16)"
