@@ -1,6 +1,28 @@
-setcps(135/240)
+setcps(150/240)
 
 hush
+
+d1
+  $ jux ("[3, 2]" ~>)
+  $ s "supermoog(14, 14)"
+  # note "c3 c2"
+  |+ note (scale "bartok" "{0..15}%5")
+  # pan (rand)
+  # lpf (range 1000 8000 $ slow 16 $ sine) # resonance "0.2"
+  # shape 0.95  
+  # gain 0.75
+  
+d2
+  $ s "[uni(2, 7), hh(4, 7, 1), fell(5, 14)]"
+  # shape 0.5
+  # gain 1.5
+
+d3
+  $ s "ifdrums(9, 14, 3)"
+  # n (irand 3)
+  # gain 1.3
+
+unsolo 1
 
 d1
   $ sometimes (jux (rev))
