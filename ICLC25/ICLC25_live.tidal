@@ -1,36 +1,5 @@
 hush
 
-setcps(132/240)
-
-do
-  -- let shift = "<0 0 1 2 -5 -3>/8"
-  let shift = 0
-  d1
-    $ jux (("[3, 5, 7]"/16)~>)
-    $ s "[superwho(7, 16), uni:1(7, 16)]"
-    # note "c5'maj7"
-    |+ note "<0 12 24>*6"
-    |+ note shift
-    # pan (rand)
-    # legato "<1.0 0.5>*3"
-    # lpf (range 200 18000 $ rand) # resonance (range 0.1 0.4 $ rand)  
-  d2
-    $ s "superbass(5, 8)"
-    # note "<c3 c4>*3"
-    |+ note shift
-    # lpf (range 800 1000 $ rand) # resonance 0.2
-    # legato 1.0
-  
-d3
-  $ s "[uni*4, hc(4, 8, 1)]"
-  # gain 1.4
-
-d4
-  $ s "kon(9, 16)"
-  # n (choose [0..5])
-
-
-
 ---
 
 Hola!!
