@@ -159,7 +159,7 @@ d5
 d4
   -- $ jux (rev)
   $ s "superzow(16, 16)"
-  # note (scale "yu" "{0..15}%11")
+  # note (scale "yu" "{0..15}%1")
   |+| note (-24)
   |+| note "[0, -12, 12]"
   # lpf (range 200 12000 $ slow 8 $ sine) # resonance 0.2
@@ -174,7 +174,7 @@ d5
   # legato 0.9
   # gain 1.0
 
-setcps(20/240)  
+setcps(40/240)  
 
 ---
 
