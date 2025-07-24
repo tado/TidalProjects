@@ -4,7 +4,7 @@ do
   -- let shift = "<0 0 1 2 -5 -3>/8"
   let shift = 0
   d1
-    $ jux (("[9, 2]"/16)~>)
+    $ jux (("[9, 2, 19]"/16)~>)
     $ s "[superwho(7, 16), uni:1(7, 16)]"
     # note "c5'min9"
     |+ note "<0 12 24>*6"
