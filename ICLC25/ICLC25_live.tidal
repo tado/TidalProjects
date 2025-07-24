@@ -412,13 +412,13 @@ do
 d3
   $ s "supersawfbk"
   # note "c2"
-  # rq 0.2
+  # rq 0.9
   # legato 2.0
-  # wet 1.5
+  # wet 0.8
   # room 0.1 # size 0.9
   -- # tremolodepth 0.9 # tremolorate 8
-  # enhance 0.9
-  # shape 0.9
+  -- # enhance 0.9
+  -- # shape 0.9
   # gain 2.0
 
 do

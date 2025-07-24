@@ -226,8 +226,8 @@ do
 
 d3
   $ s "supersawfbk"
-  # note "c5"
-  # rq 0.3
+  # note "c2"
+  # rq 0.7
   # legato 2.0
   # wet 2.5
   # room 0.1 # size 0.9
