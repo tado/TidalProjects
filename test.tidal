@@ -1,4 +1,11 @@
+  d12
+    $ s "none(16, 16)"
+    # td_s (choose([1..100]))
+
+
 setcps(132/240)
+
+hush
 
 do
   -- let shift = "<0 0 1 2 -5 -3>/8"
@@ -10,8 +17,9 @@ do
     |+ note "<0 12 24>*6"
     |+ note shift
     # pan (rand)
-    # legato "<1.0 0.5>*3"
-    # lpf (range 200 18000 $ rand) # resonance (range 0.2 0.5 $ rand)  
+    # legato "<1.2 0.75>*3"
+    # lpf (range 200 18000 $ rand) # resonance (range 0.2 0.5 $ rand)    
+    # gain 1.0
   d2
     $ s "superbass(5, 8)"
     # note "<c3 c4>*3"
@@ -26,7 +34,9 @@ d3
 d4
   $ s "kon(9, 16)"
   # n (choose [0..5])
-  # gain 1.1
+  # gain 1.0
+
+unsolo 4  
 
 setcps(150/240)
 
