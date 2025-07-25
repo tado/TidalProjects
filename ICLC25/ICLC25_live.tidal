@@ -63,8 +63,8 @@ do
 ---
 
 do
-  -- hush
-  -- setcps(100/240)
+  --hush
+  --setcps(100/240)
   d12
     $ s "none*4"
     # td_s (choose([34..40]))
@@ -222,7 +222,7 @@ d5
   |+ note "[-12, 0, 7]"
   -- |+ note "<0 -3 0 -3 2 7>/4"
   -- |- note "<5 4 0>/16"
-  |+ note (scale "hexMajor7" "{0..24}%13")
+  |+ note (scale "hexMajor7" "{0..24}%1")
   |+ note "[0, 12]"
   # lpf (range 800 8000 $ rand) # resonance "0.1"
   # room 0.3 # size 0.5
@@ -312,7 +312,7 @@ do
       s "uni(10, 16)" # n "{0 1 2}%8", 
       s "uni:1(9, 16, 5)"
     ]
-    # room "0.8" # size "0.9"
+    -- # room "0.8" # size "0.9"
     # shape 0.8
     # gain 1.8        
 
@@ -345,9 +345,9 @@ d5
 d4
   -- $ jux (rev)
   $ s "superzow(16, 16)"
-  # note (scale "yu" "{0..15}%1")
-  |+| note -24
-  |+| note "[0, -12]"
+  # note "c3"
+  |+ note (scale "yu" "{0..15}%19")
+  |+ note "[0, -12]"
   # lpf (range 200 12000 $ slow 8 $ sine) # resonance 0.2
   # gain 1.5
 
@@ -359,7 +359,7 @@ d5
   # legato 0.9
   # gain 1.0
 
-setcps(20/240)
+setcps(40/240)
 
 ---
 
@@ -412,9 +412,9 @@ do
 d3
   $ s "supersawfbk"
   # note "c2"
-  # rq 0.9
+  # rq 0.4
   # legato 2.0
-  # wet 0.8
+  # wet 1.5
   # room 0.1 # size 0.9
   -- # tremolodepth 0.9 # tremolorate 8
   -- # enhance 0.9
