@@ -268,7 +268,9 @@ do
   d4
     $ stack
     [
-      s "superwho(7, 16, 0)" # note "c5'sus2"
+      s "superwho(7, 16, 0)" # note "c5'sus2",
+      s "superwho(7, 16, 5)" # note "g5'sus2",
+      s "superwho(7, 16, 10)" # note "c6'sus2"
     ]
     |+ note "<7 0>/16"
     # legato 0.7
@@ -285,8 +287,8 @@ do
     -- $ sometimesBy 0.4 ((1/8) <~)
     $ stack
     [
-      -- s "distd(2, 16)" # gain "1.1",
-      -- s "uni(10, 16)" # n "{0 1 2}%8", 
+      s "distd(2, 16)" # gain "1.1",
+      s "uni(10, 16)" # n "{0 1 2}%8", 
       s "uni:1(9, 16, 5)"
     ]
     -- # room "0.8" # size "0.9"
@@ -302,7 +304,7 @@ d2
     s "uni(7, 16)" # n (choose[1..3]) # gain "1.0",
     s "gabba(3, 16)" # gain "1.7"
   ]
-  -- # delay 1.0 # delaytime (range 0.002 0.03 $ rand) # delayfeedback 0.8
+  # delay 1.0 # delaytime (range 0.002 0.03 $ rand) # delayfeedback 0.8
   |+| gain 1.8
   # shape 0.8
   -- # room 0.9
@@ -315,7 +317,7 @@ d5
     s "uni(7, 16)" # n (choose[1..2]),
     s "uni(3, 8)" # gain "1.5"
   ]
-  -- # delay 1.0 # delaytime (range 0.001 0.03 $ rand) # delayfeedback 0.7
+  # delay 1.0 # delaytime (range 0.001 0.03 $ rand) # delayfeedback 0.7
   # shape 0.8  
   # gain 1.8
 
@@ -364,8 +366,8 @@ do
     |+ note "[-0.05, 0.05]"
     |+ note "[0, -12, -24]"
     # legato 1.0
-    # room 0.7 # size 0.9
-    # gain 0.0
+    # room 0.7 # size 0.3
+    # gain 1.0
 
 do  
   d12
@@ -382,18 +384,18 @@ do
     |+ note "[0.05, -0.05]"
     # lpf (range 800 8000 $ rand) # resonance "0.3"
     # room 0.7 # size 0.3
-    # gain 0.0  
+    # gain 1.0  
 
 d3
   $ s "supersawfbk"
   # note "c2"
-  # rq 0.9
+  # rq 0.3
   # legato 2.0
-  # wet 0
+  # wet 1.5
   # room 0.1 # size 0.9
   -- # tremolodepth 0.9 # tremolorate 4
-  -- # enhance 0.9
-  -- # shape 0.8
+  # enhance 0.9
+  # shape 0.8
   # gain 2.0
 
 do
