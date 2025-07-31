@@ -1,9 +1,44 @@
+hush
+
+setcps(130/240)
+
+do
+  -- let shift = "<0 0 1 2 -5 -3>/8"
+  let shift = 2
+  d1
+    -- $ jux (("[9, 2]"/11)~>)
+    $ s "[superwho(7, 11), uni:1(7, 11)]"
+    # note "c5'min11"
+    |+ note "<0 12 24>*5"
+    |+ note shift
+    # pan (rand)
+    # legato "<1.2 0.75>*4"
+    # lpf (range 200 18000 $ rand) # resonance (range 0.2 0.7 $ rand)    
+    # gain 1.0
+  d2
+    -- $ jux (("[9, 2]"/11)<~)
+    $ s "superbass(9, 11)"
+    # note "<c3 c4 c2>*8"
+    |+ note shift
+    # lpf (range 800 1000 $ rand) # resonance 0.3
+    # legato 1.0
+  d3
+    $ s "[uni(3, 11), hc(3, 11, 4)]"
+    -- # delay 0.9 # delaytime (9/bb) # delayfeedback 0.5 # lock 1
+    # legato 0.5
+    # gain 2.0
+
+unsolo 3
+ 
+
+
+
   d12
     $ s "none(16, 16)"
     # td_s (choose([1..100]))
 
 
-setcps(132/240)
+setcps(130/240)
 
 hush
 
@@ -11,32 +46,35 @@ do
   -- let shift = "<0 0 1 2 -5 -3>/8"
   let shift = 0
   d1
-    $ jux (("[9, 2, 19]"/16)~>)
+    $ jux (("[9, 2, 14]"/16)~>)
     $ s "[superwho(7, 16), uni:1(7, 16)]"
-    # note "c5'min9"
+    # note "c5'min11"
     |+ note "<0 12 24>*6"
     |+ note shift
     # pan (rand)
     # legato "<1.2 0.75>*3"
-    # lpf (range 200 18000 $ rand) # resonance (range 0.2 0.5 $ rand)    
+    # lpf (range 200 18000 $ rand) # resonance (range 0.2 0.7 $ rand)    
     # gain 1.0
   d2
+    $ jux (("[9]"/16)<~)
     $ s "superbass(5, 8)"
-    # note "<c3 c4>*3"
+    # note "<c3 c4 c2>*8"
     |+ note shift
-    # lpf (range 800 1000 $ rand) # resonance 0.2
+    # lpf (range 800 1000 $ rand) # resonance 0.3
     # legato 1.0
+
+unsolo 2
   
 d3
   $ s "[uni*4, hc(4, 8, 1)]"
-  # gain 1.5
+  -- # delay 0.9 # delaytime (3/16) # delayfeedback 0.5 # lock 1
+  # legato 0.5
+  # gain 2.0
 
 d4
   $ s "kon(9, 16)"
   # n (choose [0..5])
   # gain 1.0
-
-unsolo 4  
 
 setcps(150/240)
 

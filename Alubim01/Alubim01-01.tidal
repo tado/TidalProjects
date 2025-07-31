@@ -1,0 +1,28 @@
+setcps(140/240)
+
+d1
+  $ s "supermoog/4"
+  -- # voice 2
+  # lpf (range 1000 2000 $ rand)
+  # resonance 0.2
+  # note "c3"
+  |+ note "[0, <-5 -7 -12>]"
+  -- |+ note "[-0.01, 0.01]"
+  # gain 1.0
+  # room 0.8 # size 0.9
+
+d2
+  $ s "uni:1(9, 14, {0..13}/14)"
+  # speed 2.0
+  # delay 0.7 # lock 1 # delaytime (4/7)
+  --- # lpf (range 2000 8000 $ slow 32 $ sine)
+  -- # resonance 0.4
+  -- # room 0.5 # size 0.9
+  # gain 1.0
+
+d3
+  $ s "uni(2, 7)"
+  # legato 0.5
+  # gain 1.2
+
+hush
