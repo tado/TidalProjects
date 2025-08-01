@@ -1,0 +1,50 @@
+setcps(140/240)
+
+hush
+
+do
+  resetCycles
+  d1
+    $ jux (("[3, 12, 9]"/7)~>)
+    $ s "uni:1(5, 14, {0..6}/17)"
+    -- $ s "fell(5, 14, {0..6}/17)"
+    -- # n "{0,1,2,3}/17"
+    |+ note "[-0.05, 0.05]"
+    |+ note "{0..11}/17"
+    -- # delay 0.5 # delaytime (12/7) # delayfeedback 0.5 # lock 1
+    -- # lpf (range 2000 8000 $ slow 32 $ sine)
+    -- # resonance 0.4
+    -- # room 0.3 # size 0.5
+    # gain 1.0
+  d2
+    $ s "uni(2, 7, {0..6}/17)"
+    # legato 0.5
+    # shape 0.5
+    # gain 2.0
+  d3
+    $ s "superbass(2, 7, {0..6}/17)"
+    # voice 2
+    # lpf (choose [300,400,600,800])
+    # resonance 0.1
+    # note "c3"
+    |+ note "[0, 7, 12]"
+    |+ note "[-0.02, 0.02]"
+    |+ note "[-0.01, 0.01]"
+    -- # room 0.2 # size 0.8
+    # legato 6.0
+    # gain 0.9
+  d4
+    $ s "superhammond(2, 7, {0..6}/17)"
+    -- # lpf (range 800 1800 $ rand)
+    -- # resonance 0.2
+    # voice 3
+    # note "<c5'sus2 c5'sus4>"
+    |+ note "[-0.03, 0.03]"
+    |+ note "[0, 7, 12]"
+    # room 0.4 # size 0.8
+    # legato 2.0
+    # gain 0.8
+
+d3 silence >> d4 silence
+
+hush
