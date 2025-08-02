@@ -1,0 +1,66 @@
+hush
+
+do
+  setcps(105/240)
+  hush
+  resetCycles
+  -- let shift = "<0 0 -5 -5 5 -2>"
+  let shift = 0
+  let mode = "yu"
+  let leg = 0.75
+  let vo = 7
+  d1
+    $ slow 8
+    $ s "superhammond"    
+    # note "c2"
+    -- |+ note (scale mode "{0..19}%")
+    |+ note shift
+    # voice vo
+    |+ note "[-0.04, 0.04]"
+    -- |+ note "[0, 7]"
+    # legato 2.0
+    # room 1.0 # size 0.8
+    # delay 0.9 # delaytime (4/7) #delayfeedback 0.5 #lock 1
+    # gain 0.75
+  d2
+    $ slow 4
+    $ s "superhammond(6, 7)"
+    # note "c3"
+    # voice vo
+    |+ note (scale mode "{0..9}%<3..9>")
+    |+ note "[-0.04, 0.04]"
+    -- |+ note "[0, 7]"
+    # room 1.0 # size 0.8
+    |+ note shift
+    # legato leg
+    # delay 0.9 # delaytime (2/7) #delayfeedback 0.5 #lock 1
+    # gain 0.75
+  d3
+    $ slow 2
+    $ jux (iter 14)
+    $ s "superhammond(6, 7)"
+    # note "c4"
+    # voice vo
+    |+ note (scale mode "{0..9}%<6..11>")
+    |+ note "[-0.04, 0.04]"
+    -- |+ note "[0, 7]"
+    |+ note shift
+    # room 1.0 # size 0.8
+    # legato leg
+    # delay 0.9 # delaytime (5/7) #delayfeedback 0.5 #lock 1
+    # gain 0.75
+  d4
+    $ jux (iter 14)
+    $ fast 2
+    $ s "superhammond(6, 7)"
+    # note "c6"
+    # voice vo
+    |+ note (scale mode "{0..19}%6")
+    |+ note "[-0.04, 0.04]"
+    -- |+ note "[0, 7]"
+    |+ note shift
+    # room 1.0 # size 0.8
+    # legato leg
+    # delay 0.9 # delaytime (9/7) #delayfeedback 0.5 #lock 1
+    # gain 0.6
+

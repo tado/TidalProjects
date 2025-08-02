@@ -1,18 +1,23 @@
-setcps(142/240)
-
 hush
 
 do
+  setcps(140/240)
+  hush
   resetCycles
   let shift = "<0 0 -5 -5 5 -2>/4"
+  d6
+    $ jux (("[3, 11, 5]"/8)<~)
+    $ sometimesBy 0.1 (fast 2)
+    $ s "uni:1(5, 8, {0..6}/[21, 17])"
+    # delay 0.5 # delaytime (5/8) # lock 1
+    # gain 0.8
   d1
     -- $ jux(iter 16)
-    $ sometimesBy 0.03 (fast 2)
-    $ s "[uni(3, 8, {0..6}/16), uni:1(5, 8, 1)]"
-    # delay 0.4 # delaytime (5/8) # delayfeedback 0.0 # lock 1
+    $ sometimesBy 0.05 (fast 2)
+    $ s "uni(3, 8, {0..6}/16)"
     -- |+ note "[-0.01, 0.01]"
-    -- # shape 0.7
-    # gain 2.0
+    -- # shape 0.6
+    # gain 3.0
   d2
     $ s "superbass(7, 16, {0..6}/16)"
     # legato 1.2
@@ -40,16 +45,16 @@ do
     |+ note shift
     |+ note "[-12, 0, 12]"
     |+ note "[-0.01, 0.01]"
-    # room 0.2 # size 0.8
+    # room 0.5 # size 0.5
     # lpf (range 2000 8000 $ rand) # resonance 0.2
     # legato 1.5
-    # gain 0.7
+    # gain 0.6
   d5 
     $ s "supermoog(3, 8, {0..6}/16)"
     # note "c3"
     |+ note shift
     # legato 1.5
     # lpf (range 800 1200 $ slow 16 $ sine) # resonance 0.2
-    # room 0.2 # size 0.8
-    # gain 1.2
+    # room 0.5 # size 0.5
+    # gain 1.4
 

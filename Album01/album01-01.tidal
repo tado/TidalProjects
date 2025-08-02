@@ -1,23 +1,25 @@
-setcps(130/240)
-
 hush
 
 do
+  hush
+  setcps(110/240)
   resetCycles
   let shift = "<0 0 -5 -5 -7 -2>/4"
   d1
-    $ jux (("[3, 12, 9]"/7)~>)
-    $ s "[uni:1(5, 14, {0..6}/17), hc(5, 14, {0..6}/17)]"
+    $ sometimesBy 0.1 (fast 2)
+    $ jux (("[3, 9]"/7)~>)
+    $ s "uni:1(5, 14, {0..6}/[19, 17])"
     -- $ s "fell(5, 14, {0..6}/17)"
     -- # n "{0,1,2,3}/17"
     -- |+ note "[-0.05, 0.05]"
-    |+ note "{0..11}/17"
+    -- |+ note "{0..11}/17"
+    |+ note 12
     |+ note shift
     -- # delay 0.5 # delaytime (12/7) # delayfeedback 0.5 # lock 1
     -- # lpf (range 2000 8000 $ slow 32 $ sine)
     -- # resonance 0.4
     -- # room 0.3 # size 0.5
-    # gain 1.0
+    # gain 0.9
   d2
     $ s "uni(2, 7, {0..6}/17)"
     # legato 0.5
@@ -47,9 +49,6 @@ do
     |+ note "[-12, 0, 12]"
     |+ note shift
     # room 0.4 # size 0.8
-    # legato 3.0
-    # gain 0.8
+    # legato 2.0
+    # gain 0.6
 
-d3 silence >> d4 silence
-
-hush
