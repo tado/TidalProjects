@@ -1,61 +1,31 @@
 hush
 
 do
-  setcps(80/240)
+  setcps(40/240)
   resetCycles
-  let shift = "<0 0 0 7 2 5>/4"  
-  let mode = "yu"
-  -- let shift = 0
-  -- let mode = "<minPent majPent>/8"
-  let leg = (range 0.5 2.0 $ rand)
-  let vo = 7
-  let ga = 0.9
-  let sz = 0.8
-  let fb = 0.2
-  d1    
-    -- $ jux (iter 14)  
-    $ s "superhammond(1, 14)"    
-    # note "c3"
-    |+ note "[-0.01, 0.01]"
+  let s1 = "<0 0 0 0 -5 -5 5 -2>"
+  let s2 = "<0 1>/8"
+  let shift = s1 + s2
+  d1
+    $ stack[
+      s "{superhammond ~ ~}%7" # note "c4'min7" # pan 0.1
+      , s "{superhammond ~ ~ ~}%7" # note "c5'min9" # pan 0.7
+      , s "{superhammond ~ ~ ~ ~}%7" # note "c6'min11" # pan 0.3
+      , s "{superhammond ~ ~ ~ ~ ~}%7" # note "c7'min13" # pan 0.9
+    ]
+    |+ note "[-0.04, 0.04]"
     |+ note shift
-    # voice vo
-    # legato (leg * 4)
-    # room 1.0 # size sz
-    # gain ga
+    # legato 0.4
+    # voice 4
+    # delay 0.2 # delaytime (3/28) # delayfeedback 0.2 # lock 1
+    # room 0.2 # size 0.8
   d2
-    $ jux (iter 7)  
-    $ s "superhammond(6, 14)"
-    # note "c5"
-    |+ note (scale mode "{0..12}%5")
-    |+ note "[-0.01, 0.01]"
-    |+ note shift
-    -- # delay 1.0 # delaytime ("[3, 5]"/14) # delayfeedback fb # lock 1
-    # voice vo
-    # room 1.0 # size sz
-    # legato leg
-    # gain ga
+    $ s "[uni(2, 7, {0..6}/128), [uni:1]*<1 2 1 4>(2, 7, {1..7}/128)]"
+    # gain 1.5
   d3
-    $ jux (iter 14)
-    $ s "superhammond(8, 14, 3)"
-    # note "c5"
-    |+ note (scale mode "{0..12}%10")
-    |+ note "[-0.01, 0.01]"
+    $ s "superbass(2, 7, {0..6}/128)"
+    # legato 0.5
+    # note "<c3 c2>"
     |+ note shift
-    -- # delay 1.0 # delaytime ("[5, 9]"/14) # delayfeedback fb # lock 1    
-    # voice vo
-    # room 1.0 # size sz
-    # legato leg
-    # gain (ga * 0.8)
-  d4
-    $ jux (iter 14)
-    $ s "superhammond(13, 14)"
-    # note "c6"
-    |+ note (scale mode "{0..12}%20")
-    |+ note "[-0.01, 0.01]"
-    |+ note shift
-    -- # delay 1.0 # delaytime ("[10, 15]"/14) # delayfeedback fb # lock 1    
-    # voice vo
-    # room 1.0 # size sz
-    # legato leg
-    # gain (ga * 0.8)
-
+    # room 0.2 # size 0.8
+    # gain 1.2

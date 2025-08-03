@@ -22,8 +22,8 @@ do
   d2
     $ s "uni(2, 7, {0..6}/17)"
     # legato 0.5
-    # shape 0.5
-    # gain 2.0
+    -- # shape 0.5
+    # gain 1.5
   d3
     $ s "superbass(2, 7, {0..6}/17)"
     # voice 2
@@ -44,12 +44,12 @@ do
     # voice 9
     -- # note "<c5'sus2 c5'sus4>"
     # note "<c6'min9 c6'min11 c6'min13>"
-    |+ note "[-0.01, 0.01]"
+    |+ note "[-0.04, 0.0]"
     |+ note "[-12, 0, 12]"
     |+ note shift
     -- # pan (choose [0.0, 0.2, 0.4, 0.6, 0.8, 1.0])
-    # room 0.4 # size 0.8
+    # room 0.2 # size 0.8
     -- # delay 0.9 # delaytime (2/7) # delayfeedback 0.1 # lock 1
     # legato 2.0
-    # gain 0.6
+    # gain 0.9
 

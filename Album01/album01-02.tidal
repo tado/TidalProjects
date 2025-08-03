@@ -44,11 +44,11 @@ do
     # voice 9
     |+ note shift
     |+ note "[-12, 0, 12]"
-    |+ note "[-0.01, 0.01]"
-    # room 0.5 # size 0.5
+    |+ note "[-0.04, 0.04]"
+    # room 0.2 # size 0.8
     # lpf (range 2000 8000 $ rand) # resonance 0.2
     # legato 1.5
-    # gain 0.6
+    # gain 0.9
   d5 
     $ s "supermoog(3, 8, {0..6}/16)"
     # note "c3"
