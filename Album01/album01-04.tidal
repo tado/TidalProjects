@@ -3,7 +3,7 @@ hush
 do
   setcps(190/240)
   resetCycles
-  let s1 = "<0 0 0 -5 -5 5 -2>/4"
+  let s1 = "<0 0 0 0 -5 -5 5 -2>/4"
   let s2 = "<0 1>/64"
   let shift = s1 + s2
   d1
