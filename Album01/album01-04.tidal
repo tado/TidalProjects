@@ -1,0 +1,52 @@
+hush
+
+do
+  setcps(190/240)
+  resetCycles
+  let s1 = "<0 0 0 -5 -5 5 -2>/4"
+  let s2 = "<0 1>/64"
+  let shift = s1 + s2
+  d1
+    -- $ jux ((3/7)<~)
+    $ stack[
+      s "{superhammond ~ ~}%7" # note "c4'min7"
+      , s "{superhammond ~ ~ ~}%7" # note "c5'min9"
+      , s "{superhammond ~ ~ ~ ~}%7" # note "c6'min11"
+      , s "{superhammond ~ ~ ~ ~ ~}%7" # note "c7'min13"
+    ]
+    |+ note "[-0.04, 0.04]"
+    |+ note shift
+    -- |+ note "[0, 7]"
+    # legato 1.0
+    -- # voice (irand 10)
+    -- # voice "<4 5>/8"
+    # voice 4
+    # room 0.1 # size 0.8
+  d2
+    $ s "[uni(2, 7, {0..6}/128), hc(2, 7, {1..7}/128)]"        
+    # gain 1.5
+  d3    
+    $ s "superbass(2, 7, {0..6}/128)"
+    # legato 2.0
+    # note "<c3 c4>"
+    |+ note shift
+    # lpf (range 400 8000 $ slow 4 $ sine) # resonance 0.3
+    # room 0.2 # size 0.8
+    
+  
+    
+hush
+
+  
+
+
+
+
+
+
+
+
+
+
+
+

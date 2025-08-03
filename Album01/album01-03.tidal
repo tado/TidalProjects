@@ -3,30 +3,30 @@ hush
 do
   setcps(80/240)
   resetCycles
-  let shift = "<0 7 5 -2>/4"  
+  let shift = "<0 0 0 7 2 5>/4"  
+  let mode = "yu"
   -- let shift = 0
-  -- let mode = "<minPent majPent>/2"
-  let mode = "minPent"
-  let leg = 1.0
-  let vo = "<7 0>*7"
-  let ga = 0.6
+  -- let mode = "<minPent majPent>/8"
+  let leg = (range 0.5 2.0 $ rand)
+  let vo = 7
+  let ga = 0.9
   let sz = 0.8
   let fb = 0.2
   d1    
-    $ s "superhammond"    
-    # note "c2"
+    -- $ jux (iter 14)  
+    $ s "superhammond(1, 14)"    
+    # note "c3"
     |+ note "[-0.01, 0.01]"
-    |+ note "[-12, 0, 12]"
     |+ note shift
     # voice vo
-    # legato 1.0
+    # legato (leg * 4)
     # room 1.0 # size sz
     # gain ga
   d2
     $ jux (iter 7)  
-    $ s "superhammond(3, 7)"
-    # note "c3"
-    |+ note (scale mode "{0..12}%7")
+    $ s "superhammond(6, 14)"
+    # note "c5"
+    |+ note (scale mode "{0..12}%5")
     |+ note "[-0.01, 0.01]"
     |+ note shift
     -- # delay 1.0 # delaytime ("[3, 5]"/14) # delayfeedback fb # lock 1
@@ -36,28 +36,26 @@ do
     # gain ga
   d3
     $ jux (iter 14)
-    $ jux (iter 7)
-    $ s "superhammond(6, 7)"
+    $ s "superhammond(8, 14, 3)"
     # note "c5"
-    |+ note (scale mode "{0..12}%15")
+    |+ note (scale mode "{0..12}%10")
     |+ note "[-0.01, 0.01]"
     |+ note shift
     -- # delay 1.0 # delaytime ("[5, 9]"/14) # delayfeedback fb # lock 1    
     # voice vo
     # room 1.0 # size sz
     # legato leg
-    # gain ga
+    # gain (ga * 0.8)
   d4
     $ jux (iter 14)
-    $ jux (iter 7)
     $ s "superhammond(13, 14)"
-    # note "c5"
-    |+ note (scale mode "{0..12}%18")
+    # note "c6"
+    |+ note (scale mode "{0..12}%20")
     |+ note "[-0.01, 0.01]"
     |+ note shift
     -- # delay 1.0 # delaytime ("[10, 15]"/14) # delayfeedback fb # lock 1    
     # voice vo
     # room 1.0 # size sz
     # legato leg
-    # gain ga
+    # gain (ga * 0.8)
 
