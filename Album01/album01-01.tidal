@@ -1,9 +1,8 @@
 hush
 
 do
-  hush
   setcps(110/240)
-  resetCycles
+  -- resetCycles
   let shift = "<0 0 -5 -5 -7 -2>/4"
   d1
     $ sometimesBy 0.1 (fast 2)
@@ -15,7 +14,7 @@ do
     -- |+ note "{0..11}/17"
     |+ note 12
     |+ note shift
-    -- # delay 0.5 # delaytime (12/7) # delayfeedback 0.5 # lock 1
+    -- # delay 0.9 # delaytime (3/7) # delayfeedback 0.5 # lock 1
     -- # lpf (range 2000 8000 $ slow 32 $ sine)
     -- # resonance 0.4
     -- # room 0.3 # size 0.5
@@ -48,7 +47,9 @@ do
     |+ note "[-0.01, 0.01]"
     |+ note "[-12, 0, 12]"
     |+ note shift
+    # pan (choose [0.0, 0.2, 0.4, 0.6, 0.8, 1.0])
     # room 0.4 # size 0.8
+    # delay 0.9 # delaytime (2/7) # delayfeedback 0.1 # lock 1
     # legato 2.0
     # gain 0.6
 

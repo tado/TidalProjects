@@ -1,66 +1,63 @@
 hush
 
 do
-  setcps(105/240)
-  hush
+  setcps(80/240)
   resetCycles
-  -- let shift = "<0 0 -5 -5 5 -2>"
-  let shift = 0
-  let mode = "yu"
-  let leg = 0.75
-  let vo = 7
-  d1
-    $ slow 8
+  let shift = "<0 7 5 -2>/4"  
+  -- let shift = 0
+  -- let mode = "<minPent majPent>/2"
+  let mode = "minPent"
+  let leg = 1.0
+  let vo = "<7 0>*7"
+  let ga = 0.6
+  let sz = 0.8
+  let fb = 0.2
+  d1    
     $ s "superhammond"    
     # note "c2"
-    -- |+ note (scale mode "{0..19}%")
+    |+ note "[-0.01, 0.01]"
+    |+ note "[-12, 0, 12]"
     |+ note shift
     # voice vo
-    |+ note "[-0.04, 0.04]"
-    -- |+ note "[0, 7]"
-    # legato 2.0
-    # room 1.0 # size 0.8
-    # delay 0.9 # delaytime (4/7) #delayfeedback 0.5 #lock 1
-    # gain 0.75
+    # legato 1.0
+    # room 1.0 # size sz
+    # gain ga
   d2
-    $ slow 4
-    $ s "superhammond(6, 7)"
+    $ jux (iter 7)  
+    $ s "superhammond(3, 7)"
     # note "c3"
-    # voice vo
-    |+ note (scale mode "{0..9}%<3..9>")
-    |+ note "[-0.04, 0.04]"
-    -- |+ note "[0, 7]"
-    # room 1.0 # size 0.8
+    |+ note (scale mode "{0..12}%7")
+    |+ note "[-0.01, 0.01]"
     |+ note shift
+    -- # delay 1.0 # delaytime ("[3, 5]"/14) # delayfeedback fb # lock 1
+    # voice vo
+    # room 1.0 # size sz
     # legato leg
-    # delay 0.9 # delaytime (2/7) #delayfeedback 0.5 #lock 1
-    # gain 0.75
+    # gain ga
   d3
-    $ slow 2
     $ jux (iter 14)
+    $ jux (iter 7)
     $ s "superhammond(6, 7)"
-    # note "c4"
-    # voice vo
-    |+ note (scale mode "{0..9}%<6..11>")
-    |+ note "[-0.04, 0.04]"
-    -- |+ note "[0, 7]"
+    # note "c5"
+    |+ note (scale mode "{0..12}%15")
+    |+ note "[-0.01, 0.01]"
     |+ note shift
-    # room 1.0 # size 0.8
+    -- # delay 1.0 # delaytime ("[5, 9]"/14) # delayfeedback fb # lock 1    
+    # voice vo
+    # room 1.0 # size sz
     # legato leg
-    # delay 0.9 # delaytime (5/7) #delayfeedback 0.5 #lock 1
-    # gain 0.75
+    # gain ga
   d4
     $ jux (iter 14)
-    $ fast 2
-    $ s "superhammond(6, 7)"
-    # note "c6"
-    # voice vo
-    |+ note (scale mode "{0..19}%6")
-    |+ note "[-0.04, 0.04]"
-    -- |+ note "[0, 7]"
+    $ jux (iter 7)
+    $ s "superhammond(13, 14)"
+    # note "c5"
+    |+ note (scale mode "{0..12}%18")
+    |+ note "[-0.01, 0.01]"
     |+ note shift
-    # room 1.0 # size 0.8
+    -- # delay 1.0 # delaytime ("[10, 15]"/14) # delayfeedback fb # lock 1    
+    # voice vo
+    # room 1.0 # size sz
     # legato leg
-    # delay 0.9 # delaytime (9/7) #delayfeedback 0.5 #lock 1
-    # gain 0.6
+    # gain ga
 
