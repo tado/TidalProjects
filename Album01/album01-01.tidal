@@ -3,7 +3,7 @@ hush
 do
   setcps(110/240)
   resetCycles
-  let shift = "<0 0 -5 -5 -7 -2>/4"
+  let shift = "<0 0 -5 -5 -7 -2>/8"
   d1
     $ sometimesBy 0.1 (fast 2)
     $ jux (("[3, 9]"/7)~>)
