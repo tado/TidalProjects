@@ -17,7 +17,7 @@ do
     |+ note shift
     # legato 0.4
     # voice 4
-    # delay 0.2 # delaytime (3/28) # delayfeedback 0.2 # lock 1
+    # delay 0.5 # delaytime (3/28) # delayfeedback 0.2 # lock 1
     # room 0.2 # size 0.8
   d2
     $ s "[uni(2, 7, {0..6}/128), [uni:1]*<1 2 1 4>(2, 7, {1..7}/128)]"
