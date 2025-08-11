@@ -1,6 +1,85 @@
 hush
 
-setcps(130/240)
+setcps(120/240)
+
+do
+  -- resetCycles
+  let sc = "majPent"
+  let add = "[0, <7 7 7 5>]" + "<0 0 0 0 5 -5 5 -2>/4"
+  let leg = 1.0
+  let del = 0.8
+  let fbk = 0.0
+  d1
+    -- $ s "supersin(1, 8)"
+    $ s "supersin(3, 8, {0..7}/16)"
+    # note "c5"
+    |+ note (scale sc "{0..7}%3")
+    |+ note add
+    # delay del # delaytime (5/8) # delayfeedback fbk # lock 1
+    # legato leg  
+  d2
+    $ s "supersin"
+    # note "c4"
+    |+ note add
+    # delay del # delaytime (3/8) # delayfeedback fbk # lock 1
+    # legato leg  
+  d3
+    $ s "supersin(3, 16, {0..7}/32)"
+    # note "c5"
+    |+ note (scale sc "{0..7}%9")
+    |+ note add
+    # delay del # delaytime (9/16) # delayfeedback fbk # lock 1
+    # legato leg
+  d4
+    $ s "supersin(5, 16, {0..7}/19)"
+    # note "c5"
+    |+ note (scale sc "{0..7}%12")
+    |+ note add
+    # delay del # delaytime (5/16) # delayfeedback fbk # lock 1
+    # legato leg
+
+  d5
+    $ sometimesBy 0.1 (rev)
+    $ stack
+      [
+        s "uni(3, 8)"
+        , s "hc(4, 8, 1)"
+        , s "ifdrums(5, 16)" # n (irand 3)
+      ]
+    -- # room 0.2 # size 0.5
+    # delay 0.5 # delaytime (range 0.002 0.03 $ rand) # delayfeedback 0.8
+    # shape 0.3
+    |* gain 1.8
+
+do
+  let sc = "ionian"
+  let add = 0
+  -- let add = "[0, 7]"
+  let leg = 1.0
+  let del = 0.5
+  d1
+    $ s "supersin(3, 7, {0..6}/16)"
+    # note "c5"
+    |+ note (scale sc "{0..12}%[11, 7]")
+    |+ note add
+    # pan "<0.2 0.4 0.6 0.8>*4"
+    # delay del # delaytime (2/7) # delayfeedback 0.1 # lock 1
+    # legato leg
+  d2
+    $ jux (rev)
+    $ s "supersin(5, 14, {0..13}/32)"
+    # note "c6"
+    |+ note (scale sc "{0..12}%[11, 7]")
+    |+ note add
+    # pan "<0.2 0.4 0.6 0.8>*6"
+    # delay del # delaytime (5/7) # delayfeedback 0.1 # lock 1
+    # legato leg
+  d3
+    $ s "supersin"
+    # note "c4"
+    |+ note add
+    # delay del # delaytime (11/7) # delayfeedback 0.1 # lock 1
+    # legato leg
 
 do
   -- let shift = "<0 0 1 2 -5 -3>/8"
