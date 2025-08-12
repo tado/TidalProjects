@@ -4,6 +4,7 @@ setcps(120/240)
 
 do
   -- resetCycles
+  hush
   let sc = "minPent"
   let add = "[0, <7 5 7 7>]"
   d1
@@ -12,20 +13,20 @@ do
       s "supersin(3, 8, {0..7}/16)" # note "c5"
       , s "supersin" # note "c4" # pan (rand) # gain 1.2
       , s "supersin(6, 16, {0..7}/24)" # note "c6" # pan (rand)
-      , s "supersin(5, 16, {0..7}/30)" # note "c5" # pan (rand)
+      -- , s "supersin(5, 16, {0..7}/30)" # note "c5" # pan (rand)
     ]
+    |+ note "[-0.04, 0.04]"
     |* legato 1.0    
     |* gain 0.8
-    |+ note "[-0.04, 0.04]"
     |+ note add
     # delay 0.5 # delaytime ("[11, 5, 3]"/16) # delayfeedback 0.0 # lock 1
-    -- |+ note (scale sc "{0..9}%3")
+    |+ note (scale sc "{0..4}%3")
 
 d2
   $ stack
   [
-    s "uni(3, 8)" # gain 1.5 # legato 0.5
-    , s "hc(3, 8, 1)"# gain 1.2
+    s "hc(3, 8, 1)"# gain 1.2
+    ,  s "uni(3, 8)" # gain 1.5 # legato 0.5
   ]
   |* gain 1.5
 
@@ -39,6 +40,7 @@ d3
   # gain 0.7
 
 d4  
+  $ jux (iter 16)
   $ fast 16 $ randslice 64
   $ s "bev"
   -- |+ note "[-0.01, 0.01]"
@@ -48,12 +50,7 @@ d4
   -- # room 0.5
   # delay 1.5 # delaytime (5/16) # delayfeedback 0.5 # lock 1
   # lpf (range 12000 16000 $ rand) # resonance "0.5"
-  # gain 1.2
-
-unsolo 1
-
-  
-
+  # gain 1.0
 
 do
   -- resetCycles
