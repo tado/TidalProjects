@@ -14,12 +14,14 @@ do
       , s "supersin(6, 16, {0..7}/24)" # note "c6" # pan (rand)
       , s "supersin(5, 16, {0..7}/30)" # note "c5" # pan (rand)
     ]
-    |+ note "[-0.04, 0.04]"
-    |+ note add
-    # delay 0.5 # delaytime ("[5, 11, 3, 9]"/16) # delayfeedback 0.0 # lock 1
-    |+ note (scale sc "{0..5}%11")
     |* legato 1.0
     |* gain 0.8
+    |+ note "[-0.04, 0.04]"
+    |+ note add
+    # delay 0.5 # delaytime ("[11]"/16) # delayfeedback 0.0 # lock 1
+    |+ note (scale sc "{0..5}%3")
+    # room 0.3
+    
 
 d2
   $ stack
@@ -31,9 +33,9 @@ d2
 d3
   $ s "casio(16, 16)"
   |+ note "[-0.04, 0.04]"
-  # pan (range 0 1 $ slow "[8, 12]" $ sine)
+  # pan (range 0 1 $ slow 12 $ sine)
   # lpf (range 1200 16000 $ slow 16 $ sine) # resonance "0.4"
-  # room 0.3
+  # room 0.5
   # gain 0.7
 
 d2 silence
