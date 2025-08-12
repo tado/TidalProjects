@@ -17,8 +17,6 @@ do
 ---
 
 do
-  -- resetCycles
-  -- hush
   setcps(120/240)
   d12
     $ s "none"
@@ -26,26 +24,25 @@ do
   d1
     $ stack
     [
-      s "supersin(3, 8, {0..7}/16)" # note "<c5 c6>"
+      s "supersin(3, 8, {0..7}/16)" -- # note "<c5 c6>*3"
       -- , s "supersin" # note "c4" # pan (rand) # gain 1.2
-      -- , s "supersin(6, 16, {0..7}/24)" # note "c6" # pan (rand)
-      -- , s "supersin(5, 16, {0..7}/30)" # note "c5" # pan (rand)
+      --, s "supersin(6, 16, {0..7}/24)" # note "c6" # pan (rand)
+      --, s "supersin(5, 16, {0..7}/30)" # note "c5" # pan (rand)
     ]
     |+ note "[-0.04, 0.04]"
     |* gain 0.7
     -- |+ note "[0, <7 5 7 7>]"
-    -- |+ note (scale "majPent" "{0..7}%3")
-    -- # delay 0.5 # delaytime ("[11, 3]"/16) # delayfeedback 0.0 # lock 1
-    
+    -- # delay 0.3 # delaytime ("[11, 3]"/8) # delayfeedback 0.0 # lock 1
+    -- |+ note (scale "majPent" "{0..3}%3")
 
 d2
   $ s "casio(16, 16)"
   |+ note "[-0.04, 0.04]"
-  -- # n "<0 1>*16"
+  |+ note 12
   # pan (range 0 1 $ slow 8 $ sine)
-  # lpf (range 1200 16000 $ slow 16 $ sine) # resonance "0.3"
+  # lpf (range 1200 16000 $ slow 16 $ sine) # resonance "0.1"
   # room 0.5 # size 0.8
-  # gain 0.5
+  # gain 0.6
 
 d3
   $ stack
@@ -54,6 +51,11 @@ d3
     -- ,  s "uni(3, 8)" # gain 1.5 # legato 0.5
   ]
   |* gain 1.3
+
+d4
+  $ s "superbass(2, 8)"
+  # note "c4 c3"
+  # lpf (range 200 2000 $ slow 8 $ sine) # resonance "0.2"
 
 do
   d12
@@ -71,6 +73,7 @@ do
     # lpf 200
     # pan (rand)
     # n (choose[0..32])
+    # room 0.5 # size 0.8
     # gain 1.0
 
 d1
@@ -95,11 +98,9 @@ do
     # n (choose[0..4])   
     # pan (rand)
     # gain 1.0
-    -- |+ note "[-0.05, 0.05]"
-    -- # delay 0.9 # delaytime (range 0.001 0.05 $ rand) # delayfeedback 0.95
-
-    
----
+    # delay 0.0 # delaytime (range 0.001 0.05 $ rand) # delayfeedback 0.95
+    -- |+ note "<0 7 -12>"
+    -- |+ note "[-0.04, 0.04]"
 
 do
   hush
