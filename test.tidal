@@ -5,14 +5,54 @@ setcps(120/240)
 do
   -- resetCycles
   let sc = "majPent"
-  let add = "[0, <7 7 7 5>]" + "<0 0 0 0 5 -5 5 -2>/4"
+  let add = "[0, <7 5 7 7>]"
+  d1
+    $ stack
+    [
+      s "supersin(3, 8, {0..7}/16)" # note "c5"
+      , s "supersin" # note "c4" # pan (rand) # gain 1.2
+      , s "supersin(6, 16, {0..7}/24)" # note "c6" # pan (rand)
+      , s "supersin(5, 16, {0..7}/30)" # note "c5" # pan (rand)
+    ]
+    |+ note "[-0.04, 0.04]"
+    |+ note add
+    # delay 0.5 # delaytime ("[5, 11, 3, 9]"/16) # delayfeedback 0.0 # lock 1
+    |+ note (scale sc "{0..5}%11")
+    |* legato 1.0
+    |* gain 0.8
+
+d2
+  $ stack
+  [
+    s "uni(3, 8)" # gain 1.5 # legato 0.5
+    , s "hc(3, 8, 1)"# gain 1.2
+  ]
+
+d3
+  $ s "casio(16, 16)"
+  |+ note "[-0.04, 0.04]"
+  # pan (range 0 1 $ slow "[8, 12]" $ sine)
+  # lpf (range 1200 16000 $ slow 16 $ sine) # resonance "0.4"
+  # room 0.3
+  # gain 0.7
+
+d2 silence
+
+  
+
+
+do
+  -- resetCycles
+  let sc = "majPent"
+  -- let add = 0
+  let add = "[0, <7 7 7 5>]"
+  -- let add = "[0, <7 7 7 5>]" + "<0 0 0 0 5 -5 5 -2>/4"  
   let leg = 1.0
-  let del = 0.8
+  let del = 0.3
   let fbk = 0.0
   d1
     -- $ s "supersin(1, 8)"
-    $ s "supersin(3, 8, {0..7}/16)"
-    # note "c5"
+    
     |+ note (scale sc "{0..7}%3")
     |+ note add
     # delay del # delaytime (5/8) # delayfeedback fbk # lock 1
@@ -25,21 +65,20 @@ do
     # legato leg  
   d3
     $ s "supersin(3, 16, {0..7}/32)"
-    # note "c5"
+    # note "c6"
     |+ note (scale sc "{0..7}%9")
     |+ note add
     # delay del # delaytime (9/16) # delayfeedback fbk # lock 1
     # legato leg
   d4
     $ s "supersin(5, 16, {0..7}/19)"
-    # note "c5"
+    # note "c6"
     |+ note (scale sc "{0..7}%12")
     |+ note add
     # delay del # delaytime (5/16) # delayfeedback fbk # lock 1
     # legato leg
-
   d5
-    $ sometimesBy 0.1 (rev)
+    -- $ sometimesBy 0.1 (rev)
     $ stack
       [
         s "uni(3, 8)"
@@ -47,8 +86,8 @@ do
         , s "ifdrums(5, 16)" # n (irand 3)
       ]
     -- # room 0.2 # size 0.5
-    # delay 0.5 # delaytime (range 0.002 0.03 $ rand) # delayfeedback 0.8
-    # shape 0.3
+    -- # delay 0.5 # delaytime (range 0.002 0.03 $ rand) # delayfeedback 0.8
+    -- # shape 0.3
     |* gain 1.8
 
 do
