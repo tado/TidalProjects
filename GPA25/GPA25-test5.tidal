@@ -206,7 +206,7 @@ d1 silence
 do
   -- hush
   -- resetCycles
-  -- setcps(125/240)
+  setcps(125/240)
   d12
     $ s "none(7, 16)"
     # td_s (choose([58..66]))    
