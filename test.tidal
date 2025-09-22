@@ -3,8 +3,51 @@ hush
 setcps(120/240)
 
 do
+  let sc = "minPent"
+  let add = "[0, <7 5 7 7>]"
+  d1
+    $ jux (iter 16)
+    $ s "uni:1(7, 16, [0, 5, 10])"
+    # delay 0.4 # delaytime "{0.005 0.01 0.02 0.04 0.015 0.03}%15" # delayfeedback 0.9
+    # lpf (range 200 12000 $ rand) # resonance 0.3
+    # gain 0.9
+  d2 
+    $ s "uni(5, 16)"
+    # legato 0.7
+    # gain 1.5
+  d3
+    $ s "hc(9, 16, 8)"
+    # gain 1.2
+  d4
+    $ stack
+    [
+      s "supersin(3, 8, {0..7}/16)" # note "c5"
+      , s "supersin" # note "c4" # pan (rand) # gain 1.2
+      , s "supersin(6, 16, {0..7}/24)" # note "c6" # pan (rand)
+      -- , s "supersin(5, 16, {0..7}/30)" # note "c5" # pan (rand)
+    ]
+    |+ note "[-0.04, 0.04]"
+    |* legato 0.7    
+    |* gain 0.8
+    |+ note add
+    # delay 0.5 # delaytime ("[11, 5, 3]"/16) # delayfeedback 0.0 # lock 1
+    -- |+ note (scale sc "{0..3}%3")
+
+d5
+  -- $ sometimesBy 0.4 (fast 2)
+  $ s "superbass(3, 8)"
+  # note "c2 c3"
+  |+ note (-2)
+  # legato 4.0
+  # lpf (range 400 800 $ slow 16 $ sine) # resonance "0.3"    
+
+unsolo 1
+    
+
+
+do
   -- resetCycles
-  hush
+  -- hush
   let sc = "minPent"
   let add = "[0, <7 5 7 7>]"
   d1
