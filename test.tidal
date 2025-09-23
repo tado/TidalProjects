@@ -1,23 +1,58 @@
 hush
 
-setcps(120/240)
+setcps(135/240)
+
+d1
+  $ jux (iter 16)
+  $ s "rian(9, 16)"
+  # note "c6'maj7"
+  # n 1
+  |+ note "[-0.04, 0.04]"
+  # delay 0.8 # delaytime (9/16) # delayfeedback 0.6 # lock 1
+  
+d2 
+  $ s "uni(5, 16)"
+  # legato 0.7
+  # gain 1.5  
+
+d3  
+  $ s "rian(3, 8)"  
+  -- # lpf (range 200 8000 $ rand) # resonance 0.3
+  # note "c4"
+  # n 1
+  # gain 1.3
+  
+  
+  
 
 do
-  let sc = "minPent"
-  let add = "[0, <7 5 7 7>]"
-  d1
-    $ jux (iter 16)
-    $ s "uni:1(7, 16, [0, 5, 10])"
-    # delay 0.4 # delaytime "{0.005 0.01 0.02 0.04 0.015 0.03}%15" # delayfeedback 0.9
-    # lpf (range 200 12000 $ rand) # resonance 0.3
-    # gain 0.9
+  -- let sc = "minPent"
+  -- let add = "[0, <7 5 7 7>]"
+  d2
+    $ jux (iter 8)
+    -- $ s "supersaw(11, 16, [0, 5])"
+    $ s "bfm(11, 16, [0, 5])"
+    -- $ s "uni:1(11, 16, [0, 5])"
+    # voice (range 1000 10000 $ slow 8 $ rand)
+    # note "<c2 c4 c0 c3>*16"
+    |+ note "[-0.06, 0.06]"
+    # legato 0.2
+    # pitch1 (range 10 20 $ rand)
+    -- # delay 1.0 # delaytime "{0.005 0.01 0.02 0.04 0.015 0.03}%9" # delayfeedback 0.95
+    # delay 1.0 # delaytime (range 0.001 0.05 $ rand) # delayfeedback 0.9
+    -- # lpf (range 200 8000 $ slow 6 $ rand) # resonance 0.3    
+    # shape 0.9
+    # gain 0.7
+  
   d2 
     $ s "uni(5, 16)"
     # legato 0.7
-    # gain 1.5
+    # gain 1.5  
+
   d3
-    $ s "hc(9, 16, 8)"
+    $ s "hc(7, 16, 2)"
     # gain 1.2
+  
   d4
     $ stack
     [
@@ -28,8 +63,8 @@ do
     ]
     |+ note "[-0.04, 0.04]"
     |* legato 0.7    
-    |* gain 0.8
-    |+ note add
+    |* gain 0.5
+    -- |+ note add
     # delay 0.5 # delaytime ("[11, 5, 3]"/16) # delayfeedback 0.0 # lock 1
     -- |+ note (scale sc "{0..3}%3")
 
