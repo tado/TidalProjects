@@ -6,7 +6,7 @@ d1
   $ jux (iter 16)
   $ s "rian(9, 16)"
   # note "c6'maj7"
-  # n 1
+  # n 0
   |+ note "[-0.04, 0.04]"
   # delay 0.8 # delaytime (9/16) # delayfeedback 0.6 # lock 1
   
@@ -16,10 +16,10 @@ d2
   # gain 1.5  
 
 d3  
-  $ s "rian(3, 8)"  
-  -- # lpf (range 200 8000 $ rand) # resonance 0.3
+  $ s "rian(16, 16)"  
   # note "c4"
-  # n 1
+  |+ note (scale "majPent" "{0..19}%9")
+  # n 0
   # gain 1.3
   
   
