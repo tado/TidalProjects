@@ -422,11 +422,11 @@ do
     |+ note "[0, -12, -24]"
     # legato 1.0
     # room 0.7 # size 0.9
-    # gain 0.0
+    # gain 1.0
 
 do  
   d12
-    $ s "none*16"
+    $ s "none*64"
     # td_s (choose([1..100]))
   d2
     $ jux ((3/16)~>)
@@ -439,7 +439,7 @@ do
     |+ note "[0.05, -0.05]"
     # lpf (range 800 8000 $ rand) # resonance "0.3"
     # room 0.7 # size 0.3
-    # gain 0.0  
+    # gain 1.0  
 
 d3
   $ s "supersawfbk"
