@@ -2,13 +2,18 @@ hush
 
 setcps(135/240)
 
-d1
-  $ jux (iter 16)
-  $ s "rian(9, 16)"
-  # note "c6'maj7"
-  # n 0
-  |+ note "[-0.04, 0.04]"
-  # delay 0.8 # delaytime (9/16) # delayfeedback 0.6 # lock 1
+do
+  d12
+    $ s "none*4"
+    # td_s 91
+    # td_fx (irand 12)
+  d1
+    $ jux (iter 16)
+    $ s "rian(9, 16)"
+    # note "c6'maj7"
+    # n 0
+    |+ note "[-0.04, 0.04]"
+    # delay 0.8 # delaytime (9/16) # delayfeedback 0.6 # lock 1
   
 d2 
   $ s "uni(5, 16)"

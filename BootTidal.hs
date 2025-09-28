@@ -83,6 +83,7 @@ default (Pattern String, Integer, Double)
 
 -- Change TouchDesigner scene
 let td_s = pI "td_s"
+let td_fx = pI "td_fx"
 
 -- for superfbk
 let flow = pI "flow"
