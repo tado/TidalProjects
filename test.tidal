@@ -4,21 +4,26 @@ setcps(135/240)
 
 do
   d12
-    $ s "none*4"
-    # td_s 91
-    # td_fx (irand 12)
+    $ s "none(9, 16)"
+    # td_s (choose[50..90])
+    # td_fx (irand 3)
   d1
+    -- $ jux (("[9, 5, 2]"/16)~>)
     $ jux (iter 16)
-    $ s "rian(9, 16)"
-    # note "c6'maj7"
-    # n 0
+    $ s "superpwm(5, 16)"
+    # note "c4'maj9"
     |+ note "[-0.04, 0.04]"
-    # delay 0.8 # delaytime (9/16) # delayfeedback 0.6 # lock 1
+    |+ note "<0 -12 12>*8"
+    |+ note 0
+    # room 0.8
+    # lpf (range 1000 8000 $ slow "[16, 12]" $ sine) # resonance 0.2
+    # gain 0.5
+  d2 
+    $ s "uni(5, 16)"
+    # legato 0.7
+    # gain 1.5  
   
-d2 
-  $ s "uni(5, 16)"
-  # legato 0.7
-  # gain 1.5  
+
 
 d3  
   $ s "rian(16, 16)"  
