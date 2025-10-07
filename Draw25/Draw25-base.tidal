@@ -316,7 +316,7 @@ do
   d12
     $ s "none(5, 16)"
     # td_s (choose([73..79]))
-    # td_fx (choose([0..12]))
+    # td_fx (choose([0..11]))
   d4
     $ sometimesBy 0.4 (jux (rev))
     $ s "ifdrums(11, 16)"
@@ -370,6 +370,7 @@ do
   d12
     $ s "none(5, 8)"
     # td_s (choose([67..72]))
+    # td_fx 0
   d2
     -- $ jux ((5/16)<~)
     $ s "tet(7, 16)"
@@ -389,7 +390,7 @@ do
   d12
     $ s "none(7, 16)"
     # td_s (choose([1..100]))
-    # td_fx (choose([0..16]))
+    # td_fx (choose([0..11]))
   d4
     $ stack
     [
@@ -405,7 +406,7 @@ do
   d12
     $ s "none(11, 16)"
     # td_s (choose([1..100]))
-    # td_fx (choose([0..16]))
+    # td_fx (choose([0..11]))
   d3
     -- $ sometimesBy 0.1 (rev)
     -- $ sometimesBy 0.4 ((1/8) <~)
@@ -482,7 +483,7 @@ do
   d12
     $ s "none(3, 8)"
     # td_s (choose[29, 31, 32, 90, 91, 92, 93])
-    # td_fx (choose[0..15])
+    # td_fx (choose[0..11])
   d5
     $ jux (("[3, 5]"/16)<~)
     $ s "superhammond(9, 16, [0, 5, 9])"
@@ -499,7 +500,7 @@ do
   d12
     $ s "none*16"
     # td_s (choose[1..100])
-    # td_fx (choose[0..15])
+    # td_fx (choose[0..11])
   d2
     $ jux ((3/16)~>)
     -- $ jux ((7/14)<~)
@@ -517,7 +518,7 @@ do
   d12
     $ s "none*32"
     # td_s (choose[1..100])
-    # td_fx (choose[0..15])
+    # td_fx (choose[0..11])
   d3
     $ s "supersawfbk"
     # note "c2"
@@ -534,7 +535,7 @@ do
   d12
     $ s "none(48, 64)"
     # td_s (choose([1..100]))
-    # td_fx (choose[0..15])
+    # td_fx (choose[0..11])
   d4
     $ stack
     [
