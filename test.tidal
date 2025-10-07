@@ -2,6 +2,15 @@ hush
 
 setcps(135/240)
 
+d1
+  $ slow 4
+  $ s "superadd"
+  # legato 4.0
+  # lpf (range 800 8000 $ rand) # resonance 0.3
+  # room 0.5 # size 0.9
+  # gain 1.0
+  
+
 do
   d12
     $ s "none(9, 16)"
