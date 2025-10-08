@@ -17,16 +17,17 @@ do
     |+ note "[0, -12]"
 
 d1
-  $ slow 8
+  -- $ slow 2
   $ s "superadd"
-  # legato 4.0
+  # freq 10000
+  # legato 3.0
   # room 0.2 # size 0.5
   # gain 1.2
 
 d2
   $ slow 2
   $ s "sfh(3, 8)"
-  # lpf 2000
+  # lpf 4000
   # pan (rand)
   # n (choose[0..100])
   # room 0.5 # size 0.98
@@ -48,14 +49,13 @@ do
     # td_s 1
     # td_fx (choose[0..2])
   d4
-    -- $ slow 4
     $ s "superzow*8"
-    # note "<c2 g2 f2>/2"
+    # note "<c2 g2 f2>/4"
     |+ note "[0.04, -0.04]"
     # voice 2
-    # legato 4.0
-    # lpf (range 100 3000 $ slow 8 $ sine) # resonance 0.3
-    -- # room 0.2 # size 0.5
+    # legato 2.0
+    # lpf (range 100 3000 $ slow 8 $ sine) # resonance 0.2
+    # room 0.2 # size 0.5
     # gain 1.0
 
 d5
@@ -71,10 +71,7 @@ once
   $ s "matsu"
   # note "[0, -12]"
 
-d2 silence >> d3 silence 
-
-d4 silence >> d5 silence
-
+d2 silence >> d3 silence >> d4 silence >> d5 silence
 
 ---
 
@@ -86,13 +83,13 @@ do
     # td_s "<1 2 3>"
     # td_fx (choose[0..2])
   d1
-    $ jux ((5/16)<~)
+    -- $ jux ((5/16)<~)
     $ stack
     [
       s "supersin(3, 8, {0..7}/16)" # note "c6"
       , s "supersin" # note "c4" # pan (rand) # gain 1.2
-      , s "supersin(6, 16, {0..7}/24)" # note "c5" # pan (rand)
-      , s "supersin(3, 16, {0..7}/32)" # note "c6" # pan (rand)
+      -- , s "supersin(6, 16, {0..7}/24)" # note "c5" # pan (rand)
+      -- , s "supersin(3, 16, {0..7}/32)" # note "c6" # pan (rand)
     ]
     -- |+ note "[-0.04, 0.04]"
     |* gain 0.8
@@ -128,7 +125,7 @@ d5
   $ jux (("[3, 5, 11]"/16)<~)
   $ s "superhammond(9, 16, [0, 5, 9])"
   # voice 4
-  # note "c4 c5"
+  # note "<c4 c5>"
   |+ note (scale "ritusen" "{0..19}%[3, 5]")
   # legato 1.0
   # room 0.5 # size 0.9
@@ -139,7 +136,7 @@ d6
   # n "<1 2 3 4 5 6 7 8>"
   # gain 1.5  
 
-d1 silence >> d2 silence >> d3 silence >> d4 silence
+d1 silence >> d2 silence >> d3 silence >> d4 silence >> d5 silence
 
 ---
 

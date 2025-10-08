@@ -18,15 +18,16 @@ do
     |+ note "[0, -12]"
 
 d1
+  $ slow 2
   $ s "superadd"
-  # freq 800
+  # freq 8000
   # legato 3.0
   # room 0.2 # size 0.5
   # gain 1.2
 
 d2
   $ s "sfh"
-  # lpf 100
+  # lpf 8000
   # pan (rand)
   # n (choose[0..100])
   # room 0.5 # size 0.98
@@ -39,8 +40,8 @@ do
     # td_fx "<0 1>"
   d3
     $ s "empty/4"
-    # shape 0.0
-    # gain 0.5
+    # shape 0.8
+    # gain 1.0
 
 do
   d12
@@ -50,13 +51,13 @@ do
   d4
     -- $ slow 4
     $ s "superzow*8"
-    # note "<c2>/2"
+    # note "<c2 c3>/4"
     |+ note "[0.04, -0.04]"
     # voice 2
-    # legato 2.0
-    # lpf (range 100 200 $ slow 4 $ sine) # resonance 0.2
+    # legato (range 1.0 2.0 $ slow 6 $ sine)
+    # lpf (range 100 2000 $ slow 4 $ sine) # resonance 0.2
     -- # room 0.2 # size 0.5
-    # gain 0.0
+    # gain 1.0
 
 d5
   $ slow 8
@@ -77,8 +78,9 @@ d2 silence >> d3 silence >> d4 silence >> d5 silence
 ---
 
 do
-  hush
-  setcps(120/240)
+  -- hush
+  -- resetCycles
+  -- setcps(120/240)
   d12
     $ s "none*4"
     # td_s "<1 2 3>"
@@ -93,13 +95,13 @@ d2
   $ stack
   [
     s "supersin(3, 8, {0..7}/16)" # note "c6"
-    -- , s "supersin" # note "c4" # pan (rand) # gain 1.2
-    -- , s "supersin(6, 16, {0..7}/24)" # note "c5" # pan (rand)
-    -- , s "supersin(3, 16, {0..7}/30)" # note "c5" # pan (rand)
+    , s "supersin" # note "c4" # pan (rand) # gain 1.2
+    , s "supersin(5, 16, {0..7}/24)" # note "c5" # pan (rand)
+    , s "supersin(3, 16, {0..7}/30)" # note "c6" # pan (rand)
   ]
   -- |+ note "[-0.04, 0.04]"
   |* gain 0.8
-  -- |+ note "[0, <7 5 7 7>]"
+  |+ note "[0, <7 5 7 7>]"
   -- # delay 0.3 # delaytime ("[11, 3]"/8) # delayfeedback 0.0 # lock 1
   -- |+ note (scale "majPent" "{0..3}%3")
 
@@ -115,8 +117,9 @@ d3
 d4
   $ stack
   [
-    s "cp(3, 8, 1)"# gain 1.0
-    -- ,  s "uni(1, 8)" # gain 1.5 # legato 0.5
+    s "cp(5, 16, 1)"# gain 1.0
+    , s "hc(9, 16, 3)"# gain 1.0
+    ,  s "uni(5, 8)" # gain 1.5 # legato 0.5
   ]
   |* gain 1.3
 
@@ -132,7 +135,7 @@ d6
   $ s "superhammond(9, 16, [0, 5, 9])"
   # voice 4
   # note "c4 c5"
-  |+ note (scale "ritusen" "{0..9}%[3, 5]")
+  |+ note (scale "ritusen" "{0..19}%[3, 5]")
   # legato 1.0
   # room 0.5 # size 0.9
   # gain 0.7
