@@ -78,6 +78,7 @@ d2 silence >> d3 silence >> d4 silence >> d5 silence
 
 do
   hush
+  resetCycles
   setcps(120/240)
   d12
     $ s "none*4"
@@ -93,13 +94,13 @@ d2
   $ stack
   [
     s "supersin(3, 8, {0..7}/16)" # note "c6"
-    -- , s "supersin" # note "c4" # pan (rand) # gain 1.2
-    -- , s "supersin(6, 16, {0..7}/24)" # note "c5" # pan (rand)
-    -- , s "supersin(3, 16, {0..7}/30)" # note "c5" # pan (rand)
+    , s "supersin" # note "c4" # pan (rand) # gain 1.2
+    , s "supersin(6, 16, {0..7}/24)" # note "c5" # pan (rand)
+    , s "supersin(5, 16, {0..7}/30)" # note "g6" # pan (rand)
   ]
   -- |+ note "[-0.04, 0.04]"
   |* gain 0.8
-  -- |+ note "[0, <7 5 7 7>]"
+  |+ note "[0, <7 5 7 7>]"
   -- # delay 0.3 # delaytime ("[11, 3]"/8) # delayfeedback 0.0 # lock 1
   -- |+ note (scale "majPent" "{0..3}%3")
 
@@ -116,14 +117,14 @@ d4
   $ stack
   [
     s "cp(3, 8, 1)"# gain 1.0
-    -- ,  s "uni(1, 8)" # gain 1.5 # legato 0.5
+    ,  s "uni(3, 8)" # gain 1.5 # legato 0.5
   ]
   |* gain 1.3
 
 d5
-  -- $ sometimesBy 0.4 (fast 2)
+  $ sometimesBy 0.4 (fast 2)
   $ s "superbass(3, 8)"
-  # note "c2 c3"
+  # note "<c2 c3 c4>*8"
   # legato 4.0
   # lpf (range 400 800 $ slow 16 $ sine) # resonance "0.3"
 
@@ -132,7 +133,7 @@ d6
   $ s "superhammond(9, 16, [0, 5, 9])"
   # voice 4
   # note "c4 c5"
-  |+ note (scale "ritusen" "{0..9}%[3, 5]")
+  |+ note (scale "ritusen" "{0..19}%[3, 5]")
   # legato 1.0
   # room 0.5 # size 0.9
   # gain 0.7
