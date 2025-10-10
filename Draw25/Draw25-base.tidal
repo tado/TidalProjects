@@ -95,8 +95,8 @@ d2
   [
     s "supersin(3, 8, {0..7}/16)" # note "c6"
     -- , s "supersin" # note "c4" # pan (rand) # gain 1.2
-    -- , s "supersin(6, 16, {0..7}/24)" # note "c6" # pan (rand)
-    -- , s "supersin(3, 16, {0..7}/30)" # note "c5" # pan (rand)
+    -- , s "supersin(6, 16, {0..7}/24)" # note "c5" # pan (rand)
+    -- , s "supersin(3, 16, {0..7}/30)" # note "c6" # pan (rand)
   ]
   -- |+ note "[-0.04, 0.04]"
   |* gain 0.8
