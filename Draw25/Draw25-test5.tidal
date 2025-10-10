@@ -19,14 +19,14 @@ do
 
 d1
   $ s "superadd"
-  # freq 400
+  # freq 18000
   # legato 3.0
   # room 0.2 # size 0.5
   # gain 1.2
 
 d2
   $ s "sfh"
-  # lpf 100
+  # lpf 2000
   # pan (rand)
   # n (choose[0..100])
   # room 0.5 # size 0.98
@@ -39,8 +39,8 @@ do
     # td_fx "<0 1>"
   d3
     $ s "empty/4"
-    # shape 0.0
-    # gain 0.5
+    # shape 0.8
+    # gain 1.0
 
 do
   d12
@@ -54,7 +54,7 @@ do
     |+ note "[0.04, -0.04]"
     # voice 2
     # legato 2.0
-    # lpf (range 100 200 $ slow 4 $ sine) # resonance 0.2
+    # lpf (range 100 1500 $ slow 4 $ sine) # resonance 0.2
     -- # room 0.2 # size 0.5
     # gain 1.0
 
@@ -62,7 +62,7 @@ d5
   $ slow 8
   $ s "superdown"
   # note "c5"
-  # voice 500
+  # voice 1500
   -- # speed "[1.5, 1.0]"
   # legato 3.0
   # gain 1.0
@@ -78,7 +78,6 @@ d2 silence >> d3 silence >> d4 silence >> d5 silence
 
 do
   hush
-  resetCycles
   setcps(120/240)
   d12
     $ s "none*4"
@@ -95,7 +94,7 @@ d2
   [
     s "supersin(3, 8, {0..7}/16)" # note "c6"
     -- , s "supersin" # note "c4" # pan (rand) # gain 1.2
-    -- , s "supersin(6, 16, {0..7}/24)" # note "c6" # pan (rand)
+    -- , s "supersin(6, 16, {0..7}/24)" # note "c5" # pan (rand)
     -- , s "supersin(3, 16, {0..7}/30)" # note "c5" # pan (rand)
   ]
   -- |+ note "[-0.04, 0.04]"

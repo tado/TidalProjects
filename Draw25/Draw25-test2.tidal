@@ -1,9 +1,20 @@
+hush
+
 do
   hush
   d12
-    $ s "none*4"
+    $ s "none(11, 16)"
     # td_s 0
     # td_fx 0
+
+do
+  d12
+    $ s "none(11, 16)"
+    # td_s (choose[0..100])
+    # td_fx (choose[0..11])
+  d1
+    $ s "cp(11, 16)"
+
 
 do
   hush
