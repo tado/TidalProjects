@@ -42,7 +42,7 @@ do
     -- $ sometimesBy 0.2 (brak)
     $ s "supervibe(3, 8, [0, 5, 13])"
     # note "a4"
-    |+ note (scale scl "{0..19}%[3, 5, 10]")
+    |+ note (scale scl "{0..14}%[3, 5, 10]")
     |+ note (-0.0398)
     -- |+ note "[0, 12]"
     |+ note (choose[0, 12, 24])
