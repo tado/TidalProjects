@@ -1,33 +1,45 @@
 hush
 
+
+
 let 
   scale = getScale
     (scaleTable ++ [
-      ("sho", [0, 2, 4, 5, 7, 9, 10, 11, 12, 14, 15, 17, 19, 21])
+      ("sho", [-3, -1, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 18]),      
+      ("kotsu", [-3, 4, 9, 11, 16, 18]),
+      ("ichi", [-1, 2, 4, 9, 11, 18]),
+      ("ku", [1, 2, 4, 8, 9, 11]),
+      ("bo", [2, 4, 9, 11, 16, 18]),
+      ("otsu", [4, 8, 9, 11, 13, 14]),
+      ("ge", [6, 8, 9, 11, 14, 18]),
+      ("ju", [6, 7, 8, 9])
     ])
 
 setcps(80/240)
 
 do
-  let scl = "sho"
-  d1 
-    $ s "supersho"
-    # note "a4"
-    |+ note (scale scl (choose[0..14])) 
-    |+ note (-0.0398)
-    |+ note "[0, 12, 24]"
-    |+ note (choose[-12, 0, 12])
+  -- resetCycles
+  let scl = "ge"  
+  d1
+    $ s "superhammond"
+    |+ note (scale scl "[0, 1, 2, 3, 4, 5]")
+    |+ note 12
+    |+ note (-0.398)
+    -- |+ note "[0, 12, 24]"
+    -- |+ note (choose[-12, 0, 12])
     |+ note "[-0.04, 0.0, 0.04]" 
-    # legato 4.0
-    -- # room 0.5 # size 0.95
-    # pan (rand)
-    # voice 0
-    # gain (range 1.0 1.4 $ rand)
+    # legato 1.0
+    # room 0.2 # size 0.95
+    -- # pan (rand)
+    # voice 4
+    # gain 0.75
+    
+  
   d2
     $ s "supersho"
     # note "a3"
     |+ note (scale scl (choose[0..14])) 
-    |+ note (-0.0398)
+    |+ note (-0.398)
     |+ note "[0, 12, 24]"
     |+ note (choose[-12, 0, 12])
     |+ note "[-0.04, 0.0, 0.04]" 
@@ -36,6 +48,7 @@ do
     # pan (rand)
     # voice 0
     # gain (range 1.0 1.4 $ rand)
+  
   d3
     $ slow 2
     $ sometimesBy 0.2 (fast 4)
