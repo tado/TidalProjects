@@ -12,33 +12,40 @@ let
       ("bo", [2, 4, 9, 11, 16, 18]),
       ("otsu", [4, 8, 9, 11, 13, 14]),
       ("ge", [6, 8, 9, 11, 14, 18]),
-      ("ju", [6, 7, 8, 9])
+      ("ju", [6, 7, 8, 9, 11, 14, 16]),
+      ("soju", [7, 9, 11, 14, 16]),
+      ("bi", [8, 9, 11, 12, 14, 18]),
+      ("gyo", [9, 11, 14, 16, 18]),
+      ("hi", [9, 11, 12, 14, 16, 18])
     ])
 
 setcps(80/240)
 
 do
   -- resetCycles
-  let scl = "ge"  
+  -- let scl = "[kotsu ichi ku bo otsu ge ju soju bi gyo hi]/11"
+  -- let scl = (choose["kotsu", "ichi", "ku", "bo", "otsu", "ge", "ju", "soju", "bi", "gyo", "hi"])
+  -- let scl = (choose["kotsu", "gyo", "ku", "soju"])
+  let scl = "gyo"
   d1
-    $ s "superhammond"
-    |+ note (scale scl "[0, 1, 2, 3, 4, 5]")
-    |+ note 12
+    -- $ jux(rev)
+    $ s "superhammond(3, 14, [0, 17])"
+    |+ note (scale scl "[0,1,2,3,4,5]")
     |+ note (-0.398)
-    -- |+ note "[0, 12, 24]"
-    -- |+ note (choose[-12, 0, 12])
-    |+ note "[-0.04, 0.0, 0.04]" 
-    # legato 1.0
-    # room 0.2 # size 0.95
-    -- # pan (rand)
-    # voice 4
-    # gain 0.75
-    
-  
+    |+ note (choose [12, 0, -12])
+    |+ note "[12, 24, 0]"
+    |+ note "[-0.05, 0.0, 0.05]" 
+    # legato 0.75
+    # room 0.1 # size 0.8
+    # pan (rand)
+    # voice "<0..11>*12"
+    # delay 0.8 # delaytime ("[3]"/14) # delayfeedback 0.5 # lock 1
+    # gain 1.0
+
   d2
     $ s "supersho"
     # note "a3"
-    |+ note (scale scl (choose[0..14])) 
+    |+ note (scale scl (choose[0..5])) 
     |+ note (-0.398)
     |+ note "[0, 12, 24]"
     |+ note (choose[-12, 0, 12])
@@ -48,22 +55,22 @@ do
     # pan (rand)
     # voice 0
     # gain (range 1.0 1.4 $ rand)
-  
+
   d3
     $ slow 2
     $ sometimesBy 0.2 (fast 4)
     -- $ sometimesBy 0.2 (brak)
     $ s "supervibe(3, 8, [0, 5, 13])"
     # note "a4"
-    |+ note (scale scl "{0..14}%[3, 5, 10]")
-    |+ note (-0.0398)
+    |+ note (scale scl "{0..5}%[3, 5, 10]")
+    |+ note (-0.398)
     -- |+ note "[0, 12]"
-    |+ note (choose[0, 12, 24])
+    -- |+ note (choose[0, 12, 24])
     |+ note "[-0.02, 0.02]" 
     # n 0
-    # legato 2.0
+    # legato 1.0
     # room 0.5 # size 0.98
-    # delay 0.8 # delaytime ("[5, 13, 21]"/16) # delayfeedback 0.75
+    # delay 0.8 # delaytime ("[5, 3]"/16) # delayfeedback 0.75
     # lock 1
     # pan (rand)
     # gain (range 0.2 1.0 $ rand)  
