@@ -1,4 +1,4 @@
-let 
+let
   scale = getScale
     (scaleTable ++ [
       ("sho", [-3, -1, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 18]),      
@@ -8,75 +8,91 @@ let
       ("bo", [2, 4, 9, 11, 16, 18]),
       ("otsu", [4, 8, 9, 11, 13, 14]),
       ("ge", [6, 8, 9, 11, 14, 18]),
-      ("ju", [6, 7, 8, 9])
+      ("ju", [6, 7, 9, 11, 14, 16]),
+      ("soju", [7, 9, 11, 14, 16]),
+      ("bi", [8, 9, 11, 12, 14, 18]),
+      ("gyo", [9, 11, 14, 16, 18]),
+      ("hi", [9, 11, 12, 14, 16, 18])
     ])
-
-setcps(80/240)
 
 hush
 
+d1
+  $ s "cp*4"
+
 do
-  let scl = "ichi"
+  -- resetCycles
+  setcps(60/240)
+  let scl = "<bo ichi otsu otsu bo [ju ge] otsu otsu>/8"
   d1
-    $ s "superhammond"
-    |+ note (scale scl "[0, 1, 2, 3, 4, 5]")
-    |+ note (-0.398)
-    -- |+ note 12
-    |+ note "[0, 12]"
-    -- |+ note (choose[-12, 0, 12])
-    -- |+ note "[-0.04, 0.04]" 
-    # attack 1.0 # hold 2 # release 1.0 # legato 2.0
-    # leslie 0.5 # lrate 0.2 # lsize 0.8
-    # room 0.2 # size 0.98
-    -- # pan (rand)
-    # voice 4
-    # gain 0.8  
-  d2
-    $ jux (("[3, 10]"/14)~>)
-    $ s "superhammond(4, 14, [0, 5])"
+    $ n "<0 0 0 0 0 [0 0] 0 0>"
+    # s "superhammond"    
     |+ note (scale scl "[0, 1, 2, 3, 4, 5]")
     |+ note (-0.398)
     |+ note 12
-    |+ note "[-12, 0]"
+    -- |+ note "[0, 12]"
+    -- |+ note (choose[-12, 0, 12])
+    -- |+ note "[-0.04, 0.04]" 
+    # attack 1.0 # hold 2 # release 1.0
+    -- # leslie 0.3 # lrate 0.2 # lsize 0.5
+    -- # room 0.3 # size 0.98
+    -- # pan (rand)
+    # voice 0
+    # gain 0.7
+  
+  d2
+    $ sometimesBy 0.1 (fast 2)
+    $ jux (("[3, 10]"/14)~>)
+    $ s "superhammond(9, 14, [0, 5])"
+    |+ note (scale scl "[0, 1, 2, 3, 4, 5]")
+    |+ note (-0.398)
+    |+ note 12
+    |+ note "[0, -12]"
     |+ note (choose[0, 12, 24])
     -- |+ note "[-0.04, 0.0, 0.04]"
-    # legato 0.9
+    # legato 0.8
     # leslie 0.5 # lrate 0.15 # lsize 0.8
     -- # room 0.2 # size 0.9
     # pan (rand)
-    # voice 4
-    # gain 0.7  
+    # voice 5
+    # gain 0.4
   d3
-    $ jux (("[9]"/14)~>)
-    $ s "gam(8, 28, {0..27}%16)"
-    |+ note (scale scl "{0..5}%3")
+    $ jux (("[3, 10]"/28)~>)
+    $ s "superrhodes(11, 28)"
+    -- $ s "superrhodes(11, 28)"
+    |+ note (scale scl (choose[0..5]))
+    |+ note "[12, 0]"
     |+ note (-0.398)
-    # n 2
-    # legato 4.0
+    |+ note "[-0.04, 0.04]"
+    # legato 2
+    # voice 1
     -- |- note (choose[0, 12, 24])    
     # pan (rand)
-    # gain 1.8  
+    # leslie 0.5 # lrate 0.3 # lsize 0.8
+    # lpf (range 400 4000 $ rand) # resonance 0.2
+    # room 0.2 # size 0.95
+    # gain 0.4
   d4
     $ sometimesBy 0.5 (fast 2)
-    $ s "superbass(3, 7)"
+    $ s "supermoog(3, 7)"
     |+ note (scale scl (choose[0..5]))
     |- note 36
     |+ note "[-0.04, 0.04]"
     |+ note (-0.398)
-    # lpf (range 100 4000 $ rand) # resonance 0.3
-    # attack 4.0
-    # legato 2.0
-    # release 2.0
-    # leslie 0.5 # lrate 0.2 # lsize 0.3
+    # lpf (range 100 2000 $ rand) # resonance 0.2
+    # attack 2.0
+    # legato 4.0
+    # release 0.0
+    # leslie 0.5 # lrate 0.2 # lsize 0.8
     -- # room 0.1 # size 0.9
-    # gain 2
+    # gain 1.1
   d5
     $ sometimesBy 0.5 (fast 2)
-    $ s "[uni(3, 7), hc(5, 14, 1)]"
-    # gain 2
+    $ s "[uni(5, 7), hc(9, 14, 1)]"
+    # gain 1.1
 
 d4 silence >> d5 silence
 
-unsolo 1
+unsolo 3
 
 
