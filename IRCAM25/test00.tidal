@@ -36,7 +36,8 @@ do
     # room 0.4 # size 0.98
     -- # pan (rand)
     # voice 4
-    # gain 1.0  
+    # gain 1.0    
+  
   d2
     $ sometimesBy 0.3 (fast 2)
     $ jux (("[5, 10]"/14)~>)
@@ -52,7 +53,7 @@ do
     -- # room 0.2 # size 0.9
     # pan (rand)
     # voice 4
-    # gain 0.7 
+    # gain 0.7   
   d3
     $ jux ((3/14)~>)
     $ s "superrhodes(9, 14, [0, 5])"
@@ -67,7 +68,7 @@ do
     # lpf (range 400 4000 $ rand) # resonance 0.2
     # delay 0.5 # delaytime (9/28) # delayfeedback 0.25 #lock 1
     -- # room 0.1 # size 0.95
-    # gain 0.7
+    # gain 0.65
   d4
     $ sometimesBy 0.1 (fast 2)
     $ s "supermoog(3, 7)"
