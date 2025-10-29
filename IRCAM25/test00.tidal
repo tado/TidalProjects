@@ -23,9 +23,9 @@ d1
 do
   -- resetCycles
   setcps(60/240)
-  let scl = "<bo ichi otsu otsu bo [ju ge] otsu otsu>/8"
-  d1
-    $ n "<0 0 0 0 0 [0 0] 0 0>"
+  let scl = "<bo ichi otsu otsu bo [ju ge] otsu otsu>"
+  d1  
+    $ n "<1 1 1 1 1 [1 1] 1 1>"
     # s "superhammond"    
     |+ note (scale scl "[0, 1, 2, 3, 4, 5]")
     |+ note (-0.398)
@@ -33,13 +33,13 @@ do
     -- |+ note "[0, 12]"
     -- |+ note (choose[-12, 0, 12])
     -- |+ note "[-0.04, 0.04]" 
-    # attack 1.0 # hold 2 # release 1.0
+    -- # attack 1.0 # hold 2 # release 1.0
     -- # leslie 0.3 # lrate 0.2 # lsize 0.5
-    -- # room 0.3 # size 0.98
+    # attack 2 # release 2
+    # room 0.5 # size 0.98
     -- # pan (rand)
-    # voice 0
-    # gain 0.7
-  
+    # voice 4
+    # gain 1.0  
   d2
     $ sometimesBy 0.1 (fast 2)
     $ jux (("[3, 10]"/14)~>)
@@ -55,7 +55,7 @@ do
     -- # room 0.2 # size 0.9
     # pan (rand)
     # voice 5
-    # gain 0.4
+    # gain 0.8
   d3
     $ jux (("[3, 10]"/28)~>)
     $ s "superrhodes(11, 28)"
@@ -71,7 +71,7 @@ do
     # leslie 0.5 # lrate 0.3 # lsize 0.8
     # lpf (range 400 4000 $ rand) # resonance 0.2
     # room 0.2 # size 0.95
-    # gain 0.4
+    # gain 0.8
   d4
     $ sometimesBy 0.5 (fast 2)
     $ s "supermoog(3, 7)"
@@ -85,14 +85,15 @@ do
     # release 0.0
     # leslie 0.5 # lrate 0.2 # lsize 0.8
     -- # room 0.1 # size 0.9
-    # gain 1.1
+    # gain 1.8
   d5
     $ sometimesBy 0.5 (fast 2)
     $ s "[uni(5, 7), hc(9, 14, 1)]"
-    # gain 1.1
+    # gain 1.8
 
 d4 silence >> d5 silence
 
-unsolo 3
+solo 1
+
 
 
