@@ -4,25 +4,51 @@ setcps(130/240)
 
 d1
   -- $ sometimesBy 0.3 (chop (irand 32))
-  $ sometimesBy 0.5 (jux (iter 16))
+  -- $ sometimesBy 0.5 (jux (iter 16))
   $ sometimesBy 0.7 (fast 2)
   $ s "carrier(3, 8, 3)"
+  -- # speed (choose[1.0, 1.5, 0.75, 2.0, 0.5])
   # n (range 0 3 $ rand)
   # gain 1.2
 
 d2
-  $ sometimesBy 0.8 (fast 2)
-  $ s "ifdrums(3, 8, 1)"  
-  # n (irand 3)  
+  $ sometimesBy 0.3 (chop (irand 128))
+  $ sometimesBy 0.5 (fast 2)
+  $ s "ifdrums(3, 8, 1)"
+  # n (irand 3)
+  # gain 1.2
 
 d3
   $ s "uni(3, 8)"
   # gain 1.2
 
+d4
+  -- $ sometimesBy 0.3 (chop (irand 128))
+  $ s "jazz(11, 16)"
+  -- # legato 1.0
+  # n (irand 12)
+  # gain 1.1
+
 d5
+  $ jux (iter 16)
+  $ s "superrhodes(3, 16)"
+  # note "<c6'sus4 c6'maj7>*16"
+  |+ note "<0 -12 -24>*16"
+  # legato 0.5
+  # lpf (range 800 1000 $ rand) # resonance 0.1
+  -- # room 0.3 # size 0.8
+  # delay 1.0 # delaytime (7/16) # delayfeedback 0.5 # lock 1
+  -- # leslie 0.5 # lrate 0.3 # lsize 0.5
+  # gain 0.7
+
+unsolo 5
+
+  
+
+d6
   -- $ sometimesBy 0.3 (fast 2)
   $ s "supermoog(3, 8)"
-  |+ note (scale "bo" (choose[0..5]))
+  |+ note (scale "majPent" (choose[0..5]))
   |- note 24
   |+ note "[-0.04, 0.04]"
   |+ note (-0.398)
