@@ -18,7 +18,7 @@ let
 hush
 
 do
-  -- resetCycles
+  resetCycles
   setcps(60/240)
   let scl = "<bo ichi otsu otsu bo [ju ge] otsu otsu>"
   d1
