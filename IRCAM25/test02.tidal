@@ -1,7 +1,6 @@
 let
   scale = getScale
     (scaleTable ++ [
-      ("sho", [-3, -1, 1, 2, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 16, 18]),      
       ("kotsu", [-3, 4, 9, 11, 16, 18]),
       ("ichi", [-1, 2, 4, 9, 11, 18]),
       ("ku", [1, 2, 4, 8, 9, 11]),
@@ -22,36 +21,38 @@ unsolo 1
 do
   -- resetCycles
   setcps(100/240)
-  let scl = "<bo ichi otsu otsu bo [ju ge] otsu otsu ichi [ichi kotsu] ichi otsu ju [ichi kotsu] otsu otsu otsu otsu ge kotsu [ichi ku] [ku ichi] kotsu kotsu>"
-  -- let scl = "kotsu"
+  -- let scl = "<bo ichi otsu otsu bo [soju ge] otsu otsu ichi [ichi kotsu] ichi otsu ju [ichi kotsu] otsu otsu otsu otsu ge kotsu [ichi ku] [ku ichi] kotsu kotsu>/2"
+  let scl = "otsu"
   d1
     $ slow 2
-    $ n "<1 1 1 1 1 [1 1] 1 1>"
+    -- $ n "<1 1 1 1 1 [1 1] 1 1>"
+    $ n "1"
     # s "superhammond"    
     |+ note (scale scl "[0, 1, 2, 3, 4, 5]")
     |+ note (-0.398)
     -- |+ note 12
     -- |+ note "[0, 12]"
-    --- |+ note "[-0.04, 0.04]" 
+    -- |+ note "[-0.04, 0.04]" 
     -- # attack 1.0 # hold 2 # release 1.0
-    -- # leslie 0.3 # lrate 0.2 # lsize 0.8
+    # leslie 0.5 # lrate 0.15 # lsize 0.8
     # attack 2 # release 4 # lock 1 # legato 4.0
     -- # room 0.8 # size 0.8
     -- # pan (rand)
     # voice 3
-    # gain 0.8
+    # gain 1.0
   d2  
+    $ slow 2
     $ sometimesBy 0.5 (fast 2)
     -- $ jux (("[5, 10]"/7)~>)
-    $ s "superhammond(3, 7, [0, 6])"
+    $ s "superhammond(3, 7, [0, 5])"
     |+ note (scale scl "[0, 1, 2, 3, 4, 5]")
     |+ note (-0.398)    
-    # legato 1.5
-    -- # leslie 0.5 # lrate 0.15 # lsize 0.8
+    -- # legato 1.0
+    # leslie 0.5 # lrate 0.15 # lsize 0.8
     -- # room 0.2 # size 0.9
     # pan (rand)
     # voice 3
-    # gain 0.8
+    # gain 1.0  
   d3
     $ sometimesBy 0.4 (fast 2)
     $ jux (("[4, 9]"/7)~>)
@@ -59,15 +60,15 @@ do
     |+ note (scale scl (choose[0..5]))
     -- |+ note "[12, 0]"
     |+ note (-0.398)
-    -- |+ note "[-0.04, 0.04]"
+    |+ note "[-0.04, 0.04]"
     -- # legato 1.5
     -- |- note (choose[0, 12, 24])    
     # pan (rand)
     -- # leslie 0.5 # lrate 0.2 # lsize 0.8
-    # lpf (range 400 4000 $ rand) # resonance 0.2
+    -- # lpf (range 400 4000 $ rand) # resonance 0.2
     -- # delay 0.8 # delaytime ("[9, 5]"/8) # delayfeedback 0.5 #lock 1
     -- # room 0.1 # size 0.95
-    # gain 0.7  
+    # gain 0.75  
   d4
     $ slow 2
     $ sometimesBy 0.3 (fast 2)
@@ -76,7 +77,7 @@ do
     |- note 36
     |+ note "[-0.04, 0.04]"
     |+ note (-0.398)
-    # lpf (range 100 2000 $ rand) # resonance 0.2
+    # lpf (range 100 2000 $ rand) # resonance 0.3
     # attack 2.0
     # legato 10.0
     # release 0.0
@@ -91,12 +92,12 @@ do
     -- # speed (choose[1.0, 1.5, 0.75, 2.0, 0.5])
     # n (range 0 3 $ rand)
     -- # room 0.5 # size 0.5
-    # gain 1.1
+    # gain 1.2
   d6
     $ sometimesBy 0.4 (rev)
     $ sometimesBy 0.8 (fast 2)
     $ s "[uni(3, 7), uni:1(3, 7, 1)]"
-    # gain 1.2
+    # gain 1.3
 
 unsolo 2
 
@@ -176,7 +177,7 @@ d2 silence >> d3 silence >> d4 silence >> d5 silence
 ---
 
 do
-  -- hush
+  hush
   -- setcps(100/240)
   d12
     $ s "none*4"
@@ -188,7 +189,7 @@ do
     $ s "rs(1, 7)"
     |+ note 1.602
     |+ note "[-0.04, 0.04]"
-    |+ note "[-12, <0 -5 -7>/4]"
+    -- |+ note "[-12, <0 -5 -7>/4]"
     # legato 0.5
     # delay 0.5 # delaytime ("[5, 3]"/14) # delayfeedback 0.5 # lock 1
     # lpf (choose [6000, 8000]) # resonance 0.7
@@ -197,7 +198,7 @@ do
 d2
   $ jux (("[7, 3]"/14)<~) 
   $ s "fb(3, 14, 5)"
--- # n "<0..3>*9"
+  -- # n "<0..3>*9"
   # gain "<1.3 0.9>*16"
   -- # delay 0.1 # delaytime "<0.02 0.01 0.005>*8" # delayfeedback 0.7
 
@@ -254,6 +255,7 @@ do
     $ sometimesBy 0.4 (jux (rev))
     $ s "hasu(5, 14)"
     |+ note 1.602
+    |+ note 0
     # n (choose [0..13])
     # room 0.5 # size 0.9
     # gain 1.3
@@ -324,6 +326,6 @@ do
     # gain 1.0
     # room 0.5 # size 0.8
 
-d1 silence
+hush
 
 
