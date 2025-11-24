@@ -21,7 +21,7 @@ unsolo 1
 
 do
   -- resetCycles
-  setcps(90/240)
+  setcps(100/240)
   let scl = "<bo ichi otsu otsu bo [ju ge] otsu otsu ichi [ichi kotsu] ichi otsu ju [ichi kotsu] otsu otsu otsu otsu ge kotsu [ichi ku] [ku ichi] kotsu kotsu>"
   -- let scl = "kotsu"
   d1
@@ -39,11 +39,11 @@ do
     -- # room 0.8 # size 0.8
     -- # pan (rand)
     # voice 3
-    # gain 1.2
+    # gain 0.8
   d2  
     $ sometimesBy 0.5 (fast 2)
-    -- $ jux (("[5, 10]"/8)~>)
-    $ s "superhammond(3, 8, [0, 6])"
+    -- $ jux (("[5, 10]"/7)~>)
+    $ s "superhammond(3, 7, [0, 6])"
     |+ note (scale scl "[0, 1, 2, 3, 4, 5]")
     |+ note (-0.398)    
     # legato 1.5
@@ -51,12 +51,11 @@ do
     -- # room 0.2 # size 0.9
     # pan (rand)
     # voice 3
-    # gain 1.0    
-  
+    # gain 0.8
   d3
     $ sometimesBy 0.4 (fast 2)
-    $ jux (("[4, 9]"/8)~>)
-    $ s "superrhodes(7, 8, [0, 8])"
+    $ jux (("[4, 9]"/7)~>)
+    $ s "superrhodes(5, 7, [0, 8])"
     |+ note (scale scl (choose[0..5]))
     -- |+ note "[12, 0]"
     |+ note (-0.398)
@@ -65,14 +64,14 @@ do
     -- |- note (choose[0, 12, 24])    
     # pan (rand)
     -- # leslie 0.5 # lrate 0.2 # lsize 0.8
-    -- # lpf (range 400 4000 $ rand) # resonance 0.3
+    # lpf (range 400 4000 $ rand) # resonance 0.2
     -- # delay 0.8 # delaytime ("[9, 5]"/8) # delayfeedback 0.5 #lock 1
     -- # room 0.1 # size 0.95
-    # gain 0.8
-  d5
+    # gain 0.7  
+  d4
     $ slow 2
     $ sometimesBy 0.3 (fast 2)
-    $ s "supermoog(3, 8)"
+    $ s "supermoog(3, 7)"
     |+ note (scale scl (choose[0..5]))
     |- note 36
     |+ note "[-0.04, 0.04]"
@@ -84,21 +83,20 @@ do
     # leslie 0.5 # lrate 0.2 # lsize 0.8
     -- # room 0.1 # size 0.9
     # gain 1.3
-  d6
+  d5
     -- $ sometimesBy 0.3 (chop (irand 32))
     $ sometimesBy 0.4 (rev)
-    $ sometimesBy 0.5 (jux (iter 16))
     $ sometimesBy 0.7 (fast 2)
-    $ s "uni(3, 8, 5)"
+    $ s "uni(3, 7, 5)"
     -- # speed (choose[1.0, 1.5, 0.75, 2.0, 0.5])
     # n (range 0 3 $ rand)
     -- # room 0.5 # size 0.5
-    # gain 1.9  
-  d7
+    # gain 1.1
+  d6
     $ sometimesBy 0.4 (rev)
     $ sometimesBy 0.8 (fast 2)
-    $ s "[uni(3, 8), uni:1(3, 8, 1)]"
-    # gain 2
+    $ s "[uni(3, 7), uni:1(3, 7, 1)]"
+    # gain 1.2
 
 unsolo 2
 
@@ -178,28 +176,28 @@ d2 silence >> d3 silence >> d4 silence >> d5 silence
 ---
 
 do
-  hush
-  setcps(100/240)
+  -- hush
+  -- setcps(100/240)
   d12
     $ s "none*4"
     -- # td_s (choose([34..40]))
     # td_s 34
     # td_fx 0
   d1
-    -- $ jux (("[3, 10, 5]"/14)<~)
+    $ jux (("[3, 10, 5]"/14)<~)
     $ s "rs(1, 7)"
     |+ note 1.602
-    |+ note "[-0.05, 0.05]"
-    |+ note "[-12, <0 -5>/4]"
+    |+ note "[-0.04, 0.04]"
+    |+ note "[-12, <0 -5 -7>/4]"
     # legato 0.5
     # delay 0.5 # delaytime ("[5, 3]"/14) # delayfeedback 0.5 # lock 1
-    # lpf (choose [6000, 8000]) # resonance 0.1
+    # lpf (choose [6000, 8000]) # resonance 0.7
     # room 0.5 # size 0.9
 
 d2
   $ jux (("[7, 3]"/14)<~) 
   $ s "fb(3, 14, 5)"
-  -- # n "<0..3>*9"
+-- # n "<0..3>*9"
   # gain "<1.3 0.9>*16"
   -- # delay 0.1 # delaytime "<0.02 0.01 0.005>*8" # delayfeedback 0.7
 
@@ -234,7 +232,7 @@ do
     $ stack
     [
       s "superwho(9, 14)" # note "a6'sus2"
-      , s "superwho(9, 14, 5)" # note "a7'sus2"
+      , s "superwho(9, 14, 5)" # note "a7'sus4"
     ]
     |+ note (-0.398)
     # lfo (range 800 8000 $ rand) # resonance "0.2"
@@ -253,12 +251,12 @@ do
     # td_s (choose([34..40]))
     # td_fx (choose[0..8])
   d6
-    -- $ sometimesBy 0.4 (jux (rev))
+    $ sometimesBy 0.4 (jux (rev))
     $ s "hasu(5, 14)"
     |+ note 1.602
     # n (choose [0..13])
     # room 0.5 # size 0.9
-    # gain 1.0
+    # gain 1.3
 
 d7
   $ jux ((5/14)<~)  
