@@ -21,7 +21,7 @@ let
 
 d1
   -- $ sometimesBy 0.3 (chop (irand 32))
-  -- $ sometimesBy 0.5 (jux (iter 16))
+  $ sometimesBy 0.5 (jux (iter 16))
   $ sometimesBy 0.7 (fast 2)
   $ s "carrier(3, 8, 5)"
   -- # speed (choose[1.0, 1.5, 0.75, 2.0, 0.5])
@@ -38,6 +38,8 @@ d2
 d3
   $ s "uni(3, 8)"
   # gain 1.2
+
+unsolo 3  
 
 d4
   -- $ sometimesBy 0.3 (chop (irand 128))
@@ -98,12 +100,14 @@ let
 
 setcps(80/240)
 
+hush
+
 do
   -- resetCycles
   -- let scl = "[kotsu ichi ku bo otsu ge ju soju bi gyo hi]/11"
   -- let scl = (choose["kotsu", "ichi", "ku", "bo", "otsu", "ge", "ju", "soju", "bi", "gyo", "hi"])
   -- let scl = (choose["kotsu", "gyo", "ku", "soju"])
-  let scl = "gyo"
+  -- let scl = "gyo"
   d1
     -- $ jux(rev)
     $ s "superhammond(3, 14, [0, 17])"
@@ -131,7 +135,6 @@ do
     # pan (rand)
     # voice 0
     # gain (range 1.0 1.4 $ rand)
-
   d3
     $ slow 2
     $ sometimesBy 0.2 (fast 4)
