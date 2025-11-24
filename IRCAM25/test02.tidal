@@ -20,9 +20,10 @@ unsolo 1
 
 do
   -- resetCycles
-  setcps(100/240)
-  -- let scl = "<bo ichi otsu otsu bo [soju ge] otsu otsu ichi [ichi kotsu] ichi otsu ju [ichi kotsu] otsu otsu otsu otsu ge kotsu [ichi ku] [ku ichi] kotsu kotsu>/2"
-  let scl = "otsu"
+  -- hush
+  -- setcps(100/240)
+  let scl = "<bo ichi otsu otsu bo [soju ge] otsu otsu ichi [ichi kotsu] ichi otsu ju [ichi kotsu] otsu otsu otsu otsu ge kotsu [ichi ku] [ku ichi] kotsu kotsu>/2"
+  -- let scl = "otsu"
   d1
     $ slow 2
     -- $ n "<1 1 1 1 1 [1 1] 1 1>"
@@ -34,31 +35,30 @@ do
     -- |+ note "[0, 12]"
     -- |+ note "[-0.04, 0.04]" 
     -- # attack 1.0 # hold 2 # release 1.0
-    # leslie 0.5 # lrate 0.15 # lsize 0.8
+    -- # leslie 0.5 # lrate 0.15 # lsize 0.8
     # attack 2 # release 4 # lock 1 # legato 4.0
     -- # room 0.8 # size 0.8
     -- # pan (rand)
     # voice 3
-    # gain 1.0
+    # gain 0.9
   d2  
-    $ slow 2
-    $ sometimesBy 0.5 (fast 2)
+    -- $ slow 2
+    $ sometimesBy 0.2 (fast 2)
     -- $ jux (("[5, 10]"/7)~>)
     $ s "superhammond(3, 7, [0, 5])"
     |+ note (scale scl "[0, 1, 2, 3, 4, 5]")
     |+ note (-0.398)    
     -- # legato 1.0
-    # leslie 0.5 # lrate 0.15 # lsize 0.8
+    -- # leslie 0.5 # lrate 0.15 # lsize 0.8
     -- # room 0.2 # size 0.9
     # pan (rand)
     # voice 3
-    # gain 1.0  
+    # gain 0.9  
   d3
     $ sometimesBy 0.4 (fast 2)
     $ jux (("[4, 9]"/7)~>)
-    $ s "superrhodes(5, 7, [0, 8])"
+    $ s "superrhodes(5, 7, [0, 5])"
     |+ note (scale scl (choose[0..5]))
-    -- |+ note "[12, 0]"
     |+ note (-0.398)
     |+ note "[-0.04, 0.04]"
     -- # legato 1.5
@@ -192,7 +192,7 @@ do
     -- |+ note "[-12, <0 -5 -7>/4]"
     # legato 0.5
     # delay 0.5 # delaytime ("[5, 3]"/14) # delayfeedback 0.5 # lock 1
-    # lpf (choose [6000, 8000]) # resonance 0.7
+    # lpf (choose [6000, 8000]) # resonance 0.5
     # room 0.5 # size 0.9
 
 d2
@@ -241,8 +241,8 @@ do
     # gain 0.8
   
 d3
-  $ sometimesBy 0.4 (jux (rev))
-  $ s "ifdrums(11, 14)"
+  $ sometimesBy 0.3 (jux (rev))
+  $ s "ifdrums(9, 14)"
   # n (irand 3)  
   # gain (range 1.0 1.7 $ rand)
 
@@ -252,11 +252,12 @@ do
     # td_s (choose([34..40]))
     # td_fx (choose[0..8])
   d6
+    $ jux (iter 14)
     $ sometimesBy 0.4 (jux (rev))
     $ s "hasu(5, 14)"
     |+ note 1.602
-    |+ note 0
-    # n (choose [0..13])
+    |+ note 12
+    # n (choose [4..13])
     # room 0.5 # size 0.9
     # gain 1.3
 
