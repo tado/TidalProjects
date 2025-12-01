@@ -1,5 +1,12 @@
 hush
 
+do
+  setcps(100/240)
+  d12
+    $ s "none*4" 
+    # td_s 0
+    # td_fx 0
+
 let
   scale = getScale
     (scaleTable ++ [
@@ -42,40 +49,38 @@ do
   -- let scl = "otsu"
   d12    
     $ s "none*7"
-    # td_s "4 5"
+    # td_s "5"
+    -- # td_s (choose[1..7])
     # td_fx 0
     -- # td_fx (choose[1..5])
   d1
-    -- $ jux ((9/14)~>)
-    -- $ jux (rev)
+    $ jux ((3/14)~>)
+    $ jux (rev)
     $ n "1"
     -- $ n "1(3, 7)"
     # s "superhammond"    
+    # att 2 # release 2 # legato 4
     |+ note (-0.398)
     |+ note (scale scl "[0, 1, 2, 3, 4, 5]")
     -- |+ note "0 12"
     -- # lpf (range 200 2000 $ rand) # resonance 0.2
-    # att 2 # release 2 # legato 4
     # voice 3
     -- # delay 0.75 # delaytime (9/14) # delayfeedback 0.1 #lock 1
-    # room 0.3 # size 0.95
+    # room 0.5 # size 0.95
     # gain 0.8
   
   d2
-    $ jux ((3/14)~>)
-    -- $ jux (iter 14)
-    $ s "superhammond(11, 14)"    
+    $ jux (("[3, 5]"/14)~>)
+    $ s "superwho(5, 14)"    
     |+ note (scale scl (choose[0..5]))
     |+ note (-0.398)
-    |+ note "<12 24 36>*7"
+    -- |+ note "<0 12 -12>*7"
     |+ note "[-0.04, 0.04]"
-    |- note (choose[0, 12, 24])
     # pan (rand)
-    # voice 0
-    # room 0.5 # size 0.9
-    # legato 0.8
-    -- # delay 1.0 # delaytime (9/14) # delayfeedback 0.2 #lock 1
-    # gain 0.8  
+    # room 0.2 # size 0.9
+    # legato 1
+    # lpf (range 800 4000 $ rand) # resonance 0.2
+    # gain 0.0
   
   d3
     $ slow 2
@@ -90,7 +95,7 @@ do
     # release 0.0
     -- # leslie 0.5 # lrate 0.2 # lsize 0.8
     -- # room 0.1 # size 0.9
-    # gain 1.2   
+    # gain 1.2
   
   d4
     $ sometimesBy 0.4 (rev)
