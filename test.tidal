@@ -1,5 +1,8 @@
 hush
 
+d1 $ s "cp*4"
+
+
 setcps(130/240)
 
 let
