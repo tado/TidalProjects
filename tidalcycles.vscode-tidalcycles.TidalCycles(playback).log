@@ -1,0 +1,24 @@
+2026-02-22 10:03:37.879 [info] Custom Tidal boot path is not configured
+
+2026-02-22 10:03:37.879 [info] Local Tidal boot file was found: c:\Users\tadok\Documents\GitHub\TidalProjects\BootTidal.hs
+2026-02-22 10:03:37.879 [info] custom GHCI base path configured at ghci
+2026-02-22 10:03:37.879 [info] GHCI path: ghci
+2026-02-22 10:03:37.879 [info] Tidal boot path: c:\Users\tadok\Documents\GitHub\TidalProjects\BootTidal.hs
+2026-02-22 10:03:38.603 [info] t>  
+2026-02-22 10:03:42.277 [info] t>  ghci> ghci>
+2026-02-22 10:03:43.536 [info] t>  [TidalCycles version 1.10.0]
+Installed in C:\cabal\x86_64-windows-ghc-9.6.1\tidal-1.10.0
+Listening for external controls on 127.0.0.1:6010
+Connected to SuperDirt.
+ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci| ghci|
+2026-02-22 10:03:43.740 [info] t>  ghci| ghci| ghci| ghci| ghci| ghci| ghci|                
+2026-02-22 10:03:53.396 [info] t>  
+2026-02-22 10:04:02.562 [info] t>  
+2026-02-22 10:04:08.069 [info] t>  
+2026-02-22 10:04:23.910 [info] t>  
+2026-02-22 10:04:28.372 [info] t>  
+2026-02-22 10:04:36.723 [info] t>  
+2026-02-22 10:04:44.309 [info] t>  
+2026-02-22 10:05:01.857 [info] t>  
+2026-02-22 10:05:09.610 [info] t>  
+2026-02-22 10:05:13.813 [info] t>  
