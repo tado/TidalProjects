@@ -1,9 +1,11 @@
 hush
 
-d1 $ s "cp*4"
+setcps(135/240)
 
-
-setcps(130/240)
+d1
+  $ s "uni(3, 8), uni:1(4, 8, 3), 909:3(3, 8, 1), fell2:5(3, 8, 3)"
+  # delay 0.5 # delaytime ("[8, 13]"/16) # lock 1
+  # delayfeedback 0.2
 
 let
   scale = getScale
