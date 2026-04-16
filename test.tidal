@@ -1,11 +1,46 @@
 hush
 
-setcps(135/240)
+setcps(140/240)
 
 d1
-  $ s "uni(3, 8), uni:1(4, 8, 3), 909:3(3, 8, 1), fell2:5(3, 8, 3)"
-  # delay 0.5 # delaytime ("[8, 13]"/16) # lock 1
-  # delayfeedback 0.2
+  $ jux (("[5, 7]"/14)<~)
+  $ s "superbass(5, 14)"
+  # note "c4 c5"
+  |+ note "c'min9"
+  |+ note "[0, 12]"
+  |* note "[1.0, 1.01]"
+  # lpf (range 400 20000 $ slow 8 $ sine) # resonance 0.2
+  -- # delay 0.5 # delaytime ("[13, 0, 11]"/14) # delayfeedback 0.2 # lock 1
+  # room 0.2 # size 0.9
+  # gain 0.7
+  
+d2
+  -- $ jux ((5/14)~>)
+  -- $ s "uni(2, 7), uni:1(4, 7, 1), 808:1(5, 7), bd"
+  $ s "gabba(2, 7), uni:1(9, 14, 1), hc(9, 14, 5), uni"
+  -- # legato 1.0
+  -- # delay 0.5 # delaytime (11/7) # lock 1 # delayfeedback 0.1
+  -- # shape 0.4
+  # gain 1.8
+
+d3
+  $ jux (("[9, 11]"/14)<~)
+  $ s "supermoog(9, 14)"
+  # note "c3"
+  |+ note (scale "yu" "{0..12}%11")
+  # lpf (range 800 20000 $ slow 3 $ sine) # resonance 0.3
+  # legato 1.2
+  -- # delay 0.9 # delaytime ("[15, 5]"/7) # lock 1 # delayfeedback 0.3
+  # room 0.2 # size 0.9
+  # gain 1.0
+
+d4
+  $ jux (("[3, 0, 9]"/14)~>)
+  $ s "arpy(9, 14)"
+  # lpf (range 1000 12000 $ slow 15 $ sine) # resonance 0.3
+  # n (irand 20)
+  # room 0.2 # size 0.9
+  # gain 1.0
 
 let
   scale = getScale
