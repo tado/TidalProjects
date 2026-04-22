@@ -2,43 +2,74 @@ hush
 
 setcps(140/240)
 
+unsolo 1
+
+d1
+  $ jux (("[3, 11, 9]"/14)~>)
+  $ stack[
+    s "uni(2, 7)" # gain 1.7 # legato 0.6,
+    s "uni:1(5, 14, 3)" # gain 0.7, 
+    s "hc(9, 14, 1)" # gain 0.7 # legato 0.3
+  ]
+  -- # delay 0.5 # delaytime ("[5, 9]"/14) # delayfeedback 0.5 # lock 1
+  |* gain 1.7
+
+d2
+  -- $ jux (("[7, 9]"/14)~>)
+  $ s "supersaw(9, 14)"
+  # note "c4"
+  |* note "[1.0, 1.005]"
+  |+ note "<0 12>*4"
+  |+ note "c'sus4"
+  # lpf (range 200 8000 $ rand) # resonance 0.3
+
+ d3
+  $ s "supermoog(3, 14, [0, 2])"
+  # note "c2"
+  |+ note (scale "majPent" "{0..12}%5")
+  # lpf (range 200 8000 $ rand) # resonance 0.4
+
 do
   let shift = 0
   d1
-    $ jux (("[5, 7, 3]"/14)<~)
-    $ s "superhammond(3, 14, <0..13>/16)"
+    $ jux (("[5, 9]"/14)~>)
+    $ s "superhammond(5, 14, <0..14>/7)"
+    -- $ s "superhammond(5, 14)"
     # voice 7
-    # note "c5"
-    |+ note "<c'sus2 c'sus4>*14"
+    # note "c6"
+    |+ note "<c'sus2 c'sus4>*7"
     |+ note "[0, 12]"
-    |* note "[1.0, 1.005]"
+    |* note "[1.0, 1.006]"
     |+ note shift
-    # lpf (range 2000 20000 $ slow 8 $ sine) # resonance 0.3
-    # legato 1.0
-    # room 0.3 # size 0.9
-    # gain 1.0
+    # lpf (range 4000 8000 $ slow 2 $ sine) # resonance 0.3
+    # room 0.5 # size 0.8
+    # gain 0.7
   d2
-    $ jux (("[9, 3]"/14)<~)
-    $ s "uni(2, 7), uni:1(5, 14, 1), 909(3, 14, 5)"
-    # gain 1.8
+    $ jux (("[3, 5]"/14)~>)
+    $ stack[
+      s "uni(2, 7)" # gain 1.7 # legato 0.6,
+      s "uni:1(5, 14, 3)" # gain 0.7, 
+      s "hc(6, 14, 1)" # gain 0.7 # legato 0.3
+    ] 
+    |* gain 1.5
   d3
-    $ jux (("[9, 11]"/14)<~)
-    $ s "supermoog(9, 14)"
+    $ jux (("[2, 8]"/14)~>)
+    $ s "supermoog(11, 14)"
     # note "c2"
-    |+ note (scale "yu" "{0..12}%11")
+    |+ note (scale "ionian" "{0..19}%3")
     |+ note shift
-    # lpf (range 800 20000 $ slow 3 $ sine) # resonance 0.3
-    # legato 1.2
-    # room 0.2 # size 0.9
-    # gain 1.0    
+    # lpf (range 800 20000 $ rand) # resonance 0.3
+    -- # legato 1.2
+    -- # room 0.2 # size 0.9
+    # gain 1.0   
   d4
-    $ jux (("[3, 0, 9]"/14)~>)
+    $ jux (("[3, 9]"/14)~>)
     $ s "arpy(9, 14)"
     |+ note shift
     # lpf (range 1000 12000 $ slow 15 $ sine) # resonance 0.3
     # n (irand 20)
-    # room 0.2 # size 0.9
-    # gain 1.0
+    -- # room 0.2 # size 0.9
+    # gain 0.8
 
 let
   scale = getScale
