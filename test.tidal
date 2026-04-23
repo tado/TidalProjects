@@ -5,25 +5,36 @@ setcps(140/240)
 unsolo 1
 
 d1
+  $ s "superpwm"
+  # note "c5"
+  |+ note "c'maj13"
+  # legato "0.5"
+  |+ note "[0, -12, 12]"
+  |* note "[1.0, 1.01]"
+  -- # lpf (range 400 8000 $ slow 16 $ sine) # resonance 0.1
+  # room 0.3 # size 0.95
+
+
+d2
   $ jux (("[3, 11, 9]"/14)~>)
   $ stack[
-    s "uni(2, 7)" # gain 1.7 # legato 0.6,
+    s "uni(2, 7)" # gain 2.0 # legato 0.6,
     s "uni:1(5, 14, 3)" # gain 0.7, 
     s "hc(9, 14, 1)" # gain 0.7 # legato 0.3
   ]
   -- # delay 0.5 # delaytime ("[5, 9]"/14) # delayfeedback 0.5 # lock 1
   |* gain 1.7
 
-d2
-  -- $ jux (("[7, 9]"/14)~>)
-  $ s "supersaw(9, 14)"
+d3
+  $ jux (("[7, 9]"/14)~>)
+  $ s "supersin(9, 14)"
   # note "c4"
   |* note "[1.0, 1.005]"
   |+ note "<0 12>*4"
-  |+ note "c'sus4"
+  |+ note "c'sus2"
   # lpf (range 200 8000 $ rand) # resonance 0.3
 
- d3
+ d4
   $ s "supermoog(3, 14, [0, 2])"
   # note "c2"
   |+ note (scale "majPent" "{0..12}%5")
