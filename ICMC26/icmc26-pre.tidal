@@ -28,12 +28,12 @@ do
     $ s "superfm"
     # legato iki
     |+ note (-0.398)
-    |+ note "[0, 12]"
+    |+ note "[12]"
     |+ note (scale scl "0,1,2,3,4")
     |+ note "[-0.01, 0.01]"
     # voice 3
     # room 0.5 # size 0.98
-    # gain 1.0
+    # gain 1.0 
   d2
     -- $ sometimesBy 0.7 (brak)
     $ jux (iter 14)
@@ -55,9 +55,9 @@ do
     |+ note "[0, 12, 24]"
     # legato 1.0
     # voice 5
-    # leslie 1.0 # lsize "[0.07, 0.1]"
-    # room 0.3 # size 0.95
-    # gain 0.6
+    -- # leslie 1.0 # lsize "[0.07, 0.1]"
+    # room 0.2 # size 0.95
+    # gain 0.7  
   d4
     $ slow 2
     $ s "supermoog(3, 7)"
@@ -68,7 +68,7 @@ do
     # lpf (range 100 2000 $ rand) # resonance 0.3
     # attack 3.0 # legato 4.0 # release 0.01
     -- # room 0.2 # size 0.9
-    # gain 1.4
+    # gain 1.4  
   d5
     $ sometimesBy 0.4 (rev)
     $ sometimesBy 0.6 (fast 2)
@@ -95,14 +95,14 @@ d7
   $ s "supersawfbk"
   # note "c2"
   |+ note (-0.398)
-  # rq 0.5
+  # rq 0.9
   # legato 2.0
-  # wet 2.0
-  # room 0.1 # size 0.9
+  # wet 0.0
+  # room 0.1 # size 0.95
   -- # tremolodepth 0.9 # tremolorate 4
-  # enhance 0.9
-  # shape 0.8
-  # gain 2.0
+  -- # enhance 0.9
+  -- # shape 0.8
+  # gain 1.8
 
 hush
 
