@@ -21,7 +21,7 @@ do
     # gain 1.0
     
 
---- Sho Scale
+--- Sho "Aitake"
 let
   scale = getScale
     (scaleTable ++ [
@@ -44,29 +44,22 @@ do
   setcps(80/240)
   let scl = "<bo ichi otsu otsu bo [ju ge] otsu otsu ichi [ichi kotsu] ichi otsu ju [ichi kotsu] otsu otsu otsu otsu ge kotsu [ichi ku] [ku ichi] kotsu kotsu>/2"
   let iki = 2
-  d12    
-    $ s "none(5, 14)"
-    # td_s 5
-    -- # td_s (choose[1..7])
-    # td_fx 0
-    -- # td_fx (choose[1..5])
   d1
-    $ slow iki
+    $ slow iki 
     $ s "superfm"
     # legato iki
-    |+ note 12
     |+ note (-0.398)
-    |+ note (scale scl "0,1,2,3,4,5")
-    -- |+ note "[-0.04, 0.04]"
-    -- # lpf (range 200 2000 $ rand) # resonance 0.2
-    # voice 1
-    # room 0.8 # size 0.5
-    # gain 0.7
+    |+ note "[0, 12]"
+    |+ note (scale scl "0,1,2,3,4")
+    |+ note "[-0.01, 0.01]"
+    # voice 3
+    # room 0.5 # size 0.98
+    # gain 1.0
   d2
-    $ sometimesBy 0.7 (brak)
-    $ jux (rev)
+    -- $ sometimesBy 0.7 (brak)
+    $ jux (iter 14)
     $ jux ((9/14)~>)
-    $ s "superfork(3, 14)"
+    $ s "superfork(5, 14)"
     |+ note (scale scl (choose[8..15]))
     |+ note (-0.398)    
     |+ note "<0 12 -12>*7"
@@ -76,22 +69,21 @@ do
     # legato 8
     # gain 1.0
   d3
-    -- $ jux (iter 14)
-    $ jux (rev)
-    $ s "superhammond(6, 14)"
+    $ jux (iter 14)
+    $ s "superhammond(9, 14)"
     |+ note (-0.398)
-    |+ note (scale scl "0, 5, 6, 7, 8, 15")
-    # legato 1
+    |+ note (scale scl "0, 1, 2, 3, 4")
+    |+ note "[0, 12, 24]"
+    # legato 1.0
     # voice 5
-    # leslie 1.0 # lsize 0.12
-    -- # delay 1.0 # delaytime ("[9, 5]"/14) # delayfeedback 0.5 # lock 1
-    # room 0.3 # size 0.9
-    # gain 0.7    
+    # leslie 1.0 # lsize "[0.07, 0.1]"
+    # room 0.3 # size 0.95
+    # gain 0.6
   d4
     $ slow 2
     $ s "supermoog(3, 7)"
     |+ note (-0.398)
-    |+ note (scale scl (choose[0..5]))
+    |+ note (scale scl (choose[0..3]))
     |- note 36
     |+ note "[-0.04, 0.04]"
     # lpf (range 100 2000 $ rand) # resonance 0.3
@@ -106,17 +98,19 @@ do
       s "uni:1(4, 7, 1)"
       , s "uni(3, 7)" # gain 1.2
     ]
-    |* gain 1.4
+    |* gain 1.5
   d6
     $ sometimesBy 0.4 (rev)
     $ sometimesBy 0.6 (fast 2)
-    $ s "superzow(3, 7)"
-    |+ note "c3"
+    $ s "superbass(3, 7)"
+    |+ note "c2"
     |+ note (-0.398)
     |+ note (scale scl (choose[0]))
     |+ note "[-0.04, 0.04]"
-    # lpf (range 400 2000 $ slow 4 $ sine) # resonance 0.2
-    # gain 1.4
+    # lpf (range 400 1000 $ slow 4 $ sine) # resonance 0.1
+    # gain 1.5
+
+unsolo 1
 
 
 do
