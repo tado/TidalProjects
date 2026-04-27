@@ -91,3 +91,6 @@ let fhigh = pI "fhigh"
 let distort = pF "distort"
 let rq = pF "rq"
 let wet = pF "wet"
+
+-- for aitake
+let freq = pF "freq"

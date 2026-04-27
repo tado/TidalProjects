@@ -46,7 +46,7 @@ do
     # pan (rand)
     # room 0.5 # size 0.7
     # legato 8
-    # gain 1.0
+    # gain 1.0  
   d3
     $ jux (iter 14)
     $ s "superhammond(9, 14)"
@@ -57,7 +57,7 @@ do
     # voice 5
     -- # leslie 1.0 # lsize "[0.07, 0.1]"
     # room 0.2 # size 0.95
-    # gain 0.7  
+    # gain 0.75  
   d4
     $ slow 2
     $ s "supermoog(3, 7)"
@@ -95,13 +95,13 @@ d7
   $ s "supersawfbk"
   # note "c2"
   |+ note (-0.398)
-  # rq 0.9
-  # legato 2.0
-  # wet 0.0
+  # rq 0.3
+  # legato 4.0
+  # wet 2.0
   # room 0.1 # size 0.95
   -- # tremolodepth 0.9 # tremolorate 4
-  -- # enhance 0.9
-  -- # shape 0.8
+  # enhance 0.9
+  # shape 0.8
   # gain 1.8
 
 hush
