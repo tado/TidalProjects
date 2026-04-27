@@ -18,8 +18,8 @@ let
     ])
 
 do
-  resetCycles
-  hush
+  -- resetCycles
+  -- hush
   setcps(80/240)
   let aitakescl = "<bo ichi otsu otsu bo [ju ge] otsu otsu ichi [ichi kotsu] ichi otsu ju [ichi kotsu] otsu otsu otsu otsu ge kotsu [ichi ku] [ku ichi] kotsu kotsu>/4"
   let kotsu = "[430.0, 645.0, 860.0, 967.5, 1290.0, 1451.2]"
@@ -55,7 +55,7 @@ do
     # gain 1.0
   d3
     -- $ jux (iter 14)
-    $ sometimesBy 0.4 (brak)
+    $ sometimesBy 0.6 (brak)
     $ s "superhammond(9, 14)"
     # freq aitake
     |* freq "[2.0, 1.0, 4.0]"
