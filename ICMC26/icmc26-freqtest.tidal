@@ -18,7 +18,7 @@ let
     ])
 
 do
-  -- resetCycles
+  resetCycles
   hush
   setcps(80/240)
   let aitakescl = "<bo ichi otsu otsu bo [ju ge] otsu otsu ichi [ichi kotsu] ichi otsu ju [ichi kotsu] otsu otsu otsu otsu ge kotsu [ichi ku] [ku ichi] kotsu kotsu>/4"
@@ -61,7 +61,7 @@ do
     |* freq "[2.0, 1.0, 4.0]"
     # voice 5
     # room 0.2 # size 0.9
-    # gain 0.8
+    # gain 0.75  
   d4
     $ slow 2
     $ s "supermoog(3, 7)"    
@@ -72,7 +72,7 @@ do
     # lpf (range 100 2000 $ rand) # resonance 0.3
     # attack 3.0 # legato 4.0 # release 0.01
     -- # room 0.2 # size 0.9
-    # gain 1.2  
+    # gain 1.2
   d5
     $ sometimesBy 0.4 (rev)
     $ sometimesBy 0.6 (fast 2)
@@ -98,17 +98,14 @@ d7
   $ s "supersawfbk"
   # note "e2"
   |+ note (-0.398)
-  # rq 0.3
+  # rq 0.9
   # legato 2.0
-  # wet 4.0
+  # wet 0.0
   # room 0.2 # size 0.9
   -- # tremolodepth 0.9 # tremolorate 4
-  # enhance 0.9
+  -- # enhance 0.9
   -- # shape 0.9
   # gain 2.0
-    
-d7 silence    
-
-unsolo 1
+   
 
 hush
