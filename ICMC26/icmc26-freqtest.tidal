@@ -19,7 +19,7 @@ let
 
 do
   -- resetCycles
-  -- hush
+  hush
   setcps(80/240)
   let aitakescl = "<bo ichi otsu otsu bo [ju ge] otsu otsu ichi [ichi kotsu] ichi otsu ju [ichi kotsu] otsu otsu otsu otsu ge kotsu [ichi ku] [ku ichi] kotsu kotsu>/4"
   let kotsu = "[430.0, 645.0, 860.0, 967.5, 1290.0, 1451.2]"
@@ -38,30 +38,31 @@ do
     $ s "sho/2"
     # voice 3
     # freq aitake
-    # legato 1.75
+    # legato 1.8
     # room 0.2 # size 0.9
-    # gain 1.0
+    # gain 1.0 
   d2
-    -- $ sometimesBy 0.7 (brak)
-    $ jux (iter 14)
-    $ jux ((9/14)~>)
+    $ jux (iter 28)
+    -- $ jux (rev)
+    $ sometimesBy 0.6 (brak)
+    $ s "superhammond(5, 14)"
+    # freq aitake
+    |* freq "[1.0, 4.0]"
+    # voice 5
+    # room 0.2 # size 0.9
+    # gain 0.9
+  d3
+    $ jux (iter 28)
+    $ jux ((30/28)~>)
+    $ sometimesBy 0.7 (brak)
     $ s "superfork(5, 14)"
     |+ note (scale aitakescl (choose[8..15]))
-    |+ note "<0 12>*7"
+    |+ note "<0 12>*14"
     |+ note "[-0.01, 0.01]"    
     # pan (rand)
     # room 0.5 # size 0.9
     # legato 8
-    # gain 1.0
-  d3
-    -- $ jux (iter 14)
-    $ sometimesBy 0.6 (brak)
-    $ s "superhammond(9, 14)"
-    # freq aitake
-    |* freq "[2.0, 1.0, 4.0]"
-    # voice 5
-    # room 0.2 # size 0.9
-    # gain 0.75  
+    # gain 1.3
   d4
     $ slow 2
     $ s "supermoog(3, 7)"    
@@ -72,7 +73,7 @@ do
     # lpf (range 100 2000 $ rand) # resonance 0.3
     # attack 3.0 # legato 4.0 # release 0.01
     -- # room 0.2 # size 0.9
-    # gain 1.2
+    # gain 1.4
   d5
     $ sometimesBy 0.4 (rev)
     $ sometimesBy 0.6 (fast 2)
@@ -80,9 +81,9 @@ do
     [
       s "uni:1(4, 7, 1)"
       , s "hc:(5, 7, 2)"
-      , s "uni(3, 7)" # gain 1.2
+      , s "uni(3, 7)" # gain 1.5
     ]
-    |* gain 1.2  
+    |* gain 1.5
   d6
     $ sometimesBy 0.4 (rev)
     $ sometimesBy 0.6 (fast 2)
@@ -93,7 +94,7 @@ do
     |+ note "[-0.02, 0.02]"
     # lpf (range 400 4000 $ rand) # resonance 0.1
     # gain 1.0
-  
+
 d7
   $ s "supersawfbk"
   # note "e2"
