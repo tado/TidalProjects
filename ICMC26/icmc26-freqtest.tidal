@@ -35,7 +35,7 @@ do
   let hi = "[860.0, 967.5, 1019.3, 1146.7, 1290.0, 1451.2]"
   let aitake = (parseBP_E $ "<" ++ bo ++ " " ++ ichi ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ bo ++" [" ++ ju ++ " " ++ ge ++ "]" ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ ichi ++ " [" ++ ichi ++ " " ++ kotsu ++ "]" ++ " " ++ ichi ++ " " ++ otsu ++ " " ++ ju ++ " [" ++ ichi ++ " " ++ kotsu ++ "]" ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ ge ++ " " ++ kotsu ++ " [" ++ ichi ++ " " ++ ku ++ "] [" ++ ku ++ " " ++ ichi ++ "]" ++ " " ++ kotsu ++ " " ++ kotsu ++ ">/4") :: Pattern Double
   d1
-    $ s "sho"
+    $ s "sho/2"
     # voice 3
     # freq aitake
     # legato 1.75
@@ -54,14 +54,14 @@ do
     # legato 8
     # gain 1.0
   d3
-    $ jux (iter 14)
-    $ sometimesBy 0.1 (brak)
-    $ s "superhammond(8, 14)"
+    -- $ jux (iter 14)
+    $ sometimesBy 0.4 (brak)
+    $ s "superhammond(9, 14)"
     # freq aitake
-    |* freq "[1.0, 2.0, 4.0]"
+    |* freq "[2.0, 1.0, 4.0]"
     # voice 5
     # room 0.2 # size 0.9
-    # gain 0.7
+    # gain 0.8
   d4
     $ slow 2
     $ s "supermoog(3, 7)"    
