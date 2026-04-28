@@ -1,6 +1,7 @@
 hush
 
 let
+  -- Define freq list of Aitake as Scale
   hz2note f = 12 * logBase 2 (f / 430.0) - 3.398
   scale = getScale
     (scaleTable ++ [
@@ -21,7 +22,9 @@ do
   -- resetCycles
   hush
   setcps(80/240)
-  let aitakescl = "<bo ichi otsu otsu bo [ju ge] otsu otsu ichi [ichi kotsu] ichi otsu ju [ichi kotsu] otsu otsu otsu otsu ge kotsu [ichi ku] [ku ichi] kotsu kotsu>/4"
+  -- Scale sequence of Etenraku
+  let etenScale = "<bo ichi otsu otsu bo [ju ge] otsu otsu ichi [ichi kotsu] ichi otsu ju [ichi kotsu] otsu otsu otsu otsu ge kotsu [ichi ku] [ku ichi] kotsu kotsu>/4"
+  -- Define freqency list of Aitake
   let kotsu = "[430.0, 645.0, 860.0, 967.5, 1290.0, 1451.2]"
   let ichi = "[483.8, 573.3, 645.0, 860.0, 967.5, 1451.2]"
   let ku = "[544.2, 573.3, 645.0, 816.3, 860.0, 967.5]"
@@ -33,20 +36,21 @@ do
   let bi = "[816.3, 860.0, 967.5, 1019.3, 1146.7, 1451.2]"
   let gyo = "[860.0, 967.5, 1146.7, 1290.0, 1451.2]"
   let hi = "[860.0, 967.5, 1019.3, 1146.7, 1290.0, 1451.2]"
-  let aitake = (parseBP_E $ "<" ++ bo ++ " " ++ ichi ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ bo ++" [" ++ ju ++ " " ++ ge ++ "]" ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ ichi ++ " [" ++ ichi ++ " " ++ kotsu ++ "]" ++ " " ++ ichi ++ " " ++ otsu ++ " " ++ ju ++ " [" ++ ichi ++ " " ++ kotsu ++ "]" ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ ge ++ " " ++ kotsu ++ " [" ++ ichi ++ " " ++ ku ++ "] [" ++ ku ++ " " ++ ichi ++ "]" ++ " " ++ kotsu ++ " " ++ kotsu ++ ">/4") :: Pattern Double
+  -- Chord sequence of Etenraku
+  let eten = (parseBP_E $ "<" ++ bo ++ " " ++ ichi ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ bo ++" [" ++ ju ++ " " ++ ge ++ "]" ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ ichi ++ " [" ++ ichi ++ " " ++ kotsu ++ "]" ++ " " ++ ichi ++ " " ++ otsu ++ " " ++ ju ++ " [" ++ ichi ++ " " ++ kotsu ++ "]" ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ ge ++ " " ++ kotsu ++ " [" ++ ichi ++ " " ++ ku ++ "] [" ++ ku ++ " " ++ ichi ++ "]" ++ " " ++ kotsu ++ " " ++ kotsu ++ ">/4") :: Pattern Double
   d1
     $ s "sho/2"
     # voice 3
-    # freq aitake
+    # freq eten
     # legato 1.8
     # room 0.2 # size 0.9
-    # gain 1.0 
+    # gain 1.0  
   d2
-    $ jux (iter 28)
+    -- $ jux (iter 28)
     -- $ jux (rev)
     $ sometimesBy 0.6 (brak)
     $ s "superhammond(5, 14)"
-    # freq aitake
+    # freq eten
     |* freq "[1.0, 4.0]"
     # voice 5
     # room 0.2 # size 0.9
@@ -56,33 +60,33 @@ do
     $ jux ((30/28)~>)
     $ sometimesBy 0.7 (brak)
     $ s "superfork(5, 14)"
-    |+ note (scale aitakescl (choose[8..15]))
+    |+ note (scale etenScale (choose[8..15]))
     |+ note "<0 12>*14"
     |+ note "[-0.01, 0.01]"    
     # pan (rand)
     # room 0.5 # size 0.9
     # legato 8
-    # gain 1.3
+    # gain 1.3  
   d4
     $ slow 2
     $ s "supermoog(3, 7)"    
     # note "c2"
-    |+ note (scale aitakescl (choose[0..4]))
-    -- |- note 36
+    |+ note (scale etenScale (choose[0..4]))
     |+ note "[-0.04, 0.04]"
     # lpf (range 100 2000 $ rand) # resonance 0.3
     # attack 3.0 # legato 4.0 # release 0.01
-    -- # room 0.2 # size 0.9
     # gain 1.4
   d5
     $ sometimesBy 0.4 (rev)
     $ sometimesBy 0.6 (fast 2)
     $ stack 
     [
-      s "uni:1(4, 7, 1)"
-      , s "hc:(5, 7, 2)"
+      s "uni:1(5, 7, 5)"
+      , s "hc(5, 7, 2)"
+      , s "808(8, 14, 3)" # gain 1.2 # n (irand 20)
       , s "uni(3, 7)" # gain 1.5
     ]
+    -- # delay 0.5 # delaytime ("[5, 3]"/7) # delayfeedback 0.75 # lock 1
     |* gain 1.5
   d6
     $ sometimesBy 0.4 (rev)
@@ -90,9 +94,10 @@ do
     $ s "superbass(3, 7)"
     # legato 2.0
     # note "c2"
-    |+ note (scale aitakescl (choose[0]))
+    |+ note (scale etenScale (choose[0]))
     |+ note "[-0.02, 0.02]"
     # lpf (range 400 4000 $ rand) # resonance 0.1
+    -- # delay 0.5 # delaytime ("[5, 3]"/7) # delayfeedback 0.75 # lock 1
     # gain 1.0
 
 d7
