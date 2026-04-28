@@ -45,6 +45,7 @@ do
     # legato 1.8
     # room 0.2 # size 0.9
     # gain 1.0  
+  
   d2
     -- $ jux (iter 28)
     -- $ jux (rev)
@@ -55,6 +56,7 @@ do
     # voice 5
     # room 0.2 # size 0.9
     # gain 0.9
+  
   d3
     $ jux (iter 28)
     $ jux ((30/28)~>)
