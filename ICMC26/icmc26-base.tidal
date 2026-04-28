@@ -1,5 +1,7 @@
 hush
 
+setcps(80/240)
+
 let
   -- Define freq list of Aitake as Scale
   hz2note f = 12 * logBase 2 (f / 430.0) - 3.398
@@ -36,11 +38,6 @@ let
 let
   etenScale = "<bo ichi otsu otsu bo [ju ge] otsu otsu ichi [ichi kotsu] ichi otsu ju [ichi kotsu] otsu otsu otsu otsu ge kotsu [ichi ku] [ku ichi] kotsu kotsu>/4"
   eten      = (parseBP_E $ "<" ++ bo ++ " " ++ ichi ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ bo ++" [" ++ ju ++ " " ++ ge ++ "]" ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ ichi ++ " [" ++ ichi ++ " " ++ kotsu ++ "]" ++ " " ++ ichi ++ " " ++ otsu ++ " " ++ ju ++ " [" ++ ichi ++ " " ++ kotsu ++ "]" ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ ge ++ " " ++ kotsu ++ " [" ++ ichi ++ " " ++ ku ++ "] [" ++ ku ++ " " ++ ichi ++ "]" ++ " " ++ kotsu ++ " " ++ kotsu ++ ">/4") :: Pattern Double
-
-do
-  hush
-  resetCycles
-  setcps(80/240)
 
 d1
   $ s "sho/2"
@@ -91,7 +88,7 @@ d5
   [
     s "uni:1(5, 7, 5)"
     , s "hc(5, 7, 2)"
-    -- , s "uni(3, 7)" # gain 1.5
+    , s "uni(3, 7)" # gain 1.5
     -- , s "808(8, 14, 3)" # n (irand 20)
     -- , s "ifdrums(11, 14)" # n (irand 4)
   ]
