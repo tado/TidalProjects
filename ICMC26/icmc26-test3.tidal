@@ -50,20 +50,20 @@ d1
   # gain 1.0
 
 d2
-  -- $ jux (iter 28)
+  $ jux (iter 28)
   -- $ jux (rev)
-  -- $ sometimesBy 0.6 (brak)
+  $ sometimesBy 0.4 (brak)
   $ s "superhammond(5, 14)"
   # freq eten
   |* freq "[1.0, 4.0]"
   # voice 5
   # room 0.2 # size 0.9
-  # gain 0.0
+  # gain 0.75
 
 d3
-  -- $ jux (iter 28)
+  $ jux (iter 28)
   -- $ jux ((30/28)~>)
-  -- $ sometimesBy 0.7 (brak)
+  $ sometimesBy 0.7 (brak)
   $ s "superfork(5, 14)"
   |+ note (scale etenScale (choose[8..15]))
   |+ note "<0 12>*14"
@@ -91,8 +91,8 @@ d5
     s "uni:1(5, 7, 5)"
     , s "hc(5, 7, 2)"
     , s "uni(3, 7)" # gain 1.5
-    -- , s "808(8, 14, 3)" # n (irand 20)
-    -- , s "ifdrums(11, 14)" # n (irand 4)
+    , s "808(8, 14, 3)" # n (irand 20)
+    , s "ifdrums(5, 14)" # n (irand 4)
   ]
   -- # delay 0.5 # delaytime ("[5, 3]"/7) # delayfeedback 0.75 # lock 1
   |* gain 1.5
@@ -112,9 +112,9 @@ d6
 d7
   $ s "supersawfbk"
   # note "e2" |+ note (-0.398)
-  # rq 0.9
+  # rq 0.5
   # legato 3.0
-  # wet 0.0
+  # wet 2.0
   # room 0.2 # size 0.9
   -- # tremolodepth 0.9 # tremolorate 7
   -- # enhance 0.9
@@ -124,11 +124,10 @@ d7
 d8
   $ stack
   [
-    s "distd(4, 7)"
+    s "distd(3, 7)"
     , s "fb(9, 14)"
   ]  
   # shape 0.95
-  # gain 1.6
-
+  # gain 1.5
 
 hush
