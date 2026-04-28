@@ -1,0 +1,132 @@
+hush
+
+resetCycles
+
+setcps(80/240)
+
+let
+  -- Define freq list of Aitake as Scale
+  hz2note f = 12 * logBase 2 (f / 430.0) - 3.398
+  scale = getScale
+    (scaleTable ++ [
+      ("kotsu", map hz2note [430.0, 645.0, 860.0, 967.5, 1290.0, 1451.2]),
+      ("ichi",  map hz2note [483.8, 573.3, 645.0, 860.0, 967.5, 1451.2]),
+      ("ku",    map hz2note [544.2, 573.3, 645.0, 816.3, 860.0, 967.5]),
+      ("bo",    map hz2note [573.3, 645.0, 860.0, 967.5, 1290.0, 1451.2]),
+      ("otsu",  map hz2note [645.0, 860.0, 967.5, 1146.7, 1290.0, 1451.2]),
+      ("ge",    map hz2note [725.6, 816.3, 860.0, 967.5, 1146.7, 1451.2]),
+      ("ju",    map hz2note [725.6, 764.4, 860.0, 967.5, 1146.7, 1290.0]),
+      ("soju",  map hz2note [764.4, 860.0, 967.5, 1146.7, 1290.0]),
+      ("bi",    map hz2note [816.3, 860.0, 967.5, 1019.3, 1146.7, 1451.2]),
+      ("gyo",   map hz2note [860.0, 967.5, 1146.7, 1290.0, 1451.2]),
+      ("hi",    map hz2note [860.0, 967.5, 1019.3, 1146.7, 1290.0, 1451.2])
+    ])
+
+-- Define frequency list of Aitake (global) + chord/scale sequences
+let
+  kotsu     = "[430.0, 645.0, 860.0, 967.5, 1290.0, 1451.2]"
+  ichi      = "[483.8, 573.3, 645.0, 860.0, 967.5, 1451.2]"
+  ku        = "[544.2, 573.3, 645.0, 816.3, 860.0, 967.5]"
+  bo        = "[573.3, 645.0, 860.0, 967.5, 1290.0, 1451.2]"
+  otsu      = "[645.0, 860.0, 967.5, 1146.7, 1290.0, 1451.2]"
+  ge        = "[725.6, 816.3, 860.0, 967.5, 1146.7, 1451.2]"
+  ju        = "[725.6, 764.4, 860.0, 967.5, 1146.7, 1290.0]"
+  soju      = "[764.4, 860.0, 967.5, 1146.7, 1290.0]"
+  bi        = "[816.3, 860.0, 967.5, 1019.3, 1146.7, 1451.2]"
+  gyo       = "[860.0, 967.5, 1146.7, 1290.0, 1451.2]"
+  hi        = "[860.0, 967.5, 1019.3, 1146.7, 1290.0, 1451.2]"
+
+-- Chord/scale sequence of Etenraku
+let
+  etenScale = "<bo ichi otsu otsu bo [ju ge] otsu otsu ichi [ichi kotsu] ichi otsu ju [ichi kotsu] otsu otsu otsu otsu ge kotsu [ichi ku] [ku ichi] kotsu kotsu>/2"
+  eten      = (parseBP_E $ "<" ++ bo ++ " " ++ ichi ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ bo ++" [" ++ ju ++ " " ++ ge ++ "]" ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ ichi ++ " [" ++ ichi ++ " " ++ kotsu ++ "]" ++ " " ++ ichi ++ " " ++ otsu ++ " " ++ ju ++ " [" ++ ichi ++ " " ++ kotsu ++ "]" ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ ge ++ " " ++ kotsu ++ " [" ++ ichi ++ " " ++ ku ++ "] [" ++ ku ++ " " ++ ichi ++ "]" ++ " " ++ kotsu ++ " " ++ kotsu ++ ">/2") :: Pattern Double
+
+d1
+  $ s "sho/2"
+  # voice 3
+  # freq eten
+  # legato 1.8
+  # room 0.2 # size 0.9
+  # gain 1.0
+
+d2
+  $ jux (iter 28)
+  $ jux (rev)
+  $ sometimesBy 0.6 (brak)
+  $ s "superhammond(5, 14)"
+  # freq eten
+  |* freq "[1.0, 4.0]"
+  # voice 5
+  # room 0.2 # size 0.9
+  # gain 0.7
+
+d3
+  -- $ jux (iter 28)
+  $ jux ((30/28)~>)
+  -- $ sometimesBy 0.7 (brak)
+  $ s "superfork(5, 14)"
+  |+ note (scale etenScale (choose[0..7]))
+  |+ note "<12 24>*14"
+  |+ note "[-0.01, 0.01]"
+  # pan (rand)
+  # room 0.5 # size 0.9
+  # legato 8
+  # gain 1.3
+  
+d4
+  $ slow 2
+  $ s "supermoog(3, 7)"
+  # note "c2"
+  |+ note (scale etenScale (choose[0..3]))
+  |+ note "[-0.04, 0.04]"
+  # lpf (range 100 8000 $ rand) # resonance 0.3
+  # attack 3.0 # legato 4.0 # release 0.01
+  # gain 1.4
+
+d5
+  $ sometimesBy 0.4 (rev)
+  $ sometimesBy 0.6 (fast 2)
+  $ stack
+  [
+    s "uni:1(5, 7, 5)"
+    , s "hc(5, 7, 2)"
+    , s "uni(3, 7)" # gain 1.5
+    -- , s "808(6, 14, 3)" # n (irand 20)
+    -- , s "ifdrums(11, 14, 5)" # n (irand 4)
+    -- , s "distd(3, 14)" # n (irand 10)
+  ]
+  -- # delay 0.9 # delaytime (9/14) # delayfeedback 0.5 # lock 1
+  |* gain 1.8
+
+d6
+  $ sometimesBy 0.4 (rev)
+  $ sometimesBy 0.6 (fast 2)
+  $ s "superbass(3, 7)"
+  # legato 2.0
+  # note "c2"
+  |+ note (scale etenScale (choose[0]))
+  |+ note "[-0.02, 0.02]"
+  # lpf (range 400 4000 $ rand) # resonance 0.1
+  -- # delay 0.5 # delaytime ("[5, 3]"/7) # delayfeedback 0.75 # lock 1
+  # gain 1.0
+
+d7
+  $ s "supersawfbk"
+  # note "e2"
+  |+ note (-0.398)
+  # rq 0.6
+  # legato 2.0
+  # wet 2.0
+  -- # room 0.5 # size 0.9
+  -- # tremolodepth 0.9 # tremolorate 4
+  # enhance 0.9
+  # shape 0.9
+  # gain 2.0
+
+unsolo 5
+
+d3 silence >> d4 silence >> d5 silence >> d6 silence
+
+
+
+hush
