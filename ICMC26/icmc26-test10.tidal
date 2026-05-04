@@ -50,26 +50,26 @@ d1
   # gain 1.0
 
 d2
-  -- $ jux(rev)
+  $ jux (rev)
   $ sometimesBy 0.5 (fast 2)
-  $ s "gamsar(2, 14)" # n 2
-  # note "c4" |+ note (scale etenScale (choose[0..12]))
+  $ s "gamsar(5, 14)" # n 2
+  # note "c5" |+ note (scale etenScale (choose[0..12]))
   |+ note "[0.04, -0.04]"
-  -- # legato 4.0
+  # legato 4.0
   # pan (range 0.1 0.9 $ rand)
-  # room 0.5 # size 0.999
-  # gain 1.4
+  -- # room 0.5 # size 0.999
+  # gain 1.2
 
 d3
-  $ jux (iter 28)
-  $ jux (rev)
-  $ sometimesBy 0.6 (brak)
+  -- $ jux (iter 28)
+  -- $ jux (rev)
+  -- $ sometimesBy 0.6 (brak)
   $ s "superhammond(5, 14)"
   # freq eten
   |* freq "[1.0, 4.0]"
   # voice 5
   # room 0.2 # size 0.9
-  # gain 0.75
+  # gain 0.7
 
 d4
   $ jux (("[5, 17]"/14)<~)
@@ -81,7 +81,7 @@ d4
   # pan (rand)
   # room 0.5 # size 0.9
   # legato 8
-  # gain 1.2
+  # gain 1.1
   
 d5
   $ slow 2
@@ -124,9 +124,9 @@ d8
   # note "e2" |+ note (-0.398)
   # rq 0.5
   # legato 3.0
-  # wet 2.0
-  # room 0.5 # size 0.9
-  -- # tremolodepth 0.9 # tremolorate 3.5
+  # wet 1.5
+  -- # room 0.1 # size 0.9
+  # tremolodepth 0.9 # tremolorate 3.5
   # enhance 0.5
   # shape 0.5
   # gain 2.0
@@ -134,11 +134,11 @@ d8
 d9
   $ stack
   [
-    s "distd(4, 7)"
+    s "distd(3, 7)"
     , s "fb(9, 14)"
   ]  
-  # shape 0.95
-  # gain 1.6
+  # shape 0.9
+  # gain 1.5
 
 d9
   $ jux (iter 14)

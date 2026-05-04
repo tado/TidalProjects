@@ -52,10 +52,10 @@ d1
 d2
   -- $ jux(rev)
   -- $ sometimesBy 0.5 (fast 2)
-  $ s "gamsar(3, 14)" # n 2
+  $ s "gamsar(2, 14)" # n 2
   # note "c5" |+ note (scale etenScale (choose[0..12]))
   |+ note "[0.04, -0.04]"
-  # legato 8.0
+  -- # legato 8.0
   # pan (range 0.2 0.8 $ rand)
   -- # room 0.5 # size 0.95
   # gain 1.3
@@ -134,10 +134,10 @@ d8
 d9
   $ stack
   [
-    s "distd(4, 7)"
+    s "distd(3, 7)"
     , s "fb(9, 14)"
   ]  
-  # shape 0.95
+  # shape 0.9
   # gain 1.6
 
 d9
