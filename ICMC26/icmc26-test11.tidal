@@ -41,41 +41,38 @@ let
   etenScale = "<bo ichi otsu otsu bo [ju ge] otsu otsu ichi [ichi kotsu] ichi otsu ju [ichi kotsu] otsu otsu otsu otsu ge kotsu [ichi ku] [ku ichi] kotsu kotsu>/2"
   eten      = (parseBP_E $ "<" ++ bo ++ " " ++ ichi ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ bo ++" [" ++ ju ++ " " ++ ge ++ "]" ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ ichi ++ " [" ++ ichi ++ " " ++ kotsu ++ "]" ++ " " ++ ichi ++ " " ++ otsu ++ " " ++ ju ++ " [" ++ ichi ++ " " ++ kotsu ++ "]" ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ ge ++ " " ++ kotsu ++ " [" ++ ichi ++ " " ++ ku ++ "] [" ++ ku ++ " " ++ ichi ++ "]" ++ " " ++ kotsu ++ " " ++ kotsu ++ ">/2") :: Pattern Double
 
-do
-  hush
-  resetCycles
-  d1
-    $ s "sho/2"
-    # voice 3
-    # freq eten
-    # legato 1.8
-    # room 0.2 # size 0.9
-    # gain 1.0
-
-d2
-  -- $ jux(rev)
-  -- $ sometimesBy 0.2 (fast 2)
-  $ s "gamsar(2, 14)" # n 2
-  # note "c5" |+ note (scale etenScale (choose[0..12]))
-  |+ note "[0.04, -0.04]"
-  -- # legato 8.0
-  # pan (range 0.2 0.8 $ rand)
-  -- # room 0.5 # size 0.95
+d1
+  $ s "sho/2"
+  # voice 3
+  # freq eten
+  # legato 1.8
+  # room 0.2 # size 0.9
   # gain 1.0
 
+d2
+  $ jux(rev)
+  $ sometimesBy 0.5 (fast 2)
+  $ s "gamsar(5, 14)" # n 2
+  # note "c5" |+ note (scale etenScale (choose[0..12]))
+  |+ note "[0.04, -0.04]"
+  # legato 8.0
+  # pan (range 0.2 0.8 $ rand)
+  -- # room 0.5 # size 0.95
+  # gain 1.3
+
 d3
-  -- $ jux (iter 28)
+  $ jux (iter 28)
   -- $ jux (rev)
-  -- $ sometimesBy 0.6 (brak)
-  $ s "superhammond(5, 14)"
+  $ sometimesBy 0.2 (brak)
+  $ s "superhammond(9, 14)"
   # freq eten
   |* freq "[1.0, 4.0]"
   # voice 5
   # room 0.2 # size 0.9
-  # gain 0.0
+  # gain 0.75
 
 d4
-  -- $ jux (("[5, 17]"/14)<~)
+  $ jux (("[5, 17]"/14)<~)
   -- $ sometimesBy 0.7 (brak)
   $ s "superfork(5, 14)"
   |+ note (scale etenScale (choose[8..15]))
@@ -84,7 +81,7 @@ d4
   # pan (rand)
   # room 0.5 # size 0.9
   # legato 8
-  # gain 1.0
+  # gain 1.2
   
 d5
   $ slow 2
@@ -105,7 +102,7 @@ d6
     , s "hc(5, 7, 2)"
     , s "uni(3, 7)" # gain 1.5
     -- , s "808(8, 14, 3)" # n (irand 20)
-    -- , s "ifdrums(11, 14)" # n (irand 4)
+    , s "ifdrums(11, 14)" # n (irand 4)
   ]
   -- # delay 0.5 # delaytime ("[5, 3]"/7) # delayfeedback 0.75 # lock 1
   |* gain 1.5
@@ -125,13 +122,13 @@ d7
 d8
   $ s "supersawfbk"
   # note "e2" |+ note (-0.398)
-  # rq 0.9
+  # rq 0.3
   # legato 3.0
-  # wet 0.0
+  # wet 1.0
   -- # room 0.2 # size 0.9
   -- # tremolodepth 0.9 # tremolorate 7
-  -- # enhance 0.9
-  -- # shape 0.9
+  # enhance 0.9
+  # shape 0.9
   # gain 2.0
 
 d9
@@ -140,19 +137,9 @@ d9
     s "distd(3, 7)"
     , s "fb(9, 14)"
   ]  
-  # shape 0.9
+  # shape 0.7
   # gain 1.5
 
-d9
-  $ jux (iter 14)
-  -- $ sometimesBy 0.3 (brak)
-  $ s "supersin(3, 7)"
-  # legato (range 0.5 1.0 $ rand)
-  # note "<c5 c6 c7 c8>*8"
-  |+ note (scale etenScale (choose[0..4]))
-  |+ note "[-0.04, 0.04]"
-  # room 0.5 # size 0.9
-  # gain 1.0
-
+d6 silence
 
 hush
