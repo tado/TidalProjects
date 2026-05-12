@@ -1,13 +1,11 @@
--- =========================================================
 -- Live 笙 (Sho) Coding
 -- 笙 = Traditional Japanese bamboo free-reed mouth organ.
--- =========================================================
 
--- 1.
--- Define the frequencies of each pipe of the 笙 (Sho) using Pythagorean tuning, 
--- then define the 合竹 (Aitake) harmonies.
--- 合竹 (Aitake): Traditional 5 to 6-note chords played on the Sho.
+hush
 
+setcps(80/240)
+
+-- Defining 合竹 (Aitake) harmonies for Sho in Pythagorean tuning.
 let
   hz2note f = 12 * logBase 2 (f / 430.0) - 3.398
   scale = getScale
@@ -24,6 +22,9 @@ let
       ("gyo",   map hz2note [860.0, 967.5, 1146.7, 1290.0, 1451.2]),
       ("hi",    map hz2note [860.0, 967.5, 1019.3, 1146.7, 1290.0, 1451.2])
     ])
+
+-- Define frequency list of 合竹
+let
   kotsu     = "[430.0, 645.0, 860.0, 967.5, 1290.0, 1451.2]"
   ichi      = "[483.8, 573.3, 645.0, 860.0, 967.5, 1451.2]"
   ku        = "[544.2, 573.3, 645.0, 816.3, 860.0, 967.5]"
@@ -36,10 +37,7 @@ let
   gyo       = "[860.0, 967.5, 1146.7, 1290.0, 1451.2]"
   hi        = "[860.0, 967.5, 1019.3, 1146.7, 1290.0, 1451.2]"
 
--- 2.
--- Chord/scale sequence of 越天楽 (Etenraku)
--- An ancient Japanese Gagaku composition.
-
+-- Chord/scale sequence of 越天楽 (Etenraku)： An ancient Japanese Gagaku composition.
 let
   etenScale = "<bo ichi otsu otsu bo [ju ge] otsu otsu ichi [ichi kotsu] ichi otsu ju [ichi kotsu] otsu otsu otsu otsu ge kotsu [ichi ku] [ku ichi] kotsu kotsu>/2"
   eten      = (parseBP_E $ "<" ++ bo ++ " " ++ ichi ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ bo ++" [" ++ ju ++ " " ++ ge ++ "]" ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ ichi ++ " [" ++ ichi ++ " " ++ kotsu ++ "]" ++ " " ++ ichi ++ " " ++ otsu ++ " " ++ ju ++ " [" ++ ichi ++ " " ++ kotsu ++ "]" ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ ge ++ " " ++ kotsu ++ " [" ++ ichi ++ " " ++ ku ++ "] [" ++ ku ++ " " ++ ichi ++ "]" ++ " " ++ kotsu ++ " " ++ kotsu ++ ">/2") :: Pattern Double
@@ -62,14 +60,12 @@ let
 
 
 
-------------------------------
--- I'm ready. Let's go!!
-------------------------------
+
+-- Let's Go!!!
 
 do
   hush
   resetCycles
-  setcps(80/240)
   d1
     $ s "sho/2"
     # voice 3
@@ -79,9 +75,9 @@ do
     # gain 1.0
 
 d2
-  -- $ jux(rev)
-  -- $ sometimesBy 0.2 (fast 2)
-  $ s "gamsar(2, 14)" # n 2
+  $ jux(rev)
+  $ sometimesBy 0.2 (fast 2)
+  $ s "gamsar(3, 14)" # n 2
   # note "c5" |+ note (scale etenScale (choose[0..12]))
   |+ note "[0.04, -0.04]"
   # legato 8.0
@@ -91,17 +87,17 @@ d2
 
 d3
   -- $ jux (iter 28)
-  -- $ jux (rev)
-  -- $ sometimesBy 0.6 (brak)
+  $ jux (rev)
+  $ sometimesBy 0.6 (brak)
   $ s "superhammond(5, 14)"
   # freq eten
   |* freq "[1.0, 4.0]"
   # voice 5
   # room 0.2 # size 0.9
-  # gain 0.0
+  # gain 0.75
 
 d4
-  -- $ jux (("[5, 17]"/14)<~)
+  $ jux (("[5, 17]"/14)<~)
   -- $ sometimesBy 0.7 (brak)
   $ s "superfork(5, 14)"
   |+ note (scale etenScale (choose[8..15]))
@@ -110,7 +106,7 @@ d4
   # pan (rand)
   # room 0.5 # size 0.9
   # legato 8
-  # gain 1.0
+  # gain 1.2
   
 d5
   $ slow 2
@@ -131,7 +127,7 @@ d6
     , s "hc(5, 7, 2)"
     , s "uni(3, 7)" # gain 1.5
     -- , s "808(8, 14, 3)" # n (irand 20)
-    -- , s "ifdrums(11, 14)" # n (irand 4)
+    , s "ifdrums(11, 14)" # n (irand 4) # gain 1.0
   ]
   -- # delay 0.5 # delaytime ("[5, 3]"/7) # delayfeedback 0.75 # lock 1
   |* gain 1.5
@@ -151,12 +147,12 @@ d7
 d8
   $ s "supersawfbk"
   # note "e2" |+ note (-0.398)
-  # rq 0.9
+  # rq 0.5
   # legato 3.0
-  # wet 0.0
-  -- # room 0.2 # size 0.9
+  # wet 4.0
+  # room 0.2 # size 0.9
   -- # tremolodepth 0.9 # tremolorate 7
-  -- # enhance 0.9
+  # enhance 0.9
   -- # shape 0.9
   # gain 2.0
 
@@ -168,6 +164,10 @@ d9
   ]  
   # shape 0.9
   # gain 1.5
+
+d7 silence >> d6 silence  
+
+hush
 
 d9
   $ jux (iter 14)
