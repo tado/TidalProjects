@@ -103,7 +103,7 @@ d2
   # gain 1.0
 
 d3
-  $ jux (iter 28)
+  -- $ jux (iter 28)
   -- $ jux (rev)
   -- $ sometimesBy 0.6 (brak)
   $ s "superhammond(5, 14)"
@@ -195,6 +195,8 @@ d9
   |+ note "[-0.04, 0.04]"
   # room 0.5 # size 0.9
   # gain 0.7
+
+unsolo 9
 
 setcps(20/240)
 
