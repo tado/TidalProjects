@@ -1,0 +1,88 @@
+hush
+
+setcps(140/240)
+
+
+do
+  -- resetCycles 
+  let edo = 19
+  let scl = "iwato"
+  let fs = "<1 1 1.5 1 1 2 1 1 0.75>/2"
+  let shift = ("<0 5 -5>/2") + "<0 1>/2"
+  let sn = "gamsar"
+  let nu = 2
+  let ge = (range 1.0 1.4 $ rand)
+  let lt = (range 0.5 4.0 $ rand)
+  d4
+    -- $ fast fs
+    $ jux (rev)
+    $ note "c4(11, 16, {0..19}/8)"
+    |+ note (scale scl (scramble 4 "<0..19>"))
+    |+ note shift
+    |* note (12/edo) 
+    # s sn
+    # n nu    
+    # legato lt
+    # pan rand
+    # gain ge
+  d1
+    $ note "c2(3, 8)"
+    |+ note 0
+    |+ note shift
+    |* note (12/edo) 
+    # s "supersaw"
+    # lpf (range 200 4000 $ rand)
+    # n nu
+    # legato 2
+    # pan rand
+    # gain ge
+  
+  
+  d1
+    $ fast fs
+    $ jux (rev)
+    $ note "c1(5, 8, {0..7}/6)"
+    |+ note (scale scl (scramble 4 "<0..19>"))
+    |+ note shift
+    |* note (12/edo)    
+    # s sn
+    # n nu
+    # legato lt
+    # pan rand
+    # gain ge
+  d2    
+    $ fast fs
+    $ jux (rev)
+    $ note "c2(3, 12, {0..11}/8)"
+    |+ note (scale scl (scramble 4 "<0..12>"))
+    |+ note shift 
+    |* note (12/edo) 
+    # s sn
+    # n nu
+    # legato lt
+    # pan rand
+    # gain ge
+  d3
+    $ fast fs
+    $ jux (rev)
+    $ note "c3(5, 12, {0..11}/6)"
+    |+ note (scale scl (scramble 4 "<0..12>"))
+    |+ note shift
+    |* note (12/edo) 
+    # s sn
+    # n nu
+    # legato lt
+    # pan rand
+    # gain ge
+  d4
+    $ fast fs
+    $ jux (rev)
+    $ note "c1(3, 8, {0..7}/8)"
+    |+ note (scale scl (scramble 4 "<0..19>"))
+    |+ note shift
+    |* note (12/edo) 
+    # s sn
+    # n nu    
+    # legato lt
+    # pan rand
+    # gain ge

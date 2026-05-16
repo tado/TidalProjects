@@ -1,0 +1,184 @@
+-- =========================================================
+-- Live 笙 (Sho) Coding
+-- 笙 = Traditional Japanese bamboo free-reed mouth organ.
+-- =========================================================
+
+-- 1.
+-- Define the frequencies of each pipe of the 笙 (Sho) using Pythagorean tuning, 
+-- then define the 合竹 (Aitake) harmonies.
+-- 合竹 (Aitake): Traditional 5 to 6-note chords played on the Sho.
+
+let
+  hz2note f = 12 * logBase 2 (f / 430.0) - 3.398
+  scale = getScale
+    (scaleTable ++ [
+      ("kotsu", map hz2note [430.0, 645.0, 860.0, 967.5, 1290.0, 1451.2]),
+      ("ichi",  map hz2note [483.8, 573.3, 645.0, 860.0, 967.5, 1451.2]),
+      ("ku",    map hz2note [544.2, 573.3, 645.0, 816.3, 860.0, 967.5]),
+      ("bo",    map hz2note [573.3, 645.0, 860.0, 967.5, 1290.0, 1451.2]),
+      ("otsu",  map hz2note [645.0, 860.0, 967.5, 1146.7, 1290.0, 1451.2]),
+      ("ge",    map hz2note [725.6, 816.3, 860.0, 967.5, 1146.7, 1451.2]),
+      ("ju",    map hz2note [725.6, 764.4, 860.0, 967.5, 1146.7, 1290.0]),
+      ("soju",  map hz2note [764.4, 860.0, 967.5, 1146.7, 1290.0]),
+      ("bi",    map hz2note [816.3, 860.0, 967.5, 1019.3, 1146.7, 1451.2]),
+      ("gyo",   map hz2note [860.0, 967.5, 1146.7, 1290.0, 1451.2]),
+      ("hi",    map hz2note [860.0, 967.5, 1019.3, 1146.7, 1290.0, 1451.2])
+    ])
+  kotsu     = "[430.0, 645.0, 860.0, 967.5, 1290.0, 1451.2]"
+  ichi      = "[483.8, 573.3, 645.0, 860.0, 967.5, 1451.2]"
+  ku        = "[544.2, 573.3, 645.0, 816.3, 860.0, 967.5]"
+  bo        = "[573.3, 645.0, 860.0, 967.5, 1290.0, 1451.2]"
+  otsu      = "[645.0, 860.0, 967.5, 1146.7, 1290.0, 1451.2]"
+  ge        = "[725.6, 816.3, 860.0, 967.5, 1146.7, 1451.2]"
+  ju        = "[725.6, 764.4, 860.0, 967.5, 1146.7, 1290.0]"
+  soju      = "[764.4, 860.0, 967.5, 1146.7, 1290.0]"
+  bi        = "[816.3, 860.0, 967.5, 1019.3, 1146.7, 1451.2]"
+  gyo       = "[860.0, 967.5, 1146.7, 1290.0, 1451.2]"
+  hi        = "[860.0, 967.5, 1019.3, 1146.7, 1290.0, 1451.2]"
+
+-- 2.
+-- Chord/scale sequence of 越天楽 (Etenraku)
+-- An ancient Japanese Gagaku composition.
+
+let
+  etenScale = "<bo ichi otsu otsu bo [ju ge] otsu otsu ichi [ichi kotsu] ichi otsu ju [ichi kotsu] otsu otsu otsu otsu ge kotsu [ichi ku] [ku ichi] kotsu kotsu>/2"
+  eten      = (parseBP_E $ "<" ++ bo ++ " " ++ ichi ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ bo ++" [" ++ ju ++ " " ++ ge ++ "]" ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ ichi ++ " [" ++ ichi ++ " " ++ kotsu ++ "]" ++ " " ++ ichi ++ " " ++ otsu ++ " " ++ ju ++ " [" ++ ichi ++ " " ++ kotsu ++ "]" ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ ge ++ " " ++ kotsu ++ " [" ++ ichi ++ " " ++ ku ++ "] [" ++ ku ++ " " ++ ichi ++ "]" ++ " " ++ kotsu ++ " " ++ kotsu ++ ">/2") :: Pattern Double
+
+
+
+
+
+
+
+x
+
+
+
+
+
+
+
+
+
+
+
+------------------------------
+-- I'm ready. Let's go!!
+------------------------------
+
+do
+  -- hush
+  -- resetCycles
+  -- setcps(80/240)
+  d1
+    $ s "sho/2"
+    # voice 3
+    # freq eten
+    # legato 1.8
+    # room 0.1 # size 0.9
+    # gain 1.0
+
+d2
+  $ jux(rev)
+  $ sometimesBy 0.2 (fast 2)
+  $ s "gamsar(9, 14)" # n 2
+  # note "c5" |+ note (scale etenScale (choose[0..12]))
+  |+ note "[0.04, -0.04]"
+  # legato 8.0
+  # pan (range 0.2 0.8 $ rand)
+  # room 0.8 # size 0.95
+  # gain 1.0
+
+d3
+  -- $ jux (iter 28)
+  -- $ jux (rev)
+  -- $ sometimesBy 0.6 (brak)
+  $ s "superhammond(5, 14)"
+  # freq eten
+  |* freq "[1.0, 4.0]"
+  # voice 5
+  # room 0.2 # size 0.9
+  # gain 0.75
+
+d4
+  -- $ jux (("[5, 17]"/14)<~)
+  -- $ sometimesBy 0.7 (brak)
+  $ s "superfork(5, 14)"
+  |+ note (scale etenScale (choose[8..15]))
+  |+ note "<0 12>*14"
+  |+ note "[-0.01, 0.01]"
+  # pan (rand)
+  # room 0.5 # size 0.9
+  # legato 8
+  # gain 1.0
+  
+d5
+  $ slow 2
+  $ s "supermoog(3, 7)"
+  # note "c2"
+  |+ note (scale etenScale (choose[0..4]))
+  |+ note "[-0.04, 0.04]"
+  # lpf (range 100 2000 $ rand) # resonance 0.3
+  # attack 3.0 # legato 4.0 # release 0.01
+  # gain 1.3
+
+d6
+  $ sometimesBy 0.4 (rev)
+  $ sometimesBy 0.6 (fast 2)
+  $ stack
+  [
+    s "uni:1(5, 7, 5)"
+    , s "hc(5, 7, 2)"
+    , s "uni(3, 7)" # gain 1.5
+    -- , s "808(8, 14, 3)" # n (irand 20)
+    , s "ifdrums(11, 14)" # n (irand 4)
+  ]
+  -- # delay 0.5 # delaytime ("[5, 3]"/7) # delayfeedback 0.75 # lock 1
+  |* gain 1.5
+
+d7
+  $ sometimesBy 0.4 (rev)
+  $ sometimesBy 0.6 (fast 2)
+  $ s "superbass(3, 7)"
+  # legato 2.0
+  # note "c2"
+  |+ note (scale etenScale 0)
+  |+ note "[-0.02, 0.02]"
+  # lpf (range 400 4000 $ rand) # resonance 0.3
+  -- # delay 0.5 # delaytime ("[5, 3]"/7) # delayfeedback 0.75 # lock 1
+  # gain 1.0
+
+d8
+  $ s "supersawfbk"
+  # note "e2" |+ note (-0.398)
+  # rq 0.9
+  # legato 3.0
+  # wet 0.0
+  -- # room 0.2 # size 0.9
+  -- # tremolodepth 0.9 # tremolorate 7
+  -- # enhance 0.9
+  -- # shape 0.9
+  # gain 2.0
+
+d9
+  $ stack
+  [
+    s "distd(3, 7)"
+    , s "fb(9, 14)"
+  ]  
+  # shape 0.9
+  # gain 1.5
+
+d9
+  $ jux (iter 14)
+  -- $ sometimesBy 0.3 (brak)
+  $ s "supersin(3, 7)"
+  # legato (range 0.5 1.0 $ rand)
+  # note "<c5 c6 c7 c8>*8"
+  |+ note (scale etenScale (choose[0..4]))
+  |+ note "[-0.04, 0.04]"
+  # room 0.5 # size 0.9
+  # gain 1.0
+
+
+hush
