@@ -85,32 +85,30 @@ do
     -- # leslie 0.2 # lrate 1.0
     # room 0.9 # size 0.9
     # gain 1.2
-
--- d3: 倍音のきらめき — セクションごとにスケールの色が変わる高音の遅いアルペジオ
--- harmonics(倍音列)×2 -> mohajira(中立3度) -> orwell9 と、基音は動かさず色だけ変える
-d3
-  $ pump . inKey
-  $ jux ((1/3) <~)
-  $ s "supersin"
-  # e31 (note (scale31 (slow 16 "<harmonics harmonics mohajira orwell9>") "<0 4 7 2 9 5 11 7>*2"))
-  |+ note "c6"
-  # delay 0.9 # delaytime (3/4) # delayfb 0.6 # lock 1
-  # lpf (range 1000 6000 $ slow 32 $ sine) # resonance 0.15
-  # legato 2
-  # gain 0.8
-
--- d4: まれに鳴る鐘 — 自然7度(25)・第13倍音(22)・5度(18)・中立7度(27)のあいだを漂う単音
-d4
-  $ pump . inKey
-  $ degradeBy 0.4
-  $ struct "t(<2 3 2 5>, 14)"
-  $ s "superfork"
-  # e31 (note "<25 22 18 27>")
-  |+ note "c5"
-  # delay 0.8 # delaytime (9/14) # delayfb 0.5 # lock 1
-  # room 0.9 # size 0.9
-  # legato 3
-  # gain 0.85
+  -- d3: 倍音のきらめき — セクションごとにスケールの色が変わる高音の遅いアルペジオ
+  -- harmonics(倍音列)×2 -> mohajira(中立3度) -> orwell9 と、基音は動かさず色だけ変える
+  d3
+    $ pump . inKey
+    $ jux ((1/3) <~)
+    $ s "supersin"
+    # e31 (note (scale31 (slow 16 "<harmonics harmonics mohajira orwell9>") "<0 4 7 2 9 5 11 7>*2"))
+    |+ note "c6"
+    # delay 0.9 # delaytime (3/4) # delayfb 0.6 # lock 1
+    # lpf (range 1000 6000 $ slow 32 $ sine) # resonance 0.15
+    # legato 2
+    # gain 0.8
+  -- d4: まれに鳴る鐘 — 自然7度(25)・第13倍音(22)・5度(18)・中立7度(27)のあいだを漂う単音
+  d4
+    $ pump . inKey
+    $ degradeBy 0.4
+    $ struct "t(<2 3 2 5>, 14)"
+    $ s "superfork"
+    # e31 (note "<25 22 18 27>")
+    |+ note "c5"
+    # delay 0.8 # delaytime (9/14) # delayfb 0.5 # lock 1
+    # room 0.9 # size 0.9
+    # legato 3
+    # gain 0.85
 
 -- d5: ハモンドのアルペジオ — d2と同じ和音進行(chordTable31)を分散和音で辿る
 -- 各和音(1/2サイクル=2秒)の構成音を arpSteady で16分音符の一定グリッドに並べる
@@ -128,6 +126,8 @@ d5
   # room 0.3 # size 0.95
   -- # legato 1
   # gain 0.7
+
+unsolo 5  
 
 d6
   $ jux (("[3, 9]"/14)<~)
@@ -166,13 +166,12 @@ d7
 -- 和音は2サイクルごと(d2と同期)、パルス数は d7 と同様にサイクルごとに変わる
 d8
   $ pump . inKey
-  $ struct "t(<13 7 11 9>*8, 14)"
-  $ s "superbass"
+  $ struct "t(<5 7 11 9>*8, 14)"
+  $ s "supersaw"
   # e31 (note (slow 2 "<0 13 5 -13 -9 13 -7 0>"))
   |+ note "[c2, c3]"
-  |+ note "[-0.02, 0.02]"
-  -- # lpf (range 500 2500 $ slow 8 $ sine) # resonance 0.2
-  -- # legato 0.9
-  # shape 0.3
-  # gain 1.5
+  |* note "[1.001, 0.999]"
+  # lpf (range 500 12000 $ rand) # resonance 0.3
+  # gain 2.0
 
+hush
