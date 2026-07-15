@@ -201,6 +201,8 @@ hush
 -- 和音のルート(D・F・G)上に移調して割り当てる。これで全14和音に
 -- ついて「和音の構成音 ⊂ スケールの構成音」が成立する。
 
+hush
+
 do
   -- resetCycles
   -- ベース: 進行のルートを音名で演奏(n31 で単音、使用例2と同じ書き方)
@@ -230,8 +232,15 @@ do
     # voice 8
     |+ note "<c5 c6>*6"
     # legato 0.9
-    # delay 0.9 # delaytime ("[5, 7]"/16) # delayfb 0.5 # lock 1
+    # delay 0.7 # delaytime ("[5, 7]"/16) # delayfb 0.75 # lock 1
     # gain 0.7
+  d4
+    $ sometimesBy 0.1 (ply 2)
+    $ s "uni(4, 8), hc(4, 8, 1)"
+    # delay 0.5 # delaytime ("[3, 5]"/8) # delayfb 0.5 # lock 1
+    # gain 0.7
+    
+     
 
 -- 差し替え用: 旋律をスケール(scale31on)で弾く版。d3 をこちらで
 -- 評価し直すと、和音ごとに最適な音律を割り当てた旋律に戻る。
