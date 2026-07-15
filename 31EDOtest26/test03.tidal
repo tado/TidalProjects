@@ -53,24 +53,23 @@ let edo = 31 -- 31EDOの1オクターブのステップ数
 
 hush
 
-setcps(65/240)
-
 do
   resetCycles
+  setcps(60/240)
   -- d1: サブドローン — 基音と完全5度(18)だけの土台
   d1
     $ pump . inKey
-    $ slow 8
+    $ slow 4
     $ s "superhammond"
     # voice 9
     # e31 (note "[0, 18]")
     |+ note "[c2, c3, c4]"
-    |* note "[0.9999, 1.0001]"
-    -- # legato 1.0
+    |* note "[1.00001, 0.99999]"
+        -- # legato 1.0
     -- # lpf 2000 # resonance 0.3
     -- # leslie 0.8 # lrate 1.2
-    # room 0.3 # size 0.9
-    # gain 1.0
+    # room 0.5 # size 0.9
+    # gain 0.7
   -- d2: 和音パッド — すべての和音が基音 C を共通音として含む
   -- c:harm7(4:5:6:7) から出発し、C を保持したまま根音だけが回り、c:maj7 で7度が
   -- 28 に持ち上がったあと harm7 の 25 へ落ちて(3ステップ ≈ 116セント)ループする
@@ -78,13 +77,13 @@ do
     $ pump . inKey
     $ slow 2
     $ s "supersinfade"
-    # ch31 "<c:harm7 f:supmaj d:min7 g:sus4 ahf:neut f:submin7 ahs:submin c:maj7>"
+    # ch31 "<c:harm7 f:supmaj d:min7 g:sus4 af:maj f:submin7 a:min c:maj7>"
     |+ note "[c5, c6]"
-    |* note "[1.0001, 0.9999]"
-    # legato 2
-    -- # leslie 0.2 # lrate 1.0
-    # room 0.9 # size 0.9
-    # gain 1.2
+    -- |* note "[1.00001, 0.99999]"
+    # legato 1.5
+    -- # leslie 0.5 # lrate "[1.0, 0.7]"
+    # room 0.5 # size 0.9
+    # gain 0.7
   -- d3: 倍音のきらめき — セクションごとにスケールの色が変わる高音の遅いアルペジオ
   -- harmonics(倍音列)×2 -> mohajira(中立3度) -> orwell9 と、基音は動かさず色だけ変える
   d3
@@ -96,7 +95,7 @@ do
     # delay 0.9 # delaytime (3/4) # delayfb 0.6 # lock 1
     # lpf (range 1000 6000 $ slow 32 $ sine) # resonance 0.15
     # legato 2
-    # gain 0.8
+    # gain 0.5
   -- d4: まれに鳴る鐘 — 自然7度(25)・第13倍音(22)・5度(18)・中立7度(27)のあいだを漂う単音
   d4
     $ pump . inKey
@@ -108,36 +107,40 @@ do
     # delay 0.8 # delaytime (9/14) # delayfb 0.5 # lock 1
     # room 0.9 # size 0.9
     # legato 3
-    # gain 0.85
+    # gain 0.7
 
--- d5: ハモンドのアルペジオ — d2と同じ和音進行(chordTable31)を分散和音で辿る
--- 各和音(1/2サイクル=2秒)の構成音を arpSteady で16分音符の一定グリッドに並べる
+-- d5: ハモンドのアルペジオ — d2の和音進行を slow 2 で完全に同期させて分散和音で辿る
+-- (2サイクルの和音を28等分 = 1サイクルあたり14音、リズムグリッドは従来どおり)
+-- ply 2 は fast 2 と違い時間軸を進めず、鳴っている和音の中で音を刻むだけなので濁らない
 d5
   $ pump . inKey
-  $ sometimesBy 0.75 (fast 2)
-  $ jux (rev)
-  $ e31 (note (arpSteady 14 (inhabit chordTable31 "<c:harm7 f:supmaj d:min7 g:sus4 ahf:neut f:submin7 ahs:submin c:maj7>")))
+  $ jux (("[3, 5]"/14)~>)
+  $ e31 (note (arpSteady 28 (inhabit chordTable31 "<c:harm7 f:supmaj d:min7 g:sus4 af:maj f:submin7 a:min c:maj7>")))
   # s "superhammond"
-  # voice 4
-  |+ note "[c5, c6]"
-  |* note "[1.001, 0.999]"
-  # delay 0.9 # delaytime ("[9, 5]"/14) # delayfb 0.5 # lock 1
-  -- # leslie 0.4 # lrate 0.7
-  # room 0.3 # size 0.95
-  -- # legato 1
-  # gain 0.7
+  -- # ch31 "<c:harm7 f:supmaj d:min7 g:sus4 af:maj f:submin7 a:min c:maj7>"
+  # voice 7
+  -- |+ note "[c5, c6]"
+  -- |* note "[1.0001, 0.9999]"
+  -- # delay 0.8 # delaytime ("[9, 5, 3]"/14) # delayfb 0.35 # lock 1
+  -- # leslie 0.3 # lrate 0.7
+  -- # room 0.8 # size 0.95
+  # legato 0.8
+  # gain 0.85
 
-unsolo 5  
+unsolo 5
+
+hush
 
 d6
+  $ sometimesBy 0.2 (ply 2)
   $ jux (("[3, 9]"/14)<~)
   $ stack
   [
-    s "uni(3, 14)" # gain 1.5
-    , s "uni:1(9, 14, 2)"
+    s "uni(3, 14)" # gain 1.0
+    , s "uni:1(9, 14, 2)" # gain 0.9
   ]
   -- # delay 0.8 # delaytime (9/14) # delayfb "0.5" # lock 1  
-  |* gain 1.7
+  |* gain 1.0
 
 d7
   -- $ jux (("[13, 5]"/14)<~)
@@ -159,19 +162,25 @@ d7
     # speed 4 # gain 0.75
   ]
   # shape 0.7
-  |* gain 1.1
+  |* gain 0.8
 
--- d8: ベース — d2の和音進行の根音を、d6/d7と同じ14グリッドのユークリッドで刻む
--- 根音は c2 に近いオクターブへ畳む(g→-13、ahf→-9、ahs→-7)ので跳躍が小さい
--- 和音は2サイクルごと(d2と同期)、パルス数は d7 と同様にサイクルごとに変わる
+-- d8: オルガン・ペダル — 根音と5度上(+18)を半サイクルずつ交互に踏み替えるオスティナート
+-- 根音は d2 の進行(2サイクルごと)に追従し、c2 に近いオクターブへ畳む(g→-13、af→-10、a→-8)
+-- [c2, c3] の平行オクターブはパイプオルガンの 16'+8' ストップに相当
 d8
   $ pump . inKey
-  $ struct "t(<5 7 11 9>*8, 14)"
-  $ s "supersaw"
-  # e31 (note (slow 2 "<0 13 5 -13 -9 13 -7 0>"))
-  |+ note "[c2, c3]"
-  |* note "[1.001, 0.999]"
-  # lpf (range 500 12000 $ rand) # resonance 0.3
-  # gain 2.0
+  $ s "superhammond*14"
+  # voice 7
+  # e31 (note ("<0 31>*14" |+ slow 2 "<0 13 5 -13 -10 13 -8 0>"))
+  |+ note "[c3, c4]"
+  -- |* note "[0.9999, 1.0001]"
+  # legato 0.8
+  -- # lpf 1200
+  -- # room 0.4 # size 0.9
+  # gain 1.0
+
+unsolo 8
+
+d5 silence
 
 hush
