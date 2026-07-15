@@ -79,11 +79,11 @@ do
     $ s "supersinfade"
     # ch31 "<c:harm7 f:supmaj d:min7 g:sus4 af:maj f:submin7 a:min c:maj7>"
     |+ note "[c5, c6]"
-    -- |* note "[1.00001, 0.99999]"
+    |* note "[1.00001, 0.99999]"
     # legato 1.5
     -- # leslie 0.5 # lrate "[1.0, 0.7]"
     # room 0.5 # size 0.9
-    # gain 0.7
+    # gain 0.6
   -- d3: 倍音のきらめき — セクションごとにスケールの色が変わる高音の遅いアルペジオ
   -- harmonics(倍音列)×2 -> mohajira(中立3度) -> orwell9 と、基音は動かさず色だけ変える
   d3
