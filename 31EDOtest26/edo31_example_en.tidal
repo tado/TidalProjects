@@ -1,0 +1,154 @@
+let -- ── Pitch core ──────────────────────────────────────────
+    edo = 31
+    e31 p = p |* note (12/edo)
+    -- ── Chords ──────────────────────────────────────────────
+    roots31 = [("c",0),("d",5),("e",10),("f",13),("g",18),("a",23),("b",28)]
+    accs31 = [("",0),("s",2),("f",-2),("hs",1),("hf",-1)]
+    quals31 =
+      -- ── Highly consonant (close to integer harmonic ratios) ──
+      [ ("maj",     [0,10,18])
+      , ("harm7",   [0,10,18,25])
+      , ("min",     [0,8,18])
+      , ("submin",  [0,7,18])
+      , ("harmdim", [0,8,15])
+      , ("submin7", [0,7,18,25])
+      -- ── Moderately consonant ──
+      , ("supmaj",  [0,11,18])
+      , ("neut",    [0,9,18])
+      , ("aug",     [0,10,20])
+      , ("maj7",    [0,10,18,28])
+      , ("harm9",   [0,10,18,25,36])
+      -- ── Common functional harmony (meantone) ──
+      , ("dim",     [0,8,16])
+      , ("sus2",    [0,5,18])
+      , ("sus4",    [0,13,18])
+      , ("min7",    [0,8,18,26])
+      , ("dom7",    [0,10,18,26])
+      -- ── Dissonant ──
+      , ("neut2",   [0,4,18])
+      , ("wolf5f",  [0,10,17])
+      , ("wolf5s",  [0,10,19])
+      , ("clu3",    [0,3,6])
+      , ("clu2",    [0,2,4])
+      -- ── Extremely dissonant (unique to 31EDO) ──
+      , ("clu1",    [0,1,2])
+      ]
+    chordTable31 =
+      [ (r ++ a ++ sep ++ q, stack (map (pure . (+ (rv + av))) steps))
+      | (r,rv) <- roots31, (a,av) <- accs31, sep <- [":", "'"], (q,steps) <- quals31 ]
+    ch31 p = e31 (note (inhabit chordTable31 p))
+    -- ── Arpeggio (spread a chord over time) ─────────────────
+    arpSteady :: Int -> Pattern a -> Pattern a
+    arpSteady n = arpWith (\es -> map (\i -> es !! (i `mod` length es)) [0 .. n-1])
+    -- ── Single notes (called by note name) ──────────────────
+    noteTable31 =
+      [ (r ++ a ++ oname, pure (rv + av + fromIntegral (31 * (o - 5))))
+      | (r,rv) <- roots31, (a,av) <- accs31
+      , (oname,o) <- ("",5) : [(show n, n) | n <- [0..8 :: Int]] ]
+    n31 p = e31 (note (inhabit noteTable31 p))
+    -- ── Scales (tunings) ────────────────────────────────────
+    scales31 :: [(String, [Note])]
+    scales31 =
+      -- ── Meantone family ──
+      [ ("penta5",      [0,5,10,18,23])
+      , ("major",       [0,5,10,13,18,23,28])
+      , ("minor",       [0,5,8,13,18,21,26])
+      , ("harmminor",   [0,5,8,13,18,21,28])
+      , ("melminor",    [0,5,8,13,18,23,28])
+      , ("chrom12",     [0,2,5,7,10,13,15,18,20,23,25,28])
+      , ("enh19",       [0,2,4,5,7,9,10,12,14,15,17,18,20,22,23,25,27,28,30])
+      -- ── MOS scales unique to 31EDO ──
+      , ("mohajira",    [0,5,9,14,18,23,27])
+      , ("orwell9",     [0,4,7,11,14,18,21,25,28])
+      , ("miracle10",   [0,3,6,9,12,15,18,21,24,27])
+      , ("blackjack",   [0,2,3,5,6,8,9,11,12,14,15,17,18,20,21,23,24,26,27,29,30])
+      , ("myna4",       [0,8,16,24])
+      , ("myna11",      [0,1,2,8,9,10,16,17,18,24,25])
+      , ("wurschmidt7", [0,9,10,19,20,29,30])
+      , ("squares8",    [0,2,4,11,13,15,22,24])
+      , ("valentine15", [0,2,4,6,8,10,12,14,16,18,20,22,24,26,28])
+      -- ── Approximations of world scales ──
+      , ("rast",        [0,5,9,13,18,23,27])
+      , ("bayati",      [0,4,8,13,18,21,26])
+      , ("slendro",     [0,6,12,18,24])
+      , ("eq7",         [0,4,8,13,17,22,26])
+      -- ── Harmonic-series scales ──
+      , ("harmonics",   [0,5,10,14,18,22,25,28])
+      , ("otonal",      [0,5,10,13,18,23,25,28])
+      -- ── Approximations of symmetric scales ──
+      , ("wholetone",   [0,5,10,15,20,25])
+      , ("dim8",        [0,5,8,13,16,21,24,29])
+      ]
+    step31 sc x = sc !! (x `mod` length sc) + fromIntegral (31 * (x `div` length sc))
+    scale31 :: Pattern String -> Pattern Int -> Pattern Note
+    scale31 sp p = innerJoin (fmap (\name -> fmap (step31 (maybe [0] id (lookup name scales31))) p) sp)
+    scale31on :: Pattern String -> Pattern String -> Pattern Int -> Pattern Note
+    scale31on rp sp p = scale31 sp p |+ inhabit noteTable31 rp
+
+-- ============================================================
+-- Example 1: Single notes (n31) — play notes by name
+-- ============================================================
+-- Note name + accidental (s/f = ±2 steps, hs/hf = ±1) + octave
+-- number (defaults to 5). "ehf" is E half-flat (a neutral third),
+-- "as" is A# (the harmonic seventh of C).
+
+d1
+  $ s "supervibe*4"
+  # n31 "<c e g as ehf4 g4 c5 c6>*4"
+  |+ note "c5"
+
+hush
+
+-- ============================================================
+-- Example 2: Chords (ch31) — call chords by name
+-- ============================================================
+-- Format: root name + ":" + quality. A progression where the
+-- color of the 3rd and 7th shifts step by step:
+-- maj → harm7 → neut → submin (one chord per cycle).
+
+d1
+  $ s "superhammond"
+  # ch31 "<c:maj c:harm7 c:neut c:submin>"
+  |+ note "c5"
+
+hush
+
+-- ============================================================
+-- Example 3: Arpeggio (arpSteady) — spread chords on a fixed grid
+-- ============================================================
+-- arpSteady 8 divides each chord into 8 equal steps, cycling
+-- through the chord tones from the bottom up. The rhythm stays
+-- steady even when triads and tetrads are mixed.
+
+d1
+  $ arpSteady 8
+  $ ch31 "<c:maj f:harm7 g:dom7 c:harm9>"
+  # s "supervibe"
+  |+ note "c5"
+
+hush
+
+-- ============================================================
+-- Example 4: Scales (scale31 / scale31on) — melodies by degree
+-- ============================================================
+-- scale31 <scale name> <degrees>. Degree 0 is the tonic; degrees
+-- beyond the scale size wrap up an octave. The scale changes
+-- every 2 cycles.
+
+d1
+  $ s "supervibe*8"
+  # e31 (note (scale31 (slow 2 "<major mohajira orwell9 harmonics>") "0 .. 7"))
+  |+ note "c5"
+
+hush
+
+-- scale31on is scale31 with a root note name. The scale changes
+-- every cycle, while the root moves c → f → g → a every 4 cycles.
+-- All 4 scales pass over each root, so the whole pattern repeats
+-- every 16 cycles.
+d1
+  $ s "supervibe*8"
+  # e31 (note (scale31on "<c f g a>/4" "<major mohajira orwell9 harmonics>" "0 .. 7"))
+  |+ note "c5"
+
+hush
