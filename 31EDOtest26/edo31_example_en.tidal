@@ -1,63 +1,164 @@
-let -- ── Pitch core ──────────────────────────────────────────
+-- ============================================================
+-- 31EDO library + examples (evaluate the whole let block first)
+-- ============================================================
+-- 1 step = 1200/31 ≈ 38.7 cents. Octave = 31 steps.
+--
+-- ▍Quick reference (ready-to-play functions)
+--   n31    "c ehf as3"                note names → single notes
+--   ch31   "<c:maj f4:harm7:i>"       chord names → chords (plain notes ok too)
+--   sc31   "major" "0 .. 7"           scale name + degrees → melody
+--   sc31on "c" "major" "0 .. 7"       scale with a named root
+--   up31 18 $ ...                     transpose in 31EDO steps (18 = fifth)
+--   arpSteady 8 $ ch31 "..."          n-slot arpeggio over any chord
+--   chordList31 / scaleList31         show all available chord/scale names
+--
+-- ▍Note name = root (c d e f g a b) + accidental + octave (default 5)
+--   accidentals: s = # (+2)   f = ♭ (-2)   hs = half-# (+1)  hf = half-♭ (-1)
+--                ss = ## (+4)  ff = ♭♭ (-4)
+--   e.g. "c"  "ehf" (E half-flat = neutral third)  "as3" (A#3 = low harmonic 7th of C)
+--
+-- ▍Chord name = note name + ":" + quality + modifiers (0 or more, all ":"-separated)
+--   modifiers: i / iN  = invert N times      o = open voicing
+--              d / dN  = drop Nth-from-top note an octave (plain d = drop-2)
+--              number N = extend/truncate to N notes (continuing up the octaves)
+--   e.g. "c:maj"  "e3:harm7"  "f4:maj:i2"  "g:dom7:d"  "c:maj:6"
+--
+-- ▍Low-level functions (return raw 31EDO steps as Pattern Note)
+--   nt31 = note names → steps    chd31 = chord names → steps
+--   scale31 / scale31on = scales → steps
+--   st31 = steps → note value    e31 = ControlPattern version (legacy compat)
+-- ============================================================
+let -- ── pitch core ─────────────────────────────────────────
     edo = 31
     e31 p = p |* note (12/edo)
-    -- ── Chords ──────────────────────────────────────────────
+    st31 :: Pattern Note -> Pattern Note
+    st31 p = p |* (12/edo)
+    up31 :: Pattern Note -> ControlPattern -> ControlPattern
+    up31 sp = (|+ note (st31 sp))
+    -- ── note-name parser ────────────────────────────────────
+    roots31, accs31 :: [(String, Note)]
     roots31 = [("c",0),("d",5),("e",10),("f",13),("g",18),("a",23),("b",28)]
-    accs31 = [("",0),("s",2),("f",-2),("hs",1),("hf",-1)]
+    accs31  = [("",0),("s",2),("f",-2),("hs",1),("hf",-1),("ss",4),("ff",-4)]
+    isDig31 c = c >= '0' && c <= '9'
+    allDig31 :: String -> Bool
+    allDig31 = and . map isDig31  -- avoid Prelude's `all`: BootTidal shadows it with streamAll
+    int31 :: String -> Int
+    int31 = foldl (\n c -> n * 10 + fromEnum c - 48) 0
+    toks31 s = case break (== ':') s of
+      (a, [])     -> [a]
+      (a, _:rest) -> a : toks31 rest
+    octv31 :: String -> Maybe Note
+    octv31 ds
+      | null ds     = Just 0
+      | allDig31 ds = Just (fromIntegral (31 * (int31 ds - 5)))
+      | otherwise   = Nothing
+    pnote31 :: String -> Maybe Note
+    pnote31 []       = Nothing
+    pnote31 (r:rest) = do
+      rv <- lookup [r] roots31
+      let (acc, oct) = span (not . isDig31) rest
+      av <- lookup acc accs31
+      ov <- octv31 oct
+      Just (rv + av + ov)
+    nt31 :: Pattern String -> Pattern Note
+    nt31 = squeezeJoin . fmap (maybe silence pure . pnote31)
+    n31 :: Pattern String -> ControlPattern
+    n31 = note . st31 . nt31
+    -- ── chord qualities ─────────────────────────────────────
+    quals31 :: [(String, [Note])]
     quals31 =
-      -- ── Highly consonant (close to integer harmonic ratios) ──
-      [ ("maj",     [0,10,18])
-      , ("harm7",   [0,10,18,25])
-      , ("min",     [0,8,18])
-      , ("submin",  [0,7,18])
-      , ("harmdim", [0,8,15])
-      , ("submin7", [0,7,18,25])
-      -- ── Moderately consonant ──
-      , ("supmaj",  [0,11,18])
-      , ("neut",    [0,9,18])
-      , ("aug",     [0,10,20])
-      , ("maj7",    [0,10,18,28])
-      , ("harm9",   [0,10,18,25,36])
-      -- ── Common functional harmony (meantone) ──
+      -- ── very consonant (close to integer harmonic ratios) ──
+      [ ("maj",     [0,10,18])           -- just major triad 4:5:6
+      , ("harm7",   [0,10,18,25])        -- harmonic seventh 4:5:6:7
+      , ("min",     [0,8,18])            -- just minor triad 10:12:15
+      , ("submin",  [0,7,18])            -- subminor 6:7:9
+      , ("harmdim", [0,8,15])            -- harmonic diminished 5:6:7
+      , ("submin7", [0,7,18,25])         -- 12:14:18:21
+      , ("5",       [0,18])              -- power chord 2:3
+      -- ── moderately consonant ──
+      , ("supmaj",  [0,11,18])           -- supermajor 14:18:21
+      , ("neut",    [0,9,18])            -- neutral triad (11/9 third)
+      , ("neut7",   [0,9,18,27])         -- neutral 3rd + neutral 7th (mohajira-ish)
+      , ("aug",     [0,10,20])           -- stacked just major thirds
+      , ("maj7",    [0,10,18,28])        -- 8:10:12:15
+      , ("harm9",   [0,10,18,25,36])     -- 4:5:6:7:9
+      , ("harm11",  [0,10,18,25,36,45])  -- 4:5:6:7:9:11 (the full otonality)
+      -- ── everyday functional harmony (meantone) ──
       , ("dim",     [0,8,16])
+      , ("dim7",    [0,8,16,24])         -- 8+8+8, near-equal diminished 7th
+      , ("halfdim", [0,8,16,26])         -- m7♭5
       , ("sus2",    [0,5,18])
       , ("sus4",    [0,13,18])
+      , ("maj6",    [0,10,18,23])
+      , ("min6",    [0,8,18,23])
       , ("min7",    [0,8,18,26])
       , ("dom7",    [0,10,18,26])
-      -- ── Dissonant ──
-      , ("neut2",   [0,4,18])
-      , ("wolf5f",  [0,10,17])
-      , ("wolf5s",  [0,10,19])
-      , ("clu3",    [0,3,6])
-      , ("clu2",    [0,2,4])
-      -- ── Extremely dissonant (unique to 31EDO) ──
-      , ("clu1",    [0,1,2])
+      , ("dom9",    [0,10,18,26,36])
+      , ("min9",    [0,8,18,26,36])
+      -- ── dissonant ──
+      , ("neut2",   [0,4,18])            -- neutral second
+      , ("wolf5f",  [0,10,17])           -- wolf fifth (1 step narrow)
+      , ("wolf5s",  [0,10,19])           -- wolf fifth (1 step wide)
+      , ("clu3",    [0,3,6])             -- semitone (3-step) cluster
+      , ("clu2",    [0,2,4])             -- 2-step cluster
+      -- ── extremely dissonant (31EDO specialty) ──
+      , ("clu1",    [0,1,2])             -- minimal 1-step (≈39¢) cluster
       ]
-    chordTable31 =
-      [ (r ++ a ++ sep ++ q, stack (map (pure . (+ (rv + av))) steps))
-      | (r,rv) <- roots31, (a,av) <- accs31, sep <- [":", "'"], (q,steps) <- quals31 ]
-    ch31 p = e31 (note (inhabit chordTable31 p))
-    -- ── Arpeggio (spread a chord over time) ─────────────────
+    -- ── voicing operations (modifier implementation) ────────
+    ins31 x [] = [x]
+    ins31 x (y:ys) = if x <= y then x : y : ys else y : ins31 x ys
+    inv31 [] = []
+    inv31 (x:xs) = xs ++ [x + 31]
+    open31 (x:y:zs@(_:_)) = x : zs ++ [y + 31]
+    open31 xs = xs
+    drop31 k xs
+      | i < 0 || i >= length xs = xs
+      | otherwise = foldr ins31 [] (take i xs ++ (xs !! i - 31) : drop (i + 1) xs)
+      where i = length xs - k
+    ext31 k xs = map (\j -> xs !! (j `mod` len) + fromIntegral (31 * (j `div` len))) [0 .. k - 1]
+      where len = length xs
+    mod31 xs ('i':ds)
+      | null ds     = Just (inv31 xs)
+      | allDig31 ds = Just (iterate inv31 xs !! int31 ds)
+    mod31 xs "o" = Just (open31 xs)
+    mod31 xs ('d':ds)
+      | null ds     = Just (drop31 2 xs)
+      | allDig31 ds = Just (drop31 (int31 ds) xs)
+    mod31 xs ds
+      | not (null ds) && allDig31 ds = Just (ext31 (int31 ds) xs)
+    mod31 _ _ = Nothing
+    -- ── chord parser ────────────────────────────────────────
+    pchord31 :: String -> Maybe [Note]
+    pchord31 s = case toks31 s of
+      [t]            -> (: []) <$> pnote31 t
+      (t : q : mods) -> do
+        rv <- pnote31 t
+        steps <- lookup q quals31
+        foldl (\acc m -> acc >>= (`mod31` m)) (Just (map (rv +) steps)) mods
+      _              -> Nothing
+    chd31 :: Pattern String -> Pattern Note
+    chd31 = squeezeJoin . fmap (maybe silence (stack . map pure) . pchord31)
+    ch31 :: Pattern String -> ControlPattern
+    ch31 = note . st31 . chd31
+    -- ── arpeggio (spread a chord over a steady grid) ────────
     arpSteady :: Int -> Pattern a -> Pattern a
     arpSteady n = arpWith (\es -> map (\i -> es !! (i `mod` length es)) [0 .. n-1])
-    -- ── Single notes (called by note name) ──────────────────
-    noteTable31 =
-      [ (r ++ a ++ oname, pure (rv + av + fromIntegral (31 * (o - 5))))
-      | (r,rv) <- roots31, (a,av) <- accs31
-      , (oname,o) <- ("",5) : [(show n, n) | n <- [0..8 :: Int]] ]
-    n31 p = e31 (note (inhabit noteTable31 p))
-    -- ── Scales (tunings) ────────────────────────────────────
+    -- ── scales (tunings) ────────────────────────────────────
     scales31 :: [(String, [Note])]
     scales31 =
-      -- ── Meantone family ──
+      -- ── meantone family ──
       [ ("penta5",      [0,5,10,18,23])
       , ("major",       [0,5,10,13,18,23,28])
       , ("minor",       [0,5,8,13,18,21,26])
       , ("harmminor",   [0,5,8,13,18,21,28])
       , ("melminor",    [0,5,8,13,18,23,28])
+      , ("dorian",      [0,5,8,13,18,23,26])
+      , ("phrygian",    [0,3,8,13,18,21,26])
+      , ("lydian",      [0,5,10,15,18,23,28])
+      , ("mixolydian",  [0,5,10,13,18,23,26])
       , ("chrom12",     [0,2,5,7,10,13,15,18,20,23,25,28])
       , ("enh19",       [0,2,4,5,7,9,10,12,14,15,17,18,20,22,23,25,27,28,30])
-      -- ── MOS scales unique to 31EDO ──
+      -- ── MOS scales native to 31EDO ──
       , ("mohajira",    [0,5,9,14,18,23,27])
       , ("orwell9",     [0,4,7,11,14,18,21,25,28])
       , ("miracle10",   [0,3,6,9,12,15,18,21,24,27])
@@ -67,15 +168,16 @@ let -- ── Pitch core ──────────────────�
       , ("wurschmidt7", [0,9,10,19,20,29,30])
       , ("squares8",    [0,2,4,11,13,15,22,24])
       , ("valentine15", [0,2,4,6,8,10,12,14,16,18,20,22,24,26,28])
-      -- ── Approximations of world scales ──
+      -- ── approximations of world scales ──
       , ("rast",        [0,5,9,13,18,23,27])
       , ("bayati",      [0,4,8,13,18,21,26])
+      , ("hijaz",       [0,3,10,13,18,21,26])  -- maqam with an augmented 2nd (7 steps)
       , ("slendro",     [0,6,12,18,24])
       , ("eq7",         [0,4,8,13,17,22,26])
-      -- ── Harmonic-series scales ──
+      -- ── harmonic-series scales ──
       , ("harmonics",   [0,5,10,14,18,22,25,28])
       , ("otonal",      [0,5,10,13,18,23,25,28])
-      -- ── Approximations of symmetric scales ──
+      -- ── approximations of symmetric scales ──
       , ("wholetone",   [0,5,10,15,20,25])
       , ("dim8",        [0,5,8,13,16,21,24,29])
       ]
@@ -83,72 +185,125 @@ let -- ── Pitch core ──────────────────�
     scale31 :: Pattern String -> Pattern Int -> Pattern Note
     scale31 sp p = innerJoin (fmap (\name -> fmap (step31 (maybe [0] id (lookup name scales31))) p) sp)
     scale31on :: Pattern String -> Pattern String -> Pattern Int -> Pattern Note
-    scale31on rp sp p = scale31 sp p |+ inhabit noteTable31 rp
+    scale31on rp sp p = scale31 sp p |+ nt31 rp
+    sc31 :: Pattern String -> Pattern Int -> ControlPattern
+    sc31 sp dp = note (st31 (scale31 sp dp))
+    sc31on :: Pattern String -> Pattern String -> Pattern Int -> ControlPattern
+    sc31on rp sp dp = note (st31 (scale31on rp sp dp))
+    -- ── name listings (evaluate these to see what's available) ──
+    chordList31 = unwords (map fst quals31)
+    scaleList31 = unwords (map fst scales31)
 
 -- ============================================================
--- Example 1: Single notes (n31) — play notes by name
+-- Example 1: single notes (n31) — play notes by name
 -- ============================================================
--- Note name + accidental (s/f = ±2 steps, hs/hf = ±1) + octave
--- number (defaults to 5). "ehf" is E half-flat (a neutral third),
--- "as" is A# (the harmonic seventh of C).
+-- Note name + accidental (s/f = ±2, hs/hf = ±1, ss/ff = ±4) +
+-- octave (default 5). "ehf" is E half-flat (a neutral third),
+-- "as" is A# (the harmonic 7th above C).
 
 d1
   $ s "supervibe*4"
   # n31 "<c e g as ehf4 g4 c5 c6>*4"
-  |+ note "c5"
 
 hush
 
 -- ============================================================
--- Example 2: Chords (ch31) — call chords by name
+-- Example 2: chords (ch31) — call chords by name
 -- ============================================================
--- Format: root name + ":" + quality. A progression where the
--- color of the 3rd and 7th shifts step by step:
--- maj → harm7 → neut → submin (one chord per cycle).
+-- Format: note name + ":" + quality (evaluate chordList31 for the
+-- full list). maj → harm7 → neut → submin shifts the color of the
+-- 3rd and 7th a little at a time. Roots can carry an octave
+-- ("e3:maj"), and plain note names mix in freely: "c:maj e g".
 
 d1
   $ s "superhammond"
   # ch31 "<c:maj c:harm7 c:neut c:submin>"
-  |+ note "c5"
 
 hush
 
 -- ============================================================
--- Example 3: Arpeggio (arpSteady) — spread chords on a fixed grid
+-- Example 3: voicing modifiers — inversion, open, drop
 -- ============================================================
--- arpSteady 8 divides each chord into 8 equal steps, cycling
--- through the chord tones from the bottom up. The rhythm stays
--- steady even when triads and tetrads are mixed.
+-- Chain modifiers after the quality with ":".
+--   i / i2 = invert once/twice   o = open (2nd-from-bottom up an octave)
+--   d / d3 = drop 2nd/3rd-from-top an octave   number = chord size
+-- Combining inversions with root octaves gives a I → IV → V7 → I
+-- with minimal voice movement.
+
+d1
+  $ s "superhammond"
+  # ch31 "<c:maj f4:maj:i2 g4:dom7:i c:maj>"
+
+hush
+
+-- The same maj7 changes character with each voicing.
+d1
+  $ s "superhammond"
+  # ch31 "<c:maj7 c:maj7:i c:maj7:o c:maj7:d>"
+
+hush
+
+-- ============================================================
+-- Example 4: arpeggios (arpSteady) — spread chords on a steady grid
+-- ============================================================
+-- arpSteady 8 divides each chord into 8 slots, cycling through the
+-- chord tones from the bottom. Extending chords with ":6" ":8"
+-- makes the arpeggio climb across octaves. Mixed 3- and 5-note
+-- chords keep a perfectly steady rhythm.
 
 d1
   $ arpSteady 8
-  $ ch31 "<c:maj f:harm7 g:dom7 c:harm9>"
+  $ ch31 "<c:maj:6 f4:harm7:8 g4:dom7:6 c:harm9>"
   # s "supervibe"
-  |+ note "c5"
 
 hush
 
 -- ============================================================
--- Example 4: Scales (scale31 / scale31on) — melodies by degree
+-- Example 5: scales (sc31 / sc31on) — write melodies as degrees
 -- ============================================================
--- scale31 <scale name> <degrees>. Degree 0 is the tonic; degrees
--- beyond the scale size wrap up an octave. The scale changes
--- every 2 cycles.
+-- sc31 <scale name> <degrees> (evaluate scaleList31 for the list).
+-- Degree 0 is the tonic; past the last note it folds up an octave
+-- (negative degrees fold downward). Here the scale changes every
+-- two cycles.
 
 d1
   $ s "supervibe*8"
-  # e31 (note (scale31 (slow 2 "<major mohajira orwell9 harmonics>") "0 .. 7"))
-  |+ note "c5"
+  # sc31 (slow 2 "<major mohajira orwell9 harmonics>") "0 .. 7"
 
 hush
 
--- scale31on is scale31 with a root note name. The scale changes
--- every cycle, while the root moves c → f → g → a every 4 cycles.
--- All 4 scales pass over each root, so the whole pattern repeats
--- every 16 cycles.
+-- sc31on is sc31 with a named root. The scale changes every cycle
+-- while the root moves c → f → g → a every four cycles, so each
+-- root hosts all four scales and the whole thing loops in 16 cycles.
+
 d1
   $ s "supervibe*8"
-  # e31 (note (scale31on "<c f g a>/4" "<major mohajira orwell9 harmonics>" "0 .. 7"))
-  |+ note "c5"
+  # sc31on "<c f g a>/4" "<major mohajira orwell9 harmonics>" "0 .. 7"
+
+hush
+
+-- ============================================================
+-- Example 6: transposition (up31 / st31) — move in 31EDO steps
+-- ============================================================
+-- up31 18 transposes up a fifth (18 steps ≈ 697¢). Combined with
+-- off it becomes a fifth-above echo. Unlike 12EDO-unit shifts such
+-- as |+ note 7, it stays on the 31EDO grid (only octave shifts
+-- like |+ note 12 are equivalent).
+
+d1
+  $ off 0.125 (up31 18 . (|* gain 0.7))
+  $ s "supervibe*4"
+  # sc31 "penta5" "0 .. 3"
+
+hush
+
+-- st31 converts step counts to note values. With |+ note (st31 "...")
+-- a whole phrase drifts in parallel — good for slow-moving drones.
+
+d1
+  $ s "supersaw"
+  # n31 "<c3 c3 g2 c3>"
+  |+ note (st31 "<0 8 10 5>/2")
+  # legato 1.05
 
 hush

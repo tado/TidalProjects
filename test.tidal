@@ -1,3 +1,33 @@
+d1
+  $ sometimesBy 0.2 (fast 2)
+  $ s "bd cp [~ bd] hc*2"
+  # delay 0.7 # delaytime (5/8) # lock 1
+
+d2
+  $ s "supersaw(9, 16)"
+  # note "c3"
+  |+ note (scale "minPent" "{0..9}%5")
+  # lfo (range 200 2000 $ slow 4 $ sine) # resonance 0.3
+
+d3
+  $ jux (iter 8)
+  $ s "superhammond*4"
+  # note "c4'min c4'sus2 c4'sus2 c4'min9"
+  # legato 0.9
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
