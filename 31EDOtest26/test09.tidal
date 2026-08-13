@@ -4,19 +4,20 @@ setcps (140/240)
 
 hush
 
-unsolo 3
+unsolo 2
 
 do
   -- hush  
   let 
     -- shift31 = 0
+    shift31 = (st31 "<0 -18>/4"+"<0 2 4 8>/8")
     -- shift31 = (st31 "<0 8 10 5>/8")
-    shift31 = (st31 "<0 -4 -8 -12 -16 16 12 8 4>/4")
+    -- shift31 = (st31 "<0 -4 -8 -12 -16 16 12 8 4>/4")
     -- scl31 = "<major>"
     -- cord31 = "<c:maj7:8 c:maj6:8>"
     -- scl31 = "<minor>"
     -- cord31 = "<c:min7:8 c:min9:8>"
-    scl31 = "<minor minor minor minor major major major major>"
+    scl31 = "<minor major>/4"
     cord31 = "<c:min7:8 c:min9:8 c:min7:8 c:min9:8 c:maj7:8 c:maj6:8 c:maj7:8 c:maj6:8>"
   d12
     $ s "none(9, 16)"
@@ -32,8 +33,8 @@ do
     # legato 2.0
     # gain 1.0    
   d2
-    $ jux (rev)
-    $ s "supervibe(9, 16)"
+    -- $ jux (("[5, 9]"/16)<~)
+    $ s "supervibe(7, 16, [0, 9, 5])"
     -- # voice 2
     # sc31 scl31 "{0..19}%[5, 9]"
     |+ note shift31
@@ -44,16 +45,17 @@ do
     -- # lpf (range 800 2000 $ rand) # resonance 0.2
     -- # room 0.3 # size 0.9
     # pan (rand)
-    # gain 1.0  
+    # gain 0.9
   d3
-    $ s "superhammond(5, 8, 1)"
+    -- $ jux ((3/8)<~)
+    $ s "superhammond(5, 8, [1])"
     # voice 5
     # ch31 cord31
     |+ note shift31
     |* note "[1.001, 0.999]"
     -- |+ note (st31 "[31, 62]")
     |+ note (st31 31)
-    # lpf (range 400 8000 $ rand) # resonance 0.2
+    # lpf (range 400 12000 $ rand) # resonance 0.3
     -- # room 0.5 # size 0.8
     -- # delay 0.5 # delaytime ("[5, 9]"/16) # delayfeedback 0.5 # lock 1
     # legato 0.8
@@ -81,7 +83,7 @@ do
     # leslie 0.9 # lrate 0.2 # lsize 0.8
     -- # room 0.5 # size 0.9
     -- # shape 0.95
-    # gain 1.3
+    # gain 0.0
 
 unsolo 4
 
