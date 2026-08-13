@@ -1,0 +1,104 @@
+setcps (140/240)
+  
+
+
+hush
+
+unsolo 3
+
+do
+  -- hush  
+  let 
+    -- shift31 = 0
+    -- shift31 = (st31 "<0 8 10 5>/8")
+    shift31 = (st31 "<0 -4 -8 -12 -16 16 12 8 4>/4")
+    -- scl31 = "<major>"
+    -- cord31 = "<c:maj7:8 c:maj6:8>"
+    -- scl31 = "<minor>"
+    -- cord31 = "<c:min7:8 c:min9:8>"
+    scl31 = "<minor minor minor minor major major major major>"
+    cord31 = "<c:min7:8 c:min9:8 c:min7:8 c:min9:8 c:maj7:8 c:maj6:8 c:maj7:8 c:maj6:8>"
+  d12
+    $ s "none(9, 16)"
+    # td_s (choose[0..5])
+  d1
+    $ s "superbass(3, 8)"
+    -- # voice 3
+    # note (st31 "<0 18>")
+    |+ note shift31
+    |- note (st31 "[93, 62]")
+    |* note "[1.001, 0.999]"
+    # lpf (range 200 1000 $ rand) # resonance 0.4
+    # legato 2.0
+    # gain 1.0    
+  d2
+    $ jux (rev)
+    $ s "supervibe(9, 16)"
+    -- # voice 2
+    # sc31 scl31 "{0..19}%[5, 9]"
+    |+ note shift31
+    -- |+ note (st31 31)
+    |* note "[1.001, 0.999]"
+    -- |+ note (st31 "[0, 18]")
+    # legato 6.0
+    -- # lpf (range 800 2000 $ rand) # resonance 0.2
+    -- # room 0.3 # size 0.9
+    # pan (rand)
+    # gain 1.0  
+  d3
+    $ s "superhammond(5, 8, 1)"
+    # voice 5
+    # ch31 cord31
+    |+ note shift31
+    |* note "[1.001, 0.999]"
+    -- |+ note (st31 "[31, 62]")
+    |+ note (st31 31)
+    # lpf (range 400 8000 $ rand) # resonance 0.2
+    -- # room 0.5 # size 0.8
+    -- # delay 0.5 # delaytime ("[5, 9]"/16) # delayfeedback 0.5 # lock 1
+    # legato 0.8
+    # gain 0.9
+  d4
+    $ arpSteady 16
+    $ ch31 cord31
+    # s "supersin"
+    |+ note shift31
+    |+ note (st31 "[0, 31]")
+    # pan (range 0 1 $ slow 0.5 $ sine)
+    # legato 1.0
+    -- # room 0.3 # size 0.9
+    # gain 0.0
+  d5
+    -- $ slow 2
+    $ s "supermoog(4, 8)"
+    # sc31 scl31 "{0..9}%3"
+    |* note "[1.001, 0.999]"
+    |- note (st31 62)
+    |+ note shift31
+    -- |+ note (st31 "[0, 18]")
+    # lpf (range 800 2000 $ rand) # resonance 0.4
+    # attack 2.0 # legato 10.0 # release 0.0
+    # leslie 0.9 # lrate 0.2 # lsize 0.8
+    -- # room 0.5 # size 0.9
+    -- # shape 0.95
+    # gain 1.3
+
+unsolo 4
+
+d6
+  -- $ sometimesBy 0.2 (fast 2)
+  $ stack
+  [ s "uni(4, 8)" # gain 1.2
+    , s "uni:1(4, 8, 1)"
+    -- , jux (rev) $ s "uni:2(9, 16, 2)"
+    -- , s "ifdrums(9, 16, 2)" # n (range 1 3 $ rand)
+  ]  
+  -- # delay 0.8 # delaytime ("[5, 3]"/8) # delayfeedback 0.5 # lock 1
+  # shape 0.5
+  |* gain 2.0
+  
+
+
+unsolo 5
+
+hush

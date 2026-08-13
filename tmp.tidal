@@ -1,0 +1,511 @@
+-- =========================================================
+-- Live 笙 (Sho) Coding
+-- 笙 = Traditional Japanese bamboo free-reed mouth organ.
+-- =========================================================
+--
+-- I.   笙 (Sho)          80/240   笙のみ → 5層まで積む
+-- II.  First movement   105/240   笙の下からリズムが立ち上がる
+-- III. Hard Beat        130/240   笙は鳴り続ける / 打ち込みが覆う → 20/240 で急停止
+-- IV.  Drone & Outro     85/240   笙が戻り、余韻の中で終わる
+--
+-- ch: d1 笙 / d2 superhammond / d3 supersawfbk / d4 高音 / d5 中音
+--     d6 打楽器 / d7 低音 / d8 重い stack / d9 fb・distd / d12 TD
+
+-- 1.
+-- Define the frequencies of each pipe of the 笙 (Sho) using Pythagorean tuning,
+-- then define the 合竹 (Aitake) harmonies.
+-- 合竹 (Aitake): Traditional 5 to 6-note chords played on the Sho.
+
+let
+  hz2note f = 12 * logBase 2 (f / 430.0) - 3.398
+  scale = getScale
+    (scaleTable ++ [
+      ("kotsu", map hz2note [430.0, 645.0, 860.0, 967.5, 1290.0, 1451.2]),
+      ("ichi",  map hz2note [483.8, 573.3, 645.0, 860.0, 967.5, 1451.2]),
+      ("ku",    map hz2note [544.2, 573.3, 645.0, 816.3, 860.0, 967.5]),
+      ("bo",    map hz2note [573.3, 645.0, 860.0, 967.5, 1290.0, 1451.2]),
+      ("otsu",  map hz2note [645.0, 860.0, 967.5, 1146.7, 1290.0, 1451.2]),
+      ("ge",    map hz2note [725.6, 816.3, 860.0, 967.5, 1146.7, 1451.2]),
+      ("ju",    map hz2note [725.6, 764.4, 860.0, 967.5, 1146.7, 1290.0]),
+      ("soju",  map hz2note [764.4, 860.0, 967.5, 1146.7, 1290.0]),
+      ("bi",    map hz2note [816.3, 860.0, 967.5, 1019.3, 1146.7, 1451.2]),
+      ("gyo",   map hz2note [860.0, 967.5, 1146.7, 1290.0, 1451.2]),
+      ("hi",    map hz2note [860.0, 967.5, 1019.3, 1146.7, 1290.0, 1451.2])
+    ])
+  kotsu     = "[430.0, 645.0, 860.0, 967.5, 1290.0, 1451.2]"
+  ichi      = "[483.8, 573.3, 645.0, 860.0, 967.5, 1451.2]"
+  ku        = "[544.2, 573.3, 645.0, 816.3, 860.0, 967.5]"
+  bo        = "[573.3, 645.0, 860.0, 967.5, 1290.0, 1451.2]"
+  otsu      = "[645.0, 860.0, 967.5, 1146.7, 1290.0, 1451.2]"
+  ge        = "[725.6, 816.3, 860.0, 967.5, 1146.7, 1451.2]"
+  ju        = "[725.6, 764.4, 860.0, 967.5, 1146.7, 1290.0]"
+  soju      = "[764.4, 860.0, 967.5, 1146.7, 1290.0]"
+  bi        = "[816.3, 860.0, 967.5, 1019.3, 1146.7, 1451.2]"
+  gyo       = "[860.0, 967.5, 1146.7, 1290.0, 1451.2]"
+  hi        = "[860.0, 967.5, 1019.3, 1146.7, 1290.0, 1451.2]"
+
+-- 2.
+-- Chord/scale sequence of 越天楽 (Etenraku)
+-- An ancient Japanese Gagaku composition.
+
+let
+  etenScale = "<bo ichi otsu otsu bo [ju ge] otsu otsu ichi [ichi kotsu] ichi otsu ju [ichi kotsu] otsu otsu otsu otsu ge kotsu [ichi ku] [ku ichi] kotsu kotsu>/2"
+  eten      = (parseBP_E $ "<" ++ bo ++ " " ++ ichi ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ bo ++" [" ++ ju ++ " " ++ ge ++ "]" ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ ichi ++ " [" ++ ichi ++ " " ++ kotsu ++ "]" ++ " " ++ ichi ++ " " ++ otsu ++ " " ++ ju ++ " [" ++ ichi ++ " " ++ kotsu ++ "]" ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ otsu ++ " " ++ ge ++ " " ++ kotsu ++ " [" ++ ichi ++ " " ++ ku ++ "] [" ++ ku ++ " " ++ ichi ++ "]" ++ " " ++ kotsu ++ " " ++ kotsu ++ ">/2") :: Pattern Double
+
+
+
+
+
+
+
+------------------------------
+-- I'm ready. Let's go!!
+------------------------------
+
+-- 3. 開始の合図
+-- 鐘を一度だけ鳴らして TouchDesigner を起動する。
+-- ここから 越天楽 の和音進行が 48 サイクル(約2分半)かけて一巡する。
+
+do
+  hush
+  resetCycles
+  setcps(80/240)
+  d12
+    $ s "none"
+    # td_s 1
+  once
+    $ s "matsu"
+    # note "[0, -12]"
+    # gain 1.1
+    # room 0.5 # size 0.8
+
+
+
+
+-- 4. 笙のみ
+-- slow 2 で合竹ひとつを 4 サイクル(約12秒)保つ。
+-- freq eten は純正律の Hz を直接指定しているので、
+-- 音律の補正(|+ note ...)は一切要らない。
+
+d1
+  $ slow 2
+  $ s "sho/2"
+  # voice 3
+  # freq eten
+  # legato 2.5
+  # room 0.4 # size 0.95
+  # gain 0.9
+
+
+
+
+-- 5. 本来の速さへ
+-- slow 2 を外すと合竹が 2 サイクルごとに変わる。
+-- これ以降のトラックはこの速度に乗る。
+
+d1
+  $ s "sho/2"
+  # voice 3
+  # freq eten
+  # legato 1.8
+  # room 0.3 # size 0.9
+  # gain 1.0
+
+
+
+
+-- 6. 笙を倍音で厚くする
+-- superhammond に同じ freq eten を渡し、|* freq で 2 オクターブ上を重ねる。
+-- 笙の音色に溶けるので、音量は最後に少しずつ上げる。
+
+d2
+  $ s "superhammond(5, 14)"
+  # freq eten
+  |* freq "[1.0, 4.0]"
+  # voice 5
+  # legato 1.2
+  # room 0.3 # size 0.95
+  # gain 0.6
+
+
+
+
+-- 7. 音の床をつくる
+-- 根音 430Hz(= a, 平均律より 0.398 半音低い)の3オクターブ下。
+-- 固定音を鳴らすときだけ |+ note (-0.398) で音律を合わせる。
+
+d3
+  $ s "supersawfbk"
+  # note "a2"
+  |+ note (-0.398)
+  # rq 0.9
+  # legato 3.0
+  # wet 0.0
+  # room 0.2 # size 0.9
+  # gain 0.9
+
+
+
+
+-- 8. 高音のきらめき
+-- etenScale の上の方(8..13番目)から選び、笙の余韻をにじませる。
+
+d4
+  $ s "superfork(3, 14)"
+  |+ note (scale etenScale (choose[8..13]))
+  |+ note "<0 12>*14"
+  |+ note "[-0.01, 0.01]"
+  # pan (rand)
+  # legato 8
+  # room 0.6 # size 0.95
+  # gain 0.7
+
+
+
+
+-- 9. 点描を置く
+-- gamsar を (2, 14) の間隔で。ここまでが冒頭部。
+
+d5
+  $ s "gamsar(2, 14)" # n 2
+  # note "c5"
+  |+ note (scale etenScale (choose[0..12]))
+  |+ note "[0.04, -0.04]"
+  # legato 8.0
+  # pan (range 0.2 0.8 $ rand)
+  # room 0.5 # size 0.95
+  # gain 0.9
+
+
+
+
+---------------------------------------------------------
+-- II. First movement — リズムの出現
+---------------------------------------------------------
+
+-- 10. 一度うすくする
+-- 鐘で区切り、笙とドローンだけを残す。ここでテンポを上げる。
+
+do
+  setcps(80/240)
+  d12
+    $ s "none*4"
+    # td_s (choose[34..40])
+  once
+    $ s "matsu"
+    # note "[0, -12]"
+    # gain 1.0
+    # room 0.5 # size 0.8
+  d2 silence
+    >> d4 silence
+    >> d5 silence
+
+
+
+
+-- 11. 低音が動きだす
+-- superbass に etenScale の根音(0番目)だけを与えるので、
+-- 合竹が変わるたびにベースも動く。
+
+d7
+  $ sometimesBy 0.4 (rev)
+  $ s "superbass(3, 7)"
+  # note "c2"
+  |+ note (scale etenScale 0)
+  |+ note "[-0.02, 0.02]"
+  # legato 2.0
+  # lpf (range 400 4000 $ slow 8 $ sine) # resonance 0.3
+  # gain 1.0
+
+
+
+
+-- 12. 最初のパルス
+-- 7 と 14 のユークリッドで、笙の 2 サイクル周期とずらして重ねる。
+
+d6
+  $ sometimesBy 0.3 (fast 2)
+  $ stack
+  [
+    s "uni(3, 14)" # legato 0.5
+    , s "uni:1(2, 14, 5)" # shape 0.4 # gain 0.9
+    , s "hc(5, 7, 2)" # gain 0.8
+  ]
+  # delay 0.5 # delaytime ("[5, 3]"/14) # delayfeedback 0.6 # lock 1
+  |* gain 1.4
+
+
+
+
+-- 13. 高音を戻す
+-- 冒頭より密度を上げ、jux で左右に散らす。
+
+d4
+  $ jux (("[5, 3]"/14)<~)
+  $ s "superfork(5, 14)"
+  |+ note (scale etenScale (choose[8..15]))
+  |+ note "<0 12>*14"
+  |+ note "[-0.01, 0.01]"
+  # pan (rand)
+  # legato 8
+  # room 0.5 # size 0.9
+  # gain 1.0
+
+
+
+
+-- 14. 中音を戻す
+-- gamsar の密度を (2, 14) → (8, 14) へ。
+
+d5
+  $ jux (rev)
+  $ sometimesBy 0.2 (fast 2)
+  $ s "gamsar(8, 14)" # n 2
+  # note "c5"
+  |+ note (scale etenScale (choose[0..19]))
+  |+ note "[0.04, -0.04]"
+  # legato 8.0
+  # pan (range 0.2 0.8 $ rand)
+  # room 0.5 # size 0.95
+  # gain 1.0
+
+
+
+
+-- 15. 打楽器を追い込む
+-- ifdrums と 808 が加わってビートが確定する。
+
+d6
+  $ sometimesBy 0.4 (rev)
+  $ sometimesBy 0.6 (fast 2)
+  $ stack
+  [
+    s "uni:1(5, 7, 5)"
+    , s "hc(5, 7, 2)"
+    , s "uni(3, 7)" # gain 1.5
+    , s "808(8, 14, 3)" # n (irand 20)
+    , s "ifdrums(11, 14)" # n (irand 4) # gain 1.4
+  ]
+  |* gain 1.7
+
+
+
+
+---------------------------------------------------------
+-- III. Hard Beat
+---------------------------------------------------------
+
+-- 16. 打ち込みが覆う
+-- hush はしない。笙(d1)とドローン(d3)は鳴らしたまま、
+-- その上に 16 分のグリッドをかぶせる。雅楽の和音がビートの下に残る。
+
+do
+  setcps(130/240)
+  hush
+  d12
+    $ s "none(11, 16)"
+    # td_s (choose[1..100])
+  d5 silence
+    >> d6 silence
+  d8
+    $ every 2 (fast 2)
+    $ jux (iter 16)
+    $ stack
+    [
+      s "gabba(11, 16)" # gain 1.8
+      , s "distd(13, 16, 7)" # gain 1.6
+      , s "uni:1(9, 16, 3)" # n "{0 1 2 3}%5" # shape 0.9
+      , s "ifdrums(7, 8, 1)" # n (irand 4) # gain 1.7
+      , s "808(16, 16)" # n (irand 20) # shape 0.8 # gain 1.3
+    ]
+    # shape 0.8
+    # room 0.1 # size 0.3
+
+
+
+
+-- 17. 低音を歪ませる
+-- superzow に etenScale の下 5 音。ベースも越天楽の進行のまま。
+
+d5
+  $ every 3 (fast 2)
+  $ s "superzow(16, 16)"
+  # note "c2"
+  |+ note (scale etenScale (choose[0..4]))
+  |+ note "<-12 0 12>*16"
+  # lpf (range 200 12000 $ rand) # resonance 0.4
+  # shape 0.6
+  # gain 1.5
+
+
+
+
+-- 18. 高音を刺す
+-- supersin を 8 分刻みでオクターブ移動させる。
+
+d4
+  $ jux (iter 14)
+  $ sometimesBy 0.3 (brak)
+  $ s "supersin(3, 7)"
+  # note "<c5 c6 c7 c8>*8"
+  |+ note (scale etenScale (choose[0..4]))
+  |+ note "[-0.04, 0.04]"
+  # legato (range 0.5 1.0 $ rand)
+  # room 0.5 # size 0.9
+  # gain 0.9
+
+
+
+
+-- 19. ノイズを足す
+
+d9
+  $ every 3 (fast 2)
+  $ sometimesBy 0.5 (brak)
+  $ stack
+  [
+    s "distd(3, 7)"
+    , s "fb(9, 14)"
+  ]
+  # delay 0.9 # delaytime (range 0.001 0.05 $ rand) # delayfeedback 0.95
+  # shape 0.9
+  # gain 1.5
+
+
+
+
+-- 20. 急ブレーキ
+-- テンポだけを落とす。全部が引き伸ばされて崩れていく。
+
+setcps(20/240)
+
+
+
+
+---------------------------------------------------------
+-- IV. Drone & Outro
+---------------------------------------------------------
+
+-- 21. 断ち切る
+-- 鐘を鳴らして無音にし、テンポを戻す。
+
+do
+  hush
+  setcps(85/240)
+  d12
+    $ s "none"
+    # td_s (choose[29, 31, 32, 90, 91, 92, 93])
+  once
+    $ s "matsu"
+    # note "[0, -12]"
+    # gain 1.1
+    # room 0.5 # size 0.8
+
+
+
+
+-- 22. 笙が戻る
+-- 冒頭と同じ slow 2。ただし legato を伸ばして音を途切れさせない。
+
+d1
+  $ slow 2
+  $ s "sho/2"
+  # voice 3
+  # freq eten
+  # legato 3.5
+  # room 0.6 # size 0.95
+  # gain 1.0
+
+
+
+
+-- 23. 平均律の音階に緩む
+-- ここだけ純正律を離れ、ritusen(律旋)の superhammond を重ねる。
+-- 笙の純正律とわずかにずれて唸りが出る。
+
+d2
+  $ jux (("[3, 5]"/16)<~)
+  $ s "superhammond(9, 16, [0, 5, 9])"
+  # voice 4
+  # note "c4 c5"
+  |+ note (scale "ritusen" "{0..9}%[3, 5]")
+  |+ note "[-0.05, 0.05]"
+  |+ note "[0, -12, -24]"
+  # legato 1.0
+  # room 0.7 # size 0.9
+  # gain 0.5
+
+
+
+
+-- 24. ドローンを厚くする
+
+d3
+  $ s "supersawfbk"
+  # note "a2"
+  |+ note (-0.398)
+  # rq 0.7
+  # legato 3.0
+  # wet 1.5
+  # room 0.3 # size 0.9
+  # enhance 0.9
+  # shape 0.8
+  # gain 1.6
+
+
+
+
+-- 25. 長い響きの断片
+
+d4
+  $ s "matsu/8"
+  # note "[0, -12]"
+  # room 0.6 # size 0.95
+  # gain 1.1
+
+d5
+  $ s "adhan/4"
+  # room 0.6 # size 0.95
+  # gain 1.0
+
+
+
+
+-- 26. 段階的に消していく(間を置きながら順に評価)
+
+d2 silence
+
+d3 silence
+
+d5 silence
+
+setcps(40/240)
+
+
+
+
+-- 27. 最後は笙と matsu/8 だけが残る
+
+do
+  d12
+    $ s "none"
+    # td_s 1
+  d4 silence
+
+setcps(20/240)
+
+
+
+
+-- 28. 終了
+
+do
+  hush
+  once
+    $ s "none"
+    # td_s 0
+
+
+
+
+-- Thank you!!!

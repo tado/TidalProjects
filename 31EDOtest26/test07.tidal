@@ -3,10 +3,12 @@ setcps (135/240)
 let shift31 = "<0 8 10 18 23>/5"
     chordRegister31 = "<-31 -62>*8"   -- C4, C3 relative to C5
     spreadRegister31 = "[-31, -62, 31]"
-    sampleNumber = 2
+    sampleNumber = 0
     phraseLegato = 1.5
 
 hush
+
+unsolo 1
 
 d1
   -- $ jux (("[9, 5]"/7)<~)
@@ -23,7 +25,7 @@ d2
   $ arpSteady 14
   $ ch31 "<c:harm11>"
   # s "gambon"
-  |+ note "c5"
+  |+ note "c4"
   # n sampleNumber
   # legato phraseLegato
   # room 0.9

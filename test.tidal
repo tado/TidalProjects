@@ -1,3 +1,83 @@
+setcps(130/240)
+
+hush
+
+d1
+  $ slow 2
+  $ s "superhammond"
+  # note "c3"
+  -- |* note "[1.0001, 0.9999]"
+  |+ note "[0, 7]"
+  |+ note "{0 4 5 7 9}%3"
+  # voice "<1 3 0 5>"
+  # sustain 20.0
+  -- # legato 2.0
+  # room 0.3 # size 0.5
+  -- # lpf 400
+  # gain 0.7
+
+d2
+  $ s "superdown/32"
+  # sustain 180
+  # note "c5"
+  # voice 1000
+  # speed "[1.5, 1.0]"
+  -- # legato 2.0
+  # gain 0.8
+
+d1 $ s "supersin*16" # note "c9" |+ note (irand 12) # sustain 0.01 # room 0.5
+
+once $ s "superdown" # sustain 180 # note "c5" # voice 1000 # speed "[1.5, 1.0]" # gain 0.9
+
+hush
+
+do
+  hush
+  d12
+    $ jux (rev)
+    $ s "none(3, 8)"
+    # td_s (choose[1])
+  d1
+    $ jux (rev)
+    $ s "cp(3, 8)"
+
+do
+  -- hush
+  d12
+    $ s "none(3, 8, [0, 5])"
+    # td_s (choose[1..4])
+  d1
+    $ s "uni(3, 8, [0, 5]), cp(2, 8)"
+
+do
+  -- hush
+  d12
+    $ s "none(11, 16, [0, 7])"
+    # td_s (choose[0..5])
+  d2
+    $ s "hc(11, 16, [0, 7])"
+
+do
+  d12
+    $ sometimesBy 0.2 (fast 2)
+    $ jux ((5/16)~>)
+    $ s "none(11, 16, [3, 9])"
+    # td_s (choose[0..21])
+  d3
+    $ jux ((5/16)~>)
+    $ s "uni:1(11, 16, [3, 9])"   
+    # n (irand 4)
+  d4
+    $ sometimesBy 0.2 (fast 2)
+    $ s "ifdrums(5, 16)"
+    # n (irand 4)
+    
+
+d3 silence        
+
+
+
+
 d1
   $ sometimesBy 0.2 (fast 2)
   $ s "bd cp [~ bd] hc*2"
@@ -17,7 +97,7 @@ d3
 
 
 
-
+hush
 
 
 
