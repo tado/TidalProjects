@@ -3,6 +3,11 @@ setcps(130/240)
 hush
 
 d1
+  $ s "superlow/16"
+  # note "c3"
+
+
+d1
   $ slow 2
   $ s "superhammond"
   # note "c3"
@@ -619,3 +624,4 @@ do
     |+ note "[0, 12]"
     |+ note shift
     # lpf (range 200 8000 $ slow 6 $ sine) # resonance 0.2
+

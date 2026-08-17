@@ -7,10 +7,10 @@ hush
 unsolo 2
 
 do
-  -- hush  
+  hush  
   let 
-    -- shift31 = 0
-    shift31 = (st31 "<0 -18>/4"+"<0 2 4 8>/8")
+    shift31 = 0
+    -- shift31 = (st31 "<0 -18>/4"+"<0 2 4 8>/8")
     -- shift31 = (st31 "<0 8 10 5>/8")
     -- shift31 = (st31 "<0 -4 -8 -12 -16 16 12 8 4>/4")
     -- scl31 = "<major>"

@@ -1,0 +1,174 @@
+setcps(130/240)
+
+hush
+
+resetCycles
+
+d1
+  -- $ jux (("[3, 9]"/16)<~)
+  $ s "supersaw(3, 8)"
+  # ch31 "<c:dom7 c:dom9>/4"
+  -- # ch31 "<c:submin7>"
+  |* note "[1.001, 0.999]"
+  |+ note "[0, -12]"
+  # pan "<0.1 0.9>"
+  # lpf (range 800 12000 $ slow 8 $ sine) # resonance 0.3
+  # delay 0.8 # delaytime (5/8) # delayfeedback 0.25 # lock 1
+  # legato 0.8
+  -- # delay 0.8 # delaytime (9/16) # delayfeedback 0.25 # lock 1
+  -- # room 0.2 # size 0.8
+
+d2
+  $ s "superbass"
+  # note "c3"
+  |* note "[1.002, 0.998]"
+  |+ note (st31 "<0 10>/4")
+  # lpf 300 # resonance 0.1
+  # gain 1.0
+
+d3
+  $ stack
+  [
+    s "uni(9, 16)" # n 1 # gain 1.2
+    , s "uni(3, 8)" # gain 1.7 # legato 0.7
+  ]
+
+d4
+  $ s "matsu/4"
+  # legato 2.0
+
+d5
+  $ s "superzow(10, 16)"
+  # sc31 "mohajira" "{0..12}%11"
+  |+ note (-12)
+  # pan "0 0.5 1 0 0.5 1"
+  -- # delay 0.8 # delaytime (9/16) # delayfeedback 0.25 # lock 1
+  # legato 0.8
+
+d3
+  $ stack
+  [
+    s "uni(9, 16)" # n 1
+    , s "uni(4, 8)" # gain 1.5 # legato 0.5
+    , s "hc(4, 8, 1)" # gain 1.5 # legato 0.5
+  ]
+
+d4
+  $ s "kon(9, 16)"
+  # gain 1.1
+
+d1
+  -- $ jux (("[5, 9]"/16)<~)
+  $ s "supersaw(3, 16, [0, 3, 6])"
+  # ch31 "<c:wolf5f:3>/8"
+  |* note "[1.0001, 0.9999]"
+  |+ note "[0, -12]"
+  |+ note (st31 "<0 18>/8")
+  # pan "<0.1 0.9>"
+  # legato 1.0
+  # lpf (range 400 8000 $ slow 6 $ sine) # resonance 0.3
+  -- # delay 0.8 # delaytime (9/16) # delayfeedback 0.25 # lock 1
+
+do
+  -- resetCycles
+  -- hush
+  -- setcps(120/240)
+  once
+    $ s "matsu"
+    # gain 1.2
+
+
+do
+  -- resetCycles
+  d1
+    -- $ jux (("[3, 9]"/16)<~)
+    $ s "superhammond"
+    # voice 7
+    # ch31 "c:dom9"
+    |* note "[1.001, 0.999]"
+    |+ note "[0, -12]"
+    |+ note (st31 "<0 10>/8")
+    -- # pan "<0.1 0.9>"
+    # lpf 8000 # resonance 0.3
+    # room 0.5 # size 0.9
+    # gain 0.6
+    -- # delay 0.8 # delaytime (9/16) # delayfeedback 0.25 # lock 1  
+  d2
+    $ s "superhammond"
+    # note "c3"
+    # voice 0
+    |* note "[1.002, 0.998]"
+    |+ note (st31 "<0 10>/8")
+    # lpf 400 # resonance 0.2
+    # gain 1.0
+
+d4
+  $ s "superhammond*8"
+  # voice 7
+  # sc31 "mixolydian" "{0..9}%[11]"
+  |+ note ("[0, -12, 12]")
+  |+ note (st31 "<0 10>/8")
+  # leslie 0.5 # lrate 0.5 # lsize 0.5
+  # pan "0 0.5 1 0 0.5 1"
+  # legato 1.0
+  -- # room 0.5 # size 0.8
+  # gain 0.9
+
+d5
+  $ s "superhammond*16"
+  # voice 3
+  # sc31 "mixolydian" "{0..12}%[11, 5]"
+  |+ note ("[0, -12, 12]")
+  |+ note (st31 "<0 10>/8")
+  # leslie 0.8 # lrate 0.5 # lsize 0.5
+  # pan "0 0.5 1 0 0.5 1"
+  # legato 1.0
+  # room 0.3 # size 0.8
+  # gain 0.85
+
+d6
+  $ stack
+  [
+    s "uni(9, 16)" # n 1
+    , s "hc(4, 8, 1)" # gain 1.5 # legato 0.5
+    , s "uni(4, 8)" # gain 1.4 # legato 0.5    
+  ]
+
+d2
+  $ s "supermoog*4"
+  # note "c3"
+  |- note (st31 "<0 21>/8")
+  # lpf 300 # resonance 0.2
+  # legato 0.5
+  -- # delay 0.5 # delaytime (5/16) # delayfeedback 0.2 # lock 1  
+  # gain 1.2
+
+d2
+  $ s "supermoog(5, 16)"
+  # note "c3"
+  |- note (st31 "<0 21>/8")
+  # lpf 300 # resonance 0.2
+  # legato 2.0
+  # delay 0.5 # delaytime (5/16) # delayfeedback 0.2 # lock 1  
+  # gain 1.2
+
+d1
+  $ s "supersaw(5, 16, [0, 11])"
+  -- # voice 7
+  # ch31 "c:dom9"
+  |* note "[1.002, 0.998]"
+  |+ note "[0, -12]"
+  |+ note (st31 "<0 10>/8")  
+  # pan "0.1 0.5 0.9 0.1 0.5 0.9"
+  # lpf (range 400 8000 $ rand) # resonance 0.2
+  # gain 1.0
+
+d7
+  $ s "kon(11, 16)"
+  # gain 1.1
+
+hush
+
+
+
+
