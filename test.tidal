@@ -39,27 +39,29 @@ hush
 do
   hush
   d12
+    $ sometimesBy 0.2 (fast 2)
     $ jux (rev)
     $ s "none(3, 8)"
     # td_s (choose[1])
   d1
+    $ sometimesBy 0.2 (fast 2)
     $ jux (rev)
     $ s "cp(3, 8)"
 
 do
   -- hush
   d12
-    $ s "none(3, 8, [0, 5])"
-    # td_s (choose[1..4])
-  d1
-    $ s "uni(3, 8, [0, 5]), cp(2, 8)"
+    $ s "none(8, 8)"
+    # td_s (choose[1..6])
+  d2
+    $ s "uni(4, 8), cp(2, 8), hc(4, 8, 1)"
 
 do
   -- hush
   d12
     $ s "none(11, 16, [0, 7])"
     # td_s (choose[0..5])
-  d2
+  d3
     $ s "hc(11, 16, [0, 7])"
 
 do
@@ -68,12 +70,12 @@ do
     $ jux ((5/16)~>)
     $ s "none(11, 16, [3, 9])"
     # td_s (choose[0..21])
-  d3
+  d4
     $ jux ((5/16)~>)
     $ s "uni:1(11, 16, [3, 9])"   
     # n (irand 4)
-  d4
-    $ sometimesBy 0.2 (fast 2)
+  d5
+    -- $ sometimesBy 0.2 (fast 2)
     $ s "ifdrums(5, 16)"
     # n (irand 4)
     
