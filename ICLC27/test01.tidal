@@ -363,7 +363,8 @@ do
     # room 0.5 # size 0.95
     # gain 0.8
   d3
-    $ s "supersin(11, 16, 3)"
+    -- $ s "supersin(11, 16, 3)"
+    $ s "supervibe(11, 16, 3)"
     # note  (st31 (choose[0, 10, 25])) 
     |+ note (st31 "<0 10 0 -6>/2") 
     |- note (st31 "<0 21>/8")
@@ -371,10 +372,10 @@ do
     |+ note (st31 62)
     |+ note (st31 shift)
     # pan (rand)
-    # legato 1.0
+    # legato 2.0
     # delay 0.75 # delaytime (9/16) # delayfeedback 0.5 # lock 1  
     # room 0.5 # size 0.95
-    # gain 0.8  
+    # gain 0.9
   d4
     $ s "supermoog(3, 8)"
     -- # note  (st31 (choose[0, 10, 25])) 
@@ -396,8 +397,6 @@ d5
     , s "uni(3, 8)" # gain 1.5 # legato 0.25
   ]
   # delay 0.75 # delaytime (3/16) # delayfeedback 0.2 # lock 1  
-
-unsolo 1
 
 
 d7
