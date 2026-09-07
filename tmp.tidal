@@ -9,7 +9,8 @@
 -- IV.  Drone & Outro     85/240   笙が戻り、余韻の中で終わる
 --
 -- ch: d1 笙 / d2 superhammond / d3 supersawfbk / d4 高音 / d5 中音
---     d6 打楽器 / d7 低音 / d8 重い stack / d9 fb・distd / d12 TD
+--     d6 打楽器 / d7 低音 / d8 重い stack / d9 fb・distd
+--     d10 主旋律 / d11 対旋律 / d12 TD
 
 -- 1.
 -- Define the frequencies of each pipe of the 笙 (Sho) using Pythagorean tuning,
@@ -268,6 +269,92 @@ d5
   # pan (range 0.2 0.8 $ rand)
   # room 0.5 # size 0.95
   # gain 1.0
+
+
+
+
+-- 14a. 越天楽の進行から複雑な旋律を立ち上げる
+-- 14 分割の中で、主旋律は 11 音、対旋律は 7 音を鳴らす。
+-- 両方とも etenScale に追従するので、合竹が変わっても旋律の重心が揃う。
+-- この do ブロックをまとめて評価する。
+
+do
+  let lead = "<0 2 [4 6] 9 7 [5 3] 8 6 4 [1 2] 5 10 7 [6 3]>/2"
+      answer = "<4 [7 6] 3 8 [5 2] 4 [1 6] 9 7 [5 2] 3 [8 10] 6 4>/2"
+  d10
+    $ swingBy (1/28) 4
+    $ every 4 (rev)
+    $ every 7 (fast 2)
+    $ jux ((3/14)<~)
+    $ s "superfork(11, 14, 3)"
+    # note "c4"
+    |+ note (scale etenScale lead)
+    |+ note "<0 12 0 [7 19] -5 12>/4"
+    |+ note "[-0.025, 0.025]"
+    # legato "<0.45 0.8 0.3 [1.2 0.25]>*4"
+    # lpf (range 900 7500 $ slow 6 $ sine) # resonance 0.25
+    # pan "<0.2 0.75 0.4 0.85 0.3 0.65>*4"
+    # delay 0.35 # delaytime (3/14) # delayfeedback 0.45 # lock 1
+    # room 0.45 # size 0.9
+    # gain 0.85
+  d11
+    $ swingBy (1/28) 4
+    $ every 3 (iter 7)
+    $ every 5 (rev)
+    $ jux ((5/14)~>)
+    $ s "superhammond(7, 14, 5)"
+    # voice 6
+    # note "c3"
+    |+ note (scale etenScale answer)
+    |+ note "<0 -12 7 0 12 -5>/4"
+    |+ note "[-0.04, 0.04]"
+    # legato "<1.4 0.5 0.9 0.35>*4"
+    # lpf (range 500 4200 $ slow 9 $ sine) # resonance 0.3
+    # pan "<0.8 0.25 0.65 0.15 0.7 0.35>*4"
+    # delay 0.25 # delaytime (5/28) # delayfeedback 0.35 # lock 1
+    # room 0.55 # size 0.95
+    # gain 0.65
+
+
+
+
+-- 14b. シンコペーションするベースライン
+-- 太い主音の隙間に、短い superzow のゴーストノートを差し込む。
+-- 2 種類のフレーズが交互に現れ、8 サイクルごとに倍速のフィルへ変化する。
+-- この do ブロックをまとめて評価すると、11. の d7 と入れ替わる。
+
+do
+  let bassGate = "<[t ~ t [t t] t ~ t t ~ [t t] t ~ t [t t]] [t [t t] ~ t t [t t] ~ t [t t] ~ t t [t t] ~]>"
+      bassLine = "<[0 ~ 0 [4 7] 2 ~ -1 5 ~ [3 7] 0 ~ 4 [2 5]] [0 [7 0] ~ 5 3 [2 4] ~ 0 [7 -1] ~ 4 2 [5 7] ~]>"
+      ghostLine = "<[7 4 9 5 2] [4 7 2 8 5]>"
+  d7
+    $ swingBy (1/28) 4
+    $ every 8 (fast 2)
+    $ sometimesBy 0.12 (ply 2)
+    $ stack
+    [
+      struct bassGate
+        $ s "superbass"
+        # note "c1"
+        |+ note (scale etenScale bassLine)
+        |+ note "<0 0 12 -12>/8"
+        |+ note "[-0.018, 0.018]"
+        # legato "<[0.75 0.3 0.9 0.22] [0.8 0.25 0.55 0.2]>*4"
+        # lpf (range 180 2200 $ slow 4 $ sine) # resonance 0.42
+        # shape 0.48
+        # gain "<[1.25 0.55 1.0 0.7] [1.2 0.65 0.9 0.5]>*4"
+      , struct "t(5, 14, 9)"
+        $ s "superzow"
+        # note "c2"
+        |+ note (scale etenScale ghostLine)
+        |+ note "<12 7 12 19>/4"
+        # legato "<0.12 0.2 0.08 0.16>*4"
+        # lpf (range 700 3800 $ slow 3 $ sine) # resonance 0.68
+        # shape 0.7
+        # pan "<0.35 0.65>*8"
+        # gain "<0.32 0.5 0.25 0.42 0.3>*4"
+    ]
+    # room 0.12 # size 0.35
 
 
 

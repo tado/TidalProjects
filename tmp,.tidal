@@ -1,0 +1,18 @@
+d1
+  --  $ sometimesBy 0.1 (fast 2)
+  $ s "bd cp [~ bd] hc*2"
+  # delay 0.5 # delaytime (3/8) # lock 1
+
+d2
+  $ s "supersaw(9, 16)"  
+  # note "c3"
+  |+ note (scale "indian" "{0..9}%3")
+  # lpf 400 # resonance 0.3
+
+d3
+  $ jux (rev)
+  $ s "superpiano(5, 8, 1)"
+  # note "c5'min9"
+
+
+hush

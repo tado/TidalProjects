@@ -1,0 +1,52 @@
+d1
+  $ jux (rev)
+  -- $ sometimesBy 0.1 (fast 2)
+  $ s "bd cp [~ bd] hc*2"
+  # delay 0.7 # delaytime (3/8) # lock 1
+
+d2
+  $ s "bev/8"
+
+d3
+  $ s "kon(9, 16)"  
+  # n (irand 10)
+
+d2  
+  $ s "supersaw(9, 16)"
+  # note "c3"
+  |+ note (scale "minPent" "[0..8]")
+  # lpf (range 200 4000 $ slow 4 $ sine) # resonance 0.3
+
+d3
+  $ s "superhammond(9, 16, 1)"
+  # note "c4'min9 c4'sus2 c4'min11 c4'min7"
+
+-- d4: d1 に重ねる、跳ねたシンコペーション・レイヤー
+d4
+  $ swingBy (1/24) 4
+  $ every 4 (jux (iter 4))
+  $ stack
+  [
+    s "rs(3, 8, 2)" # gain "<0.9 0.65>*4"
+    , s "hc(7, 16, 3)" # gain "<0.8 0.4>*8" # pan "<0.35 0.65>*8"
+    , sometimesBy 0.25 (fast 2) $ s "ifdrums(5, 16, 7)" # n (irand 4) # gain 0.7
+  ]
+  # shape 0.35
+  # delay 0.25 # delaytime (3/16) # delayfeedback 0.35 # lock 1
+  # room 0.2 # size 0.35
+
+-- d5: C minor pentatonic の強烈なベースライン
+d5
+  $ every 4 (fast 2)
+  $ sometimesBy 0.15 (rev)
+  $ s "superbass(7, 16, 5)"
+  # note "c1"
+  |+ note (scale "minPent" "<0 0 3 2 4 1 0 6>")
+  |+ note "<0 0 -12 7>/4"
+  # legato "<0.75 0.3 0.55 0.25>*4"
+  # lpf (range 180 2600 $ slow 2 $ sine) # resonance 0.4
+  # shape 0.75
+  # gain "<1.5 1.2 1.35 1.65>*4"
+
+
+hush

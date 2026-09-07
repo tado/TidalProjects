@@ -1,3 +1,416 @@
+once
+  $ s "superlow"
+  # note "c3"
+  # sustain 120
+
+hush
+
+d1
+  $ sometimesBy 0.1 (rev)
+  $ s "bd cp*2 [~ bd] hc*2"
+  # delay 0.7 # delaytime (3/8) # lock 1
+
+d2
+  $ s "supersaw(9, 16)"
+  # note "c3"
+  |+ note (scale "minPent" "{0..9}%3")
+  |+ note "[0, 7]"
+  # lpf (range 200 8000 $ rand) # resonance 0.3
+
+d3
+  $ jux (iter 8)
+  $ s "superhammond(5, 8, 1)"
+  # note "c5'min7 c5'min9"
+  # voice 3
+  # lpf (range 200 8000 $ rand) # resonance 0.2
+
+
+-- =========================================================
+-- 追加レイヤー : 上の d1-d3 に重ねる
+-- キーは C マイナーペンタ / Cm9。ディレイは 3/8・3/16 系で統一。
+-- 進行は "<0 0 -2 -5>/4" (c → c → bb → g、16サイクル周期) を
+-- d3/d4/d6/d7 で共有しているので、どれを足しても縦が合う。
+-- 上から順に評価すれば d1-d3 を止めずに厚みが増える。
+-- =========================================================
+
+
+-- A. 足元 : アシッド寄りのサブベース (d4)
+-- d2 の supersaw が c3 なので 2 オクターブ下で床を張る。
+-- カットオフを perlin でゆらすと、同じ音型でも毎サイクル表情が変わる。
+
+d4
+  $ every 8 (linger 0.25)
+  $ sometimesBy 0.15 (ply 2)
+  $ s "supermoog(<7 9>, 16, <0 2>)"
+  # note "c1"
+  |+ note (scale "minPent" "<0 0 [3 2] 0 0 [0 4] 3 [2 0]>")
+  |+ note "<0 0 -2 -5>/4"
+  # lpf (range 180 2600 $ perlin) # resonance 0.38
+  # legato "<0.55 0.25 0.8 0.3>*4"
+  # shape 0.4
+  # gain 1.05
+
+
+-- B. 隙間を埋めるグリッチ・パーカッション (d5)
+-- chunk 4 (hurry 2) で 4 サイクルかけて 1/4 ずつ倍速部分が移動する。
+-- たまに 1/16 のマシンガン (stut) が飛び出す。
+
+d5
+  $ chunk 4 (hurry 2)
+  $ someCyclesBy 0.3 (stut 3 0.4 (1/16))
+  $ degradeBy 0.12
+  $ s "uni*8"
+  # n (irand 8)
+  # speed "<1 1.25 0.75 1.5>"
+  # nudge "<0 0.008 -0.006 0.012>*8"
+  # pan (slow 3 $ sine)
+  # gain "[1 0.75 0.85 0.7]*2"
+  # room 0.25 # size 0.5
+
+
+-- C. コードをアルペジオに散らす (d6)
+-- d3 の min7/min9 を arp で分解して、off (1/8) で 1 オクターブ上の影を付ける。
+-- arp のタイプが 4 サイクルで切り替わるので、同じ和音でも輪郭が変わり続ける。
+
+d6
+  $ every 4 (jux ((1/8) ~>))
+  $ off (1/8) ((|+ note 12) . (# gain 0.45) . (# lpf 4000) . (# pan 0.75))
+  $ arp "<up updown thumbup downup>"
+  $ note "<c5'min9 c5'min11 g5'sus4 c5'min13>*2"
+  |+ note "<0 0 -2 -5>/4"
+  # s "superpwm"
+  # pan 0.3
+  # legato "<0.4 0.9>*8"
+  # lpf (range 800 6000 $ slow 5 $ sine) # resonance 0.2
+  # delay 0.45 # delaytime (3/16) # delayfeedback 0.45 # lock 1
+  # room 0.4 # size 0.8
+  # gain 0.85
+
+
+-- D. 9:8 のポリリズム・リード (d7)
+-- {..}%8 で 9 音のフレーズを 8 拍に流し込むので、9 サイクルかけて位相が一周する。
+-- d2 の "{0..9}%3" と同じ発想の、もう一段長い周期。
+
+d7
+  $ every 3 (fast 2)
+  $ sometimesBy 0.15 (# crush 5)
+  $ echo 3 (3/16) 0.5
+  $ s "superzow*8"
+  # note "c5"
+  |+ note (scale "minPent" "{0 3 5 7 6 4 2 5 3}%8")
+  |+ note "<0 0 -2 -5>/4"
+  # legato "<0.35 0.8 0.25 1.1>*4"
+  # lpf (range 900 5500 $ slow 7 $ sine) # resonance 0.25
+  # delay 0.4 # delaytime (3/16) # delayfeedback 0.4 # lock 1
+  # room 0.5 # size 0.9
+  # pan (slow 5 $ sine)
+  # gain 0.8
+
+-- (変化がほしくなったら D の一行目を差し替える)
+-- $ bite 4 "0 [2 3] 1 <2 3>"
+
+
+-- E. 背景テクスチャ (d8)
+-- sfh を 32 分割して 4 サイクルかけて撒く。たまに逆再生が混ざる。
+-- 入れっぱなしで良いが、盛り上がりでは gain を下げる。
+
+d8
+  $ slow 4
+  $ chop 32
+  $ sometimesBy 0.2 (# speed (-1))
+  $ s "sfh"
+  # speed "<1 0.75 1.25 0.5>"
+  # legato 1
+  # lpf (range 500 4500 $ slow 11 $ sine) # resonance 0.15
+  # pan (rand)
+  # room 0.85 # size 0.95
+  # gain 0.75
+
+
+-- F. d3 を差し替え : rolled でコードをかき鳴らす + 進行を付ける
+-- rolledBy の値がマイナスだと上から下へ弾く。
+
+d3
+  $ rolledBy "<0.25 0.5 -0.25 0.125>"
+  $ jux (iter 8)
+  $ sometimesBy 0.15 (ply 2)
+  $ s "superhammond(5, 8, 1)"
+  # note "<c5'min9 c5'min11 g5'sus4 c5'min13>"
+  |+ note "<0 0 -2 -5>/4"
+  # voice 3
+  # legato "<1.2 0.5 0.9 0.4>*4"
+  # lpf (range 400 6000 $ slow 3 $ sine) # resonance 0.2
+  # room 0.35 # size 0.8
+
+
+-- G. d1 を差し替え : ビートを太くして 16 サイクルごとにフィル
+-- whenmod 16 14 で 14・15 サイクル目だけ ply が 4→8 に増えて突っ込む。
+
+d1
+  $ whenmod 16 14 (ply "<1 2 4 8>")
+  $ whenmod 16 15 (# speed (range 1 2 envL))
+  $ sometimesBy 0.1 (rev)
+  $ swingBy (1/8) 8
+  $ stack
+  [
+    s "bd cp*2 [~ bd] hc*2" # gain 1.1
+    , s "808(3, 16, 9)" # n (irand 12) # gain 0.8
+    , s "ifdrums(7, 16, 2)" # n (irand 4) # gain 0.75 # pan 0.65
+  ]
+  # shape 0.28
+  # delay 0.7 # delaytime (3/8) # delayfeedback 0.5 # lock 1
+  # room 0.25 # size 0.5
+
+
+-- TouchDesigner を併走させるなら
+-- d12 $ s "none" # td_s (choose[34..40])
+
+
+-- H. 追加分だけ止めて元の d1-d3 に戻す
+
+d4 silence >> d5 silence >> d6 silence >> d7 silence >> d8 silence
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+d1
+  $ sometimesBy 0.1 (fast 2)
+  $ s "bd cp [~ bd] hc*2"
+  # delay 0.75 # delaytime (3/8) # lock 1
+
+d2
+  $ s "supersaw(9, 16)"
+  # note "c3"
+  |+ note (scale "minPent" "{0..9}%3")
+  |+ note "[0, 7]"
+  # lpf (range 200 2000 $ slow 2 $ sine) # resonance 0.3
+  # legato "<0.5 1.5>*8"
+
+d3
+  $ jux (rev)
+  $ s "superhammond(5, 8, 1)"
+  # note "<c5'min9 c5'min7>*8"
+
+
+-- =========================================================
+-- 上の d1-d3 に重ねる追加レイヤー
+-- 全部 c マイナーペンタ(minPent)、ディレイは 3/8 系で統一。
+-- 下から順に評価していけば、d1-d3 を止めずに厚みが増える。
+-- =========================================================
+
+
+-- A. 土台を作る : 低音 (d4) とリズムの追い込み (d5)
+-- d2 の supersaw が c3 なので、d4 は 2 オクターブ下で床を張る。
+-- swingBy (1/24) で 16 分を跳ねさせ、d1 のストレートなビートとずらす。
+-- この do ブロックをまとめて評価する。
+
+do
+  d4
+    $ swingBy (1/24) 4
+    $ every 8 (fast 2)
+    $ sometimesBy 0.12 (ply 2)
+    $ struct "<[t ~ t [t t] t ~ t t] [t [t t] ~ t t [t t] ~ t]>"
+    $ s "superbass"
+    # note "c1"
+    |+ note (scale "minPent" "<[0 ~ 0 [4 2] 3 ~ 1 0] [0 [3 0] ~ 2 4 [1 3] ~ 0]>")
+    |+ note "<0 0 12 -12>/8"
+    |+ note "[-0.02, 0.02]"
+    # legato "<0.7 0.25 0.55 0.3>*4"
+    # lpf (range 180 2000 $ slow 4 $ sine) # resonance 0.4
+    # shape 0.45
+    # gain "<1.2 0.85 1.05 0.9>*4"
+  d5
+    $ swingBy (1/24) 4
+    $ every 4 (jux (iter 4))
+    $ sometimesBy 0.18 (fast 2)
+    $ stack
+    [
+      s "hc(11, 16, 5)" # gain "<0.9 0.35 0.65 0.45>*4" # pan "<0.35 0.65>*8"
+      , s "rs(5, 16, 3)" # gain 0.8 # shape 0.35
+      , s "uni:1(3, 16, 10)" # n (irand 4) # gain 0.7
+      , s "808(4, 16, 2)" # n (irand 20) # gain 0.85
+    ]
+    # delay 0.35 # delaytime (3/16) # delayfeedback 0.4 # lock 1
+    # room 0.2 # size 0.4
+
+
+-- B. 旋律を乗せる : 主旋律 (d6) と応答 (d7)
+-- d3 の c5'min9 / c5'min7 の上に乗る音だけを選んである。
+-- d6 は off (3/16) で 1 オクターブ上の影が付いてくる。
+-- d7 はその隙間に入る、d6 の裏返しのフレーズ。
+
+do
+  let lead   = "<[0 ~ 2 3] [4 ~ 3 2] [3 4 ~ 5] [4 ~ 3 [2 1]] [2 ~ 3 4] [5 ~ [6 5] 3] [3 4 ~ [5 6]] [7 ~ 4 ~]>"
+      answer = "<~ [~ 5 ~ 3] ~ [~ 4 ~ 2] ~ [~ 7 ~ 5] ~ [~ 4 [3 2] ~]>"
+  d6
+    $ swingBy (1/24) 4
+    $ every 8 (fast 2)
+    $ every 3 (jux ((3/16)<~))
+    $ sometimesBy 0.15 (ply 2)
+    $ off (3/16) ((|+ note 12) . (# legato 0.25) . (# gain 0.5))
+    $ s "superfork"
+    # note "c5"
+    |+ note (scale "minPent" lead)
+    |+ note "[-0.03, 0.03]"
+    # legato "<0.9 0.35 0.6 [1.2 0.3]>*4"
+    # lpf (range 1200 7000 $ slow 6 $ sine) # resonance 0.25
+    # delay 0.4 # delaytime (3/16) # delayfeedback 0.45 # lock 1
+    # room 0.4 # size 0.9
+    # gain "<1.0 0.8 0.95 0.85>*4"
+  d7
+    $ swingBy (1/24) 4
+    $ every 4 (rev)
+    $ jux ((5/16)~>)
+    $ s "superwho"
+    # note "c6"
+    |+ note (scale "minPent" answer)
+    |+ note "[0, -12]"
+    |+ note "[-0.04, 0.04]"
+    # legato "<1.6 0.7 1.1 0.5>*4"
+    # lpf (range 900 5000 $ slow 9 $ sine) # resonance 0.3
+    # delay 0.3 # delaytime (5/16) # delayfeedback 0.35 # lock 1
+    # room 0.55 # size 0.95
+    # gain 0.7
+
+
+-- C. ノイズの装飾 (d8)
+-- 4 サイクルに 1 回だけ跳ねる細かいディレイ。入れっぱなしにしない。
+
+d8
+  $ every 4 (fast 2)
+  $ sometimesBy 0.3 (brak)
+  $ stack
+  [
+    s "fb(3, 16, 7)" # gain 1.2
+    , s "distd(2, 16, 11)" # gain 0.9
+  ]
+  # delay 0.8 # delaytime (range 0.003 0.03 $ rand) # delayfeedback 0.85
+  # shape 0.6
+  # gain 1.1
+
+
+-- D. ここから盛り上げる : d1 を差し替えてビートを太くする
+
+d1
+  $ swingBy (1/24) 4
+  $ every 4 (jux (iter 4))
+  $ sometimesBy 0.15 (fast 2)
+  $ stack
+  [
+    s "bd cp [~ bd] hc*2" # gain 1.1
+    , s "bd(5, 16, 2)" # gain 0.85
+    , s "ifdrums(7, 16, 3)" # n (irand 4) # gain 0.8
+  ]
+  # shape 0.3
+  # delay 0.75 # delaytime (3/8) # delayfeedback 0.5 # lock 1
+  # room 0.3 # size 0.5
+
+
+-- E. 和音を動かす : d2 / d3 を shift 付きに差し替える
+-- c → g → eb と重心が動き、上の d4-d7 もそのまま乗る。
+-- shift を d4-d7 にも足したいときは各行に |+ note shift を追加する。
+
+do
+  let shift = "<0 0 -5 3>/4"
+  d2
+    $ every 4 (jux ((3/16)<~))
+    $ s "supersaw(11, 16)"
+    # note "c3"
+    |+ note (scale "minPent" "{0..9}%3")
+    |+ note "[0, 7]"
+    |+ note shift
+    # lpf (range 200 3000 $ slow 2 $ sine) # resonance 0.35
+    # legato "<0.5 1.5 0.35 1.0>*8"
+  d3
+    $ jux (rev)
+    $ sometimesBy 0.2 (ply 2)
+    $ s "superhammond(11, 16, 3)"
+    # voice "<1 4>"
+    # note "<c5'min9 c5'min7 c5'sus4 c5'min11>*8"
+    |+ note shift
+    |+ note "[-0.04, 0.04]"
+    # legato "<1.2 0.4 0.8 0.3>*4"
+    # room 0.4 # size 0.9
+    # gain 0.9
+
+
+-- F. 追加分だけ止める(元の d1-d3 の演奏に戻す)
+
+d4 silence >> d5 silence >> d6 silence >> d7 silence >> d8 silence
+
+hush
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+setcps(140/240)
+
+hush
+
+d1
+  $ s "supersin"
+  # note "a9"
+  |* note "[1.001, 0.999]"
+  # legato 0.5
+  
+
+d2  
+  $ s "supersaw"
+  # note "a1"  
+  # lpf 200 
+  # legato 0.9
+  # gain 1.5
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+d1
+  $ s "cp*2"
+
+
+
+
 setcps(130/240)
 
 hush
@@ -627,3 +1040,109 @@ do
     |+ note shift
     # lpf (range 200 8000 $ slow 6 $ sine) # resonance 0.2
 
+
+-- Rhythm boost: 現在の d1-d3 に重ねる、跳ねた 16 分 + 変則アクセント
+-- この do ブロックをまとめて評価
+do
+  let shift = "<0 0 1 2 3>/4"
+  d4
+    $ swingBy (1/24) 4
+    $ every 4 (jux (iter 4))
+    $ sometimesBy 0.18 (fast 2)
+    $ stack
+    [
+      s "bd(3, 8, 2)" # gain "<1.25 0.9 1.1>*4"
+      , s "cp(2, 8, 4)" # gain 1.0
+      , s "hc(11, 16, 5)" # gain "<0.9 0.35 0.65 0.45>*4" # pan "<0.35 0.65>*8"
+      , s "rs(5, 16, 3)" # gain 0.75 # shape 0.35
+      , sometimesBy 0.25 (fast 2) $ s "ifdrums(3, 16, 11)" # n (irand 4) # gain 0.65
+    ]
+    # shape 0.25
+    # delay 0.35 # delaytime (3/16) # delayfeedback 0.4 # lock 1
+    # room 0.2 # size 0.4
+  d5
+    $ swingBy (1/24) 4
+    $ every 8 (fast 2)
+    $ sometimesBy 0.12 (rev)
+    $ s "superbass(5, 16, 3)"
+    # note "c1"
+    |+ note (scale "yu" "<0 0 4 2 1 3 0 5>")
+    |+ note shift
+    # legato "<0.7 0.25 0.5 0.3>*4"
+    # lpf (range 180 1800 $ slow 4 $ sine) # resonance 0.35
+    # shape 0.45
+    # gain "<1.15 0.9 1.05 1.25>*4"
+  d6
+    $ swingBy (1/24) 4
+    $ every 4 (jux (rev))
+    $ sometimesBy 0.2 (fast 2)
+    $ s "superzow(13, 16, 5)"
+    # note "c1"
+    |+ note (scale "yu" "<0 0 4 1 5 2 6 3>")
+    |+ note "<0 -12 0 7>/4"
+    |+ note shift
+    # legato "<0.18 0.08 0.32 0.12>*4"
+    # lpf (range 260 4200 $ slow 2 $ sine) # resonance 0.62
+    # shape 0.78
+    # delay 0.18 # delaytime (1/16) # delayfeedback 0.25 # lock 1
+    # gain "<1.15 0.8 1.3 0.95>*4"
+
+-- リズム追加分だけ止める
+-- d4 silence >> d5 silence >> d6 silence
+
+
+-- Lead melody: 現在の d1-d3 に重ねる主旋律と応答
+-- d1-d3 と同じ yu 音階・同じ shift に乗るので和音進行から外れない。
+-- 主旋律 d7 は 8 サイクルかけて上昇するテーマ、d8 はその隙間に入る応答。
+-- off (3/16) の 1 オクターブ上のエコーが旋律の影として付いてくる。
+-- この do ブロックをまとめて評価する。
+do
+  let shift  = "<0 0 1 2 3>/4"
+      lead   = "<[0 ~ 2 3] [4 ~ 3 2] [3 5 ~ 7] [5 ~ 4 [3 2]] [2 ~ 4 5] [7 ~ [8 7] 5] [4 5 ~ [7 8]] [10 ~ 7 ~]>"
+      answer = "<~ [~ 7 ~ 5] ~ [~ 4 ~ 3] ~ [~ 10 ~ 8] ~ [~ 7 [5 4] ~]>"
+  d7
+    $ swingBy (1/24) 4
+    $ every 8 (fast 2)
+    $ every 3 (jux ((3/16)<~))
+    $ sometimesBy 0.15 (ply 2)
+    $ off (3/16) ((|+ note 12) . (# legato 0.25) . (# gain 0.5))
+    $ note (scale "yu" lead |+ "c5" |+ shift |+ "[-0.03, 0.03]")
+    # s "superfork"
+    # legato "<0.9 0.35 0.6 [1.2 0.3]>*4"
+    # lpf (range 1200 7000 $ slow 6 $ sine) # resonance 0.25
+    # delay 0.4 # delaytime (3/16) # delayfeedback 0.45 # lock 1
+    # room 0.4 # size 0.9
+    # gain "<1.05 0.85 1.0 0.9>*4"
+  d8
+    $ swingBy (1/24) 4
+    $ every 4 (rev)
+    $ jux ((5/16)~>)
+    $ note (scale "yu" answer |+ "c6" |+ shift |+ "[0, -12]" |+ "[-0.04, 0.04]")
+    # s "superwho"
+    # legato "<1.6 0.7 1.1 0.5>*4"
+    # lpf (range 900 5000 $ slow 9 $ sine) # resonance 0.3
+    # delay 0.3 # delaytime (5/16) # delayfeedback 0.35 # lock 1
+    # room 0.55 # size 0.95
+    # gain 0.7
+
+-- メロディーを煽る(クライマックス用・上のブロックの後で評価)
+-- 16 分の走句が増え、8 サイクルごとに 1 オクターブ跳ね上がる。
+d7
+  $ swingBy (1/24) 4
+  $ every 4 (fast 2)
+  $ every 3 (jux (iter 4))
+  $ sometimesBy 0.3 (ply "<2 3>")
+  $ off (3/16) ((|+ note 12) . (# legato 0.2) . (# gain 0.55))
+  $ note (scale "yu"
+      "<[0 2 3 5] [7 ~ 5 [4 3]] [5 7 8 10] [12 ~ 10 [8 7]] [8 ~ 7 5] [4 5 7 [8 10]] [12 10 ~ [8 7]] [5 ~ [3 2] 0]>"
+      |+ "c5" |+ "<0 0 1 2 3>/4" |+ "<0 0 12 0>/8" |+ "[-0.03, 0.03]")
+  # s "superfork"
+  # legato "<0.55 0.25 0.4 [0.9 0.2]>*4"
+  # lpf (range 1800 9000 $ slow 4 $ sine) # resonance 0.35
+  # shape 0.25
+  # delay 0.5 # delaytime (3/16) # delayfeedback 0.55 # lock 1
+  # room 0.35 # size 0.9
+  # gain "<1.2 0.9 1.1 0.95>*4"
+
+-- メロディーだけ止める
+-- d7 silence >> d8 silence
