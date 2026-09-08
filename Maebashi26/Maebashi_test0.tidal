@@ -5,9 +5,12 @@ hush
 unsolo 1
 
 do
-  let shift = 0
+  let shift = -4
   setcps(120/240)
-  hush
+  --hush
+  d12
+    $ s "none*16"
+    # td_s (irand 18)
   d1
     $ jux (("[5, 13]"/16)<~)
     $ s "supermf(5, 16, <0..15>/8)"
@@ -23,7 +26,7 @@ do
   d2 
     -- $ jux (("[12]"/16)<~)
     $ s "supermoog(5, 16, <0..15>/8)" 
-    # note "<c3 c2>*2"
+    # note "<c3 bf2>*2"
     |+ note shift
     # legato 1.5
     # lpf (range 800 2000 $ slow 4 sine) # resonance 0.3
@@ -140,6 +143,10 @@ unsolo 1
 
 do
   let base = 0
+  hush
+  d12
+    $ s "none*8"
+    # td_s (irand 14)
   d1
     $ jux (iter 14)
     $ s "tet(5, 14, <0..5>/4)"
@@ -152,8 +159,7 @@ do
     -- # legato "<0.5 3.0>*2"
     # delay 1.0 # delaytime ("[3.0, 9.0]"/14) # delayfeedback 0.1 # lock 1
     # room 0.5 # size 0.9
-    # gain 0.6
-  
+    # gain 0.6  
   d2
     -- $ jux (("[3, 13]"/16)<~)
     $ s "supermoog(5, 14)"
