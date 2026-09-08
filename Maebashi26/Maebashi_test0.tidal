@@ -8,39 +8,49 @@ do
   let shift = 0
   -- hush
   d1
-    $ jux (("[5, 10]"/14)<~)
-    $ s "supermf(5, 14)"
+    $ jux (("[5, 13]"/14)<~)
+    $ s "supermf(5, 14, <0..3>/4)"
     # note "c5"
     |+ note shift
     |* note "[1.001, 0.999]"
     # lpf (range 800 8000 $ slow 9 sine) 
     # resonance (range 0.0 0.3 $ slow 8 sine)
     # legato "<2.0 0.3>*4"
-    # room 0.3 # size 0.8
-    # delay 0.5 # delaytime (5/14) # lock 1
-    # gain 1.1
+    # room 0.5 # size 0.8
+    # delay 0.5 # delaytime (5/14) # delayfeedback 0.75 # lock 1
+    # gain 1.1     
   d2 
     -- $ jux (("[5, 12]"/14)<~)
-    $ s "supermoog(5, 14)" 
+    $ s "supermoog(5, 14, <0..3>/4)" 
     # note "<c3 c2>*2"
     |+ note shift
     # legato 2.0
     # lpf (range 800 2000 $ slow 4 sine) # resonance 0.3
     # gain 1.0
-
+  d3
+    -- $ jux (("[5, 13]"/14)<~)
+    $ s "supermf(14, 14)"
+    # note "c6"
+    |+ note "[0, 12]"
+    |+ note shift
+    # lpf (range 800 8000 $ slow 5 sine) # resonance 0.2
+    # room 0.8
+    # legato 0.5
+    
 d3
-   $ s "uni(5, 14), uni:1(9, 14, 1)"
-   # gain 1.1
+   $ s "uni(5, 14, <0..3>/4)"
+   # gain 1.2
+   -- # delay 0.5 # delaytime (5/14) # delayfeedback 0.75 # lock 1
    
 d4
-   $ s "ifdrums(5, 14, [0, 5])"
+   $ s "ifdrums(9, 14, <0..3>/4)"
    # n (irand 4)
    # gain 1.1
 
 d5
   $ s "superbass(14, 14)"
   # note "c4"
-  |+ note (scale "majPent" "{0..9}%3")
+  |+ note (scale "mixolydian" "{0..9}%3")
   -- |+ note "[0, 7]"
   -- |* speed "[1.001, 0.999]"
   # legato 0.5
@@ -49,13 +59,16 @@ d5
 
 d6
   -- $ sometimesBy 0.2 (fast 2)
-  $ s "supermoog(3, 14, <0..7>/6)"
+  $ s "supermoog(5, 14, <0..3>/4)"
   # note "c2"
   # legato 2.0
-  |+ note (scale "majPent" "{0..12}%3")
+  |+ note (scale "mixolydian" "{0..12}%3")
   # lpf (range 800 2000 $ slow 7 sine) # resonance 0.3
   # gain 1.1
    
+d1 silence >> d2 silence >> d4 silence
+
+unsolo 1
 
 do
   let base = 0
