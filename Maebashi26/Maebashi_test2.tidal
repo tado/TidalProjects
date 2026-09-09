@@ -5,7 +5,7 @@ hush
 do
   let shift = 0
   -- setcps(126/240)
-  -- hush
+  hush
   d12
     $ s "none*16"
     # td_s (irand 18)
@@ -16,7 +16,7 @@ do
     |+ note shift
     |* note "[1.001, 0.999]"
     # lpf (range 800 8000 $ slow 9 sine) 
-    # resonance (range 0.1 0.4 $ slow 8 sine)
+    # resonance (range 0.1 0.3 $ slow 4 sine)
     # legato "<4.0 0.3>*4"
     # room 0.5 # size 0.8
     -- # delay 0.5 # delaytime (5/16) # delayfeedback 0.75 # lock 1
@@ -80,8 +80,8 @@ do
     $ s "none*16"
     # td_s (irand 18)
   d1
-    -- $ s "superfm(16, 16)"
-    $ s "superfm(13, 16, <0..15>/8)"
+    $ s "superfm(16, 16)"
+    -- $ s "superfm(13, 16, <0..15>/8)"
     # note "g2"
     |+ note (scale "mixolydian" "{0..9}%5")
     |* note "[1.01, 0.99]"
@@ -108,10 +108,10 @@ d3
 
 d4
   $ slow 2
-  $ s "supermoog(9, 16, <0..15>/8)"
+  $ s "supermoog(5, 16, <0..15>/8)"
   # note "c2"
   |+ note "[-0.04, 0.04]"
-  |+ note (scale "mixolydian" "{0..24}%3")
+  |+ note (scale "mixolydian" "{0..12}%3")
   -- |+ note (scale "mixolydian" "{0..24}%[5, 3]")
   -- |+ note shift
   # lpf (range 100 2000 $ rand) # resonance 0.3
