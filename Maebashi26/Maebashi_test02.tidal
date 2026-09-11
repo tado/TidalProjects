@@ -5,12 +5,12 @@ hush
 do
   let shift = 0
   -- setcps(126/240)
-  hush
+  -- hush
   d12
     $ s "none*16"
     # td_s (irand 18)
   d1
-    -- $ jux (("[5, 13]"/16)<~)
+    $ jux (("[5, 13]"/16)<~)
     $ s "supermf(5, 16, <0..15>/8)"
     # note "c5"
     |+ note shift
@@ -20,17 +20,21 @@ do
     # legato "<4.0 0.3>*4"
     # room 0.5 # size 0.8
     -- # delay 0.5 # delaytime (5/16) # delayfeedback 0.75 # lock 1
-    # gain 1.2
+    # gain 1.2   
   d2
     -- $ jux (("[12]"/16)<~)
     $ s "supermoog(5, 16, <0..15>/8)" 
     # note "c2"
     -- |- note "[0, 12]"
     |+ note shift
-    # legato "<2.0 0.3>*4"
-    # lpf (range 800 2000 $ slow 4 sine) # resonance 0.3
-    # gain 1.0       
+    -- # legato "<2.0 0.3>*4"
+    # lpf (range 800 2000 $ slow 4 sine) # resonance 0.2
+    # gain 1.1
   d3
+    $ s "uni(5, 16, <0..15>/8)"
+    # gain 1.2
+    -- # delay 0.5 # delaytime (5/14) # delayfeedback 0.75 # lock 1
+  d4
     $ s "superbass*16"
     # note "c3"
     |+ note (scale "mixolydian" "{0..12}%3")
@@ -39,19 +43,16 @@ do
     -- |* speed "[1.001, 0.999]"
     # legato 0.5
     # lpf (range 2000 8000 $ slow 4 sine) # resonance 0.1
-    # gain 0.9      
-  d4
-    $ s "uni(5, 16, <0..15>/8)"
-    # gain 1.2
-    -- # delay 0.5 # delaytime (5/14) # delayfeedback 0.75 # lock 1
+    # gain 0.9
   d5
-    $ s "supermoog(7, 16, <0..15>/8)"
+    $ s "supermoog(5, 16, <0..15>/8)"
     # note "c2"
     # legato 2
     |+ note shift
     |+ note (scale "mixolydian" "{0..12}%3")
-    # lpf (range 800 2000 $ slow 7 sine) # resonance 0.3
-    # gain 1.0  
+    # lpf (range 800 4000 $ slow 7 sine) # resonance 0.1
+    # gain 1.1
+  
   d6
     $ slow 2
     $ s "supermoog(3, 8)"
@@ -60,12 +61,11 @@ do
     |+ note (scale "mixolydian" "{0..12}%3")
     |+ note shift
     # lpf (range 100 2000 $ rand) # resonance 0.3
-    # attack 3 # sustain 4
+    # attack 2 # sustain 2
     -- # legato 4.0 # release 0.0
     -- # leslie 0.5 # lrate 0.2 # lsize 0.8
     -- # room 0.1 # size 0.9
     # gain 1.1
-  
   
   d7
     $ s "ifdrums(7, 16, <0..15>/8)"
@@ -85,14 +85,15 @@ do
     # note "g2"
     |+ note (scale "mixolydian" "{0..9}%5")
     |* note "[1.01, 0.99]"
-    # lpf 180 # resonance 0.3
+    # lpf 100 # resonance 0.2
+    # gain 0.8
 
     -- # delay 0.5 # delaytime (5/16) # delayfeedback 0.75 # lock 1
 
 d2
   $ stack
   [
-    s "uni(4, 8)"
+    s "uni(3, 8)"
     , s "uni:1(4, 8, 1)"
   ]
   # gain 1.2
@@ -134,11 +135,12 @@ d6
   # legato 2
   -- |+ note shift
   |+ note (scale "mixolydian" "{0..12}%3")
-  # lpf (range 800 2000 $ slow 7 sine) # resonance 0.3  
-  # gain 1.3
+  # lpf (range 800 2000 $ slow 7 sine) # resonance 0.1 
+  # gain 1.2
 
 do
   hush
+  setcps(120/240)
   d12
     $ s "none(5, 8)"
     # td_s (choose([67..72]))
