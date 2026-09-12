@@ -2,71 +2,83 @@ hush
 
 once
   $ s "matsu"
-  
+  # note "[0, -12]"
 
 do
   hush
   setcps(120/240)
   d12
     $ s "none"
-    # td_s 0
+    # td_s 1
+    # td_fx 0
   once
     $ s "matsu"
     |+ note "[0, -12]"
 
 d1
   $ s "superadd"
-  # freq 200
+  # freq 2000
   # legato 3.0
   # room 0.2 # size 0.5
   # gain 1.0
 
 d2
-  $ s "sfh(1, 4)"
-  # lpf 100
+  $ s "sfh(3, 4)"
+  -- # lpf 8000
   # pan (rand)
   # n (choose[0..100])
-  # room 0.5 # size 0.9
+  # room 0.5 # size 0.98
   # gain 1.0
 
+do
+  d12
+    $ s "none*2"
+    # td_s (choose([0..4]))
   d3
-    -- $ slow 2
-    -- $ jux (iter 16)
-    $ s "ae(1, 8)"    
+    $ s "ae(5, 8)"
+    # nudge "0.13"
     # n (choose[0..4])
     # pan (rand)
-    |* speed "[0.99, 1.01]"
-    -- |* speed (choose[1.0, 2.0, 1.5])
-    # lpf (range 800 8000 $ slow 8 $ sine) # resonance 0.3
-    # delay 0.9 # delaytime (range 0.01 0.05 $ rand) # delayfeedback 0.95
-    -- # room 0.5 # size 0.9
-    # gain 0.9
+    # speed "[0.999, 1.001]"
+    # lpf (range 80 1000 $ slow 8 $ sine) # resonance "0.2"
+    # delay "0.9"
+    # delaytime (range 0.001 0.05 $ rand)
+    # delayfeedback "0.98"
+    # gain "0.9"
 
+do
+  d12
+    $ s "none"
+    # td_s 1
+    # td_fx "<0 1>"
   d4
-    $ slow 2
-    $ s "empty"
-    # shape 0.0
-    # gain 0.7
+    $ s "empty/4"
+    # shape 0.9
+    # gain 0.5
 
+do
+  d12
+    $ s "none"
+    # td_s 1
+    # td_fx (choose[0..2])
   d5
     -- $ slow 4
-    $ s "superzow(5, 8)"
-    # note "c2"    
-    -- |+ note (scale "mixolydian" "{0..3}%3")
+    $ s "superzow*8"
+    # note "<c2>/2"
     |+ note "[0.04, -0.04]"
-    # legato 1.0
-    # lpf (range 100 1000 $ slow 4 $ sine) # resonance 0.0
+    # voice 2
+    # legato 2.0
+    # lpf (range 100 1000 $ slow 4 $ sine) # resonance 0.2
     -- # room 0.2 # size 0.5
-    -- # delay "0.9" # delaytime (range 0.01 0.05 $ rand) # delayfeedback 0.98
     # gain 1.2
 
 d6
   $ slow 8
   $ s "superdown"
   # note "c5"
-  # voice 1500
+  # voice 500
   -- # speed "[1.5, 1.0]"
-  # legato 4.0
+  # legato 3.0
   # gain 1.0
 
 once
@@ -81,17 +93,18 @@ do
   -- hush
   setcps(100/240)
   d12
-    $ s "none(5, 7)"
-    # td_s (choose[0..5])
+    $ s "none*4"
+    -- # td_s (choose([34..40]))
+    # td_s 34
     # td_fx 0
   d1
-    -- $ jux (("[3, 10, 5]"/14)<~)
+    $ jux (("[3, 10, 5]"/14)<~)
     $ s "rs(1, 7)"  
     |+ note "[-0.05, 0.05]"
     -- |+ note "[-12, <0 -5>/4]"
     # legato 0.5
     # delay 0.5 # delaytime ("[5, 3]"/14) # delayfeedback 0.5 # lock 1
-    -- # lpf (choose [6000, 8000]) # resonance 0.0
+    # lpf (choose [6000, 8000]) # resonance 0.8
     # room 0.5 # size 0.9
 
 d2
@@ -110,6 +123,10 @@ d3
   -- # delay 0.1 # delaytime "<0.02 0.01 0.03>*8" # delayfeedback 0.7
 
 do
+  d12
+    $ s "none*4"
+    # td_s (choose([34..40]))
+    # td_fx 0
   d4
     $ stack
     [
@@ -119,11 +136,17 @@ do
     # gain 1.3
 
 do
+  d12
+    $ s "none*2"
+    # td_s (choose([34..40]))
+    # td_fx (choose[0..5])
   d5
     $ jux ((5/14)<~)  
     $ stack
     [
       s "superwho(9, 14)" # note "g6'sus2"
+      , s "superwho(9, 14, 5)" # note "g7'sus2"
+      , s "superwho(9, 14, 10)" # note "c8'sus2"
     ]
     # lfo (range 800 8000 $ rand) # resonance "0.2"
     # legato "0.5 1.0"
@@ -136,6 +159,10 @@ d3
   # gain (range 1.0 1.7 $ rand)
 
 do
+  d12
+    $ s "none*8"
+    # td_s (choose([34..40]))
+    # td_fx (choose[0..8])
   d6
     -- $ sometimesBy 0.4 (jux (rev))
     $ s "hasu(5, 14)"
@@ -176,8 +203,8 @@ do
   setcps(126/240)
   hush
   d12
-    $ s "none(5, 8)"
-    # td_s (choose[4..9])
+    $ s "none*4"
+    # td_s (choose[0..4])
     -- # td_s "4"
   d1
     -- $ jux (("[5, 13]"/16)<~)
@@ -191,7 +218,6 @@ do
     # room 0.2 # size 0.8
     -- # delay 0.5 # delaytime (5/16) # delayfeedback 0.75 # lock 1
     # gain 1.2  
-  
   d2
     -- $ jux (("[12]"/16)<~)
     $ s "supermoog(5, 16, <0..15>/8)" 
@@ -201,7 +227,6 @@ do
     -- # legato "<2.0 0.3>*4"
     # lpf (range 800 2000 $ slow 4 sine) # resonance 0.2
     # gain 1.2 
-  
   d3
     $ s "uni(5, 16, <0..15>/8)"
     # gain 1.3
@@ -224,7 +249,6 @@ do
     |+ note (scale "mixolydian" "{0..12}%3")
     # lpf (range 800 4000 $ slow 7 sine) # resonance 0.1
     # gain 1.3
-  
   d6
     $ slow 2
     $ s "supermoog(3, 8)"
@@ -238,7 +262,7 @@ do
     -- # room 0.1 # size 0.9
     # gain 1.3
   
-  d8
+  d7
     $ s "ifdrums(7, 16, <0..15>/8)"
     # n (range 0 3 $ rand)
     # gain 1.3
@@ -249,7 +273,7 @@ do
   hush
   d12
     $ s "none(5, 8)"
-    # td_s 11
+    # td_s (choose([17,18]))
     # td_fx 0
   d1
     $ s "sup(11, 16, <0..15>/8)"
@@ -260,7 +284,7 @@ do
 do
   d12
     $ s "none(5, 8)"
-    # td_s (choose([11..13]))
+    # td_s (choose([67..72]))
     # td_fx 0
   d2
     -- $ jux ((5/16)<~)
@@ -278,6 +302,10 @@ d3
   # gain 1.0
 
 do
+  d12
+    $ s "none(7, 16)"
+    # td_s (choose([1..100]))
+    # td_fx (choose([0..11]))
   d4
     $ stack
     [
@@ -304,12 +332,12 @@ d8
   |+ note (scale "mixolydian" "{0..15}%3")
   |+ note "[0, 12]"
   # lpf (range 200 12000 $ slow 8 $ sine) # resonance 0.3
-  # legato 1.0
+  # legato 2.0
   # gain 1.5
 
-d2
-  $ s "supersaw(13, 16, <0..15>/8)"
-  # note "g4'min7 bf4'maj7"
+d9
+  $ s "superzow(13, 16, <0..15>/8)"
+  # note "g5'min7 bf5'maj7"
   # lpf (range 100 8000 $ slow 1 $ rand)
   # resonance 0.1
   # legato 0.9
@@ -334,7 +362,7 @@ do
   hush
   d12
     $ s "none*16"
-    # td_s (choose[4..7])
+    # td_s (choose[5..6])
   d1
     $ s "superfm(16, 16)"
     # note "g2"
@@ -358,7 +386,7 @@ d3
   $ stack
   [
     s "distd(3, 8)"
-    , s "uni:1(4, 8, 1)"
+    -- , s "uni:1(4, 8, 1)"
   ]
   # gain 1.5
 
@@ -395,8 +423,9 @@ d6
 
 do
   d12
-    $ s "none(11, 16)"
-    # td_s (choose[0..18])
+    $ s "none(3, 8)"
+    # td_s (choose[29, 31, 32, 90, 91, 92, 93])
+    # td_fx (choose[0..11])
   d5
     $ jux (("[3, 5]"/16)<~)
     $ s "superhammond(9, 16, [0, 5, 9])"
@@ -408,6 +437,10 @@ do
     # gain 0.8
 
 do  
+  d12
+    $ s "none*16"
+    # td_s (choose[1..100])
+    # td_fx (choose[0..11])
   d2
     $ jux ((3/16)~>)
     -- $ jux ((7/14)<~)
@@ -421,7 +454,11 @@ do
     # gain 0.9
   
   do  
-    d3
+  d12
+    $ s "none*32"
+    # td_s (choose[1..100])
+    # td_fx (choose[0..11])
+  d3
     $ s "supersawfbk/2"
     # note "c2"
     # rq 0.3
@@ -486,6 +523,6 @@ d7
   # room 0.6 # size 0.95
   # gain 0.9
   
-unsolo 5
+solo 5
 
 hush

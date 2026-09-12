@@ -16,14 +16,14 @@ do
 
 d1
   $ s "superadd"
-  # freq 200
+  # freq 2000
   # legato 3.0
   # room 0.2 # size 0.5
   # gain 1.0
 
 d2
-  $ s "sfh(1, 4)"
-  # lpf 100
+  $ s "sfh(3, 4)"
+  # lpf 2000
   # pan (rand)
   # n (choose[0..100])
   # room 0.5 # size 0.9
@@ -32,11 +32,11 @@ d2
   d3
     -- $ slow 2
     -- $ jux (iter 16)
-    $ s "ae(1, 8)"    
+    $ s "ae(5, 8)"    
     # n (choose[0..4])
     # pan (rand)
     |* speed "[0.99, 1.01]"
-    -- |* speed (choose[1.0, 2.0, 1.5])
+    |* speed (choose[1.0, 2.0, 1.5, 3.0])
     # lpf (range 800 8000 $ slow 8 $ sine) # resonance 0.3
     # delay 0.9 # delaytime (range 0.01 0.05 $ rand) # delayfeedback 0.95
     -- # room 0.5 # size 0.9
@@ -45,8 +45,8 @@ d2
   d4
     $ slow 2
     $ s "empty"
-    # shape 0.0
-    # gain 0.7
+    # shape 0.8
+    # gain 1.0
 
   d5
     -- $ slow 4
@@ -55,10 +55,10 @@ d2
     -- |+ note (scale "mixolydian" "{0..3}%3")
     |+ note "[0.04, -0.04]"
     # legato 1.0
-    # lpf (range 100 1000 $ slow 4 $ sine) # resonance 0.0
+    # lpf (range 100 8000 $ slow 4 $ sine) # resonance 0.3
     -- # room 0.2 # size 0.5
     -- # delay "0.9" # delaytime (range 0.01 0.05 $ rand) # delayfeedback 0.98
-    # gain 1.2
+    # gain 1.0
 
 d6
   $ slow 8
@@ -81,23 +81,23 @@ do
   -- hush
   setcps(100/240)
   d12
-    $ s "none(5, 7)"
+    $ s "none(3, 8)"
     # td_s (choose[0..5])
     # td_fx 0
   d1
-    -- $ jux (("[3, 10, 5]"/14)<~)
+    $ jux (("[3, 5, 9]"/14)<~)
     $ s "rs(1, 7)"  
     |+ note "[-0.05, 0.05]"
     -- |+ note "[-12, <0 -5>/4]"
     # legato 0.5
     # delay 0.5 # delaytime ("[5, 3]"/14) # delayfeedback 0.5 # lock 1
-    -- # lpf (choose [6000, 8000]) # resonance 0.0
+    # lpf (choose [6000, 8000]) # resonance 0.4
     # room 0.5 # size 0.9
 
 d2
   $ jux (("[7, 3]"/14)<~) 
   $ s "fb(3, 14)"
-  -- # n "<0..3>*9"
+  # n "<0..3>*9"
   # gain "<1.3 0.9>*16"
   -- # delay 0.1 # delaytime "<0.02 0.01 0.005>*8" # delayfeedback 0.7
 
@@ -124,10 +124,12 @@ do
     $ stack
     [
       s "superwho(9, 14)" # note "g6'sus2"
+      , s "superwho(9, 14, 5)" # note "c7'sus2"
+      , s "superwho(9, 14, 10)" # note "g7'sus2"
     ]
-    # lfo (range 800 8000 $ rand) # resonance "0.2"
+    # lfo (range 800 8000 $ rand) # resonance 0.3
     # legato "0.5 1.0"
-    # gain 0.8
+    # gain 0.9
   
 d3
   $ sometimesBy 0.4 (jux (rev))
@@ -137,21 +139,22 @@ d3
 
 do
   d6
-    -- $ sometimesBy 0.4 (jux (rev))
-    $ s "hasu(5, 14)"
+    $ sometimesBy 0.4 (jux (rev))
+    $ s "hasu(10, 14, [0, 5])"
     # n (choose [0..13])
+    # note "<0 12 24>*4"
     # room 0.5 # size 0.9
-    # gain 1.0
+    # gain 1.2
 
 d7
   $ jux ((5/14)<~)  
   $ s "superwho(9, 14)"
-  # note "a7'maj13"
+  # note "a6'maj13"
   |+ note "[0, 12]"
-  # legato 0.6
+  # legato 1.0
   # lfo (range 800 8000 $ rand) # resonance "0.3"
   -- # delay 0.8 # delaytime ("[7, 3]"/14) # delayfeedback 0.5 # lock 1
-  # gain 0.8
+  # gain 0.9
 
 d2 silence >> d3 silence >> d4 silence >> d5 silence >> d6 silence >> d7 silence
 
@@ -174,7 +177,7 @@ d1 silence
 do
   let shift = 0
   setcps(126/240)
-  hush
+  -- hush
   d12
     $ s "none(5, 8)"
     # td_s (choose[4..9])
@@ -190,8 +193,7 @@ do
     -- # legato "<4.0 0.3>*4"
     # room 0.2 # size 0.8
     -- # delay 0.5 # delaytime (5/16) # delayfeedback 0.75 # lock 1
-    # gain 1.2  
-  
+    # gain 1.2
   d2
     -- $ jux (("[12]"/16)<~)
     $ s "supermoog(5, 16, <0..15>/8)" 
@@ -201,7 +203,6 @@ do
     -- # legato "<2.0 0.3>*4"
     # lpf (range 800 2000 $ slow 4 sine) # resonance 0.2
     # gain 1.2 
-  
   d3
     $ s "uni(5, 16, <0..15>/8)"
     # gain 1.3
@@ -215,7 +216,7 @@ do
     -- |* speed "[1.001, 0.999]"
     # legato 0.5
     # lpf (range 2000 8000 $ slow 4 sine) # resonance 0.1
-    # gain 1.0  
+    # gain 1.0
   d5
     $ s "supermoog(5, 16, <0..15>/8)"
     # note "c2"
@@ -224,13 +225,12 @@ do
     |+ note (scale "mixolydian" "{0..12}%3")
     # lpf (range 800 4000 $ slow 7 sine) # resonance 0.1
     # gain 1.3
-  
   d6
     $ slow 2
     $ s "supermoog(3, 8)"
     # note "c2"
     |+ note "[-0.04, 0.04]"
-    |+ note (scale "mixolydian" "{0..24}%3")
+    |+ note (scale "mixolydian" "{0..12}%3")
     |+ note shift
     # lpf (range 100 2000 $ rand) # resonance 0.3
     # attack 2 # sustain 2
@@ -238,10 +238,12 @@ do
     -- # room 0.1 # size 0.9
     # gain 1.3
   
-  d8
-    $ s "ifdrums(7, 16, <0..15>/8)"
-    # n (range 0 3 $ rand)
-    # gain 1.3
+d8
+  $ s "ifdrums(7, 16, <0..15>/8)"
+  # n (range 0 3 $ rand)
+  # gain 1.6
+
+
 
 ---
 
@@ -269,35 +271,38 @@ do
     # lpf (range 800 3000 $ slow 8 $ sine) # resonance "0.2"
     |+ note "[-0.02, 0.02]"
     # room 0.3 # size 0.9
-    -- # n "<0 0 0 1 2 3>/4"
-    -- # note "<-5 0>/16"
+    -- # n 0
+    # n "<0 0 0 1 2 3>/4"
+    # note "<-5 0>/16"
 
 d3
   $ s "kon(9, 16)"
   # n "{0..0}%9"
   # gain 1.0
 
-do
-  d4
-    $ stack
-    [
-      s "superwho(7, 16)" # note "c5'sus2"
-    ]
-    |+ note "<7 0>/16"
-    # legato 0.7
-    # lpf (range 400 8000 $ rand) # resonance "0.2"
+
+d4
+  $ stack
+  [
+    s "superwho(7, 16)" # note "c5'sus2"
+    , s "superwho(7, 16, 5)" # note "c6'sus2"
+    , s "superwho(7, 16, 10)" # note "c7'sus2"
+  ]
+  |+ note "<7 0>/16"
+  # legato 0.7
+  # gain 1.1
 
 d5
   $ s "uni(5, 16, <0..15>/8)"
   # gain 1.4
   -- # delay 0.5 # delaytime (5/14) # delayfeedback 0.75 # lock 1 
 
-d7
+d8
   $ s "ifdrums(5, 16, <0..15>/8)"
   # n (range 0 3 $ rand)
   # gain 1.3
 
-d8
+d9
   -- $ jux (rev)
   $ s "superzow(13, 16, <0..15>/8)"
   # note "c2"
@@ -307,9 +312,9 @@ d8
   # legato 1.0
   # gain 1.5
 
-d2
-  $ s "supersaw(13, 16, <0..15>/8)"
-  # note "g4'min7 bf4'maj7"
+d10
+  $ s "superzow(13, 16, <0..15>/8)"
+  # note "g5'min7 bf5'maj7"
   # lpf (range 100 8000 $ slow 1 $ rand)
   # resonance 0.1
   # legato 0.9
@@ -367,8 +372,8 @@ d4
   $ s "supermoog(5, 16, <0..15>/8)"
   # note "c2"
   |+ note "[-0.04, 0.04]"
-  |+ note (scale "mixolydian" "{0..12}%3")
-  -- |+ note (scale "mixolydian" "{0..24}%[5, 3]")
+  -- |+ note (scale "mixolydian" "{0..12}%3")
+  |+ note (scale "mixolydian" "{0..24}%[5, 3]")
   -- |+ note shift
   # lpf (range 100 2000 $ rand) # resonance 0.3
   # attack 2 # sustain 2
@@ -390,8 +395,8 @@ d6
   # legato 2
   -- |+ note shift
   |+ note (scale "mixolydian" "{0..12}%3")
-  # lpf (range 800 2000 $ slow 7 sine) # resonance 0.1 
-  # gain 1.2
+  # lpf (range 800 8000 $ slow 7 sine) # resonance 0.2
+  # gain 1.3
 
 do
   d12
@@ -405,7 +410,7 @@ do
     |+ note (scale "mixolydian" "{0..9}%[3, 5]")
     # legato 1.0
     # room 0.7 # size 0.9
-    # gain 0.8
+    # gain 0.9
 
 do  
   d2
@@ -420,18 +425,17 @@ do
     # room 0.7 # size 0.3
     # gain 0.9
   
-  do  
-    d3
+  d3
     $ s "supersawfbk/2"
     # note "c2"
-    # rq 0.3
-    # legato 3.0
+    # rq 0.7
+    # legato 4.0
     # wet 1
-    # room 0.2 # size 0.9
+    # room 0.2 # size 0.98
     -- # tremolodepth 0.9 # tremolorate 4
-    # enhance 0.9
-    # shape 0.8
-    # gain 1.5
+    -- # enhance 0.9
+    # shape 0.9
+    # gain 2.0
 
 do
   d12
@@ -445,33 +449,45 @@ do
       , s "fb(9, 16)"
     ]  
     # shape 0.9
-    # gain 1.5
+    # gain 1.3
 
 d6
+  -- $ sometimesBy 0.2 (rev)
+  $ stack
+  [
+    s "ifdrums(7, 16, <0..15>/8)" # n (choose[1..3]),
+    s "uni(7, 16, <0..15>/8)" # n (choose[1..2]),
+    s "uni(3, 8, <0..15>/8)" # gain "1.5"
+  ]
+  -- # delay 1.0 # delaytime (range 0.001 0.03 $ rand) # delayfeedback 0.7
+  # shape 0.8  
+  # gain 1.3
+
+d7
   $ s "supermoog(16, 16)"
   # note "c2"
   |+ note (scale "minPent" "{0..9}%3")
-    # lpf (range 800 8000 $ rand) # resonance "0.3"
+  # lpf (range 800 8000 $ rand) # resonance "0.3"
   # gain 2.0
 
-d6
+d1
   -- $ jux (rev)
   -- $ every 4 (fast 2)
   $ s "uni(11, 16)" # n (irand 4)
   # delay 1.0 #delaytime (range 0.003 0.05 $ rand) # delayfeedback 0.9
   # gain 1.9
 
-d7
+d2
   $ s "matsu/8" 
   -- |+ note "[-0.1, 0.1]"
   # note "[0, -12]"
   # gain 1.2
   # room 0.5 # size 0.8
 
-d8
+d3
   $ s "superdown/8"
   # note "c5"
-  # voice 1000
+  # voice 2000
   -- # speed "[1.5, 1.0]"
   # legato 4.0
   # gain 1.5
@@ -487,5 +503,8 @@ d7
   # gain 0.9
   
 unsolo 5
+
+d1 silence >> d2 silence >> d3 silence >> d4 silence >> d5 silence >> d6 silence >> d7 silence
+
 
 hush
