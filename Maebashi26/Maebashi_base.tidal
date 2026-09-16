@@ -10,7 +10,7 @@ do
   setcps(120/240)
   d12
     $ s "none*4"
-    # td_s 0
+    # td_s 6
   d1
     $ s "numbers"
     # n "<1 2 3 4 5 6 7 8>"    
@@ -418,7 +418,6 @@ do
     # legato 1.0
     # room 0.7 # size 0.9
     # gain 0.8
-
   
 d4
   $ jux ((3/16)~>)
@@ -485,7 +484,7 @@ d9
   # voice 1000
   -- # speed "[1.5, 1.0]"
   # legato 4.0
-  # gain 1.
+  # gain 1.0
 
 d7
   -- $ jux (0.5 ~>)

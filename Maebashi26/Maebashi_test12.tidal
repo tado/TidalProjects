@@ -10,7 +10,7 @@ do
   setcps(120/240)
   d12
     $ s "none*4"
-    # td_s 0
+    # td_s 6
   d1
     $ s "numbers"
     # n "<1 2 3 4 5 6 7 8>"    
