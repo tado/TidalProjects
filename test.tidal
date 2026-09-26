@@ -1,19 +1,21 @@
+setcps(110/240)
+
 d1
   $ stack
   [
-    s "uni(3, 8, <0..7>/16)" # gain 1.2
-    ,  s "808:1(5, 8, <1..8>/16)"
-    ,  s "superfm(3, 8, <0..7>/16)" # note "c9" # legato 0.1 # room 0.2 # size 0.9 # orbit 3
-    ,  s "superfm(3, 8, <1..8>/16)" # note "g9" # legato 0.1 # room 0.2 # size 0.9 # orbit 3
-    ,  s "superfm(5, 8, <2..9>/16)" # note "a9" # legato 1 # room 0.2 # size 0.9 # orbit 3
+    s "uni(3, 11, <0..7>/8)" # gain 1.2
+    ,  s "808:1(5, 11, <1..8>/8)"
+    ,  s "superfm(3, 11, <0..7>/8)" # note "c9" # legato 0.1 # room 0.2 # size 0.9 # orbit 3
+    ,  s "superfm(3, 11, <1..8>/8)" # note "g9" # legato 0.1 # room 0.2 # size 0.9 # orbit 3
+    ,  s "superfm(5, 11, <2..9>/8)" # note "a9" # legato 1 # room 0.2 # size 0.9 # orbit 3
   ]
-  # delay 0.5 # delaytime (5/8) # delayfeedback 0.7 # lock 1
+  -- # delay 0.5 # delaytime (5/11) # delayfeedback 0.7 # lock 1
   
 d2
-  $ s "supermoog(2, 8, <0..7>/16)"
-  # note "<a3 a2>*8"
+  $ s "supermoog(2, 11, <0..7>/8)"
+  # note "<a3 a2>*11"
   # lpf (range 200 1000 $ rand) # resonance 0.3
-  # delay 0.5 # delaytime (3/8) # delayfeedback 0.7 # lock 1
+  -- # delay 0.5 # delaytime (3/11) # delayfeedback 0.7 # lock 1
   
 hush
 
