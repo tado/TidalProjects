@@ -1,27 +1,56 @@
-setcps(130/240)
+setcps(135/240)
 
 hush
 
 do
-  let base = 0
+  let base = "<0 0 -2 -5 2 5>/8"
   let sc = "hexDorian"
-  hush
+  -- hush
+  -- resetCycles
   d1
-    $ note "c5'maj9(5, 16)"
-    # s "massive1"
-    |+ note "[0, 12]"
+    $ jux (rev)    
+    $ s "massive1(5, 16, <0..15>/4)"
+    # note "c5"
+    |+ note (scale sc "{0..19}%5")
+    -- # note "<c6'sus2 c6'sus4>*4"
+    |+ note "[0, 7]"
     |+ note base
-    # pan (rand)
-    # delay 0.9 # delaytime ("[3, 5]"/16) # delayfeedback 0.2 # lock 1
+    # room 0.2 # size 0.9
+    # pan "<0 0.2 0.5 0.8 1>*8"
+    # delay 1.0 # delaytime ("[5, 3]"/8) # delayfeedback 0.1 # lock 1
     -- # ccn 1 # ccv (range 0 127 $ slow 4 sine)
-    # gain 1.0
+    # gain 1.2
   d2
-    $ s "massive2(3, 8)"
+    $ s "massive2(3, 8, <0..7>/8)"
     # note "c3"
+    |+ note (scale sc "{0..15}%3")
     |+ note base
-    # gain 1.5
-    # delay 0.9 # delaytime ("[9, 11]"/16) # delayfeedback 0.2 # lock 1
-
+    -- # room 0.1 # size 0.9
+    -- # delay 1.0 # delaytime ("[7, 5]"/8) # delayfeedback 0.1 # lock 1
+    -- # ccn 1 # ccv (range 0 127 $ slow 4 sine)
+    # gain 1.9
+  d3
+    $ s "uni(5, 8, <0..7>/8), hc(3, 8, 1)"
+    # gain 1.7
+  d4
+    $ jux ((9/16)<~)
+    $ s "ifdrums(9, 16)" 
+    # n (irand 4) # gain 1.2
+    # pan rand
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   d2  
     -- $ sometimesBy 0.1 (fast 2)
