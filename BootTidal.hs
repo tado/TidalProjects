@@ -91,3 +91,7 @@ let fhigh = pI "fhigh"
 let distort = pF "distort"
 let rq = pF "rq"
 let wet = pF "wet"
+
+-- for vst
+let vstid = pI "vstid"
+let vstval = pF "vstval"

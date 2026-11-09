@@ -1,23 +1,132 @@
-setcps(110/240)
+setcps(130/240)
 
-d1
+hush
+
+do
+  let base = 0
+  let sc = "hexDorian"
+  hush
+  d1
+    $ note "c5'maj9(5, 16)"
+    # s "massive1"
+    |+ note "[0, 12]"
+    |+ note base
+    # pan (rand)
+    # delay 0.9 # delaytime ("[3, 5]"/16) # delayfeedback 0.2 # lock 1
+    -- # ccn 1 # ccv (range 0 127 $ slow 4 sine)
+    # gain 1.0
+  d2
+    $ s "massive2(3, 8)"
+    # note "c3"
+    |+ note base
+    # gain 1.5
+    # delay 0.9 # delaytime ("[9, 11]"/16) # delayfeedback 0.2 # lock 1
+
+  
+  d2  
+    -- $ sometimesBy 0.1 (fast 2)
+    -- $ jux (("[5, 3]"/14)<~)
+    $ note "c4(11, 14, <0..6>/4)"
+    |+ note (scale sc "{0..19}%5")    
+    |+ note base
+    |+ note "[0, 7]"
+    # s "massive2"
+  
+  3
+    $ sometimesBy 0.2 (fast 2)
+    -- $ jux (("[2, 8]"/14)<~)
+    $ note "c3(5, 14, <0..6>/6)"
+    |+ note (scale sc "{0..19}%3")    
+    |+ note base
+    # s "massive2"  
+    -- # ccn 1 # ccv (range 0 127 $ slow 6 sine)  
+  d4
+    -- $ jux (("[5]"/7)<~)
+    $ note "c3(9, 14, <0..6>/5)"
+    |+ note (scale sc "{0..12}%5")
+    |+ note base
+    # legato 2.0
+    # s "massive1"
+    # ccn 1 # ccv (range 0 127 $ slow 4 sine)  
+    
+
+unsolo 5
+
+d5
   $ stack
   [
-    s "uni(4, 11, <0..7>/8)" # gain 1.2
+    s "uni(3, 7, <0..6>/4)" # gain 1.2
+    , s "hc(3, 7, <1..7>/4)"
+    , s "ifdrums(11, 14)" # n (irand 4)
+  ]  
+  |* gain 1.0
+
+hush
+
+setcps(130/240)
+
+-- 基本のノート演奏（d1のオービットに出力されるため、エフェクトもそのまま効く）
+d1
+  $ note "c3(7, 8)"
+  |+ note (scale "majPent" "{0..12}%5")
+  # s "massive1"
+  
+   
+
+d2
+  $ note "c5(7, 16, 1)"
+  |+ note (scale "majPent" "{0..12}%3")
+   # s "massive2"
+   # amp 1.0   
+   
+d2
+  $ note "c5(5, 11, 2)"
+  |+ note (scale "majPent" "{0..9}%9")
+  |+ note "[0, 7]"
+   # s "massive2"
+   # pan (rand)   
+   # amp 1.5
+      
+
+-- VSTパラメータ（例：インデックス0番のマクロ）を0.0〜1.0の浮動小数点で滑らかにモジュレーション
+d2 $ note "c3 eb3 g3 bb3" 
+   # s "massive"
+   # vstid 0 
+   # vstval (range 0.0 1.0 $ slow 4 sine)
+
+-- もちろん標準のMIDI CC（ccn / ccv）もそのまま使えます
+d1 $ note "0 7 12 3" # s "massive" # ccn 1 # ccv (range 0 127 $ fast 2 tri)
+
+
+hush
+
+
+d3
+  $ s "uni(3, 8)"
+  # gain 1.5
+
+
+d3
+  -- $ jux (iter 11)
+  $ stack
+  [
+    s "uni(2, 11, <0..7>/8)" # gain 1.4
     ,  s "808:1(5, 11, <1..8>/8)"
     ,  s "808:2(4, 11, <3..11>/8)"
-    ,  s "superfm(3, 11, <0..7>/8)" # note "c9" # legato 0.1 # room 0.2 # size 0.9 # orbit 3
-    ,  s "superfm(3, 11, <1..8>/8)" # note "g9" # legato 0.1 # room 0.2 # size 0.9 # orbit 3
+    ,  s "superfm(3, 11, <0..7>/8)" # note "c9" # legato 0.12 # room 0.2 # size 0.9 # orbit 3
+    ,  s "superfm(3, 11, <1..8>/8)" # note "g9" # legato 0.12 # room 0.2 # size 0.9 # orbit 3
     ,  s "superfm(5, 11, <2..9>/8)" # note "a9" # legato 0.2 # room 0.2 # size 0.9 # orbit 3
   ]
-  # delay 0.5 # delaytime (9/11) # delayfeedback 0.7 # lock 1
+  # pan "<0.2 0.5 0.8>*5 "
+  # delay 0.25 # delaytime ("[3, 9]"/11) # delayfeedback 0.5 # lock 1
   
 d2
   $ s "supermoog(9, 11, <0..7>/8)"
   # note "<a3 a2>*11"
   # lpf (range 100 2000 $ rand) # resonance 0.3
-  # legato 1.0
-  # delay 0.8 # delaytime (5/11) # delayfeedback 0.75 # lock 1
+  # legato "1.0 0.5 1.2"
+  # pan "<0.2 0.5 0.8>*3 "
+  # delay 0.25 # delaytime ("[5, 7]"/11) # delayfeedback 0.5 # lock 1
   
 hush
 
