@@ -64,6 +64,8 @@ TidalCycles からの使い方
   （数を超えると先頭に戻る。# n を省略すると 0 番）
 - プリセットの一覧は、起動時に Massive XL と一緒にまとめて読み込む
 - # note は音程
+- # amp は MIDI のベロシティ（2.0 で最大の 127、1.0 で 63、省略すると 50）
+- # gain は SuperDirt 側の出力音量（ベロシティには影響しない）
 - Massive XL は3台あり、s "massive" はオービットで台が決まる（d1 → 1台目、d2 → 2台目、d3 → 3台目）
   d1〜d3 で別々のプリセットを同時に鳴らせる
 - s "massive1" 〜 "massive3" と書くと、オービットに関係なく台を直接指定できる
@@ -279,7 +281,9 @@ TidalCycles からの使い方
 											\bandf, ~bandf ? 0, \bandq, ~bandq ? 10
 										);
 									});
-									// 二重に掛からないよう、ベロシティは # amp だけで決める
+									// ベロシティは # amp だけで決める（# gain が二重に掛からないようにする）
+									// # amp 2.0 で最大（127）になる。# amp を省略したときは 0.8 として扱う（ベロシティ 50）
+									~amp = (if (currentEnvironment.keys.includes(\amp)) { ~amp.value } { 0.8 }) / 2;
 									~gain = 1.0;
 									~overgain = 0.0;
 								};
