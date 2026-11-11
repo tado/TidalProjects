@@ -67,7 +67,8 @@ TidalCycles からの使い方
 - Massive XL は3台あり、s "massive" はオービットで台が決まる（d1 → 1台目、d2 → 2台目、d3 → 3台目）
   d1〜d3 で別々のプリセットを同時に鳴らせる
 - s "massive1" 〜 "massive3" と書くと、オービットに関係なく台を直接指定できる
-- 画面（GUI）は1台目だけに開く。d1 で鳴らしているプリセットがそのまま画面に出る
+- 画面（GUI）は起動時には開かない。下の 3. のブロックを評価すると1台目の画面が開く
+  1台目は d1 の台なので、d1 で鳴らしているプリセットがそのまま画面に出る
 - 画面で作った音は、下の「保存」ブロックを評価するたびに新しいプリセットとして追加される
 - 番号と名前の対応は、下の「一覧表示」ブロックで確認できる
 ==========================================================
@@ -299,9 +300,6 @@ TidalCycles からの使い方
 						"*** All Massive XL instances are ready to play! ***".postln;
 						~massiveScanPresets.value;
 					};
-
-					// 画面（GUI）は1台目だけに開く。音作りと保存はこの画面で行う
-					~massives[0].editor;
 				}).play(AppClock);
 			});
 		};
@@ -329,6 +327,17 @@ if (~startupLoading != true) {
 		~dirt.soundLibrary.freeSynths([\massive, \massive1, \massive2, \massive3]);
 	};
 	"*** Massive XL instances are freed ***".postln;
+};
+);
+
+// 3. Massive XL の画面（GUI）を開く（1台目。音作りと保存はこの画面で行う）
+(
+if (~startupLoading != true) {
+	if (~massives.isNil) {
+		"*** Massive XL が読み込まれていません。1. のブロックで読み込んでください ***".warn;
+	} {
+		~massives[0].editor;
+	};
 };
 );
 
