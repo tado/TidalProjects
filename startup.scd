@@ -243,4 +243,55 @@ if (~startupLoading != true) {
 };
 );
 
+
+/*
+ * Massive XL プリセット管理
+ */
+
+// Massive XL プリセットを保存する
+(
+if (~startupLoading != true) {
+	var index = 1;       // massive1 → 0, massive2 → 1, massive3 → 2
+	var name = "massive" ++ (index + 1); // 保存する名前（.vstpreset は自動で付く）
+	var path = Platform.userAppSupportDir +/+ "massive-presets" +/+ name ++ ".vstpreset";
+	~massives[index].writeProgram(path, { |ctrl, ok|
+		if (ok) {
+			"*** massive% saved: % ***".format(index + 1, path).postln;
+		} {
+			"*** massive% could not save: % ***".format(index + 1, path).warn;
+		};
+	});
+};
+);
+
+// Massive XL プリセットを読み込む
+(
+if (~startupLoading != true) {
+	var index = 0;       // massive1 → 0, massive2 → 1, massive3 → 2
+	var name = "massive" ++ (index + 1); // 読み込む名前（.vstpreset は書かない）
+	var path = Platform.userAppSupportDir +/+ "massive-presets" +/+ name ++ ".vstpreset";
+	if (File.exists(path)) {
+		~massives[index].readProgram(path, { |ctrl, ok|
+			if (ok) {
+				"*** massive% loaded: % ***".format(index + 1, path).postln;
+			} {
+				"*** massive% could not load: % ***".format(index + 1, path).warn;
+			};
+		});
+	} {
+		"*** Preset not found: % ***".format(path).warn;
+	};
+};
+);
+
+// 保存済みの Massive XL プリセットを一覧表示する
+(
+if (~startupLoading != true) {
+	PathName(Platform.userAppSupportDir +/+ "massive-presets").files
+		.select { |f| f.extension == "vstpreset" }
+		.collect(_.fileNameWithoutExtension)
+		.postln;
+};
+);
+
 ~startupLoading = false;
