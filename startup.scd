@@ -66,14 +66,17 @@ TidalCycles からの使い方
 - # note は音程
 - # amp は MIDI のベロシティ（2.0 で最大の 127、1.0 で 63、省略すると 50）
 - # gain は SuperDirt 側の出力音量（ベロシティには影響しない）
-- Massive XL は3台あり、s "massive" はオービットで台が決まる（d1 → 1台目、d2 → 2台目、d3 → 3台目）
-  d1〜d3 で別々のプリセットを同時に鳴らせる
-- s "massive1" 〜 "massive3" と書くと、オービットに関係なく台を直接指定できる
-- 画面（GUI）は起動時には開かない。下の 3. のブロックの d に台（1〜3。d1〜d3 に対応）、
-  n にプリセット番号を書いて評価すると、そのプリセットをその台に読み込んで画面が開く
-  その台のパターン（d = 2 なら d2）で同じ番号を鳴らしていれば、画面で変えた音がそのまま聞こえる
+- Massive XL は3台あり、s "massive" を鳴らした d（オービット）に自動で割り当てられる
+  d1〜d3 に限らず、d4 でも d8 でも使える。音はその d のオービットのエフェクトを通る
+- 同時に別々のプリセットを鳴らせるのは、台数と同じ3つの d まで
+  台を持っていない d で鳴らすと、一番長く鳴らしていない台がその d に回る
+  （4つ以上の d で同時に鳴らすと、台を取り合って音が切れる）
+- s "massive1" 〜 "massive3" と書くと、台を直接指定できる。その台は鳴らした d に移る
+- 画面（GUI）は起動時には開かない。下の 3. のブロックの d に d の番号（d1 なら 1、d4 なら 4）、
+  n にプリセット番号を書いて評価すると、その d の台にそのプリセットを読み込んで画面が開く
+  その d で同じ番号を鳴らしていれば、画面で変えた音がそのまま聞こえる
   （別の番号を鳴らすと、次のノートでその台はその番号のプリセットに切り替わる）
-  画面は常に1つだけで、別の台の画面を開くと前の画面は閉じる
+  画面は常に1つだけで、別の d の画面を開くと前の画面は閉じる
 - 画面で作った音は、下の「保存」ブロックを評価するたびに新しいプリセットとして追加される
   （保存されるのは、最後に 3. で画面を開いた台の音）
 - 番号と名前の対応は、下の「一覧表示」ブロックで確認できる
@@ -172,11 +175,15 @@ TidalCycles からの使い方
 				~dirt.orbits[msg[2].asInteger].globalEffects.select(_.alwaysRun).do(_.resume);
 			}, '/massiveWake', s.addr);
 
-			~numMassives = 3; // Massive XL の台数（1台目 → orbit 0、2台目 → orbit 1 ...）
+			// Massive XL の台数。同時に別々のプリセットを鳴らせる d の数になる
+			~numMassives = 3;
 			~massiveSynths = Array.newClear(~numMassives);
 			~massives = Array.newClear(~numMassives);
-			// 台ごとの状態: 読み込み済みプリセットのパス、切り替えが終わる時刻、最後に鳴らす音の時刻
-			~massivePresetState = Array.fill(~numMassives, { (ready: false, path: nil, busyUntil: 0, lastOnset: 0) });
+			// 台ごとの状態: 読み込み済みプリセットのパス、切り替えが終わる時刻、最後に鳴らす音の時刻、
+			// 今割り当てられているオービット（最初は 1台目 → d1、2台目 → d2 ...。鳴らした d に合わせて変わる）
+			~massivePresetState = Array.fill(~numMassives, { |i|
+				(ready: false, path: nil, busyUntil: 0, lastOnset: 0, orbit: i % ~dirt.orbits.size)
+			});
 			~massiveEditorIndex = 0; // 画面を開いている台（3. のブロックで変わる。保存ブロックはこの台を保存する）
 			~massiveScanPresets.(false);
 
@@ -185,12 +192,14 @@ TidalCycles からの使い方
 					// play 内はイベントの環境で動くので ~ 変数を参照できない。ローカル変数に入れておく
 					var num = ~numMassives;
 					var controllers = ~massives, hostSynths = ~massiveSynths, states = ~massivePresetState;
-					var hostOrbits = num.collect { |i| ~dirt.orbits[i] };
+					var dirtOrbits = ~dirt.orbits;
 					var midiPlay = DirtEventTypes.midiEvent[\play];
 					// プリセットの切り替えにかかる時間（秒）。この間に届いたノートは鳴らないので、切り替え直後の
 					// ノートはここまで遅らせる。切り替え直後の音が抜けるときは大きくする
 					var switchTime = 0.1;
-					var makePlay, firstReady;
+					// 複数の台の読み込みは同時には進まないので、前の台の読み込みが終わる時刻を覚えておき、次の台はその後に始める
+					var loadFreeAt = 0;
+					var assign, makePlay, firstReady;
 
 					num.do { |i|
 						var name = "massive" ++ (i + 1);
@@ -200,7 +209,7 @@ TidalCycles からの使い方
 						~massiveSynths[i] = Synth.head(
 							~dirt.group,
 							\massiveHost,
-							[\dryBus, hostOrbits[i].dryBus.index, \orbitIndex, hostOrbits[i].orbitIndex]
+							[\dryBus, dirtOrbits[states[i][\orbit]].dryBus.index, \orbitIndex, states[i][\orbit]]
 						);
 						s.sync;
 
@@ -229,13 +238,34 @@ TidalCycles からの使い方
 						0.2.wait;
 					};
 
-					// SuperDirt から呼ばれる再生処理。fixedIndex が nil のときはオービットで台を決める
+					// オービット（d1 → 0、d2 → 1 ...）で使う台の番号を返す
+					// wanted（台の番号）を渡したときはその台を、渡さないときはそのオービットに割り当て済みの台を使う
+					// 割り当て済みの台がなければ、一番長く鳴らしていない台をそのオービットに回す
+					// 台を回すときは、その台の出力先をそのオービットに付け替える
+					assign = { |orbitIndex, wanted|
+						var i = wanted ?? { states.detectIndex { |st| st[\ready] and: { st[\orbit] == orbitIndex } } };
+						if (i.isNil) {
+							i = (0..num - 1).select { |k| states[k][\ready] }.minItem { |k| states[k][\lastOnset] };
+						};
+						if (i.notNil and: { states[i][\ready].not }) { i = nil };
+						if (i.notNil and: { states[i][\orbit] != orbitIndex }) {
+							states[i][\orbit] = orbitIndex;
+							hostSynths[i].set(\dryBus, dirtOrbits[orbitIndex].dryBus.index, \orbitIndex, orbitIndex);
+						};
+						i
+					};
+					~massiveAssign = assign;
+
+					// SuperDirt から呼ばれる再生処理。fixedIndex が nil のときは鳴らした d（オービット）で台を決める
 					makePlay = { |fixedIndex|
 						{
-							var i = fixedIndex ?? { (~orbit ? 0).asInteger % num };
-							var st = states[i];
-							if (st[\ready]) {
-								var ctrl = controllers[i], hostSynth = hostSynths[i], hostOrbit = hostOrbits[i];
+							// ~orbit は Tidal が送った番号。送られてこないとき（once など）はオービットそのものが入っている
+							var orbit = ~orbit, i;
+							if (orbit.isNumber) { orbit = dirtOrbits.wrapAt(orbit.asInteger) };
+							i = assign.(orbit.orbitIndex, fixedIndex);
+							if (i.notNil) {
+								var st = states[i];
+								var ctrl = controllers[i], hostSynth = hostSynths[i], hostOrbit = orbit;
 								~midiout = ctrl.midi;
 
 								// # vstid / # vstval: VSTパラメータ直接制御
@@ -255,7 +285,8 @@ TidalCycles からの使い方
 										path = presets.wrapAt(if (~n == \none) { 0 } { ~n.asInteger });
 									};
 									if (path.notNil and: { path != st[\path] }) {
-										switchAt = max(now, st[\lastOnset] + 0.01);
+										switchAt = max(max(now, st[\lastOnset] + 0.01), loadFreeAt);
+										loadFreeAt = switchAt + switchTime;
 										st[\path] = path;
 										st[\busyUntil] = switchAt + switchTime;
 										hostOrbit.server.sendBundle(
@@ -297,7 +328,7 @@ TidalCycles からの使い方
 						}
 					};
 
-					// SuperDirt に登録する: \massive はオービットで台が決まり、\massive1 〜 は台を直接指定する
+					// SuperDirt に登録する: \massive は鳴らした d（オービット）で台が決まり、\massive1 〜 は台を直接指定する
 					firstReady = states.detectIndex { |st| st[\ready] };
 					if (firstReady.notNil) {
 						~dirt.soundLibrary.addMIDI(\massive, controllers[firstReady].midi, (play: makePlay.(nil)));
@@ -332,37 +363,42 @@ if (~startupLoading != true) {
 	~massives = nil;
 	~massivePresetState = nil;
 	~massiveEditorIndex = nil;
+	~massiveAssign = nil;
 	~dirt !? {
 		~dirt.receiveAction = nil;
-		~dirt.soundLibrary.freeSynths([\massive, \massive1, \massive2, \massive3]);
+		~dirt.soundLibrary.freeSynths([\massive] ++ (~numMassives ? 3).collect { |i| ("massive" ++ (i + 1)).asSymbol });
 	};
 	"*** Massive XL instances are freed ***".postln;
 };
 );
 
-// 3. Massive XL の画面（GUI）を、台とプリセット番号を指定して開く（音作りと保存はこの画面で行う）
-// d に台（1〜3。d1〜d3 に対応）、n にプリセット番号を書いて評価すると、そのプリセットをその台に読み込んで画面を開く
+// 3. Massive XL の画面（GUI）を、d の番号とプリセット番号を指定して開く（音作りと保存はこの画面で行う）
+// d に d の番号（d1 なら 1、d4 なら 4）、n にプリセット番号を書いて評価すると、
+// その d の台にそのプリセットを読み込んで画面を開く
+// その d がまだ台を持っていなければ、一番長く鳴らしていない台をその d に回す
 // 画面は常に1つだけで、他の台の画面は閉じる。下の「保存」ブロックは、ここで画面を開いた台の音を保存する
 // すでにその番号がその台に入っているときは読み込み直さないので、画面で作りかけの音はそのまま残る
 (
 if (~startupLoading != true) {
-	var d = 1; // 画面を開く台（1 → d1 の台、2 → d2 の台、3 → d3 の台）
+	var d = 1; // 画面を開く d の番号（d1 → 1、d2 → 2、d4 → 4 ...）
 	var n = 0; // 画面に開くプリセットの番号（# n と同じ番号。数を超えると先頭に戻る）
-	var index = d.asInteger - 1;
-	if (~massives.isNil or: { ~massivePresetState.isNil }) {
+	if (~massives.isNil or: { ~massivePresetState.isNil } or: { ~massiveAssign.isNil }) {
 		"*** Massive XL が読み込まれていません。1. のブロックで読み込んでください ***".warn;
 	} {
-		if (index < 0 or: { index >= ~massives.size }) {
-			"*** d は 1 〜 % で指定してください（d = %） ***".format(~massives.size, d).warn;
+		if (d.asInteger < 1) {
+			"*** d は 1 以上で指定してください（d = %） ***".format(d).warn;
 		} {
-			if (~massivePresetState[index][\ready].not) {
-				"*** %台目の Massive XL は読み込まれていません ***".format(d).warn;
+			// Tidal と同じく、オービットの数（12）を超えた番号は先頭に戻る
+			var index = ~massiveAssign.((d.asInteger - 1) % ~dirt.orbits.size);
+			if (index.isNil) {
+				"*** 使える Massive XL がありません。1. のブロックで読み込み直してください ***".warn;
 			} {
 				var ctrl = ~massives[index], st = ~massivePresetState[index];
 				var path = if (~massivePresets.size > 0) { ~massivePresets.wrapAt(n.asInteger) };
 				var label = if (path.notNil) {
 					"# n %: %".format(n.asInteger % ~massivePresets.size, PathName(path).fileNameWithoutExtension)
 				};
+				var where = " d% の台（%台目）".format(st[\orbit] + 1, index + 1);
 				if (path.isNil) {
 					"*** massive-presets に .vstpreset がありません。今の音のまま画面を開きます ***".warn;
 				} {
@@ -372,15 +408,17 @@ if (~startupLoading != true) {
 						st[\busyUntil] = Main.elapsedTime + 0.1;
 						ctrl.readProgram(path, action: { |c, ok|
 							if (ok) {
-								"*** % を%台目（d%）に読み込んで画面を開きました ***".format(label, d, d).postln;
+								"*** % を%に読み込んで画面を開きました ***".format(label, where).postln;
 							} {
 								"*** could not load: % ***".format(path).warn;
 							};
 						});
 					} {
-						"*** % はすでに%台目（d%）に入っています。そのまま画面を開きます ***".format(label, d, d).postln;
+						"*** % はすでに%に入っています。そのまま画面を開きます ***".format(label, where).postln;
 					};
 				};
+				// 画面を開いた台は使ったばかりとして扱う（すぐには他の d に回されない）
+				st[\lastOnset] = max(st[\lastOnset], Main.elapsedTime);
 				~massiveEditorIndex = index;
 				// 指定した台の画面を開き、他の台の画面は閉じる
 				~massives.do { |c, k| if (~massivePresetState[k][\ready]) { c.editor(k == index) } };
@@ -411,7 +449,7 @@ if (~startupLoading != true) {
 	} {
 		~massives[index].writeProgram(path, { |ctrl, ok|
 			if (ok) {
-				"*** %台目（d%）の音を保存しました: % ***".format(index + 1, index + 1, path).postln;
+				"*** d% の台（%台目）の音を保存しました: % ***".format(~massivePresetState[index][\orbit] + 1, index + 1, path).postln;
 				~massivePresetState[index][\path] = path; // この台は保存したプリセットを読み込み済みとして扱う
 				~massiveScanPresets.value;
 			} {
