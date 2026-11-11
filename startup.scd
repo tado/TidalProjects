@@ -84,8 +84,9 @@ TidalCycles からの使い方
   その d で同じ番号を鳴らしていれば、画面で変えた音がそのまま聞こえる
   （別の番号を鳴らすと、次のノートでその台はその番号のプリセットに切り替わる）
   画面は常に1つだけで、別の d の画面を開くと前の画面は閉じる
-- 画面で作った音は、下の「保存」ブロックを評価するたびに新しいプリセットとして追加される
-  （保存されるのは、最後に 3. で画面を開いた台の音）
+- 画面で作った音は、下の「保存」ブロックで保存する（保存されるのは、最後に 3. で画面を開いた台の音）
+  n にプリセット番号を書くとそのプリセットに上書きし、n が nil のままなら新しいプリセットとして追加する
+  上書き前のファイルは massive-presets/backup フォルダに残る
 - 番号と名前の対応は、下の「一覧表示」ブロックで確認できる
 ==========================================================
 */
@@ -489,17 +490,49 @@ TidalCycles からの使い方
 	~massives.do { |c, k| if (~massivePresetState[k][\ready]) { c.editor(k == index) } };
 };
 
-// 最後に画面を開いた台（まだ開いていなければ1台目）の今の音を、次の番号の名前で保存する
-~massiveSavePreset = {
+// 上書きする前のプリセットを、プリセットフォルダの中の backup フォルダに日時付きの名前で写しておく
+// （backup フォルダの中は # n の番号には数えない）
+~massiveBackupPreset = { |path|
+	var dir = ~massivePresetDir +/+ "backup";
+	var dest = dir +/+ PathName(path).fileNameWithoutExtension ++ "-" ++ Date.getDate.stamp ++ ".vstpreset";
+	File.mkdir(dir);
+	if (File.exists(dest).not) { File.copy(path, dest) };
+	dest
+};
+
+// 最後に画面を開いた台（まだ開いていなければ1台目）の今の音を保存する
+// - n が今あるプリセットの番号（# n と同じ番号）のとき: そのプリセットに上書きする
+// - n が nil、または今ある数以上のとき: massive0, massive1 ... の続きの名前で新しく追加する
+~massiveSavePreset = { |n|
 	var index = ~massiveEditorIndex ? 0;
-	// massive0, massive1 ... の続きの名前（上書きはしない）
-	var path = ~massivePresetDir +/+ ~massiveNextPresetName.value ++ ".vstpreset";
-	if (~massives.isNil) {
-		~massiveWarnNotLoaded.value;
+	var presets = ~massivePresets ? [];
+	var overwrite = n.notNil and: { n.asInteger >= 0 } and: { n.asInteger < presets.size };
+	var path = if (overwrite) {
+		presets[n.asInteger]
 	} {
+		~massivePresetDir +/+ ~massiveNextPresetName.value ++ ".vstpreset"
+	};
+	var where, backup;
+	case
+	{ ~massives.isNil } { ~massiveWarnNotLoaded.value }
+	{ n.notNil and: { n.asInteger < 0 } } { "*** n は 0 以上で指定してください（n = %） ***".format(n).warn }
+	{
+		where = "d% の台（%台目）".format(~massivePresetState[index][\orbit] + 1, index + 1);
+		if (overwrite) { backup = ~massiveBackupPreset.(path) };
+		if (n.notNil and: { overwrite.not }) {
+			"*** # n % はまだありません。新しいプリセットとして追加します ***".format(n.asInteger).postln;
+		};
 		~massives[index].writeProgram(path, { |ctrl, ok|
 			if (ok) {
-				"*** d% の台（%台目）の音を保存しました: % ***".format(~massivePresetState[index][\orbit] + 1, index + 1, path).postln;
+				if (overwrite) {
+					"*** %の音を # n %: % に上書き保存しました（上書き前のファイル: %） ***".format(
+						where, n.asInteger, PathName(path).fileNameWithoutExtension, backup
+					).postln;
+					// 同じプリセットを読み込んでいる他の台は、次のノートで新しい音を読み込み直す
+					~massivePresetState.do { |st| if (st[\path] == path) { st[\path] = nil } };
+				} {
+					"*** %の音を保存しました: % ***".format(where, path).postln;
+				};
 				~massivePresetState[index][\path] = path; // この台は保存したプリセットを読み込み済みとして扱う
 				~massiveScanPresets.value;
 			} {
@@ -508,7 +541,6 @@ TidalCycles からの使い方
 		});
 	};
 };
-
 
 // ==========================================================
 // 手動で評価するブロック（( ) の中にカーソルを置いて Cmd+Return）
@@ -547,16 +579,21 @@ if (~startupLoading != true) {
 /*
  * Massive XL プリセット管理
  * - プリセットは massive-presets フォルダの .vstpreset。名前順に並べた番号が # n になる
- * - 保存するたびに massive0, massive1, massive2 ... と増えていくので、保存した順が # n の番号になる
+ * - 新しく追加したプリセットは massive0, massive1, massive2 ... と増えていくので、追加した順が # n の番号になる
+ * - 番号を指定して保存すると、そのプリセットに上書きする（上書き前のファイルは backup フォルダに残る）
  * - 読み込みは起動時に Massive XL と一緒にまとめて行う（保存した直後のプリセットもすぐ使える）
  */
 
-// Massive XL の画面の今の音を、新しいプリセットとして保存する
+// Massive XL の画面の今の音を、プリセットとして保存する
 // 保存するのは、最後に 3. のブロックで画面を開いた台の音（まだ開いていなければ1台目）
-// 評価するたびに次の番号の名前で保存する（上書きはしない）。保存後に番号と名前の一覧を表示する
+// n に番号（# n と同じ番号）を書いて評価すると、そのプリセットに上書きする
+// （上書き前のファイルは massive-presets/backup フォルダに日時付きの名前で残る）
+// n が nil のまま、または今ある数以上の番号のときは、次の番号の名前で新しく追加する（上書きはしない）
+// 保存後に番号と名前の一覧を表示する
 (
 if (~startupLoading != true) {
-	~massiveSavePreset.value;
+	var n = nil; // 保存先のプリセット番号（# n と同じ番号）。nil なら新しいプリセットとして追加する
+	~massiveSavePreset.(n);
 };
 );
 
