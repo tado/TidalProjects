@@ -1,7 +1,7 @@
 /*
 - startup.scd - SuperDirt & Multi-Massive XL (Orbit Effects + Preset Switching by # n)
-- 起動時に実行されるのは SuperDirt の起動まで
-- Massive XL はファイル下部の ( ) ブロックを手動で評価して読み込む
+- 起動時に SuperDirt を起動し、続けて Massive XL とプリセットの一覧を読み込む
+- ファイル下部の ( ) ブロックは、読み込み直し・解放・プリセットの保存などを手動で行うときに評価する
 */
 
 // startup.scd の読み込み中であることを示すフラグ（ファイル末尾で false に戻す）
@@ -44,21 +44,25 @@ s.waitForBoot {
 		addr.sendMsg(*msg);
 	}, '/dirt/play', n);
 
-	"*** SuperDirt is ready. Massive XL を使うときは startup.scd 下部のブロックを評価 ***".postln;
+	"*** SuperDirt is ready. 続けて Massive XL を読み込みます ***".postln;
+
+	// Massive XL とプリセットの一覧を読み込む（処理はファイル下部の ~massiveLoad）
+	~massiveLoad.value;
 };
 
 
 /*
 ==========================================================
-Massive XL（手動で評価する）
-- "SuperDirt is ready" と表示された後に、( ) の中にカーソルを置いて Cmd+Return で評価する
-- 1. をもう一度評価すると、読み込み済みの Massive XL を解放してから読み込み直す（Cmd+. の後の復旧にも使える）
+Massive XL
+- 起動時に、SuperDirt の起動に続けて自動で読み込まれる（"All Massive XL instances are ready to play!" と表示されたら使える）
+- 下の ( ) ブロックは、( ) の中にカーソルを置いて Cmd+Return で評価する
+- 1. を評価すると、読み込み済みの Massive XL を解放してから読み込み直す（Cmd+. の後の復旧に使う）
 
 TidalCycles からの使い方
 - d1 $ s "massive" # n "0" # note "c5"
 - # n はプリセット番号。massive-presets フォルダの .vstpreset を名前順に並べた番号で、0 から始まる
   （数を超えると先頭に戻る。# n を省略すると 0 番）
-- プリセットの一覧は「1. Massive XL を読み込む」のときにまとめて読み込む
+- プリセットの一覧は、起動時に Massive XL と一緒にまとめて読み込む
 - # note は音程
 - Massive XL は3台あり、s "massive" はオービットで台が決まる（d1 → 1台目、d2 → 2台目、d3 → 3台目）
   d1〜d3 で別々のプリセットを同時に鳴らせる
@@ -105,14 +109,12 @@ TidalCycles からの使い方
 	"massive" ++ if (numbers.isEmpty) { 0 } { numbers.maxItem + 1 }
 };
 
-// 1. Massive XL を読み込む
-(
-if (~startupLoading == true) {
-	"*** Massive XL は startup.scd 下部のブロックを評価すると読み込まれます ***".postln;
-} {
+// Massive XL とプリセットの一覧を読み込む処理
+// 起動時に SuperDirt の起動に続けて自動で実行される。下の 1. のブロックからも呼び出せる
+~massiveLoad = {
 	fork({
 		if (~dirt.isNil or: { s.serverRunning.not }) {
-			"*** SuperDirt is not running. startup.scd で起動してから評価してください ***".warn;
+			"*** SuperDirt is not running. Language > Recompile Class Library で起動し直してください ***".warn;
 		} {
 			// 読み込み済みのホストがあれば解放する（Cmd+. 後などで既にないノードのエラーは表示しない）
 			~massiveSynths.do { |x|
@@ -305,6 +307,12 @@ if (~startupLoading == true) {
 		};
 	}, AppClock);
 };
+
+// 1. Massive XL を読み込み直す（起動時に自動で読み込まれるので、Cmd+. の後の復旧や 2. で解放した後に使う）
+(
+if (~startupLoading != true) {
+	~massiveLoad.value;
+};
 );
 
 // 2. Massive XL を解放する（SuperDirt はそのまま使える）
@@ -329,7 +337,7 @@ if (~startupLoading != true) {
  * Massive XL プリセット管理
  * - プリセットは massive-presets フォルダの .vstpreset。名前順に並べた番号が # n になる
  * - 保存するたびに massive0, massive1, massive2 ... と増えていくので、保存した順が # n の番号になる
- * - 読み込みは「1. Massive XL を読み込む」のときにまとめて行う（保存した直後のプリセットもすぐ使える）
+ * - 読み込みは起動時に Massive XL と一緒にまとめて行う（保存した直後のプリセットもすぐ使える）
  */
 
 // Massive XL の画面（1台目）の今の音を、新しいプリセットとして保存する
