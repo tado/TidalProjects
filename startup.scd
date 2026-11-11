@@ -58,25 +58,51 @@ TidalCycles からの使い方
 - d1 $ s "massive" # n "0" # note "c5"
 - # n はプリセット番号。massive-presets フォルダの .vstpreset を名前順に並べた番号で、0 から始まる
   （数を超えると先頭に戻る。# n を省略すると 0 番）
+- プリセットの一覧は「1. Massive XL を読み込む」のときにまとめて読み込む
 - # note は音程
 - Massive XL は3台あり、s "massive" はオービットで台が決まる（d1 → 1台目、d2 → 2台目、d3 → 3台目）
   d1〜d3 で別々のプリセットを同時に鳴らせる
 - s "massive1" 〜 "massive3" と書くと、オービットに関係なく台を直接指定できる
+- 画面（GUI）は1台目だけに開く。d1 で鳴らしているプリセットがそのまま画面に出る
+- 画面で作った音は、下の「保存」ブロックを評価するたびに新しいプリセットとして追加される
 - 番号と名前の対応は、下の「一覧表示」ブロックで確認できる
 ==========================================================
 */
 
 // massive-presets フォルダを読み直して、プリセット番号（# n）と名前の対応を表示する
+// 並び順は名前順。名前の中の数字は数として比べるので、massive9 の次が massive10 になる
 ~massiveScanPresets = { |post = true|
+	var sortKey = { |name|
+		var key = "", digits = "";
+		(name.toLower ++ " ").do { |c|
+			if (c.isDecDigit) {
+				digits = digits ++ c;
+			} {
+				if (digits.size > 0) { key = key ++ digits.padLeft(10, "0"); digits = "" };
+				key = key ++ c;
+			};
+		};
+		key
+	};
 	var files = PathName(Platform.userAppSupportDir +/+ "massive-presets").files
 		.select { |f| f.extension == "vstpreset" }
-		.sort { |a, b| a.fileName.toLower < b.fileName.toLower };
+		.sort { |a, b| sortKey.(a.fileNameWithoutExtension) < sortKey.(b.fileNameWithoutExtension) };
 	~massivePresets = files.collect(_.fullPath);
 	if (post) {
 		if (files.isEmpty) { "*** massive-presets に .vstpreset がありません ***".warn };
 		files.do { |f, i| "# n %: %".format(i, f.fileNameWithoutExtension).postln };
 	};
 	~massivePresets
+};
+
+// 次に保存するプリセットの名前を返す（massive0, massive1, massive2 ... の続きの番号）
+~massiveNextPresetName = {
+	var numbers = PathName(Platform.userAppSupportDir +/+ "massive-presets").files
+		.select { |f| f.extension == "vstpreset" }
+		.collect { |f| f.fileNameWithoutExtension }
+		.select { |name| name.beginsWith("massive") and: { name.size > 7 } and: { name.drop(7).every(_.isDecDigit) } }
+		.collect { |name| name.drop(7).asInteger };
+	"massive" ++ if (numbers.isEmpty) { 0 } { numbers.maxItem + 1 }
 };
 
 // 1. Massive XL を読み込む
@@ -272,7 +298,7 @@ if (~startupLoading == true) {
 						~massiveScanPresets.value;
 					};
 
-					// 画面は1台目（massive1）だけ開く。他の台は ~massives[1].editor; や ~massives[2].editor; を評価すると開く
+					// 画面（GUI）は1台目だけに開く。音作りと保存はこの画面で行う
 					~massives[0].editor;
 				}).play(AppClock);
 			});
@@ -302,45 +328,25 @@ if (~startupLoading != true) {
 /*
  * Massive XL プリセット管理
  * - プリセットは massive-presets フォルダの .vstpreset。名前順に並べた番号が # n になる
- * - 順番を決めたいときは "00_bass" "01_lead" のように名前の先頭に番号を付ける
+ * - 保存するたびに massive0, massive1, massive2 ... と増えていくので、保存した順が # n の番号になる
+ * - 読み込みは「1. Massive XL を読み込む」のときにまとめて行う（保存した直後のプリセットもすぐ使える）
  */
 
-// Massive XL の今の音をプリセットとして保存する（保存後に番号と名前の一覧を表示する）
+// Massive XL の画面（1台目）の今の音を、新しいプリセットとして保存する
+// 評価するたびに次の番号の名前で保存する（上書きはしない）。保存後に番号と名前の一覧を表示する
 (
 if (~startupLoading != true) {
-	var index = 0;       // massive1 → 0, massive2 → 1, massive3 → 2
-	var name = "massive" ++ (index + 1); // 保存する名前（.vstpreset は自動で付く）。"bass01" など自由に付けられる
+	var name = ~massiveNextPresetName.value; // massive0, massive1 ... の続きの名前（.vstpreset は自動で付く）
 	var path = Platform.userAppSupportDir +/+ "massive-presets" +/+ name ++ ".vstpreset";
-	~massives[index].writeProgram(path, { |ctrl, ok|
+	~massives[0].writeProgram(path, { |ctrl, ok|
 		if (ok) {
-			"*** massive% saved: % ***".format(index + 1, path).postln;
-			~massivePresetState[index][\path] = path; // この台は保存したプリセットを読み込み済みとして扱う
+			"*** saved: % ***".format(path).postln;
+			~massivePresetState[0][\path] = path; // 1台目は保存したプリセットを読み込み済みとして扱う
 			~massiveScanPresets.value;
 		} {
-			"*** massive% could not save: % ***".format(index + 1, path).warn;
+			"*** could not save: % ***".format(path).warn;
 		};
 	});
-};
-);
-
-// Massive XL にプリセットを手動で読み込む（エディタで音を作るとき用。演奏中の切り替えは # n で行う）
-(
-if (~startupLoading != true) {
-	var index = 0;       // massive1 → 0, massive2 → 1, massive3 → 2
-	var name = "massive" ++ (index + 1); // 読み込む名前（.vstpreset は書かない）
-	var path = Platform.userAppSupportDir +/+ "massive-presets" +/+ name ++ ".vstpreset";
-	if (File.exists(path)) {
-		~massives[index].readProgram(path, { |ctrl, ok|
-			if (ok) {
-				"*** massive% loaded: % ***".format(index + 1, path).postln;
-				~massivePresetState[index][\path] = path; // この台は読み込んだプリセットを読み込み済みとして扱う
-			} {
-				"*** massive% could not load: % ***".format(index + 1, path).warn;
-			};
-		});
-	} {
-		"*** Preset not found: % ***".format(path).warn;
-	};
 };
 );
 
