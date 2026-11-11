@@ -1,5 +1,5 @@
 /*
-- startup.scd - SuperDirt & Multi-Massive XL (Orbit Effects + Preset Switching)
+- startup.scd - SuperDirt & Multi-Massive XL (Orbit Effects + Preset Switching by # n)
 - 起動時に実行されるのは SuperDirt の起動まで
 - Massive XL はファイル下部の ( ) ブロックを手動で評価して読み込む
 */
@@ -53,8 +53,31 @@ s.waitForBoot {
 Massive XL（手動で評価する）
 - "SuperDirt is ready" と表示された後に、( ) の中にカーソルを置いて Cmd+Return で評価する
 - 1. をもう一度評価すると、読み込み済みの Massive XL を解放してから読み込み直す（Cmd+. の後の復旧にも使える）
+
+TidalCycles からの使い方
+- d1 $ s "massive" # n "0" # note "c5"
+- # n はプリセット番号。massive-presets フォルダの .vstpreset を名前順に並べた番号で、0 から始まる
+  （数を超えると先頭に戻る。# n を省略すると 0 番）
+- # note は音程
+- Massive XL は3台あり、s "massive" はオービットで台が決まる（d1 → 1台目、d2 → 2台目、d3 → 3台目）
+  d1〜d3 で別々のプリセットを同時に鳴らせる
+- s "massive1" 〜 "massive3" と書くと、オービットに関係なく台を直接指定できる
+- 番号と名前の対応は、下の「一覧表示」ブロックで確認できる
 ==========================================================
 */
+
+// massive-presets フォルダを読み直して、プリセット番号（# n）と名前の対応を表示する
+~massiveScanPresets = { |post = true|
+	var files = PathName(Platform.userAppSupportDir +/+ "massive-presets").files
+		.select { |f| f.extension == "vstpreset" }
+		.sort { |a, b| a.fileName.toLower < b.fileName.toLower };
+	~massivePresets = files.collect(_.fullPath);
+	if (post) {
+		if (files.isEmpty) { "*** massive-presets に .vstpreset がありません ***".warn };
+		files.do { |f, i| "# n %: %".format(i, f.fileNameWithoutExtension).postln };
+	};
+	~massivePresets
+};
 
 // 1. Massive XL を読み込む
 (
@@ -69,6 +92,7 @@ if (~startupLoading == true) {
 			~massiveSynths.do { |x|
 				x !? { s.sendBundle(nil, ['/error', -1], ['/n_free', x.nodeID], ['/error', -2]) };
 			};
+			~dirt.receiveAction = nil;
 			s.sync;
 
 			// =========================================================
@@ -113,23 +137,34 @@ if (~startupLoading == true) {
 				~dirt.orbits[msg[2].asInteger].globalEffects.select(_.alwaysRun).do(_.resume);
 			}, '/massiveWake', s.addr);
 
-			~numMassives = 3;
+			~numMassives = 3; // Massive XL の台数（1台目 → orbit 0、2台目 → orbit 1 ...）
 			~massiveSynths = Array.newClear(~numMassives);
 			~massives = Array.newClear(~numMassives);
-			~currentPresets = Array.newClear(~numMassives); // 現在のプリセット番号を記録
+			// 台ごとの状態: 読み込み済みプリセットのパス、切り替えが終わる時刻、最後に鳴らす音の時刻
+			~massivePresetState = Array.fill(~numMassives, { (ready: false, path: nil, busyUntil: 0, lastOnset: 0) });
+			~massiveScanPresets.(false);
 
 			VSTPlugin.search(s, dir: "/Library/Audio/Plug-Ins/VST3", action: {
 				Routine({
-					~numMassives.do { |i|
-						var synthName = ("massive" ++ (i + 1)).asSymbol;
-						var hostOrbit = ~dirt.orbits[i]; // massive1 → orbit 0, massive2 → orbit 1 ...
+					// play 内はイベントの環境で動くので ~ 変数を参照できない。ローカル変数に入れておく
+					var num = ~numMassives;
+					var controllers = ~massives, hostSynths = ~massiveSynths, states = ~massivePresetState;
+					var hostOrbits = num.collect { |i| ~dirt.orbits[i] };
+					var midiPlay = DirtEventTypes.midiEvent[\play];
+					// プリセットの切り替えにかかる時間（秒）。この間に届いたノートは鳴らないので、切り替え直後の
+					// ノートはここまで遅らせる。切り替え直後の音が抜けるときは大きくする
+					var switchTime = 0.1;
+					var makePlay, firstReady;
+
+					num.do { |i|
+						var name = "massive" ++ (i + 1);
 						var cond = Condition.new;
 
 						// オービットのエフェクトより先に処理されるよう SuperDirt グループの先頭に配置
 						~massiveSynths[i] = Synth.head(
 							~dirt.group,
 							\massiveHost,
-							[\dryBus, hostOrbit.dryBus.index, \orbitIndex, hostOrbit.orbitIndex]
+							[\dryBus, hostOrbits[i].dryBus.index, \orbitIndex, hostOrbits[i].orbitIndex]
 						);
 						s.sync;
 
@@ -137,47 +172,20 @@ if (~startupLoading == true) {
 
 						~massives[i].open("Massive XL.vst3", editor: true, verbose: false, action: { |ctrl, ok|
 							if (ok) {
-								var defaultPreset = ("~/massive_preset_" ++ i ++ ".vstpreset").standardizePath;
-								var midiPlay = DirtEventTypes.midiEvent[\play];
-								var hostSynth = ~massiveSynths[i]; // play 内はイベントの環境で動くので ~ 変数を参照できない
-								"*** % successfully loaded! ***".format(synthName).postln;
-
-								// 1. SuperDirtにMIDIターゲットとして登録（\massive1, \massive2, \massive3）
-								//    MIDI送信と同時に # pan / # gain / # lpf / # room などをホストとオービットへ反映する
-								~dirt.soundLibrary.addMIDI(synthName, ctrl.midi, (
-									play: {
-										// ノートを含むイベントだけ反映する（CCだけのイベントで pan や gain を初期値に戻さない）
-										if(~n != \none or: { ~note.notNil }) {
-											hostOrbit.server.makeBundle(~latency, {
-												hostOrbit.globalEffects.do { |fx| fx.set(currentEnvironment) };
-												// # gain はサンプルと同じカーブで出力レベルに反映する
-												// フィルタは指定がなければ 0（バイパス）、Q は SuperDirt と同じ既定値にする
-												hostSynth.set(
-													\pan, ~pan, \gain, pow(~gain.min(2) + ~overgain, 4),
-													\cutoff, ~cutoff ? 0, \resonance, ~resonance ? 0,
-													\hcutoff, ~hcutoff ? 0, \hresonance, ~hresonance ? 0,
-													\bandf, ~bandf ? 0, \bandq, ~bandq ? 10
-												);
-											});
-											// 二重に掛からないよう、ベロシティは # amp だけで決める
-											~gain = 1.0;
-											~overgain = 0.0;
-										};
-										midiPlay.value;
-									}
-								));
-
-								// 2. 初期プリセット（~/massive_preset_0.vstpreset 等）があれば自動ロード
-								if (File.exists(defaultPreset)) {
-									~currentPresets[i] = i;
-									ctrl.readProgram(defaultPreset, action: { |c, loaded|
+								// 初期プリセット: 1台目に 0 番、2台目に 1 番 ... を読み込んでおく
+								var path = if (~massivePresets.size > 0) { ~massivePresets.wrapAt(i) };
+								"*** % successfully loaded! ***".format(name).postln;
+								states[i][\ready] = true;
+								if (path.notNil) {
+									states[i][\path] = path;
+									ctrl.readProgram(path, action: { |c, loaded|
 										if (loaded) {
-											"*** % loaded initial preset: % ***".format(synthName, defaultPreset).postln;
+											"*** % loaded initial preset: % ***".format(name, PathName(path).fileNameWithoutExtension).postln;
 										};
 									});
 								};
 							} {
-								"*** Failed to load % ***".format(synthName).warn;
+								"*** Failed to load % ***".format(name).warn;
 							};
 							cond.unhang;
 						});
@@ -185,41 +193,87 @@ if (~startupLoading == true) {
 						0.2.wait;
 					};
 
-					// イベント受信時のプリセット切り替え（# preset）とパラメータ制御（# vstid / # vstval）
-					~dirt.receiveAction = { |event|
-						~numMassives.do { |i|
-							var synthName = ("massive" ++ (i + 1)).asSymbol;
-							if (event[\s] == synthName) {
-								// A. プリセットの動的切り替え（番号が変わったときだけ読み込む）
-								if (event[\preset].notNil) {
-									var pNum = event[\preset].asInteger;
-									if (~currentPresets[i] != pNum) {
-										var presetPath = ("~/massive_preset_" ++ pNum ++ ".vstpreset").standardizePath;
-										if (File.exists(presetPath)) {
-											~currentPresets[i] = pNum;
-											~massives[i].readProgram(presetPath, action: { |c, ok|
-												if (ok) {
-													"*** % switched to preset % ***".format(synthName, pNum).postln;
-												};
-											});
-										} {
-											"*** Preset not found: % ***".format(presetPath).warn;
-										};
-									};
+					// SuperDirt から呼ばれる再生処理。fixedIndex が nil のときはオービットで台を決める
+					makePlay = { |fixedIndex|
+						{
+							var i = fixedIndex ?? { (~orbit ? 0).asInteger % num };
+							var st = states[i];
+							if (st[\ready]) {
+								var ctrl = controllers[i], hostSynth = hostSynths[i], hostOrbit = hostOrbits[i];
+								~midiout = ctrl.midi;
+
+								// # vstid / # vstval: VSTパラメータ直接制御
+								if (~vstid.notNil and: { ~vstval.notNil }) {
+									ctrl.set(~vstid.asInteger, ~vstval.asFloat);
 								};
 
-								// B. VSTパラメータ直接制御
-								if (event[\vstid].notNil and: { event[\vstval].notNil }) {
-									~massives[i].set(event[\vstid].asInteger, event[\vstval].asFloat);
+								// ノートを含むイベントだけ反映する（CCだけのイベントで pan や gain を初期値に戻さない）
+								if (~n != \none or: { ~note.notNil }) {
+									var presets = topEnvironment[\massivePresets];
+									var now = thisThread.seconds;
+									var onset = now + (~latency ? 0);
+									var path, switchAt;
+
+									// # n のプリセットが今と違うときだけ読み込む（直前のノートが鳴り始めてから切り替える）
+									if (presets.size > 0) {
+										path = presets.wrapAt(if (~n == \none) { 0 } { ~n.asInteger });
+									};
+									if (path.notNil and: { path != st[\path] }) {
+										switchAt = max(now, st[\lastOnset] + 0.01);
+										st[\path] = path;
+										st[\busyUntil] = switchAt + switchTime;
+										hostOrbit.server.sendBundle(
+											if (switchAt > now) { switchAt - now },
+											ctrl.readProgramMsg(path)
+										);
+									};
+									// 切り替え中のノートは鳴らないので、切り替えが終わるまで遅らせる
+									onset = max(onset, st[\busyUntil]);
+									st[\lastOnset] = max(st[\lastOnset], onset);
+									~latency = onset - now;
+
+									// # n はプリセット番号に使うので、音程は # note だけで決める
+									if (~note.isNil) {
+										~note = 0;
+										~freq = (~octave * 12).midicps;
+									};
+
+									// MIDI送信と同時に # pan / # gain / # lpf / # room などをホストとオービットへ反映する
+									hostOrbit.server.makeBundle(~latency, {
+										hostOrbit.globalEffects.do { |fx| fx.set(currentEnvironment) };
+										// # gain はサンプルと同じカーブで出力レベルに反映する
+										// フィルタは指定がなければ 0（バイパス）、Q は SuperDirt と同じ既定値にする
+										hostSynth.set(
+											\pan, ~pan, \gain, pow(~gain.min(2) + ~overgain, 4),
+											\cutoff, ~cutoff ? 0, \resonance, ~resonance ? 0,
+											\hcutoff, ~hcutoff ? 0, \hresonance, ~hresonance ? 0,
+											\bandf, ~bandf ? 0, \bandq, ~bandq ? 10
+										);
+									});
+									// 二重に掛からないよう、ベロシティは # amp だけで決める
+									~gain = 1.0;
+									~overgain = 0.0;
 								};
+								midiPlay.value;
 							};
-						};
+						}
 					};
 
-					"*** All Massive XL instances are ready to play! ***".postln;
-					~massives[2].editor; // 3台目（massive3）の画面を開く
-					~massives[1].editor; // 2台目（massive2）の画面を開く
-					~massives[0].editor; // 1台目（massive1）の画面を開く
+					// SuperDirt に登録する: \massive はオービットで台が決まり、\massive1 〜 は台を直接指定する
+					firstReady = states.detectIndex { |st| st[\ready] };
+					if (firstReady.notNil) {
+						~dirt.soundLibrary.addMIDI(\massive, controllers[firstReady].midi, (play: makePlay.(nil)));
+						num.do { |i|
+							if (states[i][\ready]) {
+								~dirt.soundLibrary.addMIDI(("massive" ++ (i + 1)).asSymbol, controllers[i].midi, (play: makePlay.(i)));
+							};
+						};
+						"*** All Massive XL instances are ready to play! ***".postln;
+						~massiveScanPresets.value;
+					};
+
+					// 画面は1台目（massive1）だけ開く。他の台は ~massives[1].editor; や ~massives[2].editor; を評価すると開く
+					~massives[0].editor;
 				}).play(AppClock);
 			});
 		};
@@ -235,9 +289,10 @@ if (~startupLoading != true) {
 	};
 	~massiveSynths = nil;
 	~massives = nil;
+	~massivePresetState = nil;
 	~dirt !? {
 		~dirt.receiveAction = nil;
-		~dirt.soundLibrary.freeSynths([\massive1, \massive2, \massive3]);
+		~dirt.soundLibrary.freeSynths([\massive, \massive1, \massive2, \massive3]);
 	};
 	"*** Massive XL instances are freed ***".postln;
 };
@@ -246,17 +301,21 @@ if (~startupLoading != true) {
 
 /*
  * Massive XL プリセット管理
+ * - プリセットは massive-presets フォルダの .vstpreset。名前順に並べた番号が # n になる
+ * - 順番を決めたいときは "00_bass" "01_lead" のように名前の先頭に番号を付ける
  */
 
-// Massive XL プリセットを保存する
+// Massive XL の今の音をプリセットとして保存する（保存後に番号と名前の一覧を表示する）
 (
 if (~startupLoading != true) {
-	var index = 1;       // massive1 → 0, massive2 → 1, massive3 → 2
-	var name = "massive" ++ (index + 1); // 保存する名前（.vstpreset は自動で付く）
+	var index = 0;       // massive1 → 0, massive2 → 1, massive3 → 2
+	var name = "massive" ++ (index + 1); // 保存する名前（.vstpreset は自動で付く）。"bass01" など自由に付けられる
 	var path = Platform.userAppSupportDir +/+ "massive-presets" +/+ name ++ ".vstpreset";
 	~massives[index].writeProgram(path, { |ctrl, ok|
 		if (ok) {
 			"*** massive% saved: % ***".format(index + 1, path).postln;
+			~massivePresetState[index][\path] = path; // この台は保存したプリセットを読み込み済みとして扱う
+			~massiveScanPresets.value;
 		} {
 			"*** massive% could not save: % ***".format(index + 1, path).warn;
 		};
@@ -264,7 +323,7 @@ if (~startupLoading != true) {
 };
 );
 
-// Massive XL プリセットを読み込む
+// Massive XL にプリセットを手動で読み込む（エディタで音を作るとき用。演奏中の切り替えは # n で行う）
 (
 if (~startupLoading != true) {
 	var index = 0;       // massive1 → 0, massive2 → 1, massive3 → 2
@@ -274,6 +333,7 @@ if (~startupLoading != true) {
 		~massives[index].readProgram(path, { |ctrl, ok|
 			if (ok) {
 				"*** massive% loaded: % ***".format(index + 1, path).postln;
+				~massivePresetState[index][\path] = path; // この台は読み込んだプリセットを読み込み済みとして扱う
 			} {
 				"*** massive% could not load: % ***".format(index + 1, path).warn;
 			};
@@ -284,13 +344,10 @@ if (~startupLoading != true) {
 };
 );
 
-// 保存済みの Massive XL プリセットを一覧表示する
+// 保存済みの Massive XL プリセットを、番号（# n）と一緒に一覧表示する
 (
 if (~startupLoading != true) {
-	PathName(Platform.userAppSupportDir +/+ "massive-presets").files
-		.select { |f| f.extension == "vstpreset" }
-		.collect(_.fileNameWithoutExtension)
-		.postln;
+	~massiveScanPresets.value;
 };
 );
 
