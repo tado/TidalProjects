@@ -69,8 +69,10 @@ TidalCycles からの使い方
 - Massive XL は3台あり、s "massive" はオービットで台が決まる（d1 → 1台目、d2 → 2台目、d3 → 3台目）
   d1〜d3 で別々のプリセットを同時に鳴らせる
 - s "massive1" 〜 "massive3" と書くと、オービットに関係なく台を直接指定できる
-- 画面（GUI）は起動時には開かない。下の 3. のブロックを評価すると1台目の画面が開く
-  1台目は d1 の台なので、d1 で鳴らしているプリセットがそのまま画面に出る
+- 画面（GUI）は起動時には開かない。下の 3. のブロックの n にプリセット番号を書いて評価すると、
+  そのプリセットを1台目に読み込んで画面が開く
+  1台目は d1 の台なので、d1 で同じ番号を鳴らしていれば、画面で変えた音がそのまま聞こえる
+  （d1 で別の番号を鳴らすと、次のノートで1台目はその番号のプリセットに切り替わる）
 - 画面で作った音は、下の「保存」ブロックを評価するたびに新しいプリセットとして追加される
 - 番号と名前の対応は、下の「一覧表示」ブロックで確認できる
 ==========================================================
@@ -334,13 +336,39 @@ if (~startupLoading != true) {
 };
 );
 
-// 3. Massive XL の画面（GUI）を開く（1台目。音作りと保存はこの画面で行う）
+// 3. Massive XL の画面（GUI）を、プリセット番号を指定して開く（音作りと保存はこの画面で行う）
+// n に番号を書いて評価すると、そのプリセットを1台目に読み込んで画面を開く
+// すでにその番号が1台目に入っているときは読み込み直さないので、画面で作りかけの音はそのまま残る
 (
 if (~startupLoading != true) {
-	if (~massives.isNil) {
+	var n = 0; // 画面に開くプリセットの番号（# n と同じ番号。数を超えると先頭に戻る）
+	if (~massives.isNil or: { ~massivePresetState.isNil } or: { ~massivePresetState[0][\ready].not }) {
 		"*** Massive XL が読み込まれていません。1. のブロックで読み込んでください ***".warn;
 	} {
-		~massives[0].editor;
+		var ctrl = ~massives[0], st = ~massivePresetState[0];
+		var path = if (~massivePresets.size > 0) { ~massivePresets.wrapAt(n.asInteger) };
+		var label = if (path.notNil) {
+			"# n %: %".format(n.asInteger % ~massivePresets.size, PathName(path).fileNameWithoutExtension)
+		};
+		if (path.isNil) {
+			"*** massive-presets に .vstpreset がありません。今の音のまま画面を開きます ***".warn;
+		} {
+			if (path != st[\path]) {
+				st[\path] = path;
+				// 読み込み中に届いたノートは鳴らないので、その間のノートは読み込みが終わるまで遅らせる
+				st[\busyUntil] = Main.elapsedTime + 0.1;
+				ctrl.readProgram(path, action: { |c, ok|
+					if (ok) {
+						"*** % を1台目に読み込んで画面を開きました ***".format(label).postln;
+					} {
+						"*** could not load: % ***".format(path).warn;
+					};
+				});
+			} {
+				"*** % はすでに1台目に入っています。そのまま画面を開きます ***".format(label).postln;
+			};
+		};
+		ctrl.editor;
 	};
 };
 );
