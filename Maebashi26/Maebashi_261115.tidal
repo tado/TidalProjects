@@ -1,0 +1,97 @@
+setcps(120/240)
+
+hush
+
+do
+  let base = -3
+  -- let sc = "majPent"
+  -- let sc = "iwato"
+  -- let sc = "hexMajor7"
+  let sc = "hexDorian"
+  -- let sc = "hexPhrygian"
+  -- let sc = "hexAeolian"
+  -- let sc = "kumai"
+  -- let sc = "scriabin"
+  -- let sc = "pelog"
+  -- let sc = "bartok"
+  -- let sc = "prometheus"
+  -- let sc = "todi"
+  -- let sc = "messiaen1"
+  hush
+  d12
+    $ s "none(11, 16)"
+    # td_s (choose[0..5])
+    # td_fx 0
+  d1
+    $ slow 4
+    $ s "massive"
+    # n 0
+    # note "c2"
+    |+ note (scale sc (irand 5))
+    |+ note "[0, 12]"
+    |+ note "c'sus4"
+    |+ note base
+    -- # legato 4
+    -- # room 0.8 # size 0.8
+    # amp 1.5
+    # gain 1.0
+  d2
+    $ s "massive"
+    # n 0
+    # note "c2"
+    |+ note base
+    -- # room 0.8 # size 0.8
+    # gain 1.4  
+  d3
+    $ s "massive(8, 8)"
+    # n 0
+    # note "c3"
+    |+ note (scale sc "{0..[9, 5]}%3")
+    |+ note base
+    -- # room 0.8 # size 0.8
+    # pan (rand)
+    # amp 1.7
+    -- # delay 0.5 # delaytime (11/16) # delayfeedback 0.5 # lock 1
+    # gain 1.0
+  
+  d3
+    $ s "massive(8, 8)"
+    # n 0
+    # note "c5"
+    |+ note (scale sc "{0..11}%3")
+    |+ note base
+    # delay 0.5 # delaytime (11/16) # delayfeedback 0.5 # lock 1
+    # gain 1.2
+  d4
+    $ jux (("[3, 5, 1]"/8)~>)
+    $ s "supersin(3, 8)"
+    # note "c10"
+    # legato 0.2
+    # gain 1.0
+  d5
+    $ slow 2
+    $ s "distd"
+    # room 0.9 # size 0.5
+    # delay 0.8 # delaytime ("[7, 5]"/8) # delayfeedback 0.7 # lock 1
+    # gain 1.2
+  
+  d3
+    $ s "massive(3, 4)"
+    # n 1
+    # note "c3"
+    |+ note (scale sc "{0..12}%5")
+    -- # note "<c3 f3 g4>/4"
+    |+ note base
+    # amp 1.0
+    # gain 1.2
+  
+  
+  
+  d5
+    $ s "massive(8, 8)"
+    # n 3
+    # note "c3"
+    |+ note (scale sc "{0..5}%3")
+    |+ note base
+    -- # delay 0.5 # delaytime (11/16) # delayfeedback 0.5 # lock 1
+    # gain 1.0
