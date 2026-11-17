@@ -1,19 +1,36 @@
+setcps(135/240)
+
+hush
+
+d1
+  $ stack
+  [
+    s "uni(4, 8)"
+    , s "gab(3, 8)"
+    , s "gab(4, 8, 1)" # n 5 # speed 1.5
+  ]
+  # gain 1.2
+
+  
 d2
-  $ swingBy (1/9) 16
-  $ s "cr(11, 16, [0, 9])"
-  -- # speed "[0.9997, 1.0003]"
-  # n 5
-  # room 0.9 # size 0.7
-  # pan (rand)
-  # gain 0.9
+  $ s "massive(3, 8, 2)"
+  # note "<c5 c4>*2"
+  # room 0.8
+  # n 1
 
 d3
-  $ swingBy (1/9) 8
-  $ s "gretsch(11, 16)"
+  $ s "massive(4, 8, 1)"
+  # note "c5 c4"
+  # n 2
+
+d4
+  $ s "gab(8, 8)"
   # n (irand 36)
   # pan (rand)
   -- # room 0.9 # size 0.75
   # gain 1.5
+
+unsolo 4  
 
 d4
   $ swingBy (1/3) 8
@@ -23,12 +40,11 @@ d4
 d5
   $ swingBy (1/3) 8
   $ s "supersaw(7, 8)"
-  # note "c2"
-  |+ note (scale "hexAeolian" (irand 7))
-  # lpf 400
-  # voice 0.25
-  # legato 0.8
-  # gain 1.3
+  # note "c3"
+  |+ note (scale "hexAeolian" (irand 4))
+  # lpf (range 200 18000 $ slow 2 $ sine) # resonance 0.3
+  # voice 0.2
+  # gain 1.8
 
 unsolo 4  
 
