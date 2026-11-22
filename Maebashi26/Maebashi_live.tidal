@@ -5,13 +5,15 @@ once
   |+ note "[0, -12]"
 
 do
-  -- hush
+  hush
   -- resetCycles
   setcps(120/240)
   d12
     $ s "none"
     # td_s 6
+  
   d1
+    $ jux (("[3, 5]"/16)<~)
     $ s "numbers"
     # n "<1 2 3 4 5 6 7 8>"    
     # gain 1.0
@@ -25,8 +27,8 @@ d2
   [
     s "superfm/2"  # note "g9" # sustain 0.05
     , s "supersin(3, 8, <0..7>/8)" # note "c6"
-    , s "supersin" # note "c4" # pan (rand)
-    , s "supersin(6, 16, {0..7}/24)" # note "c5" # pan (rand)
+    -- , s "supersin" # note "c4" # pan (rand)
+    -- , s "supersin(6, 16, {0..7}/24)" # note "c5" # pan (rand)
     -- , s "supersin(9, 16, {0..19}/30)" # note "c4" # pan (rand)
   ]
   |+ note "[0, <7 5 7 7>]"
