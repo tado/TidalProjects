@@ -10,6 +10,7 @@
 --   sc31on "c" "major" "0 .. 7"       scale with a named root
 --   up31 18 $ ...                     transpose in 31EDO steps (18 = fifth)
 --   arpSteady 8 $ ch31 "..."          n-slot arpeggio over any chord
+--   en31   "<1 14 22 28 31>"          "every note" chord set, by number (1-31)
 --   chordList31 / scaleList31         show all available chord/scale names
 --
 -- ▍Note name = root (c d e f g a b) + accidental + octave (default 5)
@@ -142,5 +143,41 @@ d1
   # n31 "<c3 c3 g2 c3>"
   |+ note (st31 "<0 8 10 5>/2")
   # legato 1.05
+
+hush
+
+-- ============================================================
+-- Example 7: the "every note" chord set (en31) — chords by number
+-- ============================================================
+-- everyNote31 holds the 31 chords of "Harmonising every note in
+-- 31-EDO" (@nathan_dthomas, https://www.youtube.com/shorts/fQ-YeL_sVSo):
+-- a pedal C under every chord while the top voice climbs one step
+-- per chord (C# → C). en31 picks chords by number (1-31).
+
+d1
+  $ s "superfm"
+  # en31 "<1 14 22 28 31>"
+  # legato 1.0
+
+hush
+
+-- The numbers are an ordinary pattern, so Euclidean rhythms work too.
+
+d1
+  $ s "superfm(<3 5>,8)"
+  # en31 "<13 14 22 31>"
+  # legato 1.0
+
+hush
+
+-- everyNoteChords31 plays all 31 chords in order, one per cycle
+-- (evaluate resetCycles first to start from chord 1).
+
+resetCycles
+
+d1
+  $ s "superfm"
+  # note (st31 everyNoteChords31)
+  # legato 1.0
 
 hush
