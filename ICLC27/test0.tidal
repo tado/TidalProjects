@@ -11,8 +11,8 @@ resetCycles
 d1
   -- $ jux (("[3, 9]"/16)<~)
   $ s "supersaw(3, 16, [0, 3, 5])"
-  # ch31 "<c:dom7 c:dom9>/4"
-  -- # ch31 "c:wolf5s:6"
+  -- # ch31 "<c:dom7 c:dom9>/4"
+  # ch31 "c:wolf5s:6"
   -- # ch31 "<c:submin7>"
   |* note "[1.001, 0.999]"
   |+ note "[0, -12]"
