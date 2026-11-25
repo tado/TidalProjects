@@ -1,6 +1,12 @@
 :set -XOverloadedStrings
 :set prompt ""
 
+-- Make the repository root ghci's working directory, so .tidal files can use
+-- relative paths such as  :script 31EDOtest26/31edo-main.ghci
+-- (VS Code starts ghci in "/"). :cd clears interactive bindings, so keep it
+-- before any let / <- definitions.
+:cd ~/Documents/GitHub/TidalProjects
+
 import Sound.Tidal.Context
 
 import System.IO (hSetEncoding, stdout, utf8)
