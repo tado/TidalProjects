@@ -9,13 +9,15 @@ hush
 resetCycles
 
 d1
-  -- $ jux (("[3, 9]"/16)<~)
+  $ jux (("[3, 9]"/16)<~)
   $ s "supersaw(3, 16, [0, 3, 5])"
+  -- # ch31 "c:min7"
   -- # ch31 "<c:dom7 c:dom9>/4"
-  # ch31 "c:wolf5s:6"
-  -- # ch31 "<c:submin7>"
-  |* note "[1.001, 0.999]"
-  |+ note "[0, -12]"
+  -- # ch31 "c:wolf5s:6"
+  # ch31 "<c:submin7>"
+  -- # en31 "<1 14 22 28 31>*4"
+  -- |* note "[1.001, 0.999]"
+  |+ n31 "c, <g a>/4"
   # pan "<0.1 0.9 0.5 0 1>*8"
   # lpf (range 800 12000 $ slow 8 $ sine) # resonance 0.3
   -- # delay 0.8 # delaytime (5/8) # delayfeedback 0.25 # lock 1
@@ -25,9 +27,10 @@ d1
 
 d2
   $ s "superbass"
-  # note "c3"
-  |* note "[1.002, 0.998]"
-  |+ note (st31 "<0 10>/4")
+  # note "c2"
+  -- |* note "[1.002, 0.998]"
+  |+ note (st31 "<0 23>/4")
+  |+ n31 "c, <g a>/4"
   # lpf 300 # resonance 0.1
   # gain 1.0
 
@@ -35,7 +38,7 @@ d3
   $ stack
   [
     s "uni(9, 16)" # n 1 # gain 1.2
-    , s "uni(3, 8)" # gain 1.7 # legato 0.7
+    , s "uni(4, 8)" # gain 1.7 # legato 0.7
   ]
 
 d4
